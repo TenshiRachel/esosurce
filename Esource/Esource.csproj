@@ -172,10 +172,12 @@
     <Content Include="Scripts\umd\popper.js" />
     <Content Include="Scripts\umd\popper.min.js" />
     <Content Include="Views\index.aspx" />
-    <Content Include="Views\Service\servicelist.aspx" />
+    <Content Include="Views\service\servicelist.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BL\service\Service.cs" />
+    <Compile Include="DAL\service\ServiceDAO.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -194,11 +196,11 @@
     <Compile Include="Views\Masters\index.Master.designer.cs">
       <DependentUpon>index.Master</DependentUpon>
     </Compile>
-    <Compile Include="Views\Service\servicelist.aspx.cs">
+    <Compile Include="Views\service\servicelist.aspx.cs">
       <DependentUpon>servicelist.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Views\Service\servicelist.aspx.designer.cs">
+    <Compile Include="Views\service\servicelist.aspx.designer.cs">
       <DependentUpon>servicelist.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
