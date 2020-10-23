@@ -4,7 +4,33 @@
 
 <html>
 <head runat="server">
-    <title></title>
+    <title>ESource</title>
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css" rel="stylesheet" />
+
+    <link href="~/Content/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/css/mdb.min.css" rel="stylesheet" />
+    <link href="~/Content/css/toast/toastr.css" rel="stylesheet" runat="server" />
+
+    <script src="<%= ResolveUrl("~/Scripts/jquery.js") %>"></script>
+    <script src="<%= ResolveUrl("~/Scripts/toast/toastr.js")%>"></script>
+    <script type="text/javascript">
+        function toastnotif(msg, title, type) {
+            toastr.options = {
+                "closeButton": true,
+                "debug": true,
+                "newestOnTop": true,
+                "progressBar": true,
+                "positionClass": "toast-top-right",
+                "preventDuplicates": false,
+                "hideDuration": "300",
+                "timeOut": "3000",
+                "extendedTimeOut": "1500",
+            }
+            toastr[type](msg, title);
+        }
+
+    </script>
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
 </head>
