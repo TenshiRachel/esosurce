@@ -1,3 +1,5 @@
 App_Data/esource.mdf
 packages/
 .vs/
+Esource/obj/Debug/
+Esource/bin/
