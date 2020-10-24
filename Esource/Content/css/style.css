@@ -437,7 +437,13 @@
 /*Home*/
 
 main {
-    padding-top: 55px;
+    padding-top: 10vh;
+    padding-bottom: 10px;
+}
+
+section.home-hero .carousel-caption {
+    bottom: 0;
+    height: 100%;
 }
 
 /*Services*/
@@ -453,6 +459,12 @@ main {
 }
 
 .services .card .avatar {
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+}
+
+.manage .card .avatar {
     border-radius: 50%;
     width: 24px;
     height: 24px;

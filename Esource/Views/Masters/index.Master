@@ -60,7 +60,7 @@
 					    </a>
                     </li>
                     <li class="nav-item">
-                        <a class="btn btn-md primary-gradient d-none d-md-block m-0 ml-3" href="<%= Page.ResolveUrl("~/Views/auth/login.aspx") %>">
+                        <a class="btn btn-md btn-primary d-none d-md-block m-0 ml-3" href="<%= Page.ResolveUrl("~/Views/auth/login.aspx") %>">
 						    <i class="fas fa-sign-in-alt mr-1"></i> Sign In
 					    </a>
                     </li>
