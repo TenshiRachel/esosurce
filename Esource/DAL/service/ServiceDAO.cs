@@ -16,8 +16,8 @@ namespace Esource.DAL.service
             string DBConnect = ConfigurationManager.ConnectionStrings["ConnStr"].ConnectionString;
             SqlConnection conn = new SqlConnection(DBConnect);
 
-            string sqlStmt = "INSERT INTO Service (name, desc, price, date_created, img_path, favs, uid)" +
-                "VALUES (@paraName, @paraDesc, @paraPrice, @paraDate, @paraImg, @paraFavs, @paraUid)";
+            string sqlStmt = "INSERT INTO Service (name, desc, price, date_created, img_path, favs, views, uid)" +
+                "VALUES (@paraName, @paraDesc, @paraPrice, @paraDate, @paraImg, @paraFavs, @paraViews, @paraUid)";
 
             int result = 0;
             SqlCommand sqlCmd = new SqlCommand(sqlStmt, conn);
@@ -28,6 +28,7 @@ namespace Esource.DAL.service
             sqlCmd.Parameters.AddWithValue("@paraDate", service.date_created);
             sqlCmd.Parameters.AddWithValue("@paraImg", service.img_path);
             sqlCmd.Parameters.AddWithValue("@paraFavs", service.favs);
+            sqlCmd.Parameters.AddWithValue("@paraViews", service.views);
             sqlCmd.Parameters.AddWithValue("@paraUid", service.uid);
 
             conn.Open();
@@ -86,9 +87,10 @@ namespace Esource.DAL.service
                     string date_create = row["date_created"].ToString();
                     string img_path = row["img_path"].ToString();
                     int favs = int.Parse(row["favs"].ToString());
+                    int views = int.Parse(row["views"].ToString());
                     int uid = int.Parse(row["uid"].ToString());
                     int Id = int.Parse(row["Id"].ToString());
-                    obj = new Service(name, desc, price, img_path, uid, favs, date_create, Id);
+                    obj = new Service(name, desc, price, img_path, uid, favs, views, date_create, Id);
                     services.Add(obj);
                 }
             }
@@ -123,8 +125,9 @@ namespace Esource.DAL.service
                     string date_create = row["date_created"].ToString();
                     string img_path = row["img_path"].ToString();
                     int favs = int.Parse(row["favs"].ToString());
+                    int views = int.Parse(row["views"].ToString());
                     int Id = int.Parse(row["Id"].ToString());
-                    obj = new Service(name, desc, price, img_path, int.Parse(uid), favs, date_create, Id);
+                    obj = new Service(name, desc, price, img_path, int.Parse(uid), favs, views, date_create, Id);
                     services.Add(obj);
                 }
             }
@@ -157,7 +160,8 @@ namespace Esource.DAL.service
                 string img_path = row["img_path"].ToString();
                 int uid = int.Parse(row["uid"].ToString());
                 int favs = int.Parse(row["favs"].ToString());
-                obj = new Service(name, desc, price, img_path, uid, favs, date_create, int.Parse(id));
+                int views = int.Parse(row["views"].ToString());
+                obj = new Service(name, desc, price, img_path, uid, favs, views, date_create, int.Parse(id));
             }
 
             return obj;

@@ -82,6 +82,7 @@
     <Content Include="Content\css\style.css" />
     <Content Include="Content\css\toast\toastr.css" />
     <Content Include="Content\css\toast\toastr.min.css" />
+    <Content Include="Content\img\placeholder.jpg" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />

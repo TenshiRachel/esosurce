@@ -385,16 +385,6 @@
 
 /*========================*/ /*========================*/
 
-.group-code {
-    background-color: black !important;
-    transition: background 1s; /* For modern browsers */
-    -webkit-transition: background 1s;
-}
-
-.group-code:hover{
-    background-color: white !important;
-}
-
 .text-black {
     color: black;
 }
@@ -442,4 +432,28 @@
 .z-depth-5 {
     -webkit-box-shadow: 0 27px 24px 0 rgba(0, 0, 0, 0.2), 0 40px 77px 0 rgba(0, 0, 0, 0.22) !important;
     box-shadow: 0 27px 24px 0 rgba(0, 0, 0, 0.2), 0 40px 77px 0 rgba(0, 0, 0, 0.22) !important
+}
+
+/*Home*/
+
+main {
+    padding-top: 55px;
+}
+
+/*Services*/
+
+.services .row {
+    margin: 0 -5px;
+}
+
+.services .row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.services .card .avatar {
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
 }

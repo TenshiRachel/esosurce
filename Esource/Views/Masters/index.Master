@@ -11,7 +11,7 @@
     <link href="~/Content/css/bootstrap.min.css" rel="stylesheet" />
     <link href="~/Content/css/mdb.min.css" rel="stylesheet" />
     <link href="~/Content/css/toast/toastr.css" rel="stylesheet" runat="server" />
-
+    <link href="~/Content/css/style.css" rel="stylesheet" />
     <script src="<%= ResolveUrl("~/Scripts/jquery.js") %>"></script>
     <script src="<%= ResolveUrl("~/Scripts/toast/toastr.js")%>"></script>
     <script type="text/javascript">
