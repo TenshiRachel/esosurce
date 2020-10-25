@@ -35,7 +35,7 @@
                             <h1 class="h1-responsive">Looking for Services?</h1>
                             <p class="d-none d-md-block">
                                 Are you looking to hire someone for their services, look no further.<br />
-                                OutSource provides you a platform where freelancers offer a wide range of services.
+                                ESource provides you a platform where freelancers offer a wide range of services.
                             </p>
 
                             <a class="btn btn-md btn-primary" href="<%=Page.ResolveUrl("~/Views/service/servicelist.aspx") %>">

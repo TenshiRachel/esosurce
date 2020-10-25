@@ -12,6 +12,7 @@ namespace Esource.BL.service
         public string name { get; set; }
         public string desc { get; set; }
         public decimal price { get; set; }
+        public string categories { get; set; }
         public int uid { get; set; }
         public string date_created { get; set; }
         public string img_path { get; set; }
@@ -23,11 +24,12 @@ namespace Esource.BL.service
 
         }
 
-        public Service(string name, string desc, decimal price, string img_path, int uid, int favs = 0, int views = 0, string date_created = null, int Id=-1)
+        public Service(string name, string desc, decimal price, string categories, string img_path, int uid, int favs = 0, int views = 0, string date_created = null, int Id=-1)
         {
             this.name = name;
             this.desc = desc;
             this.price = price;
+            this.categories = categories;
             this.img_path = img_path;
             this.uid = uid;
             this.favs = favs;
@@ -36,15 +38,15 @@ namespace Esource.BL.service
             this.Id = Id;
         }
 
-        public int AddService(Service service)
+        public int AddService()
         {
             int result = new ServiceDAO().Insert(this);
             return result;
         }
 
-        public int UpdateService(string name, string desc, decimal price, string img_path)
+        public int UpdateService(string name, string desc, decimal price, string categories, string img_path)
         {
-            int result = new ServiceDAO().UpdateService(name, desc, price, img_path);
+            int result = new ServiceDAO().UpdateService(name, desc, price, categories, img_path);
             return result;
         }
 

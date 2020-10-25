@@ -16,8 +16,8 @@ namespace Esource.DAL.service
             string DBConnect = ConfigurationManager.ConnectionStrings["ConnStr"].ConnectionString;
             SqlConnection conn = new SqlConnection(DBConnect);
 
-            string sqlStmt = "INSERT INTO Service (name, desc, price, date_created, img_path, favs, views, uid)" +
-                "VALUES (@paraName, @paraDesc, @paraPrice, @paraDate, @paraImg, @paraFavs, @paraViews, @paraUid)";
+            string sqlStmt = "INSERT INTO Service (name, desc, price, categories, date_created, img_path, views, favs, uid)" +
+                "VALUES (@paraName, @paraDesc, @paraPrice, @paraCategories, @paraDate, @paraImg, @paraViews, @paraFavs, @paraUid)";
 
             int result = 0;
             SqlCommand sqlCmd = new SqlCommand(sqlStmt, conn);
@@ -26,6 +26,7 @@ namespace Esource.DAL.service
             sqlCmd.Parameters.AddWithValue("@paraDesc", service.desc);
             sqlCmd.Parameters.AddWithValue("@paraPrice", service.price);
             sqlCmd.Parameters.AddWithValue("@paraDate", service.date_created);
+            sqlCmd.Parameters.AddWithValue("@paraCategories", service.categories);
             sqlCmd.Parameters.AddWithValue("@paraImg", service.img_path);
             sqlCmd.Parameters.AddWithValue("@paraFavs", service.favs);
             sqlCmd.Parameters.AddWithValue("@paraViews", service.views);
@@ -38,13 +39,13 @@ namespace Esource.DAL.service
             return result;
         }
 
-        public int UpdateService(string name, string desc, decimal price, string img_path)
+        public int UpdateService(string name, string desc, decimal price, string categories, string img_path)
         {
             string DBConnect = ConfigurationManager.ConnectionStrings["ConnStr"].ConnectionString;
             SqlConnection conn = new SqlConnection(DBConnect);
 
             string sqlStmt = "UPDATE Service " +
-                "SET name=@paraName, desc=@paraDesc, price=@paraPrice, img_path=@paraImg";
+                "SET name=@paraName, desc=@paraDesc, price=@paraPrice, categories=@paraCategories, img_path=@paraImg";
 
             int result = 0;
             SqlCommand sqlCmd = new SqlCommand(sqlStmt, conn);
@@ -52,6 +53,7 @@ namespace Esource.DAL.service
             sqlCmd.Parameters.AddWithValue("@paraName", name);
             sqlCmd.Parameters.AddWithValue("@paraDesc", desc);
             sqlCmd.Parameters.AddWithValue("@paraPrice", price);
+            sqlCmd.Parameters.AddWithValue("@paraCategories", categories);
             sqlCmd.Parameters.AddWithValue("@paraImg", img_path);
 
             conn.Open();
@@ -85,12 +87,13 @@ namespace Esource.DAL.service
                     string desc = row["desc"].ToString();
                     decimal price = decimal.Parse(row["price"].ToString());
                     string date_create = row["date_created"].ToString();
+                    string categories = row["categories"].ToString();
                     string img_path = row["img_path"].ToString();
                     int favs = int.Parse(row["favs"].ToString());
                     int views = int.Parse(row["views"].ToString());
                     int uid = int.Parse(row["uid"].ToString());
                     int Id = int.Parse(row["Id"].ToString());
-                    obj = new Service(name, desc, price, img_path, uid, favs, views, date_create, Id);
+                    obj = new Service(name, desc, price, categories, img_path, uid, favs, views, date_create, Id);
                     services.Add(obj);
                 }
             }
@@ -123,11 +126,12 @@ namespace Esource.DAL.service
                     string desc = row["desc"].ToString();
                     decimal price = decimal.Parse(row["price"].ToString());
                     string date_create = row["date_created"].ToString();
+                    string categories = row["categories"].ToString();
                     string img_path = row["img_path"].ToString();
                     int favs = int.Parse(row["favs"].ToString());
                     int views = int.Parse(row["views"].ToString());
                     int Id = int.Parse(row["Id"].ToString());
-                    obj = new Service(name, desc, price, img_path, int.Parse(uid), favs, views, date_create, Id);
+                    obj = new Service(name, desc, price, categories, img_path, int.Parse(uid), favs, views, date_create, Id);
                     services.Add(obj);
                 }
             }
@@ -157,11 +161,12 @@ namespace Esource.DAL.service
                 string desc = row["desc"].ToString();
                 decimal price = decimal.Parse(row["price"].ToString());
                 string date_create = row["date_created"].ToString();
+                string categories = row["categories"].ToString();
                 string img_path = row["img_path"].ToString();
                 int uid = int.Parse(row["uid"].ToString());
                 int favs = int.Parse(row["favs"].ToString());
                 int views = int.Parse(row["views"].ToString());
-                obj = new Service(name, desc, price, img_path, uid, favs, views, date_create, int.Parse(id));
+                obj = new Service(name, desc, price, categories, img_path, uid, favs, views, date_create, int.Parse(id));
             }
 
             return obj;

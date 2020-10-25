@@ -19,12 +19,12 @@
                             </div>
                             <div class="ml-auto mr-3 mt-2">
                                  <asp:LinkButton runat="server" class="btn-danger btn-sm m-0"
-                                    data-tooltip="tooltip" data-placement="top" title="Delete" CommandName="delete" CommandArgument="<%#Eval("Id") %>">
+                                    data-tooltip="tooltip" data-placement="top" title="Delete" CommandName="delete" CommandArgument='<%#Eval("Id") %>'>
                                     <i class="fas fa-trash-alt"></i>
                                 </asp:LinkButton>
 
                                 <asp:LinkButton runat="server" class="btn-success btn-sm m-0"
-                                    data-tooltip="tooltip" data-placement="top" title="Edit" CommandName="edit" CommandArgument="<%#Eval("Id") %>">
+                                    data-tooltip="tooltip" data-placement="top" title="Edit" CommandName="edit" CommandArgument='<%#Eval("Id") %>'>
                                     <i class="fas fa-edit"></i>
                                 </asp:LinkButton>
                                 <asp:LinkButton runat="server" CssClass="btn-primary btn-sm m-0" data-tooltip="tooltip"
