@@ -8,7 +8,7 @@
         <asp:UpdatePanel runat="server" ID="servpanel" UpdateMode="Conditional">
             <ContentTemplate>
                 <div class="row">
-                    <asp:Repeater runat="server" ID="servList" OnItemCommand="servList_ItemCommand">
+                    <asp:Repeater runat="server" ID="servList" OnItemDataBound="servList_ItemDataBound" OnItemCommand="servList_ItemCommand">
                         <ItemTemplate>
                             <div class="col-12 col-md-4 col-lg-3 d-flex align-items-stretch mt-4">
                                 <div class="card w-100">
@@ -73,6 +73,13 @@
                                 </div>
                             </div>
                         </ItemTemplate>
+                        <FooterTemplate>
+                            <div class="text-center mt-4">
+                                <h4>
+                                    <asp:Label runat="server" ID="LbErr" Text="No Services at the moment" CssClass="font-weight-bold" Visible="false"></asp:Label>
+                                </h4>
+                            </div>
+                        </FooterTemplate>
                     </asp:Repeater>
                 </div>
             </ContentTemplate>

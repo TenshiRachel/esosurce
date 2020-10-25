@@ -65,12 +65,34 @@ namespace Esource.DAL.service
             return result;
         }
 
+        public int UpdateStatus(string id, string status)
+        {
+            string DBConnect = ConfigurationManager.ConnectionStrings["ConnStr"].ConnectionString;
+            SqlConnection conn = new SqlConnection(DBConnect);
+
+            string sqlStmt = "UPDATE Service " +
+                "SET status = @paraStatus " +
+                "WHERE Id = @paraId";
+
+            int result = 0;
+            SqlCommand sqlCmd = new SqlCommand(sqlStmt, conn);
+
+            sqlCmd.Parameters.AddWithValue("@paraId", id);
+            sqlCmd.Parameters.AddWithValue("@paraStatus", status);
+
+            conn.Open();
+            result = sqlCmd.ExecuteNonQuery();
+            conn.Close();
+
+            return result;
+        }
+
         public List<Service> SelectAll()
         {
             string DBConnect = ConfigurationManager.ConnectionStrings["ConnStr"].ConnectionString;
             SqlConnection conn = new SqlConnection(DBConnect);
 
-            string sqlStmt = "SELECT * FROM Service";
+            string sqlStmt = "SELECT * FROM Service WHERE status = ''";
 
             SqlDataAdapter da = new SqlDataAdapter(sqlStmt, conn);
 
@@ -91,11 +113,12 @@ namespace Esource.DAL.service
                     string date_create = row["date_created"].ToString();
                     string categories = row["categories"].ToString();
                     string img_path = row["img_path"].ToString();
+                    string status = row["status"].ToString();
                     int favs = int.Parse(row["favs"].ToString());
                     int views = int.Parse(row["views"].ToString());
                     int uid = int.Parse(row["uid"].ToString());
                     int Id = int.Parse(row["Id"].ToString());
-                    obj = new Service(name, desc, price, categories, img_path, uid, favs, views, date_create, Id);
+                    obj = new Service(name, desc, price, categories, img_path, uid, status, favs, views, date_create, Id);
                     services.Add(obj);
                 }
             }
@@ -108,7 +131,7 @@ namespace Esource.DAL.service
             string DBConnect = ConfigurationManager.ConnectionStrings["ConnStr"].ConnectionString;
             SqlConnection conn = new SqlConnection(DBConnect);
 
-            string sqlStmt = "SELECT * FROM Service WHERE uid=@paraUid";
+            string sqlStmt = "SELECT * FROM Service WHERE uid=@paraUid AND status=''";
 
             SqlDataAdapter da = new SqlDataAdapter(sqlStmt, conn);
             da.SelectCommand.Parameters.AddWithValue("@paraUid", uid);
@@ -130,10 +153,11 @@ namespace Esource.DAL.service
                     string date_create = row["date_created"].ToString();
                     string categories = row["categories"].ToString();
                     string img_path = row["img_path"].ToString();
+                    string status = row["status"].ToString();
                     int favs = int.Parse(row["favs"].ToString());
                     int views = int.Parse(row["views"].ToString());
                     int Id = int.Parse(row["Id"].ToString());
-                    obj = new Service(name, desc, price, categories, img_path, int.Parse(uid), favs, views, date_create, Id);
+                    obj = new Service(name, desc, price, categories, img_path, int.Parse(uid), status, favs, views, date_create, Id);
                     services.Add(obj);
                 }
             }

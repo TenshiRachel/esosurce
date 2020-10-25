@@ -83,5 +83,13 @@ namespace Esource.Views.Service
                 servList.DataBind();
             }
         }
+
+        protected void servList_ItemDataBound(object sender, RepeaterItemEventArgs e)
+        {
+            if (e.Item.ItemType == ListItemType.Footer && servList.Items.Count < 1)
+            {
+                e.Item.FindControl("LbErr").Visible = true;
+            }
+        }
     }
 }

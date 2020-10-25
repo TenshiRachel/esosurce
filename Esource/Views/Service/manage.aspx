@@ -3,87 +3,122 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <section class="manage">
+        <asp:ScriptManager runat="server" ID="managescript">
+        </asp:ScriptManager>
         <div class="text-center">
             <a role="button" href="<%=Page.ResolveUrl("~/Views/service/add.aspx") %>" class="btn btn-md btn-rounded btn-success">
                 Add Service <i class="fas fa-plus ml-2"></i>
             </a>
         </div>
-        <div class="row">
-            <asp:Repeater runat="server" ID="managelist" OnItemCommand="managelist_ItemCommand">
-                <ItemTemplate>
-                    <div class="col-12 col-md-4 col-lg-3 d-flex align-items-stretch mt-4">
-                        <div class="card w-100">
-                            <div class="view overlay border-bottom border-primary rounded-top">
-                                <img class="card-img-top" src="" onerror="this.src='<%= Page.ResolveUrl("~/Content/img/placeholder.jpg") %>'"/>
-                                <a><div class="mask rgba-black-light"></div></a>
-                            </div>
-                            <div class="ml-auto mr-3 mt-2">
-                                 <asp:LinkButton runat="server" class="btn-danger btn-sm m-0"
-                                    data-tooltip="tooltip" data-placement="top" title="Delete" CommandName="delete" CommandArgument='<%#Eval("Id") %>'>
-                                    <i class="fas fa-trash-alt"></i>
-                                </asp:LinkButton>
-
-                                <asp:LinkButton runat="server" class="btn-success btn-sm m-0"
-                                    data-tooltip="tooltip" data-placement="top" title="Edit" CommandName="edit" CommandArgument='<%#Eval("Id") %>'>
-                                    <i class="fas fa-edit"></i>
-                                </asp:LinkButton>
-                                <asp:LinkButton runat="server" CssClass="btn-primary btn-sm m-0" data-tooltip="tooltip"
-                                    data-placement="top" title="View More Details" CommandName="view" CommandArgument='<%#Eval("Id") %>'>
-                                    <i class="fas fa-eye"></i>
-                                </asp:LinkButton>
-                            </div>
-                            <div class="card-body d-flex flex-column">
-
-                                <div class="d-flex mt-2">
-                                    <div class="flex-fill">
-                                        <img src="" onerror="this.src='<%= Page.ResolveUrl("~/Content/img/placeholder.jpg") %>'" class="rounded-circle img-fluid z-depth-1 avatar" style="max-width: 2rem;" />
-                                        <asp:LinkButton runat="server" CssClass="align-middle ml-1" CommandName="viewprofile" CommandArgument='<%#Eval("uid") %>'>Username</asp:LinkButton>
+        <asp:UpdatePanel runat="server" ID="managepanel">
+            <ContentTemplate>
+                <div class="row">
+                    <asp:Repeater runat="server" ID="managelist" OnItemDataBound="managelist_ItemDataBound" OnItemCommand="managelist_ItemCommand">
+                        <ItemTemplate>
+                            <div class="col-12 col-md-4 col-lg-3 d-flex align-items-stretch mt-4">
+                                <div class="card w-100">
+                                    <div class="view overlay border-bottom border-primary rounded-top">
+                                        <img class="card-img-top" src="" onerror="this.src='<%= Page.ResolveUrl("~/Content/img/placeholder.jpg") %>'"/>
+                                        <a><div class="mask rgba-black-light"></div></a>
                                     </div>
-                                    <div class="d-flex align-items-center">
-                                        <span class="text-muted small">
-                                            <i class="fas fa-clock mr-2"></i><%#Eval("date_created") %>
-                                        </span>
-                                    </div>
-                                </div>
+                                    <div class="ml-auto mr-3">
+                                         <a type="button" class="btn-danger btn-sm m-0 mr-2"
+                                            data-tooltip="tooltip" data-placement="top" title="Delete" data-toggle="modal" data-target="#delmodal<%#Eval("Id") %>">
+                                            <i class="fas fa-trash-alt white-text"></i>
+                                        </a>
 
-                                <div class="d-flex mt-4">
-                                    <div class="flex-fill">
-                                        <h4 class="name card-title mb-0" <%--data-names="<%#Eval("name") %>"--%>><%#Eval("name") %></h4>
-                                    </div>
+                                        <asp:LinkButton runat="server" CssClass="btn-success btn-sm m-0 mr-2"
+                                            data-tooltip="tooltip" data-placement="top" title="Edit" CommandName="edit" CommandArgument='<%#Eval("Id") %>'>
+                                            <i class="fas fa-edit"></i>
+                                        </asp:LinkButton>
 
-                                    <div class="d-flex align-items-center font-weight-bold ml-3">
-                                        <%#Eval("views") %><i class="far fa-eye ml-2"></i>
-                                    </div>
-                                </div>
-
-                                <hr class="w-100" />
-                                <div class="flex-fill">
-                                    <p class="card-text">
-                                        <%#Eval("desc") %>
-                                    </p>
-                                </div>
-                                
-                                <div class="d-flex">
-                                    <div class="flex-fill text-right">
-                                        <asp:LinkButton runat="server" CssClass="btn btn-sm btn-red mr-0" CommandName="favourite" CommandArgument='<%#Eval("Id") %>'
-                                            data-tooltip="tooltip" title="Like service">
-                                            <span class="font-weight-bold">
-                                                <%#Eval("favs") %>
-                                                <i class="fas fa-heart ml-2"></i>
-                                            </span> 
+                                        <asp:LinkButton runat="server" CssClass="btn-primary btn-sm m-0" data-tooltip="tooltip"
+                                            data-placement="top" title="View More Details" CommandName="view" CommandArgument='<%#Eval("Id") %>'>
+                                            <i class="fas fa-eye"></i>
                                         </asp:LinkButton>
                                     </div>
+                                    <div class="card-body d-flex flex-column">
+
+                                        <div class="d-flex mt-2">
+                                            <div class="flex-fill">
+                                                <img src="" onerror="this.src='<%= Page.ResolveUrl("~/Content/img/placeholder.jpg") %>'" class="rounded-circle img-fluid z-depth-1 avatar" style="max-width: 2rem;" />
+                                                <asp:LinkButton runat="server" CssClass="align-middle ml-1" CommandName="viewprofile" CommandArgument='<%#Eval("uid") %>'>Username</asp:LinkButton>
+                                            </div>
+                                            <div class="d-flex align-items-center">
+                                                <span class="text-muted small">
+                                                    <i class="fas fa-clock mr-2"></i><%#Eval("date_created") %>
+                                                </span>
+                                            </div>
+                                        </div>
+
+                                        <div class="d-flex mt-4">
+                                            <div class="flex-fill">
+                                                <h4 class="name card-title mb-0" <%--data-names="<%#Eval("name") %>"--%>><%#Eval("name") %></h4>
+                                            </div>
+
+                                            <div class="d-flex align-items-center font-weight-bold ml-3">
+                                                <%#Eval("views") %><i class="far fa-eye ml-2"></i>
+                                            </div>
+                                        </div>
+
+                                        <hr class="w-100" />
+                                        <div class="flex-fill">
+                                            <p class="card-text">
+                                                <%#Eval("desc") %>
+                                            </p>
+                                        </div>
+                                
+                                        <div class="d-flex">
+                                            <div class="flex-fill text-right">
+                                                <asp:LinkButton runat="server" CssClass="btn btn-sm btn-red mr-0" CommandName="favourite" CommandArgument='<%#Eval("Id") %>'
+                                                    data-tooltip="tooltip" title="Like service">
+                                                    <span class="font-weight-bold">
+                                                        <%#Eval("favs") %>
+                                                        <i class="fas fa-heart ml-2"></i>
+                                                    </span> 
+                                                </asp:LinkButton>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="card-footer accent-2 white-text deep-purple text-center">
+                                        <h5 class="m-0">
+                                            $<%#Eval("price") %></h5>
+                                    </div>
                                 </div>
                             </div>
-
-                            <div class="card-footer accent-2 white-text deep-purple text-center">
-                                <h5 class="m-0">
-                                    $<%#Eval("price") %></h5>
+                            <%--Modal--%>
+                            <div class="modal fade" id="delmodal<%#Eval("Id") %>" tabindex="-1" role="dialog"
+                                aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">Are you sure you want to delete this service?</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body text-center">
+                                            Deletion of this service cannot be reverted once confirmed!
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">No</button>
+                                            <asp:LinkButton runat="server" CommandName="delete" CommandArgument='<%#Eval("Id") %>' ID="btnDelete" Text="Yes" CssClass="btn btn-sm btn-success"></asp:LinkButton>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                </ItemTemplate>
-            </asp:Repeater>
-        </div>
+                        </ItemTemplate>
+                        <FooterTemplate>
+                            <div class="text-center mt-4">
+                                <h4>
+                                    <asp:Label runat="server" ID="LbErr" Text="No Services at the moment" CssClass="font-weight-bold" Visible="false"></asp:Label>
+                                </h4>
+                            </div>
+                        </FooterTemplate>
+                    </asp:Repeater>
+                </div>
+            </ContentTemplate>
+        </asp:UpdatePanel>
     </section>
 </asp:Content>
