@@ -28,7 +28,7 @@
                                     <i class="fas fa-edit"></i>
                                 </asp:LinkButton>
                                 <asp:LinkButton runat="server" CssClass="btn-primary btn-sm m-0" data-tooltip="tooltip"
-                                    data-placement="top" title="View More Details" CommandName="viewservice" CommandArgument='<%#Eval("Id") %>'>
+                                    data-placement="top" title="View More Details" CommandName="view" CommandArgument='<%#Eval("Id") %>'>
                                     <i class="fas fa-eye"></i>
                                 </asp:LinkButton>
                             </div>

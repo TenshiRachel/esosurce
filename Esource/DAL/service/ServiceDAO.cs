@@ -16,7 +16,7 @@ namespace Esource.DAL.service
             string DBConnect = ConfigurationManager.ConnectionStrings["ConnStr"].ConnectionString;
             SqlConnection conn = new SqlConnection(DBConnect);
 
-            string sqlStmt = "INSERT INTO Service (name, desc, price, categories, date_created, img_path, views, favs, uid)" +
+            string sqlStmt = "INSERT INTO Service (name, descript, price, categories, date_created, img_path, views, favs, uid)" +
                 "VALUES (@paraName, @paraDesc, @paraPrice, @paraCategories, @paraDate, @paraImg, @paraViews, @paraFavs, @paraUid)";
 
             int result = 0;
@@ -39,17 +39,19 @@ namespace Esource.DAL.service
             return result;
         }
 
-        public int UpdateService(string name, string desc, decimal price, string categories, string img_path)
+        public int UpdateService(string name, string desc, decimal price, string categories, string img_path, int id)
         {
             string DBConnect = ConfigurationManager.ConnectionStrings["ConnStr"].ConnectionString;
             SqlConnection conn = new SqlConnection(DBConnect);
 
             string sqlStmt = "UPDATE Service " +
-                "SET name=@paraName, desc=@paraDesc, price=@paraPrice, categories=@paraCategories, img_path=@paraImg";
+                "SET name = @paraName, descript = @paraDesc, price = @paraPrice, categories = @paraCategories, img_path = @paraImg " +
+                "WHERE Id = @paraId";
 
             int result = 0;
             SqlCommand sqlCmd = new SqlCommand(sqlStmt, conn);
 
+            sqlCmd.Parameters.AddWithValue("@paraId", id);
             sqlCmd.Parameters.AddWithValue("@paraName", name);
             sqlCmd.Parameters.AddWithValue("@paraDesc", desc);
             sqlCmd.Parameters.AddWithValue("@paraPrice", price);
@@ -84,7 +86,7 @@ namespace Esource.DAL.service
                 {
                     DataRow row = ds.Tables[0].Rows[i];
                     string name = row["name"].ToString();
-                    string desc = row["desc"].ToString();
+                    string desc = row["descript"].ToString();
                     decimal price = decimal.Parse(row["price"].ToString());
                     string date_create = row["date_created"].ToString();
                     string categories = row["categories"].ToString();
@@ -123,7 +125,7 @@ namespace Esource.DAL.service
                 {
                     DataRow row = ds.Tables[0].Rows[i];
                     string name = row["name"].ToString();
-                    string desc = row["desc"].ToString();
+                    string desc = row["descript"].ToString();
                     decimal price = decimal.Parse(row["price"].ToString());
                     string date_create = row["date_created"].ToString();
                     string categories = row["categories"].ToString();
@@ -158,7 +160,7 @@ namespace Esource.DAL.service
             {
                 DataRow row = ds.Tables[0].Rows[0];
                 string name = row["name"].ToString();
-                string desc = row["desc"].ToString();
+                string desc = row["descript"].ToString();
                 decimal price = decimal.Parse(row["price"].ToString());
                 string date_create = row["date_created"].ToString();
                 string categories = row["categories"].ToString();

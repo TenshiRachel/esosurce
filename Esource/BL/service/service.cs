@@ -44,9 +44,9 @@ namespace Esource.BL.service
             return result;
         }
 
-        public int UpdateService(string name, string desc, decimal price, string categories, string img_path)
+        public int UpdateService(string name, string desc, decimal price, string categories, string img_path, int id)
         {
-            int result = new ServiceDAO().UpdateService(name, desc, price, categories, img_path);
+            int result = new ServiceDAO().UpdateService(name, desc, price, categories, img_path, id);
             return result;
         }
 

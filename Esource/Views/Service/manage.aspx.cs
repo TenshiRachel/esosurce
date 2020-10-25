@@ -32,7 +32,10 @@ namespace Esource.Views.service
 
         protected void managelist_ItemCommand(object source, RepeaterCommandEventArgs e)
         {
-
+            if (e.CommandName == "edit")
+            {
+                Response.Redirect("~/Views/service/edit.aspx?id=" + e.CommandArgument.ToString());
+            }
         }
     }
 }

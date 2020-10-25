@@ -177,6 +177,7 @@
     <Content Include="Scripts\umd\popper.min.js" />
     <Content Include="Views\index.aspx" />
     <Content Include="Views\service\add.aspx" />
+    <Content Include="Views\service\edit.aspx" />
     <Content Include="Views\service\manage.aspx" />
     <Content Include="Views\service\servicelist.aspx" />
     <Content Include="Web.config" />
@@ -208,6 +209,13 @@
     </Compile>
     <Compile Include="Views\service\add.aspx.designer.cs">
       <DependentUpon>add.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\service\edit.aspx.cs">
+      <DependentUpon>edit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\service\edit.aspx.designer.cs">
+      <DependentUpon>edit.aspx</DependentUpon>
     </Compile>
     <Compile Include="Views\service\manage.aspx.cs">
       <DependentUpon>manage.aspx</DependentUpon>

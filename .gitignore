@@ -1,4 +1,5 @@
-App_Data/esource.mdf
+*.mdf
+*.ldf
 packages/
 .vs/
 Esource/obj/Debug/

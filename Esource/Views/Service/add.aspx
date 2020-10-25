@@ -36,11 +36,11 @@
                             <label class="font-italic">Category(s)</label>
                             <br />
                             <asp:CheckBoxList runat="server" ID="cblCat" RepeatColumns="3" RepeatDirection="Horizontal">
-                                <asp:ListItem>Graphics & Design</asp:ListItem>
-                                <asp:ListItem>Writing & Translation</asp:ListItem>
-                                <asp:ListItem>Video & Animation</asp:ListItem>
-                                <asp:ListItem>Music & Audio</asp:ListItem>
-                                <asp:ListItem>Programming & Tech</asp:ListItem>
+                                <asp:ListItem Value="Graphics&Design">Graphics & Design</asp:ListItem>
+                                <asp:ListItem Value="Writing&Translation">Writing & Translation</asp:ListItem>
+                                <asp:ListItem Value="Video&Animation">Video & Animation</asp:ListItem>
+                                <asp:ListItem Value="Music&Audio">Music & Audio</asp:ListItem>
+                                <asp:ListItem Value="Programming&Tech">Programming & Tech</asp:ListItem>
                             </asp:CheckBoxList>
                         </div>
                     </div>
