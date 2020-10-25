@@ -15,10 +15,12 @@ namespace Esource.Views.service
             if (Session["success"] != null)
             {
                 toast(this, Session["success"].ToString(), "Success", "success");
+                Session["success"] = null;
             }
             if (Session["error"] != null)
             {
                 toast(this, Session["error"].ToString(), "Error", "error");
+                Session["error"] = null;
             }
             List<BL.service.Service> uservices = new BL.service.Service().SelectByUid("1");
             managelist.DataSource = uservices;
@@ -35,6 +37,10 @@ namespace Esource.Views.service
             if (e.CommandName == "edit")
             {
                 Response.Redirect("~/Views/service/edit.aspx?id=" + e.CommandArgument.ToString());
+            }
+            if (e.CommandName == "view")
+            {
+                Response.Redirect("~/Views/service/index.aspx?id=" + e.CommandArgument.ToString());
             }
         }
     }

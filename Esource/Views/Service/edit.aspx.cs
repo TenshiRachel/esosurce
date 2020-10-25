@@ -14,11 +14,11 @@ namespace Esource.Views.service
         {
             if (Request.QueryString["id"] != null)
             {
-                BL.service.Service service = new BL.service.Service().SelectById(Request.QueryString["id"]);
-                tbName.Text = service.name;
-                tbDesc.Text = service.desc;
-                tbPrice.Text = service.price.ToString();
-                string[] categories = service.categories.Split(',');
+                List<BL.service.Service> service = new BL.service.Service().SelectById(Request.QueryString["id"]);
+                tbName.Text = service[0].name;
+                tbDesc.Text = service[0].desc;
+                tbPrice.Text = service[0].price.ToString();
+                string[] categories = service[0].categories.Split(',');
                 foreach (ListItem item in cblCat.Items)
                 {
                     foreach (string category in categories)

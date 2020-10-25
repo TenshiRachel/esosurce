@@ -62,9 +62,9 @@ namespace Esource.BL.service
             return services;
         }
 
-        public Service SelectById(string id)
+        public List<Service> SelectById(string id)
         {
-            Service service = new ServiceDAO().SelectById(id);
+            List<Service> service = new ServiceDAO().SelectById(id);
             return service;
         }
     }

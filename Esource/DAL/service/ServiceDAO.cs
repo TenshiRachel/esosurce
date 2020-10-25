@@ -141,7 +141,7 @@ namespace Esource.DAL.service
             return services;
         }
 
-        public Service SelectById(string id)
+        public List<Service> SelectById(string id)
         {
             string DBConnect = ConfigurationManager.ConnectionStrings["ConnStr"].ConnectionString;
             SqlConnection conn = new SqlConnection(DBConnect);
@@ -156,6 +156,7 @@ namespace Esource.DAL.service
             int rec_cnt = ds.Tables[0].Rows.Count;
 
             Service obj = null;
+            List<Service> servs = new List<Service>();
             if (rec_cnt > 0)
             {
                 DataRow row = ds.Tables[0].Rows[0];
@@ -169,9 +170,10 @@ namespace Esource.DAL.service
                 int favs = int.Parse(row["favs"].ToString());
                 int views = int.Parse(row["views"].ToString());
                 obj = new Service(name, desc, price, categories, img_path, uid, favs, views, date_create, int.Parse(id));
+                servs.Add(obj);
             }
 
-            return obj;
+            return servs;
         }
     }
 }

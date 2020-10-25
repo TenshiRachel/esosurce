@@ -458,13 +458,9 @@ section.home-hero .carousel-caption {
     clear: both;
 }
 
-.services .card .avatar {
-    border-radius: 50%;
-    width: 24px;
-    height: 24px;
-}
-
-.manage .card .avatar {
+.services .card .avatar,
+.manage .card .avatar,
+.viewserv .card .avatar{
     border-radius: 50%;
     width: 24px;
     height: 24px;

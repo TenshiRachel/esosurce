@@ -52,7 +52,7 @@
                                     </div>
 
                                     <div class="d-flex align-items-center font-weight-bold ml-3">
-                                        <%--<%#Eval("views") %>--%>0<i class="far fa-eye ml-2"></i>
+                                        <%#Eval("views") %><i class="far fa-eye ml-2"></i>
                                     </div>
                                 </div>
 

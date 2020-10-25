@@ -68,7 +68,7 @@
             </div>
         </nav>
 
-        <main class="container-fluid mx-auto min-vh-100">
+        <main class="container-fluid mx-auto min-vh-100 animated fadeIn">
             <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
             </asp:ContentPlaceHolder>
         </main>

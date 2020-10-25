@@ -2,7 +2,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <section class="services container mx-auto">
+    <section class="services">
         <div class="row">
             <asp:Repeater runat="server" ID="servList" OnItemCommand="servList_ItemCommand">
                 <ItemTemplate>
@@ -14,7 +14,7 @@
                             </div>
                             <div class="ml-auto mr-3 mt-2">
                                 <asp:LinkButton runat="server" CssClass="btn-primary btn-sm m-0" data-tooltip="tooltip"
-                                    data-placement="top" title="View More Details" CommandName="viewservice" CommandArgument='<%#Eval("Id") %>'>
+                                    data-placement="top" title="View More Details" CommandName="view" CommandArgument='<%#Eval("Id") %>'>
                                     <i class="fas fa-eye"></i>
                                 </asp:LinkButton>
                             </div>
@@ -38,7 +38,7 @@
                                     </div>
 
                                     <div class="d-flex align-items-center font-weight-bold ml-3">
-                                        <%--<%#Eval("views") %>--%>0<i class="far fa-eye ml-2"></i>
+                                        <%#Eval("views") %><i class="far fa-eye ml-2"></i>
                                     </div>
                                 </div>
 
