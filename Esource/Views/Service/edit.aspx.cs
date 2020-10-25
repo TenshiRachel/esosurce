@@ -14,18 +14,21 @@ namespace Esource.Views.service
         {
             if (Request.QueryString["id"] != null)
             {
-                List<BL.service.Service> service = new BL.service.Service().SelectById(Request.QueryString["id"]);
-                tbName.Text = service[0].name;
-                tbDesc.Text = service[0].desc;
-                tbPrice.Text = service[0].price.ToString();
-                string[] categories = service[0].categories.Split(',');
-                foreach (ListItem item in cblCat.Items)
+                if (!Page.IsPostBack)
                 {
-                    foreach (string category in categories)
+                    List<BL.service.Service> service = new BL.service.Service().SelectById(Request.QueryString["id"]);
+                    tbName.Text = service[0].name;
+                    tbDesc.Text = service[0].desc;
+                    tbPrice.Text = service[0].price.ToString();
+                    string[] categories = service[0].categories.Split(',');
+                    foreach (ListItem item in cblCat.Items)
                     {
-                        if (category == item.Value)
+                        foreach (string category in categories)
                         {
-                            item.Selected = true;
+                            if (category == item.Value)
+                            {
+                                item.Selected = true;
+                            }
                         }
                     }
                 }

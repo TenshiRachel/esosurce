@@ -13,6 +13,24 @@ namespace Esource.Views.Service {
     public partial class servicelist {
         
         /// <summary>
+        /// servscript control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.ScriptManager servscript;
+        
+        /// <summary>
+        /// servpanel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel servpanel;
+        
+        /// <summary>
         /// servList control.
         /// </summary>
         /// <remarks>

@@ -67,5 +67,17 @@ namespace Esource.BL.service
             List<Service> service = new ServiceDAO().SelectById(id);
             return service;
         }
+
+        public int UpdateViews(string id, int views)
+        {
+            int result = new ServiceDAO().UpdateViews(id, views);
+            return result;
+        }
+
+        public int Favourite(string id, int favs)
+        {
+            int result = new ServiceDAO().UpdateFavs(id, favs);
+            return result;
+        }
     }
 }

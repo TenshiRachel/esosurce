@@ -184,7 +184,9 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BL\service\Fav.cs" />
     <Compile Include="BL\service\Service.cs" />
+    <Compile Include="DAL\service\FavDAO.cs" />
     <Compile Include="DAL\service\ServiceDAO.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

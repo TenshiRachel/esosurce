@@ -22,10 +22,12 @@ namespace Esource.Views.Service
                 toast(this, Session["error"].ToString(), "Error", "error");
                 Session["error"] = null;
             }
-
-            List<BL.service.Service> services = new BL.service.Service().SelectAll();
-            servList.DataSource = services;
-            servList.DataBind();
+            if (!Page.IsPostBack)
+            {
+                List<BL.service.Service> services = new BL.service.Service().SelectAll();
+                servList.DataSource = services;
+                servList.DataBind();
+            }
         }
 
         public void toast(Page page, string message, string title, string type)
@@ -37,7 +39,48 @@ namespace Esource.Views.Service
         {
             if (e.CommandName == "view")
             {
-                Response.Redirect("~/Views/service/index.aspx?id=" + e.CommandArgument.ToString());
+                string serviceId = e.CommandArgument.ToString();
+                List<BL.service.Service> service = new BL.service.Service().SelectById(serviceId);
+                BL.service.Service curr = new BL.service.Service();
+                curr.UpdateViews(serviceId, service[0].views + 1);
+                Response.Redirect("~/Views/service/index.aspx?id=" + serviceId);
+            }
+            if (e.CommandName == "favourite")
+            {
+                string serviceId = e.CommandArgument.ToString();
+                List<BL.service.Service> service = new BL.service.Service().SelectById(serviceId);
+                BL.service.Service curr = new BL.service.Service();
+                List<string> userfavs = new Fav().SelectUserFavs("1");
+                if (!userfavs.Contains(serviceId)) {
+                    int servres = curr.Favourite(serviceId, service[0].favs + 1);
+                    Fav fav = new Fav(1, int.Parse(serviceId));
+                    int favres = fav.Add();
+                    if (favres == 1 && servres == 1)
+                    {
+                        toast(this, "Service favourited", "Success", "success");
+                    }
+                    else
+                    {
+                        toast(this, "An error occured while favouriting the service", "Error", "error");
+                    }
+                }
+                else
+                {
+                    int servres = curr.Favourite(serviceId, service[0].favs - 1);
+                    Fav fav = new Fav();
+                    int favres = fav.Remove(1, int.Parse(serviceId));
+                    if (favres == 1 && servres == 1)
+                    {
+                        toast(this, "Service unfavourited", "Success", "success");
+                    }
+                    else
+                    {
+                        toast(this, "An error occured while unfavouriting the service", "Error", "error");
+                    }
+                }
+                List<BL.service.Service> services = new BL.service.Service().SelectAll();
+                servList.DataSource = services;
+                servList.DataBind();
             }
         }
     }
