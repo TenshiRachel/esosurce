@@ -84,7 +84,7 @@
             </div>
         </footer>
     </form>
-<%--    <script src="<%= ResolveUrl("~/Scripts/jquery.js") %>"></script>--%>
+    <script src="<%= ResolveUrl("~/Scripts/jquery.js") %>"></script>
     <script src="<%= ResolveUrl("~/Scripts/popper.min.js") %>"></script>
     <script src="<%= ResolveUrl("~/Scripts/bootstrap.min.js") %>"></script>
     <script src="<%= ResolveUrl("~/Scripts/mdb.min.js") %>"></script>

@@ -190,10 +190,11 @@ namespace Esource.DAL.service
                 string date_create = row["date_created"].ToString();
                 string categories = row["categories"].ToString();
                 string img_path = row["img_path"].ToString();
+                string status = row["status"].ToString();
                 int uid = int.Parse(row["uid"].ToString());
                 int favs = int.Parse(row["favs"].ToString());
                 int views = int.Parse(row["views"].ToString());
-                obj = new Service(name, desc, price, categories, img_path, uid, favs, views, date_create, int.Parse(id));
+                obj = new Service(name, desc, price, categories, img_path, uid, status, favs, views, date_create, int.Parse(id));
                 servs.Add(obj);
             }
 

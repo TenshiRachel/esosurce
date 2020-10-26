@@ -26,7 +26,8 @@
                     <div class="col-lg-3">
                         <label class="font-italic">Service poster (Optional)</label>
                         <div class="custom-file">
-                            <asp:FileUpload runat="server" ID="upPoster" CssClass="form-control-file" />
+                            <asp:FileUpload runat="server" ID="upPoster" CssClass="custom-file-input" />
+                            <asp:Label runat="server" Text="Upload a file" CssClass="custom-file-label" AssociatedControlID="upPoster"></asp:Label>
                         </div>
                     </div>
                 </div>

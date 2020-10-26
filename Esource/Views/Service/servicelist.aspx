@@ -5,12 +5,50 @@
     <section class="services">
         <asp:ScriptManager runat="server" ID="servscript">
         </asp:ScriptManager>
+        <div class="row">
+            <div class="col-12 col-md-4 order-2 order-md-1 mt-2 mt-md-0">
+                <div id="filter">
+                    <select class="md-form md-outline category-select custom-select">
+                        <option selected>Show All</option>
+                        <option>Graphics &amp; Design</option>
+                        <option>Writing &amp; Translation</option>
+                        <option>Video &amp; Animation</option>
+                        <option>Music &amp; Audio</option>
+                        <option>Programming &amp; Tech</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-12 col-md-4 order-3 order-md-2">
+                <div id="sort">
+                    <select class="md-form md-outline sort-select custom-select">
+                        <option selected disabled>None</option>
+                        <option>Oldest first</option>
+                        <option>Newest first</option>
+                        <option>Most viewed</option>
+                        <option>Most Popular</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-12 col-md-4 order-1 order-md-3 mt-2 mt-md-0">
+                <div class="input-group">
+                    <div class="md-form md-outline">
+                        <input id="search" class="form-control" type="text" name="search">
+                        <label for="search">Search By Title</label>
+                    </div>
+                    <div class="input-group-append">
+                        <button class="btn btn-md btn-info m-0 px-3 py-2 waves-effect" type="button" id="searchbut">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
         <asp:UpdatePanel runat="server" ID="servpanel" UpdateMode="Conditional">
             <ContentTemplate>
-                <div class="row">
+                <div class="row" id="servcon">
                     <asp:Repeater runat="server" ID="servList" OnItemDataBound="servList_ItemDataBound" OnItemCommand="servList_ItemCommand">
                         <ItemTemplate>
-                            <div class="col-12 col-md-4 col-lg-3 d-flex align-items-stretch mt-4">
+                            <div class="servicecards col-12 col-md-4 col-lg-3 d-flex align-items-stretch mt-4" data-id="<%#Eval("Id") %>" data-views="<%#Eval("views") %>" data-favs="<%#Eval("favs") %>">
                                 <div class="card w-100">
                                     <div class="view overlay border-bottom border-primary rounded-top">
                                         <img class="card-img-top" src="" onerror="this.src='<%= Page.ResolveUrl("~/Content/img/placeholder.jpg") %>'"/>
@@ -38,7 +76,7 @@
 
                                         <div class="d-flex mt-4">
                                             <div class="flex-fill">
-                                                <h4 class="name card-title mb-0" <%--data-names="<%#Eval("name") %>"--%>><%#Eval("name") %></h4>
+                                                <h4 class="name card-title mb-0" data-name="<%#Eval("name") %>"><%#Eval("name") %></h4>
                                             </div>
 
                                             <div class="d-flex align-items-center font-weight-bold ml-3">
@@ -85,4 +123,5 @@
             </ContentTemplate>
         </asp:UpdatePanel>
     </section>
+    <script src="<%=Page.ResolveUrl("~/Scripts/servicescript.js") %>" type="text/javascript"></script>
 </asp:Content>
