@@ -24,17 +24,14 @@
                         <option selected disabled>None</option>
                         <option>Oldest first</option>
                         <option>Newest first</option>
-                        <option>Most viewed</option>
+                        <option>Most Viewed</option>
                         <option>Most Popular</option>
                     </select>
                 </div>
             </div>
             <div class="col-12 col-md-4 order-1 order-md-3 mt-2 mt-md-0">
-                <div class="input-group">
-                    <div class="md-form md-outline">
-                        <input id="search" class="form-control" type="text" name="search">
-                        <label for="search">Search By Title</label>
-                    </div>
+                <div class="input-group md-form md-outline">
+                    <input id="search" class="form-control" type="text" name="search" placeholder="Search by title">
                     <div class="input-group-append">
                         <button class="btn btn-md btn-info m-0 px-3 py-2 waves-effect" type="button" id="searchbut">
                             <i class="fas fa-search"></i>
@@ -48,7 +45,7 @@
                 <div class="row" id="servcon">
                     <asp:Repeater runat="server" ID="servList" OnItemDataBound="servList_ItemDataBound" OnItemCommand="servList_ItemCommand">
                         <ItemTemplate>
-                            <div class="servicecards col-12 col-md-4 col-lg-3 d-flex align-items-stretch mt-4" data-id="<%#Eval("Id") %>" data-views="<%#Eval("views") %>" data-favs="<%#Eval("favs") %>">
+                            <div class="servicecards col-12 col-md-4 col-lg-3 d-flex align-items-stretch mt-4 <%#Eval("categories") %>" data-id="<%#Eval("Id") %>" data-views="<%#Eval("views") %>" data-favs="<%#Eval("favs") %>">
                                 <div class="card w-100">
                                     <div class="view overlay border-bottom border-primary rounded-top">
                                         <img class="card-img-top" src="" onerror="this.src='<%= Page.ResolveUrl("~/Content/img/placeholder.jpg") %>'"/>

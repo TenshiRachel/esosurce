@@ -50,7 +50,7 @@ namespace Esource.Views.service
             {
                 if (item.Selected)
                 {
-                    categories += item.Value + ",";
+                    categories += item.Value + " ";
                     count++;
                 }
             }

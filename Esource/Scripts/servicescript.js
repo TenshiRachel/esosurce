@@ -23,6 +23,7 @@ function search() {
                     let _this = $(this);
 
                     _this.removeClass('animated faster fadeIn');
+                    _this.addClass('d-flex');
                 });
             }
         }
@@ -32,6 +33,7 @@ function search() {
                     let _this = $(this);
 
                     _this.removeClass('animated faster fadeOut');
+                    _this.removeClass('d-flex');
                     _this.addClass('d-none');
                 })
             }
@@ -87,8 +89,8 @@ $('select.sort-select').on('change', function (e) {
         cards.sort(function (a, b) { return $(b).data("views") - $(a).data("views") });
         $("#servcon").html(cards);
     }
-    else if (sort == "Most Liked") {
-        cards.sort(function (a, b) { return $(b).data("likes") - $(a).data("likes") });
+    else if (sort == "Most Popular") {
+        cards.sort(function (a, b) { return $(b).data("favs") - $(a).data("favs") });
         $("#servcon").html(cards);
     }
 });

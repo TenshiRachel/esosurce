@@ -22,11 +22,10 @@
                                         <a><div class="mask rgba-black-light"></div></a>
                                     </div>
                                     <div class="ml-auto mr-3">
-                                         <a type="button" class="btn-danger btn-sm m-0 mr-2"
+                                         <button type="button" class="btn-danger btn-sm m-0 mr-2"
                                             data-tooltip="tooltip" data-placement="top" title="Delete" data-toggle="modal" data-target="#delmodal<%#Eval("Id") %>">
                                             <i class="fas fa-trash-alt white-text"></i>
-                                        </a>
-
+                                        </button>
                                         <asp:LinkButton runat="server" CssClass="btn-success btn-sm m-0 mr-2"
                                             data-tooltip="tooltip" data-placement="top" title="Edit" CommandName="edit" CommandArgument='<%#Eval("Id") %>'>
                                             <i class="fas fa-edit"></i>
@@ -103,7 +102,7 @@
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">No</button>
-                                            <asp:LinkButton runat="server" CommandName="delete" CommandArgument='<%#Eval("Id") %>' ID="btnDelete" Text="Yes" CssClass="btn btn-sm btn-success"></asp:LinkButton>
+                                            <asp:LinkButton runat="server" CommandName="delete" CommandArgument='<%#Eval("Id") %>' Text="Yes" CssClass="btn btn-sm btn-success"></asp:LinkButton>
                                         </div>
                                     </div>
                                 </div>
