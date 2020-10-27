@@ -15,8 +15,8 @@ namespace Esource.DAL.profile
             string DBConnect = ConfigurationManager.ConnectionStrings["ConnStr"].ConnectionString;
             SqlConnection conn = new SqlConnection(DBConnect);
 
-            string sqlStmt = "INSERT INTO User (username, email, password, bio, profile_src)" +
-                "VALUES (@paraName, @paraEmail, @paraPassword, @paraBio, @paraSrc)";
+            string sqlStmt = "INSERT INTO User (username, email, password, bio, profile_src, type)" +
+                "VALUES (@paraName, @paraEmail, @paraPassword, @paraBio, @paraSrc, @paraType)";
 
             int result = 0;
             SqlCommand sqlCmd = new SqlCommand(sqlStmt, conn);
@@ -26,6 +26,7 @@ namespace Esource.DAL.profile
             sqlCmd.Parameters.AddWithValue("@paraPassword", user.password);
             sqlCmd.Parameters.AddWithValue("@paraBio", user.bio);
             sqlCmd.Parameters.AddWithValue("@paraSrc", user.profile_src);
+            sqlCmd.Parameters.AddWithValue("@paraType", user.type);
 
             conn.Open();
             result = sqlCmd.ExecuteNonQuery();
