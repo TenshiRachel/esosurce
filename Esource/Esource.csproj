@@ -73,6 +73,8 @@
     <Content Include="App_Data\esource_log.ldf">
       <DependentUpon>esource.mdf</DependentUpon>
     </Content>
+    <Content Include="bin\Esource.dll" />
+    <Content Include="bin\Esource.pdb" />
     <Content Include="Content\css\bootstrap.css" />
     <Content Include="Content\css\bootstrap.min.css" />
     <Content Include="Content\css\mdb.css" />
@@ -176,6 +178,8 @@
     <Content Include="Scripts\umd\popper-utils.min.js" />
     <Content Include="Scripts\umd\popper.js" />
     <Content Include="Scripts\umd\popper.min.js" />
+    <Content Include="Views\auth\login.aspx" />
+    <Content Include="Views\auth\register.aspx" />
     <Content Include="Views\index.aspx" />
     <Content Include="Views\notification\index.aspx" />
     <Content Include="Views\service\add.aspx" />
@@ -187,15 +191,34 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BL\notification\Notification.cs" />
+    <Compile Include="BL\profile\User.cs" />
     <Compile Include="BL\service\Fav.cs" />
     <Compile Include="BL\service\Service.cs" />
     <Compile Include="DAL\notification\NotificationDAO.cs" />
+    <Compile Include="DAL\profile\UserDAO.cs" />
     <Compile Include="DAL\service\FavDAO.cs" />
     <Compile Include="DAL\service\ServiceDAO.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Views\auth\login.aspx.cs">
+      <DependentUpon>login.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\auth\login.aspx.designer.cs">
+      <DependentUpon>login.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\auth\register.aspx.cs">
+      <DependentUpon>register.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\auth\register.aspx.designer.cs">
+      <DependentUpon>register.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Views\index.aspx.cs">
       <DependentUpon>index.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
