@@ -177,6 +177,7 @@
     <Content Include="Scripts\umd\popper.js" />
     <Content Include="Scripts\umd\popper.min.js" />
     <Content Include="Views\index.aspx" />
+    <Content Include="Views\notification\index.aspx" />
     <Content Include="Views\service\add.aspx" />
     <Content Include="Views\service\edit.aspx" />
     <Content Include="Views\service\index.aspx" />
@@ -185,8 +186,10 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BL\notification\Notification.cs" />
     <Compile Include="BL\service\Fav.cs" />
     <Compile Include="BL\service\Service.cs" />
+    <Compile Include="DAL\notification\NotificationDAO.cs" />
     <Compile Include="DAL\service\FavDAO.cs" />
     <Compile Include="DAL\service\ServiceDAO.cs" />
     <Compile Include="Global.asax.cs">
@@ -206,6 +209,13 @@
     </Compile>
     <Compile Include="Views\Masters\index.Master.designer.cs">
       <DependentUpon>index.Master</DependentUpon>
+    </Compile>
+    <Compile Include="Views\notification\index.aspx.cs">
+      <DependentUpon>index.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\notification\index.aspx.designer.cs">
+      <DependentUpon>index.aspx</DependentUpon>
     </Compile>
     <Compile Include="Views\service\add.aspx.cs">
       <DependentUpon>add.aspx</DependentUpon>

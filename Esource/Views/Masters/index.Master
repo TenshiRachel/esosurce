@@ -53,6 +53,11 @@
 			        </li>
 		        </ul>
                 <ul class="navbar-nav ml-auto">
+                    <li class="nav-item mr-2 d-none d-md-block">
+					    <a class="nav-link rounded" href="<%=Page.ResolveUrl("~/Views/notification/index.aspx") %>">
+						    <i class="fas fa-bell"></i> <span class="">0</span>
+					    </a>
+				    </li>
                     <li class="nav-item">
                         <hr class="hr-light d-md-none mt-3 mb-4">
 					    <a class="btn btn-md btn-block dusty-grass-gradient black-text" href="<%= Page.ResolveUrl("~/Views/auth/register.aspx") %>">
