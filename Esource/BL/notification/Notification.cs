@@ -51,5 +51,11 @@ namespace Esource.BL.notification
             int result = new NotificationDAO().UpdateStatus(id, "deleted");
             return result;
         }
+
+        public int ClearAll(string uid, string type)
+        {
+            int result = new NotificationDAO().UpdateByType(uid, type, "deleted");
+            return result;
+        }
     }
 }

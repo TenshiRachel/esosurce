@@ -94,5 +94,28 @@ namespace Esource.DAL.notification
 
             return result;
         }
+
+        public int UpdateByType(string uid, string type, string status)
+        {
+            string DBConnect = ConfigurationManager.ConnectionStrings["ConnStr"].ConnectionString;
+            SqlConnection conn = new SqlConnection(DBConnect);
+
+            string sqlStmt = "UPDATE Notification " +
+            "SET status = @paraStatus " +
+            "WHERE cid = @paraUid AND type = @paraType";
+
+            int result = 0;
+            SqlCommand sqlCmd = new SqlCommand(sqlStmt, conn);
+
+            sqlCmd.Parameters.AddWithValue("@paraUid", uid);
+            sqlCmd.Parameters.AddWithValue("@paraType", type);
+            sqlCmd.Parameters.AddWithValue("@paraStatus", status);
+
+            conn.Open();
+            result = sqlCmd.ExecuteNonQuery();
+            conn.Close();
+
+            return result;
+        }
     }
 }

@@ -10,35 +10,40 @@
                     <a class="nav-link active show waves-light" data-toggle="tab" role="tab" href="#favnotifs"
                         aria-selected="false" aria-controls="favnotifs">
                         Likes
-                        <span class="font-weight-bold text-danger">!</span>
+                        <span runat="server" id="favalert" visible="false" class="font-weight-bold text-danger">!</span>
                     </a>
                 </li>
                 <li class="nav-item ml-0">
                     <a class="nav-link waves-light" data-toggle="tab" role="tab" href="#jnotifs" 
                         aria-selected="false" aria-controls="jnotifs">
-                        Requests
-                        <span class="font-weight-bold text-danger">!</span>
+                        Jobs
+                        <span runat="server" id="jobalert" visible="false" class="font-weight-bold text-danger">!</span>
                     </a>
                 </li>
                 <li class="nav-item ml-0">
                     <a class="nav-link waves-light" data-toggle="tab" role="tab" href="#fnotifs"
                         aria-selected="false" aria-controls="fnotifs">
                         Files
-                        <span class="font-weight-bold text-danger">!</span>
+                        <span id="falert" runat="server" visible="false" class="font-weight-bold text-danger">!</span>
                     </a>
                 </li>
                 <li class="nav-item ml-0">
                     <a class="nav-link waves-light" data-toggle="tab" role="tab" href="#rnotifs"
                         aria-selected="false" aria-controls="rnotifs">
                         Requests
-                        <span class="font-weight-bold text-danger">!</span>
+                        <span id="ralert" runat="server" visible="false" class="font-weight-bold text-danger">!</span>
                     </a>
                 </li>
             </ul>
             <div class="tab-content p-0">
                 <div class="tab-pane fade active show" id="favnotifs" role="tabpanel" aria-labelledby="favnotifs">
                     <div class="row justify-content-center mx-auto p-2 col-12">
-                        <asp:Repeater runat="server" ID="favs">
+                        <div runat="server" id="favclear" class="col-12 row justify-content-end mx-auto" visible="false">
+                            <asp:LinkButton runat="server" CssClass="ml-auto btn btn-secondary" CommandArgument="fav" OnCommand="clearAll">
+                                Clear All
+                            </asp:LinkButton>
+                        </div>
+                        <asp:Repeater runat="server" ID="favs" OnItemCommand="favs_ItemCommand" OnItemDataBound="favs_ItemDataBound">
                             <ItemTemplate>
                                 <div id="notif<%#Eval("Id") %>" class="col-12 row justify-content-between z-depth-1 my-2">
                                     <div class="col-8 row mx-auto my-3">
@@ -59,12 +64,24 @@
                                     </asp:LinkButton>
                                 </div>
                             </ItemTemplate>
+                            <FooterTemplate>
+                                <div class="text-center mt-2">
+                                    <h4>
+                                        <asp:Label runat="server" ID="LbErr" Text="No Notifications" Visible="false"></asp:Label>
+                                    </h4>
+                                </div>
+                            </FooterTemplate>
                         </asp:Repeater>
                     </div>
                 </div>
                 <div class="tab-pane fade" id="jnotifs" role="tabpanel" aria-labelledby="jnotifs">
                     <div class="row justify-content-center mx-auto p-2 col-12">
-                        <asp:Repeater runat="server" ID="jobs">
+                        <div runat="server" id="jobclear" class="col-12 row justify-content-end mx-auto" visible="false">
+                            <asp:LinkButton runat="server" CssClass="ml-auto btn btn-secondary" CommandArgument="job" OnCommand="clearAll">
+                                Clear All
+                            </asp:LinkButton>
+                        </div>
+                        <asp:Repeater runat="server" ID="jobs" OnItemCommand="jobs_ItemCommand" OnItemDataBound="jobs_ItemDataBound">
                             <ItemTemplate>
                                 <div id="notif<%#Eval("Id") %>" class="col-12 row justify-content-between z-depth-1 my-2">
                                     <div class="col-8 row mx-auto my-3">
@@ -87,19 +104,31 @@
                                     </asp:LinkButton>
                                 </div>
                             </ItemTemplate>
+                            <FooterTemplate>
+                                <div class="text-center mt-2">
+                                    <h4>
+                                        <asp:Label runat="server" ID="LbErr" Text="No Notifications" Visible="false"></asp:Label>
+                                    </h4>
+                                </div>
+                            </FooterTemplate>
                         </asp:Repeater>
                     </div>
                 </div>
                 <div class="tab-pane fade" id="fnotifs" role="tabpanel" aria-labelledby="fnotifs">
                     <div class="row justify-content-center mx-auto p-2 col-12">
-                        <asp:Repeater runat="server" ID="files">
+                        <div runat="server" id="fileclear" class="col-12 row justify-content-end mx-auto" visible="true">
+                            <asp:LinkButton runat="server" CssClass="ml-auto btn btn-secondary" CommandArgument="file" OnCommand="clearAll">
+                                Clear All
+                            </asp:LinkButton>
+                        </div>
+                        <asp:Repeater runat="server" ID="files" OnItemCommand="files_ItemCommand" OnItemDataBound="files_ItemDataBound">
                             <ItemTemplate>
                                 <div id="notif<%#Eval("Id") %>" class="col-12 row justify-content-between z-depth-1 my-2">
                                     <div class="col-8 row mx-auto my-3">
                                         <div class="pl-2 align-self-center pt-1">
                                             <h5>
                                                 <asp:LinkButton runat="server" CommandName="viewprofile" CommandArgument='<%#Eval("uid") %>'><%#Eval("username") %></asp:LinkButton> shared 
-                                                <asp:LinkButton runat="server" CommandName="viewservice" CommandArgument='<%#Eval("pid") %>'><%#Eval("title") %></asp:LinkButton>
+                                                <asp:LinkButton runat="server" CommandName="viewfile" CommandArgument='<%#Eval("pid") %>'><%#Eval("title") %></asp:LinkButton>
                                             </h5>
                                         </div>
                                     </div>
@@ -113,12 +142,24 @@
                                     </asp:LinkButton>
                                 </div>
                             </ItemTemplate>
+                            <FooterTemplate>
+                                <div class="text-center mt-2">
+                                    <h4>
+                                        <asp:Label runat="server" ID="LbErr" Text="No Notifications" Visible="false"></asp:Label>
+                                    </h4>
+                                </div>
+                            </FooterTemplate>
                         </asp:Repeater>
                     </div>
                 </div>
                 <div class="tab-pane fade" id="rnotifs" role="tabpanel" aria-labelledby="rnotifs">
                     <div class="row justify-content-center mx-auto p-2 col-12">
-                        <asp:Repeater runat="server" ID="requests">
+                        <div runat="server" id="reqclear" class="col-12 row justify-content-end mx-auto" visible="false">
+                            <asp:LinkButton runat="server" CssClass="ml-auto btn btn-secondary" CommandArgument="request" OnCommand="clearAll">
+                                Clear All
+                            </asp:LinkButton>
+                        </div>
+                        <asp:Repeater runat="server" ID="requests" OnItemCommand="requests_ItemCommand" OnItemDataBound="requests_ItemDataBound">
                             <ItemTemplate>
                                 <div id="notif<%#Eval("Id") %>" class="col-12 row justify-content-between z-depth-1 my-2">
                                     <div class="col-8 row mx-auto my-3">
@@ -139,6 +180,13 @@
                                     </asp:LinkButton>
                                 </div>
                             </ItemTemplate>
+                            <FooterTemplate>
+                                <div class="text-center mt-2">
+                                    <h4>
+                                        <asp:Label runat="server" ID="LbErr" Text="No Notifications" Visible="false"></asp:Label>
+                                    </h4>
+                                </div>
+                            </FooterTemplate>
                         </asp:Repeater>
                     </div>
                 </div>

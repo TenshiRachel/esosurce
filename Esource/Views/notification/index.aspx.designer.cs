@@ -13,6 +13,51 @@ namespace Esource.Views.notification {
     public partial class index {
         
         /// <summary>
+        /// favalert control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl favalert;
+        
+        /// <summary>
+        /// jobalert control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl jobalert;
+        
+        /// <summary>
+        /// falert control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl falert;
+        
+        /// <summary>
+        /// ralert control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl ralert;
+        
+        /// <summary>
+        /// favclear control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl favclear;
+        
+        /// <summary>
         /// favs control.
         /// </summary>
         /// <remarks>
@@ -20,6 +65,15 @@ namespace Esource.Views.notification {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Repeater favs;
+        
+        /// <summary>
+        /// jobclear control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl jobclear;
         
         /// <summary>
         /// jobs control.
@@ -31,6 +85,15 @@ namespace Esource.Views.notification {
         protected global::System.Web.UI.WebControls.Repeater jobs;
         
         /// <summary>
+        /// fileclear control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl fileclear;
+        
+        /// <summary>
         /// files control.
         /// </summary>
         /// <remarks>
@@ -38,6 +101,15 @@ namespace Esource.Views.notification {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Repeater files;
+        
+        /// <summary>
+        /// reqclear control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl reqclear;
         
         /// <summary>
         /// requests control.
