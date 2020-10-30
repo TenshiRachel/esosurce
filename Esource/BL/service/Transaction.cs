@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Web;
 using PayPal.Api;
+using Esource.Utilities;
 
 namespace Esource.BL.service
 {
@@ -12,24 +12,22 @@ namespace Esource.BL.service
         public string serviceName { get; set; }
         public decimal price { get; set; }
         public int uid { get; set; }
-        public string accessToken { get; set; }
         public Transaction()
         {
 
         }
 
-        public Transaction(int serviceId, string serviceName, decimal price, int uid, string accessToken)
+        public Transaction(int serviceId, string serviceName, decimal price, int uidn)
         {
             this.serviceId = serviceId;
             this.serviceName = serviceName;
             this.price = price;
             this.uid = uid;
-            this.accessToken = accessToken;
         }
 
         public string createPayment()
         {
-            var apiContext = new APIContext(this.accessToken);
+            var apiContext = Configuration.GetAPIContext() ;
             string guid = Convert.ToString((new Random()).Next(100000));
             string baseUrl = HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority);
             string redirectUrl = baseUrl + "/Views/service/";
@@ -91,7 +89,7 @@ namespace Esource.BL.service
         public int Pay(string paymentId, string payerId)
         {
             int result = 1;
-            var apiContext = new APIContext(this.accessToken);
+            var apiContext = Configuration.GetAPIContext();
 
             try
             {

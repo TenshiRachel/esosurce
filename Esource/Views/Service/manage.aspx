@@ -5,6 +5,7 @@
     <section class="manage">
         <asp:ScriptManager runat="server" ID="managescript">
         </asp:ScriptManager>
+        <asp:Label runat="server" ID="LblUid" Visible="false"></asp:Label>
         <div class="text-center">
             <a role="button" href="<%=Page.ResolveUrl("~/Views/service/add.aspx") %>" class="btn btn-md btn-rounded btn-success">
                 Add Service <i class="fas fa-plus ml-2"></i>

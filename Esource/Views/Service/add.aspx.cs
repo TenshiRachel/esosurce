@@ -12,7 +12,11 @@ namespace Esource.Views.service
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            
+            if (Session["uid"] == null)
+            {
+                Session["error"] = "Please log in to add a service";
+                Response.Redirect("~/Views/auth/login.aspx");
+            }
         }
 
         public void toast(Page page, string message, string title, string type)

@@ -18,14 +18,15 @@ namespace Esource.Views.service
                 Session["error"] = "Please select a service to pay for";
                 Response.Redirect("~/Views/service/index.aspx");
             }
-            else if (Request.QueryString["uid"] == null)
+            else if (Session["uid"] == null)
             {
                 Session["error"] = "Please log in to pay for service";
                 Response.Redirect("~/Views/service/index.aspx");
             }
             else
             {
-                User user = new User();
+                LblUid.Text = Session["uid"].ToString();
+                User user = new User().SelectById(LblUid.Text);
                 string sid = Request.QueryString["sid"].ToString();
                 List<BL.service.Service> service = new BL.service.Service().SelectById(sid);
                 servprice.InnerText =  "$" + service[0].price.ToString();
@@ -36,9 +37,9 @@ namespace Esource.Views.service
         {
             string payerId = Request.Params["PayerID"];
             string sid = Request.QueryString["sid"];
-            string uid = Request.QueryString["uid"];
+            string uid = LblUid.Text;
             List<BL.service.Service> service = new BL.service.Service().SelectById(sid);
-            Transaction transaction = new Transaction(int.Parse(sid), service[0].name, service[0].price, int.Parse(uid), "");
+            Transaction transaction = new Transaction(int.Parse(sid), service[0].name, service[0].price, int.Parse(uid));
             if (string.IsNullOrEmpty(payerId))
             {
                 string paymentId = transaction.createPayment();
