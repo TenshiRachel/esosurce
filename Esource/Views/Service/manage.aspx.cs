@@ -28,6 +28,10 @@ namespace Esource.Views.service
                 {
                     LblUid.Text = Session["uid"].ToString();
                     List<BL.service.Service> uservices = new BL.service.Service().SelectByUid(LblUid.Text);
+                    if (uservices.Count < 1)
+                    {
+                        LbErr.Visible = true;
+                    }
                     managelist.DataSource = uservices;
                     managelist.DataBind();
                 }
@@ -106,14 +110,6 @@ namespace Esource.Views.service
                 List<BL.service.Service> services = new BL.service.Service().SelectByUid(LblUid.Text);
                 managelist.DataSource = services;
                 managelist.DataBind();
-            }
-        }
-
-        protected void managelist_ItemDataBound(object sender, RepeaterItemEventArgs e)
-        {
-            if (e.Item.ItemType == ListItemType.Footer && managelist.Items.Count < 1)
-            {
-                e.Item.FindControl("LbErr").Visible = true;
             }
         }
     }

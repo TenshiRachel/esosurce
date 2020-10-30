@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Esource.BL.service;
+using Esource.BL.profile;
 
 namespace Esource.Views.service
 {
@@ -16,6 +17,10 @@ namespace Esource.Views.service
             {
                 Session["error"] = "Please log in to add a service";
                 Response.Redirect("~/Views/auth/login.aspx");
+            }
+            else
+            {
+                LblUid.Text = Session["uid"].ToString();
             }
         }
 
@@ -68,7 +73,8 @@ namespace Esource.Views.service
                 string name = tbName.Text;
                 string desc = tbDesc.Text;
                 decimal price = decimal.Parse(tbPrice.Text);
-                BL.service.Service service = new BL.service.Service(name, desc, price, categories, "", 1);
+                User curruser = new User().SelectById(LblUid.Text);
+                BL.service.Service service = new BL.service.Service(name, desc, price, categories, "", curruser.Id, curruser.username, curruser.profile_src);
                 int result = service.AddService();
                 if (result == 0)
                 {

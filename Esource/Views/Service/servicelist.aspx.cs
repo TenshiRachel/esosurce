@@ -25,6 +25,10 @@ namespace Esource.Views.Service
             if (!Page.IsPostBack)
             {
                 List<BL.service.Service> services = new BL.service.Service().SelectAll();
+                if (services.Count < 1)
+                {
+                    LbErr.Visible = true;
+                }
                 servList.DataSource = services;
                 servList.DataBind();
             }
@@ -81,14 +85,6 @@ namespace Esource.Views.Service
                 List<BL.service.Service> services = new BL.service.Service().SelectAll();
                 servList.DataSource = services;
                 servList.DataBind();
-            }
-        }
-
-        protected void servList_ItemDataBound(object sender, RepeaterItemEventArgs e)
-        {
-            if (e.Item.ItemType == ListItemType.Footer && servList.Items.Count < 1)
-            {
-                e.Item.FindControl("LbErr").Visible = true;
             }
         }
     }

@@ -43,12 +43,12 @@
         <asp:UpdatePanel runat="server" ID="servpanel" UpdateMode="Conditional">
             <ContentTemplate>
                 <div class="row" id="servcon">
-                    <asp:Repeater runat="server" ID="servList" OnItemDataBound="servList_ItemDataBound" OnItemCommand="servList_ItemCommand">
+                    <asp:Repeater runat="server" ID="servList" OnItemCommand="servList_ItemCommand">
                         <ItemTemplate>
                             <div class="servicecards col-12 col-md-4 col-lg-3 d-flex align-items-stretch mt-4 <%#Eval("categories") %>" data-id="<%#Eval("Id") %>" data-views="<%#Eval("views") %>" data-favs="<%#Eval("favs") %>">
                                 <div class="card w-100">
                                     <div class="view overlay border-bottom border-primary rounded-top">
-                                        <img class="card-img-top" src="" onerror="this.src='<%= Page.ResolveUrl("~/Content/img/placeholder.jpg") %>'"/>
+                                        <img class="card-img-top" src="<%#Eval("img_path") %>" onerror="this.src='<%= Page.ResolveUrl("~/Content/img/placeholder.jpg") %>'"/>
                                         <a><div class="mask rgba-black-light"></div></a>
                                     </div>
                                     <div class="ml-auto mr-3 mt-2">
@@ -61,7 +61,7 @@
 
                                         <div class="d-flex mt-2">
                                             <div class="flex-fill">
-                                                <img src="" onerror="this.src='<%= Page.ResolveUrl("~/Content/img/placeholder.jpg") %>'" class="rounded-circle img-fluid z-depth-1 avatar" style="max-width: 2rem;" />
+                                                <img src="<%#Eval("profile_src") %>" onerror="this.src='<%= Page.ResolveUrl("~/Content/img/placeholder.jpg") %>'" class="rounded-circle img-fluid z-depth-1 avatar" style="max-width: 2rem;" />
                                                 <asp:LinkButton runat="server" CssClass="align-middle ml-1" CommandName="viewprofile" CommandArgument='<%#Eval("uid") %>'>Username</asp:LinkButton>
                                             </div>
                                             <div class="d-flex align-items-center">
@@ -108,17 +108,13 @@
                                 </div>
                             </div>
                         </ItemTemplate>
-                        <FooterTemplate>
-                            <div class="text-center mt-4">
-                                <h4>
-                                    <asp:Label runat="server" ID="LbErr" Text="No Services at the moment" CssClass="font-weight-bold" Visible="false"></asp:Label>
-                                </h4>
-                            </div>
-                        </FooterTemplate>
                     </asp:Repeater>
                 </div>
             </ContentTemplate>
         </asp:UpdatePanel>
+        <div class="mt-4">
+            <h3 runat="server" id="LbErr" visible="false" class="font-weight-bold text-center">No services at the moment</h3>
+        </div>
     </section>
     <script src="<%=Page.ResolveUrl("~/Scripts/servicescript.js") %>" type="text/javascript"></script>
 </asp:Content>

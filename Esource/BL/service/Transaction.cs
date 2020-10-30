@@ -17,7 +17,7 @@ namespace Esource.BL.service
 
         }
 
-        public Transaction(int serviceId, string serviceName, decimal price, int uidn)
+        public Transaction(int serviceId, string serviceName, decimal price, int uid)
         {
             this.serviceId = serviceId;
             this.serviceName = serviceName;

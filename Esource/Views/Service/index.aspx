@@ -11,7 +11,7 @@
                                     <div class="card w-100">
 
                                         <div class="view overlay border-bottom border-primary rounded-top">
-                                            <img class="card-img-top" src="" onerror="this.src='<%=Page.ResolveUrl("~/Content/img/placeholder.jpg") %>'" alt='<%#Eval("name") %>' />
+                                            <img class="card-img-top" src="<%#Eval("img_path") %>" onerror="this.src='<%=Page.ResolveUrl("~/Content/img/placeholder.jpg") %>'" alt='<%#Eval("name") %>' />
                                             <a>
                                                 <div class="mask rgba-black-light"></div>
                                             </a>
@@ -72,13 +72,13 @@
                                         </div>
 
                                         <div class="avatar mx-auto white mt-4">
-                                            <img loading="lazy" onerror="this.src='<%= Page.ResolveUrl("~/Content/img/placeholder.jpg") %>'"
-                                                src="" class="rounded-circle avatar" alt="" style="max-width: 2rem;">
+                                            <img onerror="this.src='<%= Page.ResolveUrl("~/Content/img/placeholder.jpg") %>'"
+                                                src="<%#Eval("profile_src") %>" class="rounded-circle avatar" alt="" style="max-width: 2rem;">
                                         </div>
 
                                         <div class="card-body">
                                             <asp:LinkButton runat="server" CommandName="viewprofile" CommandArgument='<%#Eval("uid") %>'>
-                                                <h3 class="card-title">ServUsername</h3>
+                                                <h3 class="card-title"><%#Eval("username") %></h3>
                                             </asp:LinkButton>
                                             <h5 class="card-title text-muted">
                                                 Service Provider
