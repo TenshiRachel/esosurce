@@ -188,6 +188,7 @@
     <Content Include="Scripts\umd\popper.js" />
     <Content Include="Scripts\umd\popper.min.js" />
     <Content Include="Views\auth\login.aspx" />
+    <Content Include="Views\auth\logout.aspx" />
     <Content Include="Views\auth\register.aspx" />
     <Content Include="Views\index.aspx" />
     <Content Include="Views\notification\index.aspx" />
@@ -222,6 +223,13 @@
     </Compile>
     <Compile Include="Views\auth\login.aspx.designer.cs">
       <DependentUpon>login.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\auth\logout.aspx.cs">
+      <DependentUpon>logout.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\auth\logout.aspx.designer.cs">
+      <DependentUpon>logout.aspx</DependentUpon>
     </Compile>
     <Compile Include="Views\auth\register.aspx.cs">
       <DependentUpon>register.aspx</DependentUpon>
