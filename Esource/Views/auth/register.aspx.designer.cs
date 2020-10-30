@@ -49,6 +49,15 @@ namespace Esource.Views.auth {
         protected global::System.Web.UI.HtmlControls.HtmlInputPassword confirm_password;
         
         /// <summary>
+        /// clientType control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label clientType;
+        
+        /// <summary>
         /// btnClientRegister control.
         /// </summary>
         /// <remarks>
@@ -58,40 +67,49 @@ namespace Esource.Views.auth {
         protected global::System.Web.UI.WebControls.LinkButton btnClientRegister;
         
         /// <summary>
-        /// name2 control.
+        /// svc_name control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText name2;
+        protected global::System.Web.UI.HtmlControls.HtmlInputText svc_name;
         
         /// <summary>
-        /// email2 control.
+        /// svc_email control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputGenericControl email2;
+        protected global::System.Web.UI.HtmlControls.HtmlInputGenericControl svc_email;
         
         /// <summary>
-        /// password2 control.
+        /// svc_password control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputPassword password2;
+        protected global::System.Web.UI.HtmlControls.HtmlInputPassword svc_password;
         
         /// <summary>
-        /// confirm_password2 control.
+        /// svc_confirm_password control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputPassword confirm_password2;
+        protected global::System.Web.UI.HtmlControls.HtmlInputPassword svc_confirm_password;
+        
+        /// <summary>
+        /// serviceType control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label serviceType;
         
         /// <summary>
         /// btnServiceRegister control.

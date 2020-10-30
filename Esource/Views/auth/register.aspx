@@ -55,7 +55,7 @@
                         <input type="password" id="confirm_password" class="form-control" runat="server" placeholder="Confirm Password" required />
                     </div>
 
-                    <input class="d-none" type="hidden" name="accType" value="client" />
+                    <asp:Label runat="server" Visible="false" ID="clientType" Text="client"></asp:Label>
 
                     <asp:LinkButton runat="server" ID="btnClientRegister" CssClass="btn btn-md btn-outline-primary btn-block" OnClick="btnRegister_Click">
                         <i class="fas fa-user-plus mr-2"></i>Join
@@ -78,7 +78,7 @@
                                 <i class="far fa-user"></i>
                             </span>
                         </div>
-                        <input type="text" id="name2" class="form-control" runat="server" placeholder="Username" required />
+                        <input type="text" id="svc_name" class="form-control" runat="server" placeholder="Username" required />
                     </div>
 
                     <div class="input-group mb-4">
@@ -87,7 +87,7 @@
                                 <i class="far fa-envelope"></i>
                             </span>
                         </div>
-                        <input type="email" id="email2" class="form-control" runat="server" placeholder="Email" required />
+                        <input type="email" id="svc_email" class="form-control" runat="server" placeholder="Email" required />
                     </div>
 
                     <div class="input-group mb-4">
@@ -96,7 +96,7 @@
                                 <i class="fas fa-lock"></i>
                             </span>
                         </div>
-                        <input type="password" id="password2" class="form-control" runat="server" placeholder="Password" required />
+                        <input type="password" id="svc_password" class="form-control" runat="server" placeholder="Password" required />
                     </div>
 
                     <div class="input-group mb-4">
@@ -105,10 +105,10 @@
                                 <i class="fas fa-lock"></i>
                             </span>
                         </div>
-                        <input type="password" id="confirm_password2" class="form-control" runat="server" placeholder="Confirm Password" required />
+                        <input type="password" id="svc_confirm_password" class="form-control" runat="server" placeholder="Confirm Password" required />
                     </div>
 
-                    <input class="d-none" type="hidden" name="accType" value="service" />
+                    <asp:Label runat="server" Visible="false" ID="serviceType" Text="service"></asp:Label>
 
                     <asp:LinkButton runat="server" ID="btnServiceRegister" CssClass="btn btn-md btn-outline-primary btn-block" OnClick="btnRegister_Click">
                         <i class="fas fa-user-plus mr-2"></i>Join

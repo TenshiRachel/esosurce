@@ -22,21 +22,34 @@ namespace Esource.Views.auth
         public bool ValidateInput(string name, string email, string password, string confirm_password)
         {
             bool valid = false;
+            User user = new User().SelectByEmail(email);
             if (String.IsNullOrEmpty(name))
             {
-                toast(this, "Please enter a name", "Error", "error");
+                toast(this, "Please enter a username", "Error", "error");
             }
             else if (String.IsNullOrEmpty(email))
             {
                 toast(this, "Please enter an email", "Error", "error");
             }
+            else if (!email.Contains("@"))
+            {
+                toast(this, "Please enter a valid email", "Error", "error");
+            }
             else if (String.IsNullOrEmpty(password))
             {
                 toast(this, "Please enter a password", "Error", "error");
             }
+            else if (password.Length < 8)
+            {
+                toast(this, "Password must have 8 characters or more", "Error", "error");
+            }
             else if (password != confirm_password)
             {
                 toast(this, "Passwords do not match", "Error", "error");
+            }
+            else if (user != null)
+            {
+                toast(this, "Account already exists", "Error", "error");
             }
             else
             {
@@ -45,17 +58,24 @@ namespace Esource.Views.auth
             return valid;
         }
 
+        public void registerUser(string username, string email, string password, string accType)
+        {
+
+            User user = new User(username, email, password, "", "", accType);
+            user.AddUser();
+            Session["success"] = "Registered successfully";
+            Response.Redirect("~/Views/auth/login.aspx");
+        }
+
         protected void btnRegister_Click(object sender, EventArgs e)
         {
             if (ValidateInput(name.Value, email.Value, password.Value, confirm_password.Value))
             {
-                User user = new User(name.Value, email.Value, password.Value, "", "", "client");
-                user.AddUser();
-                Response.Redirect("login.aspx");
+                registerUser(name.Value, email.Value, password.Value, "client");
             }
-            else
+            if (ValidateInput(svc_name.Value, svc_email.Value, svc_password.Value, svc_confirm_password.Value))
             {
-                toast(this, "Missing fields", "Error", "error");
+                registerUser(svc_name.Value, svc_email.Value, svc_password.Value, "freelancer");
             }
         }
     }
