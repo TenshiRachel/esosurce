@@ -7,20 +7,28 @@
         <div class="row">
             <div class="col-md-6 mx-auto">
                 <div class="card z-depth-3">
-                    <h3 class="text-center">Login</h3>
+                    <h3 class="text-center mt-2">Login</h3>
                     <div class="card-body text-center">
-                        <div class="md-form md-outline">
-                            <input id="email" type="email" name="email" class="form-control" required>
-                            <label for="email">Email</label>
+                    <div class="input-group mb-4">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text primary-light-gradient white-text">
+                                <i class="far fa-envelope"></i>
+                            </span>
                         </div>
-                        <div class="md-form md-outline">
-                            <input id="password" type="password" name="password" class="form-control" required>
-                            <label for="password">Password</label>
-                        </div>
+                        <input type="email" id="email" class="form-control" runat="server" placeholder="Email" required />
+                    </div>
 
-                        <button class="btn btn-md btn-outline-primary btn-rounded" type="submit">
+                    <div class="input-group mb-4">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text primary-light-gradient white-text">
+                                <i class="fas fa-lock"></i>
+                            </span>
+                        </div>
+                        <input type="password" id="password" class="form-control" runat="server" placeholder="Password" required />
+                    </div>
+                        <asp:LinkButton ID="btnLogin" CssClass="btn btn-md btn-outline-primary" runat="server" OnClick="btnLogin_Click">
                             <i class="fas fa-sign-in-alt mr-2"></i>Login
-                        </button>
+                        </asp:LinkButton>
                     </div>
                 </div>
             </div>

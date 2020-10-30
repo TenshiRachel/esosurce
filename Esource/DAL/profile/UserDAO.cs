@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
@@ -15,7 +16,7 @@ namespace Esource.DAL.profile
             string DBConnect = ConfigurationManager.ConnectionStrings["ConnStr"].ConnectionString;
             SqlConnection conn = new SqlConnection(DBConnect);
 
-            string sqlStmt = "INSERT INTO User (username, email, password, bio, profile_src, type)" +
+            string sqlStmt = "INSERT INTO [User] (username, email, password, bio, profile_src, type)" +
                 "VALUES (@paraName, @paraEmail, @paraPassword, @paraBio, @paraSrc, @paraType)";
 
             int result = 0;
@@ -33,6 +34,66 @@ namespace Esource.DAL.profile
             conn.Close();
 
             return result;
+        }
+
+        public User SelectByEmail(string mail)
+        {
+            string DBConnect = ConfigurationManager.ConnectionStrings["ConnStr"].ConnectionString;
+            SqlConnection conn = new SqlConnection(DBConnect);
+
+            string sqlStmt = "SELECT * FROM [User] WHERE email = @paraEmail";
+
+            SqlDataAdapter da = new SqlDataAdapter(sqlStmt, conn);
+            da.SelectCommand.Parameters.AddWithValue("@paraEmail", mail);
+
+            DataSet ds = new DataSet();
+            da.Fill(ds);
+            int rec_cnt = ds.Tables[0].Rows.Count;
+
+            User obj = null;
+            if (rec_cnt > 0)
+            {
+                DataRow row = ds.Tables[0].Rows[0];
+                string name = row["username"].ToString();
+                string email = row["email"].ToString();
+                string password = row["password"].ToString();
+                string bio = row["bio"].ToString();
+                string src = row["profile_src"].ToString();
+                string type = row["type"].ToString();
+                obj = new User(name, email, password, bio, src, type);
+            }
+
+            return obj;
+        }
+
+        public User SelectById(string id)
+        {
+            string DBConnect = ConfigurationManager.ConnectionStrings["ConnStr"].ConnectionString;
+            SqlConnection conn = new SqlConnection(DBConnect);
+
+            string sqlStmt = "SELECT * FROM [User] WHERE Id = @paraUserID";
+
+            SqlDataAdapter da = new SqlDataAdapter(sqlStmt, conn);
+            da.SelectCommand.Parameters.AddWithValue("@paraUserID", id);
+
+            DataSet ds = new DataSet();
+            da.Fill(ds);
+            int rec_cnt = ds.Tables[0].Rows.Count;
+
+            User obj = null;
+            if (rec_cnt > 0)
+            {
+                DataRow row = ds.Tables[0].Rows[0];
+                string name = row["username"].ToString();
+                string email = row["email"].ToString();
+                string password = row["password"].ToString();
+                string bio = row["bio"].ToString();
+                string src = row["profile_src"].ToString();
+                string type = row["type"].ToString();
+                obj = new User(name, email, password, bio, src, type);
+            }
+
+            return obj;
         }
     }
 }

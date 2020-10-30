@@ -37,5 +37,17 @@ namespace Esource.BL.profile
             int result = new UserDAO().Insert(this);
             return result;
         }
+
+        public User SelectById(string id)
+        {
+            User user = new UserDAO().SelectById(id);
+            return user;
+        }
+
+        public User SelectByEmail(string email)
+        {
+            User user = new UserDAO().SelectByEmail(email);
+            return user;
+        }
     }
 }
