@@ -24,9 +24,22 @@ namespace Esource.Views.service
             }
             if (!Page.IsPostBack)
             {
-                List<BL.service.Service> uservices = new BL.service.Service().SelectByUid("1");
-                managelist.DataSource = uservices;
-                managelist.DataBind();
+                if (Session["uid"] != null)
+                {
+                    LblUid.Text = Session["uid"].ToString();
+                    List<BL.service.Service> uservices = new BL.service.Service().SelectByUid(LblUid.Text);
+                    if (uservices.Count < 1)
+                    {
+                        LbErr.Visible = true;
+                    }
+                    managelist.DataSource = uservices;
+                    managelist.DataBind();
+                }
+                else
+                {
+                    Session["error"] = "Please log in to manage services";
+                    Response.Redirect("~/Views/auth/login/aspx");
+                }
             }
         }
 
@@ -52,7 +65,7 @@ namespace Esource.Views.service
                 {
                     toast(this, "An error occured while deleting service", "Error", "error");
                 }
-                List<BL.service.Service> services = new BL.service.Service().SelectByUid("1");
+                List<BL.service.Service> services = new BL.service.Service().SelectByUid(LblUid.Text);
                 managelist.DataSource = services;
                 managelist.DataBind();
             }
@@ -65,7 +78,7 @@ namespace Esource.Views.service
                 string serviceId = e.CommandArgument.ToString();
                 List<BL.service.Service> service = new BL.service.Service().SelectById(serviceId);
                 BL.service.Service curr = new BL.service.Service();
-                List<string> userfavs = new Fav().SelectUserFavs("1");
+                List<string> userfavs = new Fav().SelectUserFavs(LblUid.Text);
                 if (!userfavs.Contains(serviceId))
                 {
                     int servres = curr.Favourite(serviceId, service[0].favs + 1);
@@ -94,17 +107,9 @@ namespace Esource.Views.service
                         toast(this, "An error occured while unfavouriting the service", "Error", "error");
                     }
                 }
-                List<BL.service.Service> services = new BL.service.Service().SelectByUid("1");
+                List<BL.service.Service> services = new BL.service.Service().SelectByUid(LblUid.Text);
                 managelist.DataSource = services;
                 managelist.DataBind();
-            }
-        }
-
-        protected void managelist_ItemDataBound(object sender, RepeaterItemEventArgs e)
-        {
-            if (e.Item.ItemType == ListItemType.Footer && managelist.Items.Count < 1)
-            {
-                e.Item.FindControl("LbErr").Visible = true;
             }
         }
     }

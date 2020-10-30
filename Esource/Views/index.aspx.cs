@@ -24,12 +24,6 @@ namespace Esource.Views
             }
         }
 
-        public User user()
-        {
-            User user = new User().SelectById(Session["uid"].ToString());
-            return user;
-        }
-
         public void toast(Page page, string message, string title, string type)
         {
             ScriptManager.RegisterClientScriptBlock(page, page.GetType(), "toastmsg", "toastnotif('" + message + "','" + title + "','" + type.ToLower() + "');", true);

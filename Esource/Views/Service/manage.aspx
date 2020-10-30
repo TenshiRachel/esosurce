@@ -5,20 +5,21 @@
     <section class="manage">
         <asp:ScriptManager runat="server" ID="managescript">
         </asp:ScriptManager>
+        <asp:Label runat="server" ID="LblUid" Visible="false"></asp:Label>
         <div class="text-center">
             <a role="button" href="<%=Page.ResolveUrl("~/Views/service/add.aspx") %>" class="btn btn-md btn-rounded btn-success">
                 Add Service <i class="fas fa-plus ml-2"></i>
             </a>
         </div>
-        <asp:UpdatePanel runat="server" ID="managepanel">
+        <asp:UpdatePanel runat="server" ID="managepanel" UpdateMode="Conditional">
             <ContentTemplate>
                 <div class="row">
-                    <asp:Repeater runat="server" ID="managelist" OnItemDataBound="managelist_ItemDataBound" OnItemCommand="managelist_ItemCommand">
+                    <asp:Repeater runat="server" ID="managelist" OnItemCommand="managelist_ItemCommand">
                         <ItemTemplate>
                             <div class="col-12 col-md-4 col-lg-3 d-flex align-items-stretch mt-4">
                                 <div class="card w-100">
                                     <div class="view overlay border-bottom border-primary rounded-top">
-                                        <img class="card-img-top" src="" onerror="this.src='<%= Page.ResolveUrl("~/Content/img/placeholder.jpg") %>'"/>
+                                        <img class="card-img-top" src="<%#Eval("img_path") %>" onerror="this.src='<%= Page.ResolveUrl("~/Content/img/placeholder.jpg") %>'"/>
                                         <a><div class="mask rgba-black-light"></div></a>
                                     </div>
                                     <div class="ml-auto mr-3">
@@ -40,8 +41,8 @@
 
                                         <div class="d-flex mt-2">
                                             <div class="flex-fill">
-                                                <img src="" onerror="this.src='<%= Page.ResolveUrl("~/Content/img/placeholder.jpg") %>'" class="rounded-circle img-fluid z-depth-1 avatar" style="max-width: 2rem;" />
-                                                <asp:LinkButton runat="server" CssClass="align-middle ml-1" CommandName="viewprofile" CommandArgument='<%#Eval("uid") %>'>Username</asp:LinkButton>
+                                                <img src="<%#Eval("profile_src") %>" onerror="this.src='<%= Page.ResolveUrl("~/Content/img/placeholder.jpg") %>'" class="rounded-circle img-fluid z-depth-1 avatar" style="max-width: 2rem;" />
+                                                <asp:LinkButton runat="server" CssClass="align-middle ml-1" CommandName="viewprofile" CommandArgument='<%#Eval("uid") %>'><%#Eval("username") %></asp:LinkButton>
                                             </div>
                                             <div class="d-flex align-items-center">
                                                 <span class="text-muted small">
@@ -108,16 +109,12 @@
                                 </div>
                             </div>
                         </ItemTemplate>
-                        <FooterTemplate>
-                            <div class="text-center mt-4">
-                                <h4>
-                                    <asp:Label runat="server" ID="LbErr" Text="No Services at the moment" CssClass="font-weight-bold" Visible="false"></asp:Label>
-                                </h4>
-                            </div>
-                        </FooterTemplate>
                     </asp:Repeater>
                 </div>
             </ContentTemplate>
         </asp:UpdatePanel>
+        <div class="mt-4">
+            <h3 runat="server" id="LbErr" visible="false" class="font-weight-bold text-center">No services at the moment</h3>
+        </div>
     </section>
 </asp:Content>

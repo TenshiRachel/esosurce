@@ -3,6 +3,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <section>
+        <asp:Label runat="server" ID="LblUid" Visible="false"></asp:Label>
         <div class="container">
             <div class="card card-body">
                 <h3 class="text-info font-weight-bold">Add Service</h3>

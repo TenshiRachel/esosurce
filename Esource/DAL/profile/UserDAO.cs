@@ -54,13 +54,14 @@ namespace Esource.DAL.profile
             if (rec_cnt > 0)
             {
                 DataRow row = ds.Tables[0].Rows[0];
+                int id = int.Parse(row["Id"].ToString());
                 string name = row["username"].ToString();
                 string email = row["email"].ToString();
                 string password = row["password"].ToString();
                 string bio = row["bio"].ToString();
                 string src = row["profile_src"].ToString();
                 string type = row["type"].ToString();
-                obj = new User(name, email, password, bio, src, type);
+                obj = new User(name, email, password, bio, src, type, id);
             }
 
             return obj;
@@ -90,7 +91,7 @@ namespace Esource.DAL.profile
                 string bio = row["bio"].ToString();
                 string src = row["profile_src"].ToString();
                 string type = row["type"].ToString();
-                obj = new User(name, email, password, bio, src, type);
+                obj = new User(name, email, password, bio, src, type, int.Parse(id));
             }
 
             return obj;

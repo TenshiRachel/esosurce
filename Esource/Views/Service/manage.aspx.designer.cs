@@ -22,6 +22,15 @@ namespace Esource.Views.service {
         protected global::System.Web.UI.ScriptManager managescript;
         
         /// <summary>
+        /// LblUid control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LblUid;
+        
+        /// <summary>
         /// managepanel control.
         /// </summary>
         /// <remarks>
@@ -38,5 +47,14 @@ namespace Esource.Views.service {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Repeater managelist;
+        
+        /// <summary>
+        /// LbErr control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl LbErr;
     }
 }
