@@ -1,10 +1,38 @@
 ﻿$(function () {
     let searchbut = document.getElementById('searchbut');
+    let fileUpload = document.getElementById('ContentPlaceHolder1_upPoster');
+    let wrapper = document.getElementsByClassName('wrapper')[0];
 
     if (searchbut) {
         searchbut.addEventListener('click', search);
     }
+
+    if (wrapper) {
+        wrapper.addEventListener('click', clickUpload);
+    }
+
+    if (fileUpload) {
+        fileUpload.addEventListener('change', preview);
+    }
 });
+
+function clickUpload() {
+    let fileUpload = $('#ContentPlaceHolder1_upPoster');
+    fileUpload.click();
+}
+
+function preview() {
+    let input = document.getElementById('ContentPlaceHolder1_upPoster');
+    let file = input.files;
+    let reader = new FileReader();
+    reader.onload = function (e) {
+        $('#poster').attr('src', e.target.result);
+    }
+
+    if (file && file[0]) {
+        reader.readAsDataURL(file[0]);
+    }
+}
 
 function search() {
     let input = $('#search').val();

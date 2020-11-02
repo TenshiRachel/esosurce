@@ -2,7 +2,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <section>
+    <section class="addservice">
         <asp:Label runat="server" ID="LblUid" Visible="false"></asp:Label>
         <div class="container">
             <div class="card card-body">
@@ -26,9 +26,15 @@
                     </div>
                     <div class="col-lg-3">
                         <label class="font-italic">Service poster (Optional)</label>
-                        <div class="custom-file">
-                            <asp:FileUpload runat="server" ID="upPoster" CssClass="custom-file-input" />
-                            <asp:Label runat="server" Text="Upload a file" CssClass="custom-file-label" AssociatedControlID="upPoster"></asp:Label>
+                        <div class="filepreview">
+                            <div class="wrapper">
+                                <div class="preview">
+                                    <img src="#" id="poster" />
+                                </div>
+                                <div class="custom-file">
+                                    <asp:FileUpload runat="server" ID="upPoster" />
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -48,11 +54,12 @@
                     </div>
                 </div>
                 <br />
-                <div class="text-right">
+                <div>
                     <a href="<%=Page.ResolveUrl("~/Views/service/manage.aspx") %>" class="btn btn-danger">Cancel</a>
                     <asp:Button runat="server" ID="btnAdd" Text="Add Service" CssClass="btn btn-success" OnClick="btnAdd_Click" />
                 </div>
             </div>
         </div>
     </section>
+    <script src="<%=Page.ResolveUrl("~/Scripts/servicescript.js") %>" type="text/javascript"></script>
 </asp:Content>

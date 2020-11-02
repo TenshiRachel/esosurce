@@ -458,6 +458,70 @@ section.home-hero .carousel-caption {
     clear: both;
 }
 
+.filepreview {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    height: calc(1.5em + .75rem + 2px);
+    margin-bottom: 0;
+}
+
+.filepreview > .wrapper {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    max-width: 100%;
+    min-height: 500px;
+    max-height: 100%;
+    padding: 5px 10px;
+    font-size: 1rem;
+    text-align: center;
+    color: #ffffff;
+}
+
+.custom-file {
+    display: none;
+}
+
+.filepreview > .wrapper > .preview {
+    position: absolute;
+    z-index: 1;
+    background-color: #fff;
+    padding: 3px;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    overflow: hidden;
+    text-align: center;
+}
+ 
+.filepreview > .wrapper > .preview > img {
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+    -webkit-transition: border-color .15s linear;
+    -o-transition: border-color .15s linear;
+    transition: border-color .15s linear;
+    -o-object-fit: cover;
+    object-fit: cover;
+}
+
 .services .card .avatar,
 .manage .card .avatar,
 .viewserv .card .avatar{

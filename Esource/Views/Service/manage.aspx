@@ -1,4 +1,5 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Masters/index.Master" AutoEventWireup="true" CodeBehind="manage.aspx.cs" Inherits="Esource.Views.service.manage" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -7,8 +8,7 @@
         </asp:ScriptManager>
         <asp:Label runat="server" ID="LblUid" Visible="false"></asp:Label>
         <div class="text-center">
-            <a role="button" href="<%=Page.ResolveUrl("~/Views/service/add.aspx") %>" class="btn btn-md btn-rounded btn-success">
-                Add Service <i class="fas fa-plus ml-2"></i>
+            <a role="button" href="<%=Page.ResolveUrl("~/Views/service/add.aspx") %>" class="btn btn-md btn-rounded btn-success">Add Service <i class="fas fa-plus ml-2"></i>
             </a>
         </div>
         <asp:UpdatePanel runat="server" ID="managepanel" UpdateMode="Conditional">
@@ -19,20 +19,23 @@
                             <div class="col-12 col-md-4 col-lg-3 d-flex align-items-stretch mt-4">
                                 <div class="card w-100">
                                     <div class="view overlay border-bottom border-primary rounded-top">
-                                        <img class="card-img-top" src="<%#Eval("img_path") %>" onerror="this.src='<%= Page.ResolveUrl("~/Content/img/placeholder.jpg") %>'"/>
-                                        <a><div class="mask rgba-black-light"></div></a>
+                                        <img class="card-img-top" src="<%#Eval("img_path") %>" onerror="this.src='<%= Page.ResolveUrl("~/Content/img/placeholder.jpg") %>'" />
+                                        <a>
+                                            <div class="mask rgba-black-light"></div>
+                                        </a>
                                     </div>
                                     <div class="ml-auto mr-3">
-                                         <button type="button" class="btn-danger btn-sm m-0 mr-2"
-                                            data-tooltip="tooltip" data-placement="top" title="Delete" data-toggle="modal" data-target="#delmodal<%#Eval("Id") %>">
+                                        <a class="btn-danger btn-sm m-0 mr-2"
+                                            data-tooltip="tooltip" data-placement="top" title="Delete" data-backdrop="false" data-toggle="modal" data-target="#delmodal<%#Eval("Id") %>">
                                             <i class="fas fa-trash-alt white-text"></i>
-                                        </button>
+                                        </a>
+
                                         <asp:LinkButton runat="server" CssClass="btn-success btn-sm m-0 mr-2"
                                             data-tooltip="tooltip" data-placement="top" title="Edit" CommandName="edit" CommandArgument='<%#Eval("Id") %>'>
                                             <i class="fas fa-edit"></i>
                                         </asp:LinkButton>
 
-                                        <asp:LinkButton runat="server" CssClass="btn-primary btn-sm m-0" data-tooltip="tooltip"
+                                        <asp:LinkButton runat="server" CssClass="btn-primary btn-sm" data-tooltip="tooltip"
                                             data-placement="top" title="View More Details" CommandName="view" CommandArgument='<%#Eval("Id") %>'>
                                             <i class="fas fa-eye"></i>
                                         </asp:LinkButton>
@@ -67,7 +70,7 @@
                                                 <%#Eval("desc") %>
                                             </p>
                                         </div>
-                                
+
                                         <div class="d-flex">
                                             <div class="flex-fill text-right">
                                                 <asp:LinkButton runat="server" CssClass="btn btn-sm btn-red mr-0" CommandName="favourite" CommandArgument='<%#Eval("Id") %>'
@@ -82,15 +85,14 @@
                                     </div>
 
                                     <div class="card-footer accent-2 white-text deep-purple text-center">
-                                        <h5 class="m-0">
-                                            $<%#Eval("price") %></h5>
+                                        <h5 class="m-0">$<%#Eval("price") %></h5>
                                     </div>
                                 </div>
                             </div>
                             <%--Modal--%>
                             <div class="modal fade" id="delmodal<%#Eval("Id") %>" tabindex="-1" role="dialog"
                                 aria-hidden="true">
-                                <div class="modal-dialog" role="document">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <h5 class="modal-title">Are you sure you want to delete this service?</h5>
