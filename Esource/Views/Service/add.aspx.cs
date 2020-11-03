@@ -101,7 +101,7 @@ namespace Esource.Views.service
                 string name = tbName.Text;
                 string desc = tbDesc.Text;
                 decimal price = decimal.Parse(tbPrice.Text);
-                string img_path = "";
+                string img_path = "~/Content/img/placeholder.jpg";
                 if (upPoster.HasFile)
                 {
                     img_path = storeFile();

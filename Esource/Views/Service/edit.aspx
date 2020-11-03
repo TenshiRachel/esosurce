@@ -4,6 +4,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <section>
         <div class="container">
+            <asp:Label runat="server" ID="LblUid" Visible="false"></asp:Label>
             <div class="card card-body">
                 <h3 class="text-info font-weight-bold">Edit Service</h3>
                 <div class="row">
