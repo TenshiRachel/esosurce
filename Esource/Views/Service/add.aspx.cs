@@ -6,6 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Esource.BL.service;
 using Esource.BL.profile;
+using System.IO;
 
 namespace Esource.Views.service
 {
@@ -51,6 +52,33 @@ namespace Esource.Views.service
             return valid;
         }
 
+        public string storeFile()
+        {
+            string img_path = "";
+            List<string> acceptedTypes = new List<string>() {
+                "image/png",
+                "image/jpeg",
+                "image/jpg"
+            };
+
+            if (acceptedTypes.Contains(upPoster.PostedFile.ContentType))
+            {
+                string fileName = Path.GetFileName(upPoster.FileName);
+                string dirPath = Server.MapPath("~/Content/uploads/services/" + LblUid.Text + "/");
+                Directory.CreateDirectory(dirPath);
+                upPoster.SaveAs(dirPath + fileName);
+
+                img_path = "~/Content/uploads/services/" + LblUid.Text + "/" + fileName;
+            }
+
+            else
+            {
+                toast(this, "Only image files are accepted", "Error", "error");
+            }
+
+            return img_path;
+        }
+
         protected void btnAdd_Click(object sender, EventArgs e)
         {
             string categories = "";
@@ -73,8 +101,14 @@ namespace Esource.Views.service
                 string name = tbName.Text;
                 string desc = tbDesc.Text;
                 decimal price = decimal.Parse(tbPrice.Text);
+                string img_path = "";
+                if (upPoster.HasFile)
+                {
+                    img_path = storeFile();
+                }
                 User curruser = new User().SelectById(LblUid.Text);
-                BL.service.Service service = new BL.service.Service(name, desc, price, categories, "", curruser.Id, curruser.username, curruser.profile_src);
+                BL.service.Service service = new BL.service.Service(name, desc, price, categories, img_path, curruser.Id, curruser.username, curruser.profile_src);
+
                 int result = service.AddService();
                 if (result == 0)
                 {

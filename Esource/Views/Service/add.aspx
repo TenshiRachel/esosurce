@@ -21,7 +21,7 @@
 
                         <div class="md-form md-outline">
                             <asp:Label runat="server" AssociatedControlID="tbPrice" Text="Price ($)"></asp:Label>
-                            <asp:TextBox runat="server" TextMode="Number" ID="tbPrice" CssClass="form-control w-20"></asp:TextBox>
+                            <asp:TextBox runat="server" TextMode="Number" ID="tbPrice" CssClass="form-control w-25"></asp:TextBox>
                         </div>
                     </div>
                     <div class="col-lg-3">

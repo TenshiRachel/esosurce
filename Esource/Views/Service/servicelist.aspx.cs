@@ -87,5 +87,12 @@ namespace Esource.Views.Service
                 servList.DataBind();
             }
         }
+
+        protected void servList_ItemDataBound(object sender, RepeaterItemEventArgs e)
+        {
+            var img = e.Item.FindControl("poster") as Image;
+            HiddenField path = (HiddenField)e.Item.FindControl("img_path");
+            img.ImageUrl = Page.ResolveUrl(path.Value);
+        }
     }
 }

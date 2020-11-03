@@ -94,6 +94,7 @@
     <Content Include="Content\css\toast\toastr.css" />
     <Content Include="Content\css\toast\toastr.min.css" />
     <Content Include="Content\img\placeholder.jpg" />
+    <Content Include="Content\uploads\services\1\-1\weee.jpg" />
     <Content Include="Content\vid\home\forest.mp4" />
     <Content Include="Content\vid\home\photography.mp4" />
     <Content Include="Content\vid\home\typing.mp4" />

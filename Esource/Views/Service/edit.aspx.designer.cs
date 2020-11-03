@@ -40,6 +40,15 @@ namespace Esource.Views.service {
         protected global::System.Web.UI.WebControls.TextBox tbPrice;
         
         /// <summary>
+        /// poster control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlImage poster;
+        
+        /// <summary>
         /// upPoster control.
         /// </summary>
         /// <remarks>

@@ -26,7 +26,14 @@ function preview() {
     let file = input.files;
     let reader = new FileReader();
     reader.onload = function (e) {
-        $('#poster').attr('src', e.target.result);
+        let img = $('#poster');
+        if (img) {
+            img.attr('src', e.target.result);
+        }
+        img = $('#ContentPlaceHolder1_poster');
+        if (img) {
+            img.attr('src', e.target.result);
+        }
     }
 
     if (file && file[0]) {

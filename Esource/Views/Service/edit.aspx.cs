@@ -22,6 +22,11 @@ namespace Esource.Views.service
                         tbName.Text = service[0].name;
                         tbDesc.Text = service[0].desc;
                         tbPrice.Text = service[0].price.ToString();
+                        string posterPath = service[0].img_path;
+                        if (!String.IsNullOrEmpty(posterPath))
+                        {
+                            poster.Src = posterPath;
+                        }
                         string[] categories = service[0].categories.Split(' ');
                         foreach (ListItem item in cblCat.Items)
                         {

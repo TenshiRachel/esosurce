@@ -20,14 +20,20 @@
 
                         <div class="md-form md-outline">
                             <asp:Label runat="server" AssociatedControlID="tbPrice" Text="Price ($)"></asp:Label>
-                            <asp:TextBox runat="server" TextMode="Number" ID="tbPrice" CssClass="form-control w-20"></asp:TextBox>
+                            <asp:TextBox runat="server" TextMode="Number" ID="tbPrice" CssClass="form-control w-25"></asp:TextBox>
                         </div>
                     </div>
                     <div class="col-lg-3">
                         <label class="font-italic">Service poster (Optional)</label>
-                        <div class="custom-file">
-                            <asp:FileUpload runat="server" ID="upPoster" CssClass="custom-file-input" />
-                            <asp:Label runat="server" Text="Upload a file" CssClass="custom-file-label" AssociatedControlID="upPoster"></asp:Label>
+                        <div class="filepreview">
+                            <div class="wrapper">
+                                <div class="preview">
+                                    <img src="#" runat="server" id="poster" />
+                                </div>
+                                <div class="custom-file">
+                                    <asp:FileUpload runat="server" ID="upPoster" />
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -47,11 +53,12 @@
                     </div>
                 </div>
                 <br />
-                <div class="text-right">
+                <div>
                     <a href="<%=Page.ResolveUrl("~/Views/service/manage.aspx") %>" class="btn btn-danger">Cancel</a>
                     <asp:Button runat="server" ID="btnEdit" Text="Save changes" CssClass="btn btn-success" OnClick="btnEdit_Click" />
                 </div>
             </div>
         </div>
     </section>
+    <script src="<%=Page.ResolveUrl("~/Scripts/servicescript.js") %>" type="text/javascript"></script>
 </asp:Content>

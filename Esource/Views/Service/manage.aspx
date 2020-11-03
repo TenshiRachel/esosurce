@@ -14,12 +14,13 @@
         <asp:UpdatePanel runat="server" ID="managepanel" UpdateMode="Conditional">
             <ContentTemplate>
                 <div class="row">
-                    <asp:Repeater runat="server" ID="managelist" OnItemCommand="managelist_ItemCommand">
+                    <asp:Repeater runat="server" ID="managelist" OnItemCommand="managelist_ItemCommand" OnItemDataBound="managelist_ItemDataBound">
                         <ItemTemplate>
                             <div class="col-12 col-md-4 col-lg-3 d-flex align-items-stretch mt-4">
                                 <div class="card w-100">
                                     <div class="view overlay border-bottom border-primary rounded-top">
-                                        <img class="card-img-top" src="<%#Eval("img_path") %>" onerror="this.src='<%= Page.ResolveUrl("~/Content/img/placeholder.jpg") %>'" />
+                                        <asp:HiddenField runat="server" ID="img_path" Value='<%#Eval("img_path") %>' />
+                                        <asp:Image runat="server" ID="poster" CssClass="card-img-top" />
                                         <a>
                                             <div class="mask rgba-black-light"></div>
                                         </a>
