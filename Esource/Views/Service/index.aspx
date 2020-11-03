@@ -4,14 +4,15 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <section class="viewserv container mx-auto">
         <div class="col-10 mx-auto row justify-content-around">
-                    <asp:Repeater runat="server" ID="serviceview" OnItemCommand="serviceview_ItemCommand">
+                    <asp:Repeater runat="server" ID="serviceview" OnItemCommand="serviceview_ItemCommand" OnItemDataBound="serviceview_ItemDataBound">
                         <ItemTemplate>
                             <div class="col-lg-6">
                                 <div>
                                     <div class="card w-100">
 
                                         <div class="view overlay border-bottom border-primary rounded-top">
-                                            <img class="card-img-top" src="<%#Eval("img_path") %>" onerror="this.src='<%=Page.ResolveUrl("~/Content/img/placeholder.jpg") %>'" alt='<%#Eval("name") %>' />
+                                            <asp:HiddenField runat="server" ID="img_path" Value='<%#Eval("img_path") %>'></asp:HiddenField>
+                                            <asp:Image runat="server" ID="poster" CssClass="card-img-top" alt='<%#Eval("name") %>' />
                                             <a>
                                                 <div class="mask rgba-black-light"></div>
                                             </a>

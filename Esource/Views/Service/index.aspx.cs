@@ -35,5 +35,12 @@ namespace Esource.Views.service
                 Response.Redirect("~/Views/profile/view.aspx?id=" + e.CommandArgument.ToString());
             }
         }
+
+        protected void serviceview_ItemDataBound(object sender, RepeaterItemEventArgs e)
+        {
+            var img = e.Item.FindControl("poster") as Image;
+            HiddenField path = (HiddenField)e.Item.FindControl("img_path");
+            img.ImageUrl = Page.ResolveUrl(path.Value);
+        }
     }
 }
