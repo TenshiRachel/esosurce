@@ -123,10 +123,10 @@
         <footer class="page-footer font-small blue">
             <div class="footer-copyright p-3">
                 <a href="<%= Page.ResolveUrl("~/Views/index.aspx") %>">
-                    <img src="" alt="ESource" />
+                    <img src="<%=Page.ResolveUrl("~/Content/img/logo/normal.png") %>" alt="OutSource" />
                 </a>
                 <p class="m-0">
-                    &copy; <%=DateTime.Now.Year.ToString() %><a href="<%= Page.ResolveUrl("~/Views/index.aspx") %>"> ESource</a> All Rights Reserved
+                    &copy; <%=DateTime.Now.Year.ToString() %><a href="<%= Page.ResolveUrl("~/Views/index.aspx") %>"> OutSource</a> All Rights Reserved
                 </p>
             </div>
         </footer>

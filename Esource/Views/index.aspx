@@ -14,7 +14,7 @@
 
                     <div class="carousel-caption d-flex align-items-center">
                         <div class="animated fadeInDown mask rgba-black-light rounded z-depth-1 p-4 w-100">
-                            <h1 class="h1-responsive mb-0 mb-md-2">Welcome to ESource</h1>
+                            <h1 class="h1-responsive mb-0 mb-md-2">Welcome to OutSource</h1>
                             <p class="d-none d-md-block">
                                 A platform for freelancers to offer services to clients worldwide.
                             </p>
@@ -35,7 +35,7 @@
                             <h1 class="h1-responsive">Looking for Services?</h1>
                             <p class="d-none d-md-block">
                                 Are you looking to hire someone for their services, look no further.<br />
-                                ESource provides you a platform where freelancers offer a wide range of services.
+                                OutSource provides you a platform where freelancers offer a wide range of services.
                             </p>
 
                             <a class="btn btn-md btn-primary" href="<%=Page.ResolveUrl("~/Views/service/servicelist.aspx") %>">

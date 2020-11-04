@@ -14,24 +14,33 @@ namespace Esource.Views.notification
         {
             if (!Page.IsPostBack)
             {
-                bind();
-                showContent();
+                if (Session["uid"] != null)
+                {
+                    LblUid.Value = Session["uid"].ToString();
+                    bind();
+                    showContent();
+                }
+                else
+                {
+                    Session["error"] = "Please log in to view notifications";
+                    Response.Redirect("~/Views/auth/login.aspx");
+                }
             }
         }
 
         public void bind()
         {
             Notification notif = new Notification();
-            List<Notification> favnotifs = notif.UserNotifs("1", "fav");
+            List<Notification> favnotifs = notif.UserNotifs(LblUid.Value, "fav");
             favs.DataSource = favnotifs;
             favs.DataBind();
-            List<Notification> jnotifs = notif.UserNotifs("1", "job");
+            List<Notification> jnotifs = notif.UserNotifs(LblUid.Value, "job");
             jobs.DataSource = jnotifs;
             jobs.DataBind();
-            List<Notification> fnotifs = notif.UserNotifs("1", "file");
+            List<Notification> fnotifs = notif.UserNotifs(LblUid.Value, "file");
             files.DataSource = fnotifs;
             files.DataBind();
-            List<Notification> rnotifs = notif.UserNotifs("1", "request");
+            List<Notification> rnotifs = notif.UserNotifs(LblUid.Value, "request");
             requests.DataSource = rnotifs;
             requests.DataBind();
         }
@@ -182,7 +191,7 @@ namespace Esource.Views.notification
         protected void clearAll(object sender, CommandEventArgs e)
         {
             Notification notif = new Notification();
-            int result = notif.ClearAll("1", e.CommandArgument.ToString());
+            int result = notif.ClearAll(LblUid.Value, e.CommandArgument.ToString());
             if (result == 1)
             {
                 toast(this, "Notifications cleared successfully", "Success", "success");

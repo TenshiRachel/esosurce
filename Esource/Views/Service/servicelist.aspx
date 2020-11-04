@@ -5,6 +5,7 @@
     <section class="services">
         <asp:ScriptManager runat="server" ID="servscript">
         </asp:ScriptManager>
+        <asp:HiddenField runat="server" ID="LblUid" />
         <div class="row">
             <div class="col-12 col-md-4 order-2 order-md-1 mt-2 mt-md-0">
                 <div id="filter">

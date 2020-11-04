@@ -5,6 +5,8 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Esource.BL.service;
+using Esource.BL.notification;
+using Esource.BL.profile;
 
 namespace Esource.Views.Service
 {
@@ -31,6 +33,10 @@ namespace Esource.Views.Service
                 }
                 servList.DataSource = services;
                 servList.DataBind();
+                if (Session["uid"] != null)
+                {
+                    LblUid.Value = Session["uid"].ToString();
+                }
             }
         }
 
@@ -51,16 +57,27 @@ namespace Esource.Views.Service
             }
             if (e.CommandName == "favourite")
             {
+                if (string.IsNullOrEmpty(LblUid.Value))
+                {
+                    Session["error"] = "Please log in to favourite a service";
+                    Response.Redirect("~/Views/auth/login.aspx");
+                }
+
                 string serviceId = e.CommandArgument.ToString();
                 List<BL.service.Service> service = new BL.service.Service().SelectById(serviceId);
                 BL.service.Service curr = new BL.service.Service();
-                List<string> userfavs = new Fav().SelectUserFavs("1");
+                User curruser = new User().SelectById(LblUid.Value);
+                
+                List<string> userfavs = new Fav().SelectUserFavs(LblUid.Value);
+
                 if (!userfavs.Contains(serviceId)) {
                     int servres = curr.Favourite(serviceId, service[0].favs + 1);
                     Fav fav = new Fav(1, int.Parse(serviceId));
                     int favres = fav.Add();
                     if (favres == 1 && servres == 1)
                     {
+                        Notification notif = new Notification(int.Parse(LblUid.Value), curruser.username, service[0].Id, service[0].name, "fav");
+                        notif.AddNotif();
                         toast(this, "Service favourited", "Success", "success");
                     }
                     else

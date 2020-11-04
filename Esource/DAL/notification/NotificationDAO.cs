@@ -61,7 +61,7 @@ namespace Esource.DAL.notification
                     DataRow row = ds.Tables[0].Rows[i];
                     string username = row["cname"].ToString();
                     int pid = int.Parse(row["pid"].ToString());
-                    string title = row["date_created"].ToString();
+                    string title = row["title"].ToString();
                     string date_created = row["date_created"].ToString();
                     string status = row["status"].ToString();
                     int Id = int.Parse(row["Id"].ToString());
@@ -71,6 +71,32 @@ namespace Esource.DAL.notification
             }
 
             return notifs;
+        }
+
+        public int GetNotifCount(string uid)
+        {
+            string DBConnect = ConfigurationManager.ConnectionStrings["ConnStr"].ConnectionString;
+            SqlConnection conn = new SqlConnection(DBConnect);
+
+            string sqlStmt = "SELECT * FROM Notification WHERE cid = @paraCid AND status = ''";
+
+            SqlDataAdapter da = new SqlDataAdapter(sqlStmt, conn);
+            da.SelectCommand.Parameters.AddWithValue("@paraCid", uid);
+
+            DataSet ds = new DataSet();
+            da.Fill(ds);
+            int rec_cnt = ds.Tables[0].Rows.Count;
+
+            int count = 0;
+            if (rec_cnt > 0)
+            {
+                for (int i = 0; i < rec_cnt; i++)
+                {
+                    count++;
+                }
+            }
+
+            return count;
         }
 
         public int UpdateStatus(string id, string status)

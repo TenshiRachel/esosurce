@@ -93,6 +93,7 @@
     <Content Include="Content\css\style.css" />
     <Content Include="Content\css\toast\toastr.css" />
     <Content Include="Content\css\toast\toastr.min.css" />
+    <Content Include="Content\img\logo\normal.png" />
     <Content Include="Content\img\placeholder.jpg" />
     <Content Include="Content\vid\home\forest.mp4" />
     <Content Include="Content\vid\home\photography.mp4" />

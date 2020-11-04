@@ -13,6 +13,15 @@ namespace Esource.Views.notification {
     public partial class index {
         
         /// <summary>
+        /// LblUid control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField LblUid;
+        
+        /// <summary>
         /// favalert control.
         /// </summary>
         /// <remarks>

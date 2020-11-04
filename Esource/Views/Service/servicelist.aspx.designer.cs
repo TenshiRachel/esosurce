@@ -22,6 +22,15 @@ namespace Esource.Views.Service {
         protected global::System.Web.UI.ScriptManager servscript;
         
         /// <summary>
+        /// LblUid control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField LblUid;
+        
+        /// <summary>
         /// servpanel control.
         /// </summary>
         /// <remarks>

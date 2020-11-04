@@ -46,6 +46,12 @@ namespace Esource.BL.notification
             return notifs;
         }
 
+        public int GetNotifCount(string uid)
+        {
+            int count = new NotificationDAO().GetNotifCount(uid);
+            return count;
+        }
+
         public int Remove(string id)
         {
             int result = new NotificationDAO().UpdateStatus(id, "deleted");

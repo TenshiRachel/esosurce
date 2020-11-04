@@ -3,6 +3,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <section class="notifications">
+        <asp:HiddenField runat="server" ID="LblUid" />
         <h1 class="col-12 text-center">Notifications</h1>
         <div class="col-lg-10 col-sm-12 mx-auto">
             <ul class="nav nav-tabs rounded-0" role="tablist">

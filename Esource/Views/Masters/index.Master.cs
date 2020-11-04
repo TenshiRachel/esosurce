@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Esource.BL.profile;
+using Esource.BL.notification;
 
 namespace Esource.Views.Masters
 {
@@ -16,6 +17,7 @@ namespace Esource.Views.Masters
             {
                 LblUid.Text = Session["uid"].ToString();
                 user();
+                notifCount();
             }
         }
 
@@ -23,6 +25,12 @@ namespace Esource.Views.Masters
         {
             User user = new User().SelectById(LblUid.Text);
             return user;
+        }
+
+        public int notifCount()
+        {
+            int count = new Notification().GetNotifCount(LblUid.Text);
+            return count;
         }
     }
 }
