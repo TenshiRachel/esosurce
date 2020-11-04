@@ -1,8 +1,10 @@
-## ESource
+## OutSource
 
-### What is ESource?
+### What is OutSource?
 
-ESource is a web application that aims to bring service providers and customers together, increasing efficiency of communications/experience.
+OutSource is a web application built on C# and ASP NET that aims to bring service providers and clients together, increasing efficiency of communications and enhancing overall experience.
+
+This project is a C# version with minor adjustments of [Outsource built on NodeJS](https://github.com/JDesignEra/outsource).
 
 ### How to run?
 
@@ -17,3 +19,5 @@ Run the project.
 [James (ValianxD)](https://github.com/ValianxD)
 
 [Manfred (ManfredSim)](https://github.com/ManfredSim)
+
+[Keith (KeithXP)](https://github.com/KeithXP)
