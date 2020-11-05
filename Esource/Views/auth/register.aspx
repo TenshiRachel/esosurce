@@ -21,7 +21,7 @@
                     <h5 class="card-title text-center mb-4">Join As Client</h5>
                     <div class="md-form md-outline input-group">
                         <div class="input-group-prepend">
-                            <span class="input-group-text primary-light-gradient white-text">
+                            <span class="input-group-text primary-light-gradient">
                                 <i class="far fa-user"></i>
                             </span>
                         </div>
@@ -30,7 +30,7 @@
 
                     <div class="input-group mb-4">
                         <div class="input-group-prepend">
-                            <span class="input-group-text primary-light-gradient white-text">
+                            <span class="input-group-text primary-light-gradient">
                                 <i class="far fa-envelope"></i>
                             </span>
                         </div>
@@ -39,7 +39,7 @@
 
                     <div class="input-group mb-4">
                         <div class="input-group-prepend">
-                            <span class="input-group-text primary-light-gradient white-text">
+                            <span class="input-group-text primary-light-gradient">
                                 <i class="fas fa-lock"></i>
                             </span>
                         </div>
@@ -48,7 +48,7 @@
 
                     <div class="input-group mb-4">
                         <div class="input-group-prepend">
-                            <span class="input-group-text primary-light-gradient white-text">
+                            <span class="input-group-text primary-light-gradient">
                                 <i class="fas fa-lock"></i>
                             </span>
                         </div>
@@ -74,7 +74,7 @@
                     <h5 class="card-title text-center mb-4">Join As Service Provider</h5>
                     <div class="md-form md-outline input-group">
                         <div class="input-group-prepend">
-                            <span class="input-group-text primary-light-gradient white-text">
+                            <span class="input-group-text primary-light-gradient">
                                 <i class="far fa-user"></i>
                             </span>
                         </div>
@@ -83,7 +83,7 @@
 
                     <div class="input-group mb-4">
                         <div class="input-group-prepend">
-                            <span class="input-group-text primary-light-gradient white-text">
+                            <span class="input-group-text primary-light-gradient">
                                 <i class="far fa-envelope"></i>
                             </span>
                         </div>
@@ -92,7 +92,7 @@
 
                     <div class="input-group mb-4">
                         <div class="input-group-prepend">
-                            <span class="input-group-text primary-light-gradient white-text">
+                            <span class="input-group-text primary-light-gradient">
                                 <i class="fas fa-lock"></i>
                             </span>
                         </div>
@@ -101,7 +101,7 @@
 
                     <div class="input-group mb-4">
                         <div class="input-group-prepend">
-                            <span class="input-group-text primary-light-gradient white-text">
+                            <span class="input-group-text primary-light-gradient">
                                 <i class="fas fa-lock"></i>
                             </span>
                         </div>

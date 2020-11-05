@@ -11,7 +11,7 @@
                     <div class="card-body text-center">
                     <div class="input-group mb-4">
                         <div class="input-group-prepend">
-                            <span class="input-group-text primary-light-gradient white-text">
+                            <span class="input-group-text primary-light-gradient">
                                 <i class="far fa-envelope"></i>
                             </span>
                         </div>
@@ -20,7 +20,7 @@
 
                     <div class="input-group mb-4">
                         <div class="input-group-prepend">
-                            <span class="input-group-text primary-light-gradient white-text">
+                            <span class="input-group-text primary-light-gradient">
                                 <i class="fas fa-lock"></i>
                             </span>
                         </div>
