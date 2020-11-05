@@ -199,6 +199,7 @@
     <Content Include="Views\service\index.aspx" />
     <Content Include="Views\service\manage.aspx" />
     <Content Include="Views\service\payment.aspx" />
+    <Content Include="Views\service\request.aspx" />
     <Content Include="Views\service\servicelist.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -304,6 +305,13 @@
     </Compile>
     <Compile Include="Views\service\payment.aspx.designer.cs">
       <DependentUpon>payment.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\service\request.aspx.cs">
+      <DependentUpon>request.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\service\request.aspx.designer.cs">
+      <DependentUpon>request.aspx</DependentUpon>
     </Compile>
     <Compile Include="Views\service\servicelist.aspx.cs">
       <DependentUpon>servicelist.aspx</DependentUpon>

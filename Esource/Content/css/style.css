@@ -446,6 +446,17 @@ section.home-hero .carousel-caption {
     height: 100%;
 }
 
+/*Navbar*/
+
+nav.navbar .navbar-brand {
+    min-width: 93px;
+    min-height: 30px;
+    background-image: url("/Content/img/logo/normal.png");
+    background-repeat: no-repeat;
+    background-size: 100% auto;
+    background-position: center;
+}
+
 /*Services*/
 
 .services .row {
