@@ -22,6 +22,24 @@ namespace Esource.Views.service {
         protected global::System.Web.UI.WebControls.HiddenField LblUid;
         
         /// <summary>
+        /// reqpanel_script control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.ScriptManager reqpanel_script;
+        
+        /// <summary>
+        /// reqpanel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel reqpanel;
+        
+        /// <summary>
         /// reqlist control.
         /// </summary>
         /// <remarks>

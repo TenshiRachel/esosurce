@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Esource.BL.profile;
+using Esource.BL.jobs;
 
 namespace Esource.Views.service
 {
@@ -18,6 +19,10 @@ namespace Esource.Views.service
                 User curruser = new User().SelectById(LblUid.Value);
                 if (curruser.type == "client")
                 {
+                    List<Jobs> jobs = new Jobs().SelectByCid(LblUid.Value);
+                    reqlist.DataSource = jobs;
+                    reqlist.DataBind();
+
                     if (reqlist.Items.Count > 0)
                     {
                         end.Visible = true;
@@ -36,6 +41,11 @@ namespace Esource.Views.service
             }
         }
 
+        public void toast(Page page, string message, string title, string type)
+        {
+            ScriptManager.RegisterClientScriptBlock(page, page.GetType(), "toastmsg", "toastnotif('" + message + "','" + title + "','" + type.ToLower() + "');", true);
+        }
+
         protected void reqlist_ItemCommand(object source, RepeaterCommandEventArgs e)
         {
             if (e.CommandName == "viewprofile")
@@ -48,7 +58,38 @@ namespace Esource.Views.service
             }
             if (e.CommandName == "cancel")
             {
+                string jobId = e.CommandArgument.ToString();
+                int result = new Jobs().UpdateStatus(jobId, "cancelled");
+                if (result == 0)
+                {
+                    toast(this, "An error occured while cancelling request", "Error", "error");
+                }
+                else
+                {
+                    toast(this, "Request cancelled", "Success", "success");
+                }
+            }
+        }
 
+        protected void reqlist_ItemDataBound(object sender, RepeaterItemEventArgs e)
+        {
+            HiddenField statusField = (HiddenField)e.Item.FindControl("status");
+            string status = statusField.Value;
+            if (status == "accepted")
+            {
+                e.Item.FindControl("btnPay").Visible = true;
+            }
+            if (status == "pending")
+            {
+                e.Item.FindControl("btnCancel").Visible = true;
+            }
+            if (status == "paid")
+            {
+                e.Item.FindControl("await").Visible = true;
+            }
+            if (status == "done")
+            {
+                e.Item.FindControl("completed").Visible = true;
             }
         }
     }

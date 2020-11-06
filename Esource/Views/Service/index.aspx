@@ -3,6 +3,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <section class="viewserv container mx-auto">
+        <asp:HiddenField runat="server" ID="LblUid" />
         <div class="col-10 mx-auto row justify-content-around">
                     <asp:Repeater runat="server" ID="serviceview" OnItemCommand="serviceview_ItemCommand" OnItemDataBound="serviceview_ItemDataBound">
                         <ItemTemplate>
@@ -51,7 +52,7 @@
                                                     <asp:TextBox runat="server" ID="tbRemarks" CssClass="form-control" TextMode="MultiLine" Rows="7"></asp:TextBox>
                                                 </div>
                                                 <div class="text-right">
-                                                    <asp:Button runat="server" ID="btnRem" CssClass="btn btn-success" CommandName="request" CommandArgument='<%#Eval("uid") %>' Text="Request Service" />
+                                                    <asp:LinkButton runat="server" CssClass="btn btn-success" CommandName="request" CommandArgument='<%#Eval("uid") %>'>Request Service</asp:LinkButton>
                                                 </div>
                                             </div>
                                         </div>

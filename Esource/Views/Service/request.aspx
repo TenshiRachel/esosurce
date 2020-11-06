@@ -5,12 +5,13 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <section class="requests">
         <asp:HiddenField runat="server" ID="LblUid" />
+        <asp:ScriptManager runat="server" ID="reqpanel_script"></asp:ScriptManager>
         <div class="row">
             <div class="col-12 col-md-9 order-1 order-md-0">
                 <div class="card">
                     <div
                         class="view primary-light-gradient py-2 mx-4 mb-3 d-flex justify-content-center align-items-center text-center">
-                        <span class="white-text mx-3">Requests</span>
+                        <span class="mx-3 font-weight-bold">Requests</span>
                     </div>
 
                     <div class="card-body">
@@ -28,35 +29,40 @@
                                 </thead>
 
                                 <tbody>
-                                    <asp:Repeater runat="server" ID="reqlist" OnItemCommand="reqlist_ItemCommand">
-                                        <ItemTemplate>
-                                            <tr class="animated faster">
-                                                <td headers="provider" class="align-middle">
-                                                    <asp:LinkButton runat="server" CommandArgument='<%#Eval("uid") %>' CommandName="viewprofile"><%#Eval("username") %></asp:LinkButton>
-                                                </td>
-                                                <td headers="date" class="align-middle"><%#Eval("date_created") %></td>
-                                                <td headers="service" class="align-middle"><%#Eval("sName") %></td>
-                                                <td headers="payment" class="align-middle">$<%#Eval("price") %></td>
-                                                <td headers="remarks" class="align-middle"><%#Eval("remarks") %></td>
-                                                <td headers="action" class="align-middle">
-                                                    <asp:LinkButton runat="server" ID="btnPay" CommandArgument='<%#Eval("sid") %>' CommandName="pay" CssClass="btn btn-sm btn-success material-tooltip-md">
+                                    <asp:UpdatePanel runat="server" UpdateMode="Conditional" ID="reqpanel">
+                                        <ContentTemplate>
+                                            <asp:Repeater runat="server" ID="reqlist" OnItemCommand="reqlist_ItemCommand" OnItemDataBound="reqlist_ItemDataBound">
+                                                <ItemTemplate>
+                                                    <tr class="animated faster">
+                                                        <td headers="provider" class="align-middle">
+                                                            <asp:LinkButton runat="server" CommandArgument='<%#Eval("uid") %>' CommandName="viewprofile"><%#Eval("username") %></asp:LinkButton>
+                                                        </td>
+                                                        <td headers="date" class="align-middle"><%#Eval("date_created") %></td>
+                                                        <td headers="service" class="align-middle"><%#Eval("sName") %></td>
+                                                        <td headers="payment" class="align-middle">$<%#Eval("price") %></td>
+                                                        <td headers="remarks" class="align-middle"><%#Eval("remarks") %></td>
+                                                        <td headers="action" class="align-middle">
+                                                            <asp:HiddenField runat="server" ID="status" Value='<%#Eval("status") %>' />
+                                                            <asp:LinkButton runat="server" ID="btnPay" CommandArgument='<%#Eval("sid") %>' CommandName="pay" Visible="false" CssClass="btn btn-sm btn-success material-tooltip-md">
                                             Send payment<i class="fas fas-dollar-sign ml-2"></i></asp:LinkButton>
 
-                                                    <asp:LinkButton runat="server" ID="btnCancel" CommandArgument='<%#Eval("Id") %>' CommandName="cancel" CssClass="btn btn-sm btn-danger">Cancel request<i class="fas fa-times ml-2"></i>
-                                                    </asp:LinkButton>
+                                                            <asp:LinkButton runat="server" ID="btnCancel" CommandArgument='<%#Eval("Id") %>' CommandName="cancel" Visible="false" CssClass="btn btn-sm btn-danger">Cancel request<i class="fas fa-times ml-2"></i>
+                                                            </asp:LinkButton>
 
-                                                    Awaiting completion of request
+                                                            <p runat="server" id="await" visible="false">Awaiting completion of request</p>
 
-                                        Request completed
+                                                            <p runat="server" id="completed" visible="false">Request completed</p>
 
-                                                </td>
-                                            </tr>
-                                        </ItemTemplate>
-                                    </asp:Repeater>
+                                                        </td>
+                                                    </tr>
+                                                </ItemTemplate>
+                                            </asp:Repeater>
+                                        </ContentTemplate>
+                                    </asp:UpdatePanel>
                                 </tbody>
                             </table>
                         </div>
-                    <p runat="server" id="end" visible="false" class="text-center grey-text small font-weight-bold mb-0">End of contents</p>
+                        <p runat="server" id="end" visible="false" class="text-center grey-text small font-weight-bold mb-0">End of contents</p>
                     </div>
                 </div>
             </div>
@@ -64,7 +70,7 @@
             <div class="col-12 col-md-3 my-4 my-md-0 order-0 order-md-1">
                 <div class="card">
                     <div class="view primary-light-gradient py-2 mx-4 mb-3 d-flex justify-content-center align-items-center text-center">
-                        <span class="white-text mx-3">Action</span>
+                        <span class="mx-3 font-weight-bold">Action</span>
                     </div>
 
                     <div class="card-body">

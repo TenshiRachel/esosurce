@@ -25,13 +25,13 @@ namespace Esource.BL.jobs
 
         }
 
-        public Jobs(int cid, int uid, int sid, string date_created, string sName, string cName, string username, string remarks, decimal price, string status = "pending", int Id = -1)
+        public Jobs(int cid, int uid, int sid, string sName, string cName, string username, string remarks, decimal price, string date_created = null, string status = "pending", int Id = -1)
         {
             this.Id = Id;
             this.cid = cid;
             this.uid = uid;
             this.sid = sid;
-            this.date_created = date_created;
+            this.date_created = date_created ?? DateTime.Today.ToString("dd/MM/yyyy");
             this.sName = sName;
             this.cName = cName;
             this.username = username;
@@ -56,6 +56,12 @@ namespace Esource.BL.jobs
         {
             List<Jobs> jobs = new JobsDAO().SelectByCid(cid);
             return jobs;
+        }
+
+        public Jobs SelectByCidSid(string cid, string sid)
+        {
+            Jobs job = new JobsDAO().SelectByCidSid(cid, sid);
+            return job;
         }
 
         public int UpdateStatus(string id, string status)

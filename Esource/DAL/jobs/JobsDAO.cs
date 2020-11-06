@@ -71,7 +71,7 @@ namespace Esource.DAL.jobs
                     string remarks = row["remarks"].ToString();
                     decimal price = decimal.Parse(row["price"].ToString());
                     int Id = int.Parse(row["Id"].ToString());
-                    obj = new Jobs(cid, int.Parse(uid), sid, date_created, sName, cName, username, remarks, price, status, Id);
+                    obj = new Jobs(cid, int.Parse(uid), sid, sName, cName, username, remarks, price, date_created, status, Id);
                     jobs.Add(obj);
                 }
             }
@@ -110,12 +110,49 @@ namespace Esource.DAL.jobs
                     string remarks = row["remarks"].ToString();
                     decimal price = decimal.Parse(row["price"].ToString());
                     int Id = int.Parse(row["Id"].ToString());
-                    obj = new Jobs(int.Parse(cid), uid, sid, date_created, sName, cName, username, remarks, price, status, Id);
+                    obj = new Jobs(int.Parse(cid), uid, sid, sName, cName, username, remarks, price, date_created, status, Id);
                     jobs.Add(obj);
                 }
             }
 
             return jobs;
+        }
+
+        public Jobs SelectByCidSid(string cid, string sid)
+        {
+            string DBConnect = ConfigurationManager.ConnectionStrings["ConnStr"].ConnectionString;
+            SqlConnection conn = new SqlConnection(DBConnect);
+
+            string sqlStmt = "SELECT * FROM Job WHERE cid=@paraCid AND sid=@paraSid";
+
+            SqlDataAdapter da = new SqlDataAdapter(sqlStmt, conn);
+            da.SelectCommand.Parameters.AddWithValue("@paraCid", cid);
+            da.SelectCommand.Parameters.AddWithValue("@paraSid", sid);
+
+            DataSet ds = new DataSet();
+            da.Fill(ds);
+            int rec_cnt = ds.Tables[0].Rows.Count;
+
+            Jobs obj = null;
+            if (rec_cnt > 0)
+            {
+                for (int i = 0; i < rec_cnt; i++)
+                {
+                    DataRow row = ds.Tables[0].Rows[i];
+                    int uid = int.Parse(row["uid"].ToString());
+                    string date_created = row["date_created"].ToString();
+                    string sName = row["sName"].ToString();
+                    string cName = row["cName"].ToString();
+                    string username = row["username"].ToString();
+                    string status = row["status"].ToString();
+                    string remarks = row["remarks"].ToString();
+                    decimal price = decimal.Parse(row["price"].ToString());
+                    int Id = int.Parse(row["Id"].ToString());
+                    obj = new Jobs(int.Parse(cid), uid, int.Parse(sid), sName, cName, username, remarks, price, date_created, status, Id);
+                }
+            }
+
+            return obj;
         }
 
         public int UpdateStatus(string id, string status)

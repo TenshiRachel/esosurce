@@ -82,7 +82,7 @@ namespace Esource.Views.service
                 if (!userfavs.Contains(serviceId))
                 {
                     int servres = curr.Favourite(serviceId, service[0].favs + 1);
-                    Fav fav = new Fav(1, int.Parse(serviceId));
+                    Fav fav = new Fav(int.Parse(LblUid.Text), int.Parse(serviceId));
                     int favres = fav.Add();
                     if (favres == 1 && servres == 1)
                     {
@@ -97,7 +97,7 @@ namespace Esource.Views.service
                 {
                     int servres = curr.Favourite(serviceId, service[0].favs - 1);
                     Fav fav = new Fav();
-                    int favres = fav.Remove(1, int.Parse(serviceId));
+                    int favres = fav.Remove(int.Parse(LblUid.Text), int.Parse(serviceId));
                     if (favres == 1 && servres == 1)
                     {
                         toast(this, "Service unfavourited", "Success", "success");
