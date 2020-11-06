@@ -12,6 +12,11 @@ namespace Esource.Views.auth
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Session["error"] != null)
+            {
+                toast(this, Session["error"].ToString(), "Error", "error");
+                Session["error"] = null;
+            }
         }
 
         public void toast(Page page, string message, string title, string type)

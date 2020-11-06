@@ -34,7 +34,12 @@ namespace Esource.Views.auth
             }
             else if (user == null)
             {
-                toast(this, "Account does not exist, please register.", "Error", "error");
+                Session["error"] = "Account does not exist, please register.";
+                Response.Redirect("register.aspx");
+            }
+            else if (password != user.password)
+            {
+                toast(this, "Incorrect password, please try again.", "Error", "error");
             }
             else
             {
