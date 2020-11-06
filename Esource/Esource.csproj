@@ -193,7 +193,9 @@
     <Content Include="Views\auth\register.aspx" />
     <Content Include="Views\index.aspx" />
     <Content Include="Views\notification\index.aspx" />
+    <Content Include="Views\profile\edit.aspx" />
     <Content Include="Views\profile\index.aspx" />
+    <Content Include="Views\profile\view.aspx" />
     <Content Include="Views\service\add.aspx" />
     <Content Include="Views\service\edit.aspx" />
     <Content Include="Views\service\index.aspx" />
@@ -266,12 +268,26 @@
     <Compile Include="Views\notification\index.aspx.designer.cs">
       <DependentUpon>index.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Views\profile\edit.aspx.cs">
+      <DependentUpon>edit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\profile\edit.aspx.designer.cs">
+      <DependentUpon>edit.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Views\profile\index.aspx.cs">
       <DependentUpon>index.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Views\profile\index.aspx.designer.cs">
       <DependentUpon>index.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\profile\view.aspx.cs">
+      <DependentUpon>view.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\profile\view.aspx.designer.cs">
+      <DependentUpon>view.aspx</DependentUpon>
     </Compile>
     <Compile Include="Views\service\add.aspx.cs">
       <DependentUpon>add.aspx</DependentUpon>

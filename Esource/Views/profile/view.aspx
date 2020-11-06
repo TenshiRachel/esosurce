@@ -1,96 +1,103 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Masters/index.Master" AutoEventWireup="true" CodeBehind="index.aspx.cs" Inherits="Esource.Views.profile.index" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Masters/index.Master" AutoEventWireup="true" CodeBehind="view.aspx.cs" Inherits="Esource.Views.profile.view" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <section class="profile">
 
-    <div class="card testimonial-card z-depth-2">
-        <!-- =============================== Banner Image =============================== -->
-        <div class="card-up indigo lighten-1 rounded-0 jarallax">
+    <!-- Card -->
+    <div class="card testimonial-card z-depth-2 rounded-0">
+        <!-- Background color -->
+        <div class="vh-40 card-up indigo lighten-1 rounded-0 jarallax">
             <img loading="lazy" class="img-fluid jarallax-img " onerror='this.src="/img/profile/banner.png"'
-                src="/uploads/profile/{{user.id}}/banner.png" alt="">
-            <div class="mask flex-center waves-effect waves-light">
-                <div class="h-100 w-100 col-12 align-items-end row justify-content-end p-0">
-                    <div id="socialmedias" class="d-flex justify-content-center p-1 mr-2">
-                        <a href="{{social_medias.[0]}}" class="col text-center "><i
-                                class="fab fa-twitter fa-2x text-white text-center"></i></a>
-                        <a href="{{social_medias.[1]}}" class="col text-center "><i
-                                class="fab fa-instagram fa-2x text-white text-center"></i></a>
-                        <a href="{{social_medias.[2]}}" class="col text-center "><i
-                                class="fab fa-facebook fa-2x text-white text-center"></i></a>
-                        <a href="{{social_medias.[3]}}" class="col text-center "><i
-                                class="fab fa-youtube fa-2x text-white text-center"></i></a>
-                        <a href="{{social_medias.[4]}}" class="col text-center "><i
-                                class="fab fa-deviantart fa-2x text-white text-center"></i></a>
-                    </div>
-                </div>
-            </div>
+                src="/uploads/profile/{{viewuser.id}}/banner.png" alt="">
         </div>
 
-        <!-- =============================== Content =============================== -->
-        <div class="card-body p-0">
-            <div class="row justify-content-around">
 
-                <!-- =============================== User Information =============================== -->
+        <!-- =============================== Content =============================== -->
+        <div style="" class="card-body p-0 rounded-0">
+
+            <div class="row justify-content-around">
                 <div class="col-lg-3 col-sm-12">
                     <div class="profile-margin">
+                        <!-- Card -->
                         <div class="card testimonial-card ">
-                            <a href="<%=Page.ResolveUrl("~/Views/profile/edit.aspx") %>" class="m-2 ml-auto text-secondary">
-                                <i class="fas fa-edit fa-lg"></i>
-                            </a>
 
-                            <!-- Profile Image -->
+                            <!-- Background color -->
+                            <div style="height:auto;" class="card-up indigo lighten-1 rounded-0">
+                            </div>
+
                             <div class="avatar mx-auto white mt-4">
+
                                 <img loading="lazy" onerror='this.src = "/img/profile/default.png"'
-                                    src="/uploads/profile/{{user.id}}/profilePic.png"
+                                    src="/uploads/profile/{{viewuser.id}}/profilePic.png"
                                     class="rounded-circle  border" alt="">
                             </div>
 
-                            <!-- User Details -->
+                            <!-- Content -->
                             <div class="card-body">
-                                <h3 class="card-title">Cozen</h3>
+                                <!-- Name -->
+                                <h3 class="card-title">Username</h3>
 
                                 <h5 class="card-title text-muted">
-                                    Service Provider
+                                    Client
                                 </h5>
 
-                                <br>
-                                <p class="text-left">
-                                    <a href="#" class="font-weight-bold" data-toggle="modal"
-                                        data-target="#followersModal">Followers:
-                                    </a>
-                                    0
-                                </p>
+                                <div class="">
+                                    <p onclick="followUser({{viewuser.id}})" id="followButton"
+                                        class="btn btn-secondary btn-rounded">
+                                        Follow </p>
+                                </div>
 
-                                <p class="text-left">
-                                    <a href="#" class="font-weight-bold" data-toggle="modal"
-                                        data-target="#followingModal">Following:
-                                    </a>
-                                    0
-                                </p>
+                                <br>
+                                <p class="text-left"> <a href="#" class="font-weight-bold" data-toggle="modal"
+                                        data-target="#followersModal">Followers:</a> 0 </p>
+                                <p class="text-left"> <a href="#" class="font-weight-bold" data-toggle="modal"
+                                        data-target="#followingModal">Following:</a> 0</p>
                                 <hr class="hr-primary">
+
 
                                 <p class="text-left"><b>Website:</b>
                                     <span class="text-muted">None</span>
                                 </p>
-
                                 <p class="text-left"><b>Birthday:</b>
                                     <span class="text-muted">Not Set</span>
                                 </p>
-
                                 <p class="text-left"><b>Gender:</b>
                                     <span class="text-muted">Not Set</span>
                                 </p>
-
                                 <p class="text-left"><b>Location:</b>
                                     <span class="text-muted">Not Set</span>
                                 </p>
-
                                 <p class="text-left"><b>Occupation:</b>
                                     <span class="text-muted">Not Set</span>
                                 </p>
+                                <p class="text-left"><b>Email:</b> Email</p>
+                                <hr class="hr-primary">
+                            </div>
+                        </div>
+                    </div>
 
-                                <p class="text-left"><b>Email:</b> joshdebean@gmail.com</p>
+                    <div class="mt-3">
+                        <!-- Card -->
+                        <div class="card testimonial-card ">
+
+
+                            <!-- Content -->
+                            <div class="card-body">
+                                <!-- Name -->
+                                <h4 class="card-title text-left">Bio</h4>
+                                <p class="text-left text-muted">
+                                    Not set
+                                </p>
+                                <hr class="hr-primary">
+                                <h4 class="card-title text-left">Skills</h4>
+                                <p class="text-left text-muted">
+                                    Not set
+                                </p>
+                                <div class="row justify-content-start pl-2">
+                                    <button type="button"
+                                        class="btn btn-outline-secondary btn-rounded waves-effect skill-button">Edit</button>
+                                </div>
 
                                 <hr class="hr-primary">
 
@@ -99,30 +106,10 @@
                         </div>
                     </div>
 
-                    <div class="card testimonial-card my-3">
-                        <div class="card-body">
-                            <h4 class="card-title text-left">Bio</h4>
-                            <p class="text-left text-muted">
-                                    Not set
-                            </p>
-                            <hr class="hr-primary">
-                            <h4 class="card-title text-left">Skills</h4>
-                            <div class="row justify-content-start pl-2">
-                                        <button type="button" class="btn btn-outline-secondary btn-rounded waves-effect skill-button">EDIT</button>
-                                    <p class="text-left text-muted">
-                                        Not Set
-                                    </p>
-                            </div>
-
-                            <hr class="hr-primary">
-
-
-                        </div>
-                    </div>
-
+                    <br>
+                    <br>
                 </div>
 
-                <!-- =============================== User Content =============================== -->
                 <div class="classic-tabs col-lg-8 col-sm-12">
 
                     <ul class="nav tabs-white rounded-0" id="myClassicTabShadow" role="tablist">
@@ -137,14 +124,16 @@
                                 href="#services-classic-shadow" role="tab" aria-controls="services-classic-shadow"
                                 aria-selected="false"> Services </a>
                         </li>
+
+
                         <li class="nav-item">
                             <a class="nav-link waves-light" id="status-tab-classic-shadow" data-toggle="tab"
                                 href="#status-classic-shadow" role="tab" aria-controls="status-classic-shadow"
                                 aria-selected="false"> Status </a>
-                        </li>
+                        </li> 
 
                         <li class="nav-item">
-                            <a class="nav-link waves-light" id="favs-tab-classic-shadow" data-toggle="tab"
+                            <a class="nav-link waves-light" id="favorites-tab-classic-shadow" data-toggle="tab"
                                 href="#favs-classic-shadow" role="tab" aria-controls="favs-classic-shadow"
                                 aria-selected="false"> Favourites </a>
                         </li>
@@ -164,9 +153,6 @@
                         <div class="tab-pane fade profile-content" id="services-classic-shadow" role="tabpanel"
                             aria-labelledby="services-tab-classic-shadow">
                         </div>
-                        <div class="tab-pane fade profile-content" id="status-classic-shadow" role="tabpanel"
-                            aria-labelledby="status-tab-classic-shadow">
-                        </div>
                         <div class="tab-pane fade profile-content" id="favs-classic-shadow" role="tabpanel"
                             aria-labelledby="favs-tab-classic-shadow">
                         </div>
@@ -180,5 +166,6 @@
             </div>
 
         </div>
+
 </section>
 </asp:Content>
