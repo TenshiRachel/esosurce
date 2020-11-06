@@ -204,11 +204,16 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BL\jobs\Jobs.cs" />
     <Compile Include="BL\notification\Notification.cs" />
     <Compile Include="BL\profile\User.cs" />
     <Compile Include="BL\service\Fav.cs" />
     <Compile Include="BL\service\Service.cs" />
+<<<<<<< Updated upstream
     <Compile Include="BL\service\Transaction.cs" />
+=======
+    <Compile Include="DAL\jobs\JobsDAO.cs" />
+>>>>>>> Stashed changes
     <Compile Include="DAL\notification\NotificationDAO.cs" />
     <Compile Include="DAL\profile\UserDAO.cs" />
     <Compile Include="DAL\service\FavDAO.cs" />
