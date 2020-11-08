@@ -59,7 +59,7 @@ namespace Esource.Views.service
             if (e.CommandName == "cancel")
             {
                 string jobId = e.CommandArgument.ToString();
-                int result = new Jobs().UpdateStatus(jobId, "cancelled");
+                int result = new Jobs().UpdateStatus(jobId, "req_cancel");
                 if (result == 0)
                 {
                     toast(this, "An error occured while cancelling request", "Error", "error");

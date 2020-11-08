@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Esource.BL.profile;
 using Esource.BL.notification;
 
 namespace Esource.Views.notification
@@ -18,6 +19,7 @@ namespace Esource.Views.notification
                 {
                     LblUid.Value = Session["uid"].ToString();
                     bind();
+                    user();
                     showContent();
                 }
                 else
@@ -28,21 +30,39 @@ namespace Esource.Views.notification
             }
         }
 
+        public User user()
+        {
+            User user = new User().SelectById(LblUid.Value);
+            return user;
+        }
+
         public void bind()
         {
             Notification notif = new Notification();
-            List<Notification> favnotifs = notif.UserNotifs(LblUid.Value, "fav");
-            favs.DataSource = favnotifs;
+            List<Notification> notiflist = notif.UserNotifs(LblUid.Value, "fav");
+            favs.DataSource = notiflist;
             favs.DataBind();
-            List<Notification> jnotifs = notif.UserNotifs(LblUid.Value, "job");
-            jobs.DataSource = jnotifs;
+            notiflist = notif.UserNotifs(LblUid.Value, "job");
+            jobs.DataSource = notiflist;
             jobs.DataBind();
-            List<Notification> fnotifs = notif.UserNotifs(LblUid.Value, "file");
-            files.DataSource = fnotifs;
+            notiflist = notif.UserNotifs(LblUid.Value, "job_cancel");
+            jobscancel.DataSource = notiflist;
+            jobscancel.DataBind();
+            notiflist = notif.UserNotifs(LblUid.Value, "job_paid");
+            jobpaid.DataSource = notiflist;
+            jobpaid.DataBind();
+            notiflist = notif.UserNotifs(LblUid.Value, "file");
+            files.DataSource = notiflist;
             files.DataBind();
-            List<Notification> rnotifs = notif.UserNotifs(LblUid.Value, "request");
-            requests.DataSource = rnotifs;
+            notiflist = notif.UserNotifs(LblUid.Value, "request");
+            requests.DataSource = notiflist;
             requests.DataBind();
+            notiflist = notif.UserNotifs(LblUid.Value, "req_cancel");
+            reqcancel.DataSource = notiflist;
+            reqcancel.DataBind();
+            notiflist = notif.UserNotifs(LblUid.Value, "complete");
+            reqcomplete.DataSource = notiflist;
+            reqcomplete.DataBind();
         }
 
         public void showContent()
@@ -52,7 +72,7 @@ namespace Esource.Views.notification
                 favclear.Visible = true;
                 favalert.Visible = true;
             }
-            if (jobs.Items.Count > 0)
+            if (jobs.Items.Count > 0 || jobpaid.Items.Count > 0 || jobscancel.Items.Count > 0)
             {
                 jobclear.Visible = true;
                 jobalert.Visible = true;
@@ -62,7 +82,7 @@ namespace Esource.Views.notification
                 fileclear.Visible = true;
                 falert.Visible = true;
             }
-            if (requests.Items.Count > 0)
+            if (requests.Items.Count > 0 || reqcomplete.Items.Count > 0 || reqcancel.Items.Count > 0)
             {
                 reqclear.Visible = true;
                 ralert.Visible = true;
@@ -85,22 +105,6 @@ namespace Esource.Views.notification
             else
             {
                 toast(this, "An error occured while removing notification", "Error", "error");
-            }
-        }
-
-        protected void favs_ItemCommand(object source, RepeaterCommandEventArgs e)
-        {
-            if (e.CommandName == "viewprofile")
-            {
-                Response.Redirect("~/Views/profile/view.aspx?id=" + e.CommandArgument.ToString());
-            }
-            if (e.CommandName == "viewservice")
-            {
-                Response.Redirect("~/Views/service/index.aspx?id=" + e.CommandArgument.ToString());
-            }
-            if (e.CommandName == "clear")
-            {
-                clear(e.CommandArgument.ToString());
             }
         }
 
@@ -134,7 +138,7 @@ namespace Esource.Views.notification
 
         protected void jobs_ItemDataBound(object sender, RepeaterItemEventArgs e)
         {
-            if (e.Item.ItemType == ListItemType.Footer && jobs.Items.Count < 1)
+            if (e.Item.ItemType == ListItemType.Footer && jobs.Items.Count < 1 && jobpaid.Items.Count < 1 && jobscancel.Items.Count < 1)
             {
                 e.Item.FindControl("LbErr").Visible = true;
             }
@@ -164,7 +168,36 @@ namespace Esource.Views.notification
             }
         }
 
-        protected void requests_ItemCommand(object source, RepeaterCommandEventArgs e)
+        protected void requests_ItemDataBound(object sender, RepeaterItemEventArgs e)
+        {
+            if (e.Item.ItemType == ListItemType.Footer && requests.Items.Count < 1 && reqcancel.Items.Count < 1 && reqcomplete.Items.Count < 1)
+            {
+                e.Item.FindControl("LbErr").Visible = true;
+            }
+        }
+
+        protected void clearAll(object sender, CommandEventArgs e)
+        {
+            Notification notif = new Notification();
+            string typelist = e.CommandArgument.ToString();
+            string[] types = typelist.Split(',');
+
+            foreach(string type in types)
+            {
+                int result = notif.ClearAll(LblUid.Value, type);
+                if (result == 1)
+                {
+                    toast(this, "Notifications cleared successfully", "Success", "success");
+                }
+                else
+                {
+                    toast(this, "An error occured while removing notifications", "Error", "error");
+                }
+            }
+            
+        }
+
+        protected void common_ItemCommand(object source, RepeaterCommandEventArgs e)
         {
             if (e.CommandName == "viewprofile")
             {
@@ -177,28 +210,6 @@ namespace Esource.Views.notification
             if (e.CommandName == "clear")
             {
                 clear(e.CommandArgument.ToString());
-            }
-        }
-
-        protected void requests_ItemDataBound(object sender, RepeaterItemEventArgs e)
-        {
-            if (e.Item.ItemType == ListItemType.Footer && requests.Items.Count < 1)
-            {
-                e.Item.FindControl("LbErr").Visible = true;
-            }
-        }
-
-        protected void clearAll(object sender, CommandEventArgs e)
-        {
-            Notification notif = new Notification();
-            int result = notif.ClearAll(LblUid.Value, e.CommandArgument.ToString());
-            if (result == 1)
-            {
-                toast(this, "Notifications cleared successfully", "Success", "success");
-            }
-            else
-            {
-                toast(this, "An error occured while removing notifications", "Error", "error");
             }
         }
     }

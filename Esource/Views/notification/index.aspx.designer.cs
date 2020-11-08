@@ -94,6 +94,24 @@ namespace Esource.Views.notification {
         protected global::System.Web.UI.WebControls.Repeater jobs;
         
         /// <summary>
+        /// jobscancel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Repeater jobscancel;
+        
+        /// <summary>
+        /// jobpaid control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Repeater jobpaid;
+        
+        /// <summary>
         /// fileclear control.
         /// </summary>
         /// <remarks>
@@ -128,5 +146,23 @@ namespace Esource.Views.notification {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Repeater requests;
+        
+        /// <summary>
+        /// reqcancel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Repeater reqcancel;
+        
+        /// <summary>
+        /// reqcomplete control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Repeater reqcomplete;
     }
 }
