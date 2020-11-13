@@ -52,24 +52,7 @@ namespace Esource.Views.service
 
         protected void btnPay_Click(object sender, EventArgs e)
         {
-            string payerId = Request.Params["PayerID"];
-            string sid = Request.QueryString["sid"];
-            string uid = LblUid.Text;
-            List<BL.service.Service> service = new BL.service.Service().SelectById(sid);
-            Transaction transaction = new Transaction(int.Parse(sid), service[0].name, service[0].price, int.Parse(uid));
-            if (string.IsNullOrEmpty(payerId))
-            {
-                string paymentId = transaction.createPayment();
-                Session.Add("guid", paymentId);
-            }
-            else
-            {
-                string guid = Request.Params["guid"];
 
-                string paymentId = Session[guid].ToString();
-                int result = transaction.Pay(paymentId, payerId);
-
-            }
         }
     }
 }
