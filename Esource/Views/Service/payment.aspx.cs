@@ -6,6 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Esource.BL.profile;
 using Esource.BL.service;
+using Esource.Utilities;
 
 namespace Esource.Views.service
 {
@@ -52,7 +53,8 @@ namespace Esource.Views.service
 
         protected void btnPay_Click(object sender, EventArgs e)
         {
-
+            string price = servprice.InnerHtml.Replace("$", string.Empty);
+            Payment.pay(client_email.InnerHtml, price, freelance_email.InnerHtml);
         }
     }
 }
