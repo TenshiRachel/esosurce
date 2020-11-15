@@ -16,8 +16,8 @@ namespace Esource.DAL.profile
             string DBConnect = ConfigurationManager.ConnectionStrings["ConnStr"].ConnectionString;
             SqlConnection conn = new SqlConnection(DBConnect);
 
-            string sqlStmt = "INSERT INTO [User] (username, email, password, bio, profile_src, type)" +
-                "VALUES (@paraName, @paraEmail, @paraPassword, @paraBio, @paraSrc, @paraType)";
+            string sqlStmt = "INSERT INTO [User] (username, email, password, bio, profile_src, type, stripeId)" +
+                "VALUES (@paraName, @paraEmail, @paraPassword, @paraBio, @paraSrc, @paraType, @paraStripe)";
 
             int result = 0;
             SqlCommand sqlCmd = new SqlCommand(sqlStmt, conn);
@@ -28,6 +28,29 @@ namespace Esource.DAL.profile
             sqlCmd.Parameters.AddWithValue("@paraBio", user.bio);
             sqlCmd.Parameters.AddWithValue("@paraSrc", user.profile_src);
             sqlCmd.Parameters.AddWithValue("@paraType", user.type);
+            sqlCmd.Parameters.AddWithValue("@paraStripe", user.stripeId);
+
+            conn.Open();
+            result = sqlCmd.ExecuteNonQuery();
+            conn.Close();
+
+            return result;
+        }
+
+        public int UpdateStripeId(string id, string stripeId)
+        {
+            string DBConnect = ConfigurationManager.ConnectionStrings["ConnStr"].ConnectionString;
+            SqlConnection conn = new SqlConnection(DBConnect);
+
+            string sqlStmt = "UPDATE [User] " +
+                "SET stripeId = @paraStripe " +
+                "WHERE Id = @paraId";
+
+            int result = 0;
+            SqlCommand sqlCmd = new SqlCommand(sqlStmt, conn);
+
+            sqlCmd.Parameters.AddWithValue("@paraId", id);
+            sqlCmd.Parameters.AddWithValue("@paraStripe", stripeId);
 
             conn.Open();
             result = sqlCmd.ExecuteNonQuery();
@@ -61,7 +84,8 @@ namespace Esource.DAL.profile
                 string bio = row["bio"].ToString();
                 string src = row["profile_src"].ToString();
                 string type = row["type"].ToString();
-                obj = new User(name, email, password, bio, src, type, id);
+                string stripe = row["stripeId"].ToString();
+                obj = new User(name, email, password, bio, src, type, stripe, id);
             }
 
             return obj;
@@ -91,7 +115,8 @@ namespace Esource.DAL.profile
                 string bio = row["bio"].ToString();
                 string src = row["profile_src"].ToString();
                 string type = row["type"].ToString();
-                obj = new User(name, email, password, bio, src, type, int.Parse(id));
+                string stripe = row["stripeId"].ToString();
+                obj = new User(name, email, password, bio, src, type, stripe, int.Parse(id));
             }
 
             return obj;

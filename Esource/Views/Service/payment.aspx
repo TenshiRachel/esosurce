@@ -87,5 +87,5 @@
             </div>
         </div>
     </section>
-
+    <script src="https://js.stripe.com/v3/"></script>
 </asp:Content>

@@ -15,13 +15,14 @@ namespace Esource.BL.profile
         public string bio { get; set; }
         public string profile_src { get; set; }
         public string type { get; set; }
+        public string stripeId { get; set; }
 
         public User()
         {
 
         }
 
-        public User(string username, string email, string password, string bio, string profile_src, string type, int Id = -1)
+        public User(string username, string email, string password, string bio, string profile_src, string type, string stripeId = "", int Id = -1)
         {
             this.username = username;
             this.email = email;
@@ -29,12 +30,19 @@ namespace Esource.BL.profile
             this.bio = bio;
             this.profile_src = profile_src;
             this.type = type;
+            this.stripeId = stripeId;
             this.Id = Id;
         }
 
         public int AddUser()
         {
             int result = new UserDAO().Insert(this);
+            return result;
+        }
+
+        public int UpdateStripe(string id, string stripeId)
+        {
+            int result = new UserDAO().UpdateStripeId(id, stripeId);
             return result;
         }
 

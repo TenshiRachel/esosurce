@@ -7,6 +7,7 @@ using System.Web.UI.WebControls;
 using Esource.BL.profile;
 using Esource.BL.service;
 using Esource.Utilities;
+using Stripe;
 
 namespace Esource.Views.service
 {
@@ -53,8 +54,8 @@ namespace Esource.Views.service
 
         protected void btnPay_Click(object sender, EventArgs e)
         {
+            StripeConfiguration.ApiKey = "sk_test_51Hnjg6K2AIXSM7wrvlwz0S8eQSrtxjb7irpnIhvWGSKSsbWJzUymiC3tHbwxYQCumbmK5gC06kRIw7wr1eHEpj6D00CDgHmOpO";
             string price = servprice.InnerHtml.Replace("$", string.Empty);
-            Payment.pay(client_email.InnerHtml, price, freelance_email.InnerHtml);
         }
     }
 }
