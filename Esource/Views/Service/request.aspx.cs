@@ -13,6 +13,16 @@ namespace Esource.Views.service
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Session["error"] != null)
+            {
+                toast(this, Session["error"].ToString(), "Error", "error");
+                Session["error"] = null;
+            }
+            if (Session["success"] != null)
+            {
+                toast(this, Session["success"].ToString(), "Success", "success");
+                Session["success"] = null;
+            }
             if (Session["uid"] != null)
             {
                 LblUid.Value = Session["uid"].ToString();
@@ -54,7 +64,9 @@ namespace Esource.Views.service
             }
             if (e.CommandName == "pay")
             {
-                Response.Redirect("~/Views/service/payment.aspx?sid=" + e.CommandArgument.ToString());
+                string idList = e.CommandArgument.ToString();
+                string[] ids = idList.Split(',');
+                Response.Redirect("~/Views/service/payment.aspx?sid=" + ids[0] + "&jid=" + ids[1]);
             }
             if (e.CommandName == "cancel")
             {

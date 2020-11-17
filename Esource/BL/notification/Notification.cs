@@ -13,6 +13,7 @@ namespace Esource.BL.notification
         public string username { get; set; }
         public string title { get; set; }
         public int pid { get; set; }
+        public string userId { get; set; }
         public string type { get; set; }
         public string date_created { get; set; }
         public string status { get; set; }
@@ -22,12 +23,13 @@ namespace Esource.BL.notification
 
         }
 
-        public Notification(int uid, string username, int pid, string title, string type, string date_created = null, string status = "", int Id = -1)
+        public Notification(int uid, string username, int pid, string title, string userId, string type, string date_created = null, string status = "", int Id = -1)
         {
             this.uid = uid;
             this.username = username;
             this.pid = pid;
             this.title = title;
+            this.userId = userId;
             this.type = type;
             this.date_created = date_created ?? DateTime.Today.ToString("dd/MM/yyyy");
             this.status = status;

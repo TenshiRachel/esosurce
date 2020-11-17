@@ -6,6 +6,8 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Esource.BL.profile;
 using Esource.BL.service;
+using Esource.BL.jobs;
+using Esource.BL.notification;
 using Esource.Utilities;
 using Stripe;
 
@@ -19,6 +21,11 @@ namespace Esource.Views.service
             {
                 Session["error"] = "Please select a service to pay for";
                 Response.Redirect("~/Views/service/index.aspx");
+            }
+            if (Request.QueryString["jid"] == null)
+            {
+                Session["error"] = "Please select a request to pay for";
+                Response.Redirect("~/Views/service/request.aspx");
             }
             else if (Session["uid"] == null)
             {
@@ -63,9 +70,7 @@ namespace Esource.Views.service
             Customer freelance = new Customer();
             CustomerService serv = new CustomerService();
 
-            cust = serv.Get(user.stripeId);
-            
-            if (cust == null)
+            if (string.IsNullOrEmpty(user.stripeId))
             {
                 CustomerCreateOptions options = new CustomerCreateOptions
                 {
@@ -75,8 +80,11 @@ namespace Esource.Views.service
                 cust = serv.Create(options);
                 user.UpdateStripe(user.Id.ToString(), cust.Id);
             }
-            freelance = serv.Get(freelancer.stripeId);
-            if (freelance == null)
+            else
+            {
+                cust = serv.Get(user.stripeId);
+            }
+            if (string.IsNullOrEmpty(freelancer.stripeId))
             {
                 CustomerCreateOptions options = new CustomerCreateOptions
                 {
@@ -86,9 +94,17 @@ namespace Esource.Views.service
                 freelance = serv.Create(options);
                 user.UpdateStripe(freelancer.Id.ToString(), freelance.Id);
             }
-
+            else
+            {
+                freelance = serv.Get(freelancer.stripeId);
+            }
             string price = servprice.InnerHtml.Replace("$", string.Empty);
             Payment.pay(cust, freelance, price);
+            new Jobs().UpdateStatus(Request.QueryString["jid"].ToString(), "paid");
+            Notification notif = new Notification(user.Id, user.username, int.Parse(sid), service[0].name, freelancer.Id.ToString(), "job_paid");
+            notif.AddNotif();
+            Session["success"] = "Transaction for request successful";
+            Response.Redirect("~/Views/service/request.aspx");
         }
     }
 }

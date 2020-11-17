@@ -67,6 +67,15 @@ namespace Esource.Views.notification {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl favclear;
         
         /// <summary>
+        /// favErr control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label favErr;
+        
+        /// <summary>
         /// favs control.
         /// </summary>
         /// <remarks>
@@ -83,6 +92,15 @@ namespace Esource.Views.notification {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl jobclear;
+        
+        /// <summary>
+        /// jobErr control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label jobErr;
         
         /// <summary>
         /// jobs control.
@@ -121,6 +139,15 @@ namespace Esource.Views.notification {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl fileclear;
         
         /// <summary>
+        /// fileErr control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label fileErr;
+        
+        /// <summary>
         /// files control.
         /// </summary>
         /// <remarks>
@@ -137,6 +164,15 @@ namespace Esource.Views.notification {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl reqclear;
+        
+        /// <summary>
+        /// reqErr control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label reqErr;
         
         /// <summary>
         /// requests control.
