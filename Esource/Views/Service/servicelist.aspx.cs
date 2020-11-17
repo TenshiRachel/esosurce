@@ -67,6 +67,7 @@ namespace Esource.Views.Service
                 List<BL.service.Service> service = new BL.service.Service().SelectById(serviceId);
                 BL.service.Service curr = new BL.service.Service();
                 User curruser = new User().SelectById(LblUid.Value);
+                User freelancer = new User().SelectById(service[0].uid.ToString());
                 
                 List<string> userfavs = new Fav().SelectUserFavs(LblUid.Value);
 
@@ -76,7 +77,7 @@ namespace Esource.Views.Service
                     int favres = fav.Add();
                     if (favres == 1 && servres == 1)
                     {
-                        Notification notif = new Notification(int.Parse(LblUid.Value), curruser.username, service[0].Id, service[0].name, "fav");
+                        Notification notif = new Notification(int.Parse(LblUid.Value), curruser.username, service[0].Id, service[0].name, freelancer.Id.ToString(), "fav");
                         notif.AddNotif();
                         toast(this, "Service favourited", "Success", "success");
                     }

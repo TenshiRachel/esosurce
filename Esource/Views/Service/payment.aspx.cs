@@ -6,7 +6,10 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Esource.BL.profile;
 using Esource.BL.service;
+using Esource.BL.jobs;
+using Esource.BL.notification;
 using Esource.Utilities;
+using Stripe;
 
 namespace Esource.Views.service
 {
@@ -18,6 +21,11 @@ namespace Esource.Views.service
             {
                 Session["error"] = "Please select a service to pay for";
                 Response.Redirect("~/Views/service/index.aspx");
+            }
+            if (Request.QueryString["jid"] == null)
+            {
+                Session["error"] = "Please select a request to pay for";
+                Response.Redirect("~/Views/service/request.aspx");
             }
             else if (Session["uid"] == null)
             {
@@ -53,8 +61,50 @@ namespace Esource.Views.service
 
         protected void btnPay_Click(object sender, EventArgs e)
         {
+            StripeConfiguration.ApiKey = "sk_test_51Hnjg6K2AIXSM7wrvlwz0S8eQSrtxjb7irpnIhvWGSKSsbWJzUymiC3tHbwxYQCumbmK5gC06kRIw7wr1eHEpj6D00CDgHmOpO";
+            User user = new User().SelectById(LblUid.Text);
+            string sid = Request.QueryString["sid"].ToString();
+            List<BL.service.Service> service = new BL.service.Service().SelectById(sid);
+            User freelancer = new User().SelectById(service[0].uid.ToString());
+            Customer cust = new Customer();
+            Customer freelance = new Customer();
+            CustomerService serv = new CustomerService();
+
+            if (string.IsNullOrEmpty(user.stripeId))
+            {
+                CustomerCreateOptions options = new CustomerCreateOptions
+                {
+                    Description = user.username,
+                    Balance = 5000
+                };
+                cust = serv.Create(options);
+                user.UpdateStripe(user.Id.ToString(), cust.Id);
+            }
+            else
+            {
+                cust = serv.Get(user.stripeId);
+            }
+            if (string.IsNullOrEmpty(freelancer.stripeId))
+            {
+                CustomerCreateOptions options = new CustomerCreateOptions
+                {
+                    Description = freelancer.username,
+                    Balance = 5000
+                };
+                freelance = serv.Create(options);
+                user.UpdateStripe(freelancer.Id.ToString(), freelance.Id);
+            }
+            else
+            {
+                freelance = serv.Get(freelancer.stripeId);
+            }
             string price = servprice.InnerHtml.Replace("$", string.Empty);
-            Payment.pay(client_email.InnerHtml, price, freelance_email.InnerHtml);
+            Payment.pay(cust, freelance, price);
+            new Jobs().UpdateStatus(Request.QueryString["jid"].ToString(), "paid");
+            Notification notif = new Notification(user.Id, user.username, int.Parse(sid), service[0].name, freelancer.Id.ToString(), "job_paid");
+            notif.AddNotif();
+            Session["success"] = "Transaction for request successful";
+            Response.Redirect("~/Views/service/request.aspx");
         }
     }
 }

@@ -160,7 +160,7 @@ namespace Esource.DAL.jobs
             string DBConnect = ConfigurationManager.ConnectionStrings["ConnStr"].ConnectionString;
             SqlConnection conn = new SqlConnection(DBConnect);
 
-            string sqlStmt = "UPDATE Service " +
+            string sqlStmt = "UPDATE Job " +
                 "SET status = @paraStatus " +
                 "WHERE Id = @paraId";
 

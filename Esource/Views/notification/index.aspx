@@ -47,6 +47,11 @@
                                 Clear All
                             </asp:LinkButton>
                         </div>
+                        <div class="text-center mt-2">
+                            <h4>
+                                <asp:Label runat="server" ID="favErr" Text="No Notifications" Visible="false"></asp:Label>
+                            </h4>
+                        </div>
                         <asp:Repeater runat="server" ID="favs" OnItemCommand="common_ItemCommand" OnItemDataBound="favs_ItemDataBound">
                             <ItemTemplate>
                                 <div id="notif<%#Eval("Id") %>" class="col-12 row justify-content-between z-depth-1 my-2">
@@ -69,13 +74,6 @@
                                     </asp:LinkButton>
                                 </div>
                             </ItemTemplate>
-                            <FooterTemplate>
-                                <div class="text-center mt-2">
-                                    <h4>
-                                        <asp:Label runat="server" ID="LbErr" Text="No Notifications" Visible="false"></asp:Label>
-                                    </h4>
-                                </div>
-                            </FooterTemplate>
                         </asp:Repeater>
                     </div>
                 </div>
@@ -85,6 +83,11 @@
                             <asp:LinkButton runat="server" CssClass="ml-auto btn btn-secondary" CommandArgument="job,job_cancel,paid" OnCommand="clearAll">
                                 Clear All
                             </asp:LinkButton>
+                        </div>
+                        <div class="text-center mt-2">
+                            <h4>
+                                <asp:Label runat="server" ID="jobErr" Text="No Notifications" Visible="false"></asp:Label>
+                            </h4>
                         </div>
                         <asp:Repeater runat="server" ID="jobs" OnItemCommand="jobs_ItemCommand" OnItemDataBound="jobs_ItemDataBound">
                             <ItemTemplate>
@@ -110,13 +113,6 @@
                                     </asp:LinkButton>
                                 </div>
                             </ItemTemplate>
-                            <FooterTemplate>
-                                <div class="text-center mt-2">
-                                    <h4>
-                                        <asp:Label runat="server" ID="LbErr" Text="No Notifications" Visible="false"></asp:Label>
-                                    </h4>
-                                </div>
-                            </FooterTemplate>
                         </asp:Repeater>
                         <asp:Repeater runat="server" ID="jobscancel" OnItemCommand="common_ItemCommand">
                             <ItemTemplate>
@@ -168,10 +164,15 @@
                 </div>
                 <div class="tab-pane fade" id="fnotifs" role="tabpanel" aria-labelledby="fnotifs">
                     <div class="row justify-content-center mx-auto p-2 col-12">
-                        <div runat="server" id="fileclear" class="col-12 row justify-content-end mx-auto" visible="true">
+                        <div runat="server" id="fileclear" class="col-12 row justify-content-end mx-auto" visible="false">
                             <asp:LinkButton runat="server" CssClass="ml-auto btn btn-secondary" CommandArgument="file" OnCommand="clearAll">
                                 Clear All
                             </asp:LinkButton>
+                        </div>
+                        <div class="text-center mt-2">
+                            <h4>
+                                <asp:Label runat="server" ID="fileErr" Text="No Notifications" Visible="false"></asp:Label>
+                            </h4>
                         </div>
                         <asp:Repeater runat="server" ID="files" OnItemCommand="files_ItemCommand" OnItemDataBound="files_ItemDataBound">
                             <ItemTemplate>
@@ -195,13 +196,6 @@
                                     </asp:LinkButton>
                                 </div>
                             </ItemTemplate>
-                            <FooterTemplate>
-                                <div class="text-center mt-2">
-                                    <h4>
-                                        <asp:Label runat="server" ID="LbErr" Text="No Notifications" Visible="false"></asp:Label>
-                                    </h4>
-                                </div>
-                            </FooterTemplate>
                         </asp:Repeater>
                     </div>
                 </div>
@@ -211,6 +205,11 @@
                             <asp:LinkButton runat="server" CssClass="ml-auto btn btn-secondary" CommandArgument="request,req_cancel,completed" OnCommand="clearAll">
                                 Clear All
                             </asp:LinkButton>
+                        </div>
+                        <div class="text-center mt-2">
+                            <h4>
+                                <asp:Label runat="server" ID="reqErr" Text="No Notifications" Visible="false"></asp:Label>
+                            </h4>
                         </div>
                         <asp:Repeater runat="server" ID="requests" OnItemCommand="common_ItemCommand" OnItemDataBound="requests_ItemDataBound">
                             <ItemTemplate>
@@ -234,13 +233,6 @@
                                     </asp:LinkButton>
                                 </div>
                             </ItemTemplate>
-                            <FooterTemplate>
-                                <div class="text-center mt-2">
-                                    <h4>
-                                        <asp:Label runat="server" ID="LbErr" Text="No Notifications" Visible="false"></asp:Label>
-                                    </h4>
-                                </div>
-                            </FooterTemplate>
                         </asp:Repeater>
                         <asp:Repeater runat="server" ID="reqcancel" OnItemCommand="common_ItemCommand">
                             <ItemTemplate>

@@ -58,7 +58,7 @@
                         { %>
                     <li class="nav-item mr-2 d-none d-md-block">
                         <a class="nav-link rounded" href="<%=Page.ResolveUrl("~/Views/notification/index.aspx") %>">
-                            <i class="fas fa-bell"></i><span class="">0</span>
+                            <i class="fas fa-bell"></i><span class=""><%=notifCount() %></span>
                         </a>
                     </li>
                     <li class="nav-item dropdown my-auto d-none d-md-block">

@@ -112,7 +112,7 @@ namespace Esource.Views.notification
         {
             if (e.Item.ItemType == ListItemType.Footer && favs.Items.Count < 1)
             {
-                e.Item.FindControl("LbErr").Visible = true;
+                favErr.Visible = true;
             }
         }
 
@@ -138,9 +138,9 @@ namespace Esource.Views.notification
 
         protected void jobs_ItemDataBound(object sender, RepeaterItemEventArgs e)
         {
-            if (e.Item.ItemType == ListItemType.Footer && jobs.Items.Count < 1 && jobpaid.Items.Count < 1 && jobscancel.Items.Count < 1)
+            if (jobs.Items.Count < 1 && jobpaid.Items.Count < 1 && jobscancel.Items.Count < 1)
             {
-                e.Item.FindControl("LbErr").Visible = true;
+                jobErr.Visible = true;
             }
         }
 
@@ -164,15 +164,15 @@ namespace Esource.Views.notification
         {
             if (e.Item.ItemType == ListItemType.Footer && files.Items.Count < 1)
             {
-                e.Item.FindControl("LbErr").Visible = true;
+                fileErr.Visible = true;
             }
         }
 
         protected void requests_ItemDataBound(object sender, RepeaterItemEventArgs e)
         {
-            if (e.Item.ItemType == ListItemType.Footer && requests.Items.Count < 1 && reqcancel.Items.Count < 1 && reqcomplete.Items.Count < 1)
+            if (requests.Items.Count < 1 && reqcancel.Items.Count < 1 && reqcomplete.Items.Count < 1)
             {
-                e.Item.FindControl("LbErr").Visible = true;
+                reqErr.Visible = true;
             }
         }
 

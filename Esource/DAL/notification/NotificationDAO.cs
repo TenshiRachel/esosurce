@@ -16,8 +16,8 @@ namespace Esource.DAL.notification
             string DBConnect = ConfigurationManager.ConnectionStrings["ConnStr"].ConnectionString;
             SqlConnection conn = new SqlConnection(DBConnect);
 
-            string sqlStmt = "INSERT INTO Notification (cid, cname, pid, title, type, date_created, status)" +
-                "VALUES (@paraCid, @paraCname, @paraPid, @paraTitle, @paraType, @paraDate, @paraStatus)";
+            string sqlStmt = "INSERT INTO Notification (cid, cname, pid, title, [user], type, date_created, status)" +
+                "VALUES (@paraCid, @paraCname, @paraPid, @paraTitle, @paraUser, @paraType, @paraDate, @paraStatus)";
 
             int result = 0;
             SqlCommand sqlCmd = new SqlCommand(sqlStmt, conn);
@@ -26,6 +26,7 @@ namespace Esource.DAL.notification
             sqlCmd.Parameters.AddWithValue("@paraCname", notif.username);
             sqlCmd.Parameters.AddWithValue("@paraPid", notif.pid);
             sqlCmd.Parameters.AddWithValue("@paraTitle", notif.title);
+            sqlCmd.Parameters.AddWithValue("@paraUser", notif.userId);
             sqlCmd.Parameters.AddWithValue("@paraType", notif.type);
             sqlCmd.Parameters.AddWithValue("@paraDate", notif.date_created);
             sqlCmd.Parameters.AddWithValue("@paraStatus", notif.status);
@@ -42,7 +43,7 @@ namespace Esource.DAL.notification
             string DBConnect = ConfigurationManager.ConnectionStrings["ConnStr"].ConnectionString;
             SqlConnection conn = new SqlConnection(DBConnect);
 
-            string sqlStmt = "SELECT * FROM Notification WHERE cid = @paraCid AND type = @paraType AND status = ''";
+            string sqlStmt = "SELECT * FROM Notification WHERE [user] = @paraCid AND type = @paraType AND status = ''";
 
             SqlDataAdapter da = new SqlDataAdapter(sqlStmt, conn);
             da.SelectCommand.Parameters.AddWithValue("@paraCid", uid);
@@ -64,8 +65,9 @@ namespace Esource.DAL.notification
                     string title = row["title"].ToString();
                     string date_created = row["date_created"].ToString();
                     string status = row["status"].ToString();
+                    string userId = row["user"].ToString();
                     int Id = int.Parse(row["Id"].ToString());
-                    obj = new Notification(int.Parse(uid), username, pid, title, type, date_created, status, Id);
+                    obj = new Notification(int.Parse(uid), username, pid, title, userId, type, date_created, status, Id);
                     notifs.Add(obj);
                 }
             }
@@ -78,7 +80,7 @@ namespace Esource.DAL.notification
             string DBConnect = ConfigurationManager.ConnectionStrings["ConnStr"].ConnectionString;
             SqlConnection conn = new SqlConnection(DBConnect);
 
-            string sqlStmt = "SELECT * FROM Notification WHERE cid = @paraCid AND status = ''";
+            string sqlStmt = "SELECT * FROM Notification WHERE [user] = @paraCid AND status = ''";
 
             SqlDataAdapter da = new SqlDataAdapter(sqlStmt, conn);
             da.SelectCommand.Parameters.AddWithValue("@paraCid", uid);
@@ -128,7 +130,7 @@ namespace Esource.DAL.notification
 
             string sqlStmt = "UPDATE Notification " +
             "SET status = @paraStatus " +
-            "WHERE cid = @paraUid AND type = @paraType";
+            "WHERE [user] = @paraUid AND type = @paraType";
 
             int result = 0;
             SqlCommand sqlCmd = new SqlCommand(sqlStmt, conn);
