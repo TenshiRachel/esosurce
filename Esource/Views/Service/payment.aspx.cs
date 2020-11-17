@@ -35,7 +35,7 @@ namespace Esource.Views.service
             else
             {
                 LblUid.Text = Session["uid"].ToString();
-                LblJid.Text = Request.QueryString["jid"].ToLower();
+                LblJid.Text = Request.QueryString["jid"].ToString();
                 User user = new User().SelectById(LblUid.Text);
                 if (user.type == "freelancer")
                 {

@@ -48,7 +48,7 @@ namespace Esource.BL.jobs
 
         public Jobs SelectById(string id)
         {
-            Jobs job = new Jobs().SelectById(id);
+            Jobs job = new JobsDAO().SelectById(id);
             return job;
         }
 
