@@ -40,6 +40,43 @@ namespace Esource.DAL.jobs
             return result;
         }
 
+        public Jobs SelectById(string id)
+        {
+            string DBConnect = ConfigurationManager.ConnectionStrings["ConnStr"].ConnectionString;
+            SqlConnection conn = new SqlConnection(DBConnect);
+
+            string sqlStmt = "SELECT * FROM Job WHERE Id=@paraId";
+
+            SqlDataAdapter da = new SqlDataAdapter(sqlStmt, conn);
+            da.SelectCommand.Parameters.AddWithValue("@paraId", id);
+
+            DataSet ds = new DataSet();
+            da.Fill(ds);
+            int rec_cnt = ds.Tables[0].Rows.Count;
+
+            Jobs obj = null;
+            if (rec_cnt > 0)
+            {
+                for (int i = 0; i < rec_cnt; i++)
+                {
+                    DataRow row = ds.Tables[0].Rows[i];
+                    int uid = int.Parse(row["uid"].ToString());
+                    int cid = int.Parse(row["cid"].ToString());
+                    int sid = int.Parse(row["sid"].ToString());
+                    string date_created = row["date_created"].ToString();
+                    string sName = row["sName"].ToString();
+                    string cName = row["cName"].ToString();
+                    string username = row["username"].ToString();
+                    string status = row["status"].ToString();
+                    string remarks = row["remarks"].ToString();
+                    decimal price = decimal.Parse(row["price"].ToString());
+                    obj = new Jobs(cid, uid, sid, sName, cName, username, remarks, price, date_created, status, int.Parse(id));
+                }
+            }
+
+            return obj;
+        }
+
         public List<Jobs> SelectByUid(string uid)
         {
             string DBConnect = ConfigurationManager.ConnectionStrings["ConnStr"].ConnectionString;

@@ -46,6 +46,12 @@ namespace Esource.BL.jobs
             return result;
         }
 
+        public Jobs SelectById(string id)
+        {
+            Jobs job = new Jobs().SelectById(id);
+            return job;
+        }
+
         public List<Jobs> SelectByUid(string uid)
         {
             List<Jobs> jobs = new JobsDAO().SelectByUid(uid);

@@ -5,6 +5,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <section class="payment-service">
         <asp:Label runat="server" ID="LblUid" Visible="false"></asp:Label>
+        <asp:Label runat="server" ID="LblJid" Visible="false"></asp:Label>
         <div class="card z-depth-2">
             <div class="row justify-content-around p-5">
                 <div class="col-12 row justify-content-around">

@@ -35,7 +35,19 @@ namespace Esource.Views.service
             else
             {
                 LblUid.Text = Session["uid"].ToString();
+                LblJid.Text = Request.QueryString["jid"].ToLower();
                 User user = new User().SelectById(LblUid.Text);
+                if (user.type == "freelancer")
+                {
+                    Session["error"] = "You need to be a client to pay for a service";
+                    Response.Redirect("~/Views/service/index.aspx");
+                }
+                Jobs job = new Jobs().SelectById(LblJid.Text);
+                if (job.status == "paid")
+                {
+                    Session["error"] = "Request has already been paid";
+                    Response.Redirect("~/Views/service/index.aspx");
+                }
                 client_email.InnerHtml = user.email;
                 client_name.InnerHtml = user.username;
                 client_avatar.Src = Page.ResolveUrl(user.profile_src);
