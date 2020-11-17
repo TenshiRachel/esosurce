@@ -55,7 +55,40 @@ namespace Esource.Views.service
         protected void btnPay_Click(object sender, EventArgs e)
         {
             StripeConfiguration.ApiKey = "sk_test_51Hnjg6K2AIXSM7wrvlwz0S8eQSrtxjb7irpnIhvWGSKSsbWJzUymiC3tHbwxYQCumbmK5gC06kRIw7wr1eHEpj6D00CDgHmOpO";
+            User user = new User().SelectById(LblUid.Text);
+            string sid = Request.QueryString["sid"].ToString();
+            List<BL.service.Service> service = new BL.service.Service().SelectById(sid);
+            User freelancer = new User().SelectById(service[0].uid.ToString());
+            Customer cust = new Customer();
+            Customer freelance = new Customer();
+            CustomerService serv = new CustomerService();
+
+            cust = serv.Get(user.stripeId);
+            
+            if (cust == null)
+            {
+                CustomerCreateOptions options = new CustomerCreateOptions
+                {
+                    Description = user.username,
+                    Balance = 5000
+                };
+                cust = serv.Create(options);
+                user.UpdateStripe(user.Id.ToString(), cust.Id);
+            }
+            freelance = serv.Get(freelancer.stripeId);
+            if (freelance == null)
+            {
+                CustomerCreateOptions options = new CustomerCreateOptions
+                {
+                    Description = freelancer.username,
+                    Balance = 5000
+                };
+                freelance = serv.Create(options);
+                user.UpdateStripe(freelancer.Id.ToString(), freelance.Id);
+            }
+
             string price = servprice.InnerHtml.Replace("$", string.Empty);
+            Payment.pay(cust, freelance, price);
         }
     }
 }
