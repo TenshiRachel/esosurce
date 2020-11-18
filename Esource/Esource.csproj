@@ -224,12 +224,14 @@
     <Compile Include="BL\profile\User.cs" />
     <Compile Include="BL\service\Fav.cs" />
     <Compile Include="BL\service\Service.cs" />
+    <Compile Include="BL\service\Transaction.cs" />
     <Compile Include="DAL\file\FileDAO.cs" />
     <Compile Include="DAL\jobs\JobsDAO.cs" />
     <Compile Include="DAL\notification\NotificationDAO.cs" />
     <Compile Include="DAL\profile\UserDAO.cs" />
     <Compile Include="DAL\service\FavDAO.cs" />
     <Compile Include="DAL\service\ServiceDAO.cs" />
+    <Compile Include="DAL\service\TransactionDAO.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
