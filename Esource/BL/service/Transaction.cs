@@ -21,13 +21,13 @@ namespace Esource.BL.service
 
         }
 
-        public Transaction(string serviceProvider, string service, string currency, decimal price, string date, int uid, int Id = -1)
+        public Transaction(string serviceProvider, string service, string currency, decimal price, int uid, string date = null, int Id = -1)
         {
             this.serviceProvider = serviceProvider;
             this.service = service;
             this.currency = currency;
             this.price = price;
-            this.date = date;
+            this.date = date ?? DateTime.Today.ToString("dd/MM/yyyy");
             this.uid = uid;
             this.Id = Id;
         }
@@ -36,6 +36,12 @@ namespace Esource.BL.service
         {
             int result = new TransactionDAO().Insert(this);
             return result;
+        }
+
+        public Transaction SelectById(string id)
+        {
+            Transaction trans = new TransactionDAO().SelectById(id);
+            return trans;
         }
 
         public List<Transaction> SelectByUid(string uid)

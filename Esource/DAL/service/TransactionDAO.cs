@@ -16,7 +16,7 @@ namespace Esource.DAL.service
             string DBConnect = ConfigurationManager.ConnectionStrings["ConnStr"].ConnectionString;
             SqlConnection conn = new SqlConnection(DBConnect);
 
-            string sqlStmt = "INSERT INTO Transaction (serviceProvider, service, currency, price, date, uid)" +
+            string sqlStmt = "INSERT INTO [Transaction] (serviceProvider, service, currency, price, date, uid)" +
                 "VALUES (@paraFreelance, @paraService, @paraCurr, @paraPrice, @paraDate, @paraUid)";
 
             int result = 0;
@@ -36,12 +36,43 @@ namespace Esource.DAL.service
             return result;
         }
 
+        public Transaction SelectById(string id)
+        {
+            string DBConnect = ConfigurationManager.ConnectionStrings["ConnStr"].ConnectionString;
+            SqlConnection conn = new SqlConnection(DBConnect);
+
+            string sqlStmt = "SELECT * FROM [Transaction] WHERE Id=@paraId";
+
+            SqlDataAdapter da = new SqlDataAdapter(sqlStmt, conn);
+            da.SelectCommand.Parameters.AddWithValue("@paraId", id);
+
+            DataSet ds = new DataSet();
+            da.Fill(ds);
+            int rec_cnt = ds.Tables[0].Rows.Count;
+
+            Transaction obj = null;
+            if (rec_cnt > 0)
+            {
+                DataRow row = ds.Tables[0].Rows[0];
+                string serviceProvider = row["serviceProvider"].ToString();
+                string service = row["service"].ToString();
+                string curr = row["currency"].ToString();
+                decimal price = decimal.Parse(row["price"].ToString());
+                string date = row["date"].ToString();
+                int uid = int.Parse(row["ud"].ToString());
+
+                obj = new Transaction(serviceProvider, service, curr, price, uid, date, int.Parse(id));
+            }
+
+            return obj;
+        }
+
         public List<Transaction> SelectByUid(string uid)
         {
             string DBConnect = ConfigurationManager.ConnectionStrings["ConnStr"].ConnectionString;
             SqlConnection conn = new SqlConnection(DBConnect);
 
-            string sqlStmt = "SELECT * FROM Transaction WHERE uid=@paraUid";
+            string sqlStmt = "SELECT * FROM [Transaction] WHERE uid=@paraUid";
 
             SqlDataAdapter da = new SqlDataAdapter(sqlStmt, conn);
             da.SelectCommand.Parameters.AddWithValue("@paraUid", uid);
@@ -64,7 +95,7 @@ namespace Esource.DAL.service
                     string date = row["date"].ToString();
                     int Id = int.Parse(row["Id"].ToString());
 
-                    obj = new Transaction(serviceProvider, service, curr, price, date, int.Parse(uid), Id);
+                    obj = new Transaction(serviceProvider, service, curr, price, int.Parse(uid), date, Id);
                     trans.Add(obj);
                 }
             }
