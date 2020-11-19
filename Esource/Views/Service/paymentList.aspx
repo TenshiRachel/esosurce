@@ -14,9 +14,9 @@
         <div class="col-12 col-md-9 order-1 order-md-0">
             <div class="card">
                 <div
-                    class="view view-cascade primary-light-gradient narrower py-2 mx-4 mb-3 d-flex justify-content-center align-items-center text-center">
-                    <span class="mx-3">Transactions
-                    </span>
+                    class="view view-cascade primary-light-gradient py-2 mx-4 mb-3 d-flex justify-content-center align-items-center text-center">
+                    <h4 class="mx-3">Transactions
+                    </h4>
                 </div>
 
                 <div class="card-body">
@@ -24,7 +24,7 @@
                         <table id="transaction-table" class="table table-striped text-center">
                             <thead class="deep-purple accent-3 white-text">
                                 <tr>
-                                    <th id="provider">Service Provider </th>
+                                    <th runat="server" id="provider">Service Provider </th>
                                     <th id="name" class="th-sm">Service Name</th>
                                     <th id="price" class="th-sm">Price</th>
                                     <th id="date" class="th-sm rounded-top-right">Date</th>
@@ -59,8 +59,8 @@
         <div class="col-12 col-md-3 my-4 my-md-0 order-0 order-md-1">
             <div class="card">
                 <div
-                    class="view view-cascade primary-light-gradient narrower py-2 mx-4 mb-3 d-flex justify-content-center align-items-center text-center">
-                    <span class="mx-3">Action</span>
+                    class="view view-cascade primary-light-gradient py-2 mx-4 mb-3 d-flex justify-content-center align-items-center text-center">
+                    <h4 class="mx-3">Action</h4>
                 </div>
 
                 <div class="card-body">

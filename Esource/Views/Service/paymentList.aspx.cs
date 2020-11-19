@@ -32,6 +32,10 @@ namespace Esource.Views.service
             {
                 LblUid.Text = Session["uid"].ToString();
                 User user = new User().SelectById(LblUid.Text);
+                if (user.type == "freelancer")
+                {
+                    provider.InnerHtml = "Client";
+                }
 
                 List<Transaction> trans = new Transaction().SelectByUid(LblUid.Text);
                 translist.DataSource = trans;

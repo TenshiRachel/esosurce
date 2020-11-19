@@ -59,7 +59,7 @@ namespace Esource.DAL.service
                 string curr = row["currency"].ToString();
                 decimal price = decimal.Parse(row["price"].ToString());
                 string date = row["date"].ToString();
-                int uid = int.Parse(row["ud"].ToString());
+                int uid = int.Parse(row["uid"].ToString());
 
                 obj = new Transaction(serviceProvider, service, curr, price, uid, date, int.Parse(id));
             }

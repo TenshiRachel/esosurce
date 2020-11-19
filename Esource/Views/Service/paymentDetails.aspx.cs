@@ -28,7 +28,13 @@ namespace Esource.Views.service
                 }
                 else
                 {
+                    User user = new User().SelectById(LblUid.Text);
                     provider.InnerHtml = "Service provider:  " + trans().serviceProvider;
+                    if (user.type == "freelancer")
+                    {
+                        provider.InnerHtml = "Client: " + trans().serviceProvider;
+                        details.InnerHtml = "Client Details";
+                    }
                     service.InnerHtml = trans().service;
                     price.InnerHtml = "$" + trans().price + " " + trans().currency;
                     date.InnerHtml = trans().date;

@@ -22,6 +22,15 @@ namespace Esource.Views.service {
         protected global::System.Web.UI.WebControls.Label LblUid;
         
         /// <summary>
+        /// details control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl details;
+        
+        /// <summary>
         /// provider control.
         /// </summary>
         /// <remarks>

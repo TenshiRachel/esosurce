@@ -115,7 +115,10 @@ namespace Esource.Views.service
             new Jobs().UpdateStatus(Request.QueryString["jid"].ToString(), "paid");
             Notification notif = new Notification(user.Id, user.username, int.Parse(sid), service[0].name, freelancer.Id.ToString(), "job_paid");
             notif.AddNotif();
-            Transaction trans = new Transaction(freelancer.username, service[0].name, "SGD", service[0].price, user.Id);
+            Transaction trans = null;
+            trans = new Transaction(freelancer.username, service[0].name, "SGD", service[0].price, user.Id);
+            trans.AddTrans();
+            trans = new Transaction(user.username, service[0].name, "SGD", service[0].price, freelancer.Id);
             trans.AddTrans();
             Session["success"] = "Transaction successful";
             Response.Redirect("~/Views/service/paymentList.aspx");
