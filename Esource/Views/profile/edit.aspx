@@ -51,10 +51,12 @@
 
 
                         <div class="md-form md-outline">
+                            <asp:Label CssClass="text-left" runat="server" Text="Website" AssociatedControlID="TbWebsite"></asp:Label>
+                            <asp:TextBox ID="TbWebsite" CssClass="form-control" runat="server"></asp:TextBox>
 
-                            <input type="url" class="form-control" name="website" id="website" aria-describedby="helpId"
+<%--                            <input type="url" class="form-control" name="website" id="website" aria-describedby="helpId"
                                 placeholder="e.g. www.mywebsite.com" value="">
-                            <label for="website" class="text-left">Website</label>
+                            <label for="website" class="text-left">Website</label>--%>
                         </div>
 
 
@@ -67,6 +69,7 @@
 
 
                         <div class="select-outline text-left">
+                            <label for="gender" class="text-left">Gender</label>
                             <select name="gender" id="gender"
                                 class="mdb-select md-form md-outline colorful-select dropdown-primary">
                                 <option value="Not Set" selected>Not Set</option>
@@ -75,22 +78,21 @@
                                 <option value="Others">Others</option>
 
                             </select>
-                            <label for="gender" class="text-left">Gender</label>
                         </div>
 
                         <div class="select-outline text-left mb-n4">
+                            <label for="location" class="text-left">Country</label>
                             <select name="location" id="location"
                                 class="mdb-select md-form md-outline colorful-select dropdown-primary"
                                 placeholder="Country">
                                 <option value="Not Set">Not Set</option>
                                 <option value="{{this.name}}">{{this.name}}</option>
                             </select>
-                            <label for="location" class="text-left">Country</label>
                         </div>
 
                         <div class="md-form md-outline">
                             <input type="text" class="form-control" name="occupation" id="occupation"
-                                aria-describedby="helpId" placeholder="e.g. Illustrator" value="{{user.occupation}}">
+                                aria-describedby="helpId" placeholder="e.g. Illustrator" value="">
                             <label for="occupation" class="text-left">Occupation</label>
                         </div>
 
@@ -114,20 +116,6 @@
             <!-- Social Medias -->
             <div class="col-md-12 col-lg-4">
                 <!-- Card -->
-                <div class="card testimonial-card z-depth-2 pt-2 mb-5">
-
-                    <div class="card-body">
-                        <h3 class="card-title">Paypal</h3>
-                        <div class="md-form md-outline">
-                            <input type="text" class="form-control" name="paypal" id="paypal" aria-describedby="helpId"
-                                placeholder="e.g. {{user.email}}" value="">
-                            <label for="paypal" class="text-left">Paypal Email </label>
-
-                        </div>
-                    </div>
-                </div>
-
-
                 <div class="card testimonial-card z-depth-2 pt-2 mb-5">
                     <div class="card-body">
                         <!-- Name -->
@@ -229,7 +217,8 @@
                             <a href="/profile/" onclick="e.preventDefault();" class="btn btn-md btn-secondary">Back
                             </a>
 
-                            <button type="submit" class="btn btn-md btn-secondary">Update Changes</button>
+                            <asp:Button ID="updateProfile" runat="server" CssClass="btn btn-md btn-secondary" Text="Update Changes" OnClick="updateProfile_Click" />
+<%--                            <button type="submit" class="btn btn-md btn-secondary">Update Changes</button>--%>
                         </div>
                     </div>
                 </div>

@@ -11,7 +11,21 @@ namespace Esource.Views.profile
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Session["success"] != null)
+            {
+                toast(this, Session["success"].ToString(), "Success", "success");
+                Session["success"] = null;
+            }
+            if (Session["error"] != null)
+            {
+                toast(this, Session["error"].ToString(), "Error", "error");
+                Session["error"] = null;
+            }
+        }
 
+        public void toast(Page page, string message, string title, string type)
+        {
+            ScriptManager.RegisterClientScriptBlock(page, page.GetType(), "toastmsg", "toastnotif('" + message + "','" + title + "','" + type.ToLower() + "');", true);
         }
     }
 }
