@@ -204,6 +204,7 @@
     <Content Include="Views\auth\logout.aspx" />
     <Content Include="Views\auth\register.aspx" />
     <Content Include="Views\index.aspx" />
+    <Content Include="Views\jobs\index.aspx" />
     <Content Include="Views\notification\index.aspx" />
     <Content Include="Views\profile\edit.aspx" />
     <Content Include="Views\profile\index.aspx" />
@@ -269,6 +270,13 @@
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Views\index.aspx.designer.cs">
+      <DependentUpon>index.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\jobs\index.aspx.cs">
+      <DependentUpon>index.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\jobs\index.aspx.designer.cs">
       <DependentUpon>index.aspx</DependentUpon>
     </Compile>
     <Compile Include="Views\Masters\index.Master.cs">
