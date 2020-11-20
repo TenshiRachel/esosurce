@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Esource.BL.profile;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -20,6 +21,23 @@ namespace Esource.Views.profile
             {
                 toast(this, Session["error"].ToString(), "Error", "error");
                 Session["error"] = null;
+            }
+            if (Session["uid"] != null)
+            {
+                LblUid.Text = Session["uid"].ToString();
+                User user = new User().SelectById(LblUid.Text);
+                bio.InnerHtml = user.bio;
+                website.InnerHtml = user.website;
+                dob.InnerHtml = user.birthday;
+                gender.InnerHtml = user.gender;
+                location.InnerHtml = user.location;
+                occupation.InnerHtml = user.occupation;
+                email.InnerHtml = user.email;
+            }
+            else
+            {
+                Session["error"] = "You need to be logged in to edit your profile";
+                Response.Redirect("~/Views/index.aspx");
             }
         }
 

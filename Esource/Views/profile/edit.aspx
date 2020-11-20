@@ -4,6 +4,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <section class="edit-profile">
+        <asp:Label runat="server" ID="LblUid" Visible="false"></asp:Label>
         <div class="col-12 card p-2 rounded-bottom-0 mb-4">
             <h1 class="col-12 text-center">Edit Profile </h1>
         </div>
@@ -51,26 +52,22 @@
 
 
                         <div class="md-form md-outline">
-                            <asp:Label CssClass="text-left" runat="server" Text="Website" AssociatedControlID="TbWebsite"></asp:Label>
-                            <asp:TextBox ID="TbWebsite" CssClass="form-control" runat="server"></asp:TextBox>
-
-<%--                            <input type="url" class="form-control" name="website" id="website" aria-describedby="helpId"
+                            <input runat="server" type="url" class="form-control" name="website" id="website" aria-describedby="helpId"
                                 placeholder="e.g. www.mywebsite.com" value="">
-                            <label for="website" class="text-left">Website</label>--%>
+                            <label for="website" class="text-left">Website</label>
                         </div>
 
 
                         <div class="md-form md-outline">
-                            <input placeholder="Selected date" type="text" id="dob" name="dob"
-                                class="form-control datepicker" value="">
+                            <input runat="server" placeholder="e.g. 1/1/2020" type="text" id="dob" name="dob"
+                                class="form-control" value="">
                             <label for="dob" class="text-left">Birthday</label>
-
                         </div>
 
 
                         <div class="select-outline text-left">
                             <label for="gender" class="text-left">Gender</label>
-                            <select name="gender" id="gender"
+                            <select runat="server" name="gender" id="gender"
                                 class="mdb-select md-form md-outline colorful-select dropdown-primary">
                                 <option value="Not Set" selected>Not Set</option>
                                 <option value="Male">Male</option>
@@ -82,7 +79,7 @@
 
                         <div class="select-outline text-left mb-n4">
                             <label for="location" class="text-left">Country</label>
-                            <select name="location" id="location"
+                            <select runat="server" name="location" id="location"
                                 class="mdb-select md-form md-outline colorful-select dropdown-primary"
                                 placeholder="Country">
                                 <option value="Not Set">Not Set</option>
@@ -91,7 +88,7 @@
                         </div>
 
                         <div class="md-form md-outline">
-                            <input type="text" class="form-control" name="occupation" id="occupation"
+                            <input type="text" runat="server" class="form-control" name="occupation" id="occupation"
                                 aria-describedby="helpId" placeholder="e.g. Illustrator" value="">
                             <label for="occupation" class="text-left">Occupation</label>
                         </div>
@@ -100,13 +97,13 @@
                         <div class="mt-5 text-center py-4">
                             <h4 class="card-title">Delete Account</h4>
                             <a class="btn btn-danger btn-md" data-toggle="modal" data-target="#confirm{{id}}"><i
-                                class="fas fa-trash-alt fa-lg"></i>Delete Account</a>
+                                class="fas fa-trash-alt fa-lg mr-1"></i>Delete Account</a>
                         </div>
                         <hr class="hr-primary">
                         <div class="mt-5 text-center py-4">
                             <h4 class="card-title">Change Password</h4>
                             <a class="btn btn-secondary btn-md" href="/changepass"><i
-                                class="fas fa-key fa-lg"></i>Change Password</a>
+                                class="fas fa-key fa-lg mr-1"></i>Change Password</a>
                         </div>
                     </div>
                 </div>
@@ -166,8 +163,8 @@
                         <!-- Name -->
                         <h4 class="card-title text-left">Bio</h4>
                         <div class="md-form md-outline">
-                            <textarea class="form-control rounded-0" id="bio" name="bio" value="" rows="7"
-                                placeholder="Tell us about youself..">Not Set</textarea>
+                            <textarea runat="server" class="form-control rounded-0" id="bio" name="bio" value="" rows="7"
+                                placeholder="Tell us about youself.."></textarea>
                             <label for="bio">Bio</label>
                         </div>
                         <hr class="hr-primary">

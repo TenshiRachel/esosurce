@@ -3,7 +3,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <section class="profile">
-
+    <asp:Label runat="server" ID="LblUid"  Visible="false"></asp:Label>
     <div class="card testimonial-card z-depth-2">
         <!-- =============================== Banner Image =============================== -->
         <div class="card-up indigo lighten-1 rounded-0 jarallax">
@@ -50,7 +50,7 @@
                             <div class="card-body">
                                 <h3 class="card-title">Cozen</h3>
 
-                                <h5 class="card-title text-muted">
+                                <h5 runat="server" id="usertype" class="card-title text-muted">
                                     Service Provider
                                 </h5>
 
@@ -71,26 +71,26 @@
                                 <hr class="hr-primary">
 
                                 <p class="text-left"><b>Website:</b>
-                                    <span class="text-muted">None</span>
+                                    <span runat="server" id="website" class="text-muted"></span>
                                 </p>
 
                                 <p class="text-left"><b>Birthday:</b>
-                                    <span class="text-muted">Not Set</span>
+                                    <span runat="server" id="dob" class="text-muted"></span>
                                 </p>
 
                                 <p class="text-left"><b>Gender:</b>
-                                    <span class="text-muted">Not Set</span>
+                                    <span runat="server" id="gender" class="text-muted"></span>
                                 </p>
 
                                 <p class="text-left"><b>Location:</b>
-                                    <span class="text-muted">Not Set</span>
+                                    <span runat="server" id="location" class="text-muted"></span>
                                 </p>
 
                                 <p class="text-left"><b>Occupation:</b>
-                                    <span class="text-muted">Not Set</span>
+                                    <span runat="server" id="occupation" class="text-muted"></span>
                                 </p>
 
-                                <p class="text-left"><b>Email:</b> joshdebean@gmail.com</p>
+                                <p class="text-left"><b>Email:</b> <span runat="server" id="email"></span></p>
 
                                 <hr class="hr-primary">
 
@@ -102,8 +102,7 @@
                     <div class="card testimonial-card my-3">
                         <div class="card-body">
                             <h4 class="card-title text-left">Bio</h4>
-                            <p class="text-left text-muted">
-                                    Not set
+                            <p runat="server" id="bio" class="text-left text-muted">
                             </p>
                             <hr class="hr-primary">
                             <h4 class="card-title text-left">Skills</h4>

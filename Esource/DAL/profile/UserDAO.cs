@@ -137,21 +137,19 @@ namespace Esource.DAL.profile
             return obj;
         }
 
-        public int Update(string id, string username, string email, string bio, string profile_src, string website, string birthday, string gender, string location, string occupation)
+        public int Update(string id, string bio, string profile_src, string website, string birthday, string gender, string location, string occupation)
         {
             string DBConnect = ConfigurationManager.ConnectionStrings["ConnStr"].ConnectionString;
             SqlConnection conn = new SqlConnection(DBConnect);
 
             string sqlStmt = "UPDATE [User] " +
-                "SET username = @paraName, email = @paraEmail, bio = @paraBio, profile_src = @paraSrc, website = @paraSite, birthday = @paraBirthday, gender = @paraGender, location = @paraLocation, occupation = @paraOccupation" +
+                "SET bio = @paraBio, profile_src = @paraSrc, website = @paraSite, birthday = @paraBirthday, gender = @paraGender, location = @paraLocation, occupation = @paraOccupation " +
                 "WHERE Id = @paraId";
 
             int result = 0;
             SqlCommand sqlCmd = new SqlCommand(sqlStmt, conn);
 
             sqlCmd.Parameters.AddWithValue("@paraId", id);
-            sqlCmd.Parameters.AddWithValue("@paraName", username);
-            sqlCmd.Parameters.AddWithValue("@paraEmail", email);
             sqlCmd.Parameters.AddWithValue("@paraBio", bio);
             sqlCmd.Parameters.AddWithValue("@paraSrc", profile_src);
             sqlCmd.Parameters.AddWithValue("@paraSite", website);
