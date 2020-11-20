@@ -29,7 +29,7 @@
                         <div class="filepreview">
                             <div class="wrapper">
                                 <div class="preview">
-                                    <img src="#" id="poster" />
+                                    <img src="<%=Page.ResolveUrl("~/Content/img/placeholder.jpg") %>" id="poster" />
                                 </div>
                                 <div class="custom-file">
                                     <asp:FileUpload runat="server" ID="upPoster" />

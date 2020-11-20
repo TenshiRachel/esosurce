@@ -85,6 +85,11 @@ namespace Esource.Views.service
             var img = e.Item.FindControl("poster") as Image;
             HiddenField path = (HiddenField)e.Item.FindControl("img_path");
             img.ImageUrl = Page.ResolveUrl(path.Value);
+
+            HiddenField providerField = (HiddenField)e.Item.FindControl("LblFid");
+            User freelancer = new User().SelectById(providerField.Value);
+            var email = e.Item.FindControl("email") as Label;
+            email.Text = freelancer.email;
         }
     }
 }

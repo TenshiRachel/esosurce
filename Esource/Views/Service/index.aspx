@@ -67,9 +67,10 @@
                             </div>
                             <div class="col-lg-4">
                                 <div class="user-overview">
+                                    <asp:HiddenField runat="server" ID="LblFid" Value='<%#Eval("uid") %>' />
                                     <div class="card">
                                         <div style="height:auto;" class="indigo view lighten-1 rounded-0">
-                                            <img class="img-fluid" src="" onerror="this.src='<%=Page.ResolveUrl("~/Content/img/placeholder.jpg") %>'" />
+                                            <img class="img-fluid" src="#" onerror="this.src='<%=Page.ResolveUrl("~/Content/img/placeholder.jpg") %>'" />
                                             <div class="mask flex-center waves-effect waves-light"></div>
                                         </div>
 
@@ -90,7 +91,7 @@
                                             <p class="text-left"> <b>Following:</b> 0</p>
                                             <hr class="hr-primary">
 
-                                            <p class="text-left"><b>Email:</b> Email</p>
+                                            <p class="text-left"><b>Email:</b> <asp:Label runat="server" ID="email"></asp:Label></p>
 
                                             <hr class="hr-primary">
 
