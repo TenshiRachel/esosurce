@@ -63,7 +63,7 @@ namespace Esource.Views.service
                     }
                     else
                     {
-                        Session["success"] = "Service requested successfully, please wait for " + freelancer.username + "'s response";
+                        Session["success"] = "Service requested successfully, please wait for " + freelancer.username + "\\'s response";
                         Response.Redirect("~/Views/service/servicelist.aspx");
                     }
                 }
