@@ -13,6 +13,15 @@ namespace Esource.Views.profile {
     public partial class index {
         
         /// <summary>
+        /// servscript control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.ScriptManager servscript;
+        
+        /// <summary>
         /// LblUid control.
         /// </summary>
         /// <remarks>
@@ -92,5 +101,23 @@ namespace Esource.Views.profile {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl bio;
+        
+        /// <summary>
+        /// servpanel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel servpanel;
+        
+        /// <summary>
+        /// servList control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Repeater servList;
     }
 }
