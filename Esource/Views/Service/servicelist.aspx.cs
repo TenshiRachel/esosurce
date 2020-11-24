@@ -47,6 +47,10 @@ namespace Esource.Views.Service
 
         protected void servList_ItemCommand(object source, RepeaterCommandEventArgs e)
         {
+            if (e.CommandName == "viewprofile")
+            {
+                Response.Redirect("~/Views/profile/view.aspx?id=" + e.CommandArgument.ToString());
+            }
             if (e.CommandName == "view")
             {
                 string serviceId = e.CommandArgument.ToString();

@@ -1,4 +1,5 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Masters/index.Master" AutoEventWireup="true" CodeBehind="add.aspx.cs" Inherits="Esource.Views.service.add" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -29,7 +30,11 @@
                         <div class="filepreview">
                             <div class="wrapper">
                                 <div class="preview">
-                                    <img src="<%=Page.ResolveUrl("~/Content/img/placeholder.jpg") %>" id="poster" />
+                                    <img src="<%=Page.ResolveUrl("~/Content/img/placeholder.jpg") %>" id="poster" />                                  
+                                </div>
+                                <div class="card-text">
+                                    <i class="fas fa-5x fa-image"></i>
+                                    <p class="font-weight-bolder">No Image Uploaded</p>
                                 </div>
                                 <div class="custom-file">
                                     <asp:FileUpload runat="server" ID="upPoster" />

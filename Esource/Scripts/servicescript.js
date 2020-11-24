@@ -3,6 +3,16 @@
     let fileUpload = document.getElementById('ContentPlaceHolder1_upPoster');
     let wrapper = document.getElementsByClassName('wrapper')[0];
 
+    let img = $('#poster');
+    if (img) {
+        showText(img);
+    }
+
+    img = $('#ContentPlaceHolder1_poster');
+    if (img) {
+        showText(img);
+    }
+
     if (searchbut) {
         searchbut.addEventListener('click', search);
     }
@@ -21,8 +31,18 @@ function clickUpload() {
     fileUpload.click();
 }
 
+function showText(img) {
+    if (img.attr('src') == '/Content/img/placeholder.jpg') {
+        let cardText = $('.filepreview > .wrapper > .card-text');
+        if ($(cardText).hasClass('d-none')) {
+            cardText.removeClass('d-none');
+        }
+    }
+}
+
 function preview() {
     let input = document.getElementById('ContentPlaceHolder1_upPoster');
+    let cardText = $('.filepreview > .wrapper > .card-text');
     let file = input.files;
     let reader = new FileReader();
     reader.onload = function (e) {
@@ -39,6 +59,11 @@ function preview() {
     if (file && file[0]) {
         reader.readAsDataURL(file[0]);
     }
+
+    if (!$(cardText).hasClass('d-none')) {
+        $(cardText).addClass('d-none');
+    }
+    
 }
 
 function search() {

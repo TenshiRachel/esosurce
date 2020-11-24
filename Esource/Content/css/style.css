@@ -533,6 +533,16 @@ nav.navbar .navbar-brand {
     object-fit: cover;
 }
 
+.filepreview > .wrapper > .card-text {
+    color: #ffffff;
+    position: relative;
+    top: 50px;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(50%);
+    transform: translateY(50%);
+    z-index: 2;
+}
+
 .card .avatar{
     border-radius: 50%;
     width: 24px;
