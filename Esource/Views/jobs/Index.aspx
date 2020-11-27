@@ -4,6 +4,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <section class="jobs">
+        <asp:ScriptManager runat="server"></asp:ScriptManager>
         <asp:Label runat="server" ID="LblUid" Visible="false"></asp:Label>
         <div class="row">
             <div class="col-12 col-md-9 order-1 order-md-0">
@@ -28,6 +29,8 @@
                                 </thead>
 
                                 <tbody>
+                                    <asp:UpdatePanel runat="server" ID="jobPanel" UpdateMode="Conditional">
+                                        <ContentTemplate>
                                     <asp:Repeater runat="server" id="joblist" OnItemCommand="joblist_ItemCommand" OnItemDataBound="joblist_ItemDataBound">
                                     <ItemTemplate>
                                 <tr class="animated faster">
@@ -40,15 +43,15 @@
                                     <td headers="remarks" class="align-middle"><%#Eval("remarks") %></td>
                                     <td headers="action" class="align-middle">
                                         <asp:HiddenField runat="server" ID="status" Value='<%#Eval("status") %>' />
-                                        <asp:LinkButton runat="server" ID="btnAccept" CommandArgument='<%#Eval("Id") %>' CommandName="accept" CssClass="btn btn-sm btn-success material-tooltip-md"
+                                        <asp:LinkButton runat="server" ID="btnAccept" CommandArgument='<%#Eval("Id") + "," + Eval("sid") + "," + Eval("cid")%>' CommandName="accept" CssClass="btn btn-sm btn-success material-tooltip-md"
                                             data-tooltip="tooltip" data-placement="top" title="Accept Job" visible="false">
                                             Accept Job<i class="fas fa-check ml-2"></i></asp:LinkButton>
-                                        <asp:LinkButton runat="server" ID="btnReject" CommandArgument='<%#Eval("Id") %>' CommandName ="reject" CssClass="btn btn-sm btn-danger material-tooltip-md"
+                                        <asp:LinkButton runat="server" ID="btnReject" CommandArgument='<%#Eval("Id") + "," + Eval("cid") %>' CommandName ="reject" CssClass="btn btn-sm btn-danger material-tooltip-md"
                                             data-tooltip="tooltip" data-placement="top" title="Reject Job" visible="false">
                                             Reject Job<i class="fas fa-times ml-2"></i>
                                         </asp:LinkButton>
                                         <p runat="server" id="await" class="text-center grey-text small font-weight-bold mb-0" visible="false">Awaiting payment</p>
-                                        <asp:LinkButton runat="server" ID="btnSubmit" CommandArgument='<%#Eval("Id") %>' CommandName ="submit" CssClass="btn btn-sm btn-success material-tooltip-md"
+                                        <asp:LinkButton runat="server" ID="btnSubmit" CommandArgument='<%#Eval("Id") + "," + Eval("cid") %>' CommandName ="submit" CssClass="btn btn-sm btn-success material-tooltip-md"
                                             data-tooltip="tooltip" data-placement="top" title="Submit Job" visible="false">
                                             Job completed<i class="fas fa-check ml-2"></i></asp:LinkButton>
                                         <p runat="server" id="completed" visible="false" class="text-center grey-text small font-weight-bold mb-0">Completed</p>
@@ -56,6 +59,8 @@
                                 </tr>
                                                                     </ItemTemplate>
                                 </asp:Repeater>
+                                                                                    </ContentTemplate>
+                                    </asp:UpdatePanel>
                                 </tbody>
                             </table>
                         </div>

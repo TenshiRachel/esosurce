@@ -6,6 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Esource.BL.jobs;
 using Esource.BL.profile;
+using Esource.BL.notification;
 
 namespace Esource.Views.jobs
 {
@@ -22,9 +23,12 @@ namespace Esource.Views.jobs
                     Session["error"] = "You need to be a service provider to view jobs";
                     Response.Redirect("~/Views/index.aspx");
                 }
-                List<Jobs> jobs = new Jobs().SelectByUid(LblUid.Text);
-                joblist.DataSource = jobs;
-                joblist.DataBind();
+                if (!Page.IsPostBack)
+                {
+                    List<Jobs> jobs = new Jobs().SelectByUid(LblUid.Text);
+                    joblist.DataSource = jobs;
+                    joblist.DataBind();
+                }
             }
             else
             {
@@ -33,9 +37,64 @@ namespace Esource.Views.jobs
             }
         }
 
+        public void toast(Page page, string message, string title, string type)
+        {
+            ScriptManager.RegisterClientScriptBlock(page, page.GetType(), "toastmsg", "toastnotif('" + message + "','" + title + "','" + type.ToLower() + "');", true);
+        }
+
         protected void joblist_ItemCommand(object source, RepeaterCommandEventArgs e)
         {
+            if (e.CommandName == "viewprofile")
+            {
+                Response.Redirect("~/Views/profile/view.aspx?id=" + e.CommandArgument.ToString());
+            }
 
+            if (e.CommandName == "accept")
+            {
+                string idList = e.CommandArgument.ToString();
+                string[] ids = idList.Split(',');
+                User curr = new User().SelectById(LblUid.Text);
+                List<BL.service.Service> service = new BL.service.Service().SelectById(ids[1]);
+                int result = new Jobs().UpdateStatus(ids[0], "accepted");
+                if (result == 0)
+                {
+                    Notification notif = new Notification(int.Parse(LblUid.Text), curr.username, int.Parse(ids[1]), service[0].name, ids[2], "accepted");
+                    notif.AddNotif();
+                    toast(this, "An error occured while accepting job", "Error", "error");
+                }
+                else
+                {
+                    toast(this, "Job accepted", "Success", "success");
+                }
+            }
+
+            if (e.CommandName == "reject")
+            {
+                string jobId = e.CommandArgument.ToString();
+                int result = new Jobs().UpdateStatus(jobId, "req_cancel");
+                if (result == 0)
+                {
+                    toast(this, "An error occured while cancelling job", "Error", "error");
+                }
+                else
+                {
+                    toast(this, "Job cancelled", "Success", "success");
+                }
+            }
+
+            if(e.CommandName == "submit")
+            {
+                string jobId = e.CommandArgument.ToString();
+                int result = new Jobs().UpdateStatus(jobId, "completed");
+                if (result == 0)
+                {
+                    toast(this, "An error occured while completing job", "Error", "error");
+                }
+                else
+                {
+                    toast(this, "Job completed", "Success", "success");
+                }
+            }
         }
 
         protected void joblist_ItemDataBound(object source, RepeaterItemEventArgs e)
