@@ -1,7 +1,6 @@
 ﻿using Esource.BL.profile;
 using System;
 using System.Collections.Generic;
-using System.Data.SqlClient;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
@@ -17,8 +16,6 @@ namespace Esource.Views.auth
         {
 
         }
-
-        string MYDBConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
 
         public void toast(Page page, string message, string title, string type)
         {
