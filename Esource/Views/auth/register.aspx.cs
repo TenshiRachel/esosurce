@@ -2,6 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -10,6 +12,11 @@ namespace Esource.Views.auth
 {
     public partial class register : System.Web.UI.Page
     {
+        static string finalHash;
+        static string salt;
+        byte[] Key;
+        byte[] IV;
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (Session["error"] != null)
@@ -63,10 +70,33 @@ namespace Esource.Views.auth
             return valid;
         }
 
-        public void registerUser(string username, string email, string password, string accType)
+        public void registerUser(string username, string email, string pwd, string accType)
         {
+            string pwd_hash = password.Value.ToString().Trim();
 
-            User user = new User(username, email, password, "", "", accType);
+            //Generate random "salt"
+            RNGCryptoServiceProvider rng = new RNGCryptoServiceProvider();
+            byte[] saltByte = new byte[8];
+
+            //Fills array of bytes with a cryptographically strong sequence of random values.
+            rng.GetBytes(saltByte);
+            salt = Convert.ToBase64String(saltByte);
+
+            SHA512Managed hashing = new SHA512Managed();
+
+            string pwdWithSalt = pwd_hash + salt;
+            byte[] plainHash = hashing.ComputeHash(Encoding.UTF8.GetBytes(pwd_hash));
+            byte[] hashWithSalt = hashing.ComputeHash(Encoding.UTF8.GetBytes(pwdWithSalt));
+
+            finalHash = Convert.ToBase64String(hashWithSalt);
+
+            RijndaelManaged cipher = new RijndaelManaged();
+            cipher.GenerateKey();
+            Key = cipher.Key;
+            IV = cipher.IV;
+            pwd = finalHash;
+
+            User user = new User(username, email, pwd, salt, "", "", accType);
             user.AddUser();
             Session["success"] = "Registered successfully";
             Response.Redirect("~/Views/auth/login.aspx");

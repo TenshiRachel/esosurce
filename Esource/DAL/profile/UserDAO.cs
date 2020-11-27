@@ -16,8 +16,8 @@ namespace Esource.DAL.profile
             string DBConnect = ConfigurationManager.ConnectionStrings["ConnStr"].ConnectionString;
             SqlConnection conn = new SqlConnection(DBConnect);
 
-            string sqlStmt = "INSERT INTO [User] (username, email, password, bio, profile_src, type, stripeId, website, birthday, gender, location, occupation)" +
-                "VALUES (@paraName, @paraEmail, @paraPassword, @paraBio, @paraSrc, @paraType, @paraStripe, @paraSite, @paraBirthday, @paraGender, @paraLocation, @paraOccupation)";
+            string sqlStmt = "INSERT INTO [User] (username, email, password, passSalt, bio, profile_src, type, stripeId, website, birthday, gender, location, occupation)" +
+                "VALUES (@paraName, @paraEmail, @paraPassword, @paraSalt, @paraBio, @paraSrc, @paraType, @paraStripe, @paraSite, @paraBirthday, @paraGender, @paraLocation, @paraOccupation)";
 
             int result = 0;
             SqlCommand sqlCmd = new SqlCommand(sqlStmt, conn);
@@ -25,6 +25,7 @@ namespace Esource.DAL.profile
             sqlCmd.Parameters.AddWithValue("@paraName", user.username);
             sqlCmd.Parameters.AddWithValue("@paraEmail", user.email);
             sqlCmd.Parameters.AddWithValue("@paraPassword", user.password);
+            sqlCmd.Parameters.AddWithValue("@paraSalt", user.passSalt);
             sqlCmd.Parameters.AddWithValue("@paraBio", user.bio);
             sqlCmd.Parameters.AddWithValue("@paraSrc", user.profile_src);
             sqlCmd.Parameters.AddWithValue("@paraType", user.type);
@@ -86,6 +87,7 @@ namespace Esource.DAL.profile
                 string name = row["username"].ToString();
                 string email = row["email"].ToString();
                 string password = row["password"].ToString();
+                string passSalt = row["passSalt"].ToString();
                 string bio = row["bio"].ToString();
                 string src = row["profile_src"].ToString();
                 string type = row["type"].ToString();
@@ -95,7 +97,7 @@ namespace Esource.DAL.profile
                 string gender = row["gender"].ToString();
                 string location = row["location"].ToString();
                 string occupation = row["occupation"].ToString();
-                obj = new User(name, email, password, bio, src, type, stripe, website, birthday, gender, location, occupation, id);
+                obj = new User(name, email, password, passSalt, bio, src, type, stripe, website, birthday, gender, location, occupation, id);
             }
 
             return obj;
@@ -122,6 +124,7 @@ namespace Esource.DAL.profile
                 string name = row["username"].ToString();
                 string email = row["email"].ToString();
                 string password = row["password"].ToString();
+                string passSalt = row["passSalt"].ToString();
                 string bio = row["bio"].ToString();
                 string src = row["profile_src"].ToString();
                 string type = row["type"].ToString();
@@ -131,7 +134,7 @@ namespace Esource.DAL.profile
                 string gender = row["gender"].ToString();
                 string location = row["location"].ToString();
                 string occupation = row["occupation"].ToString();
-                obj = new User(name, email, password, bio, src, type, stripe, website, birthday, gender, location, occupation, int.Parse(id));
+                obj = new User(name, email, password, passSalt, bio, src, type, stripe, website, birthday, gender, location, occupation, int.Parse(id));
             }
 
             return obj;

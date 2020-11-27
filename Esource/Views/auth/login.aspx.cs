@@ -1,7 +1,10 @@
 ﻿using Esource.BL.profile;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -14,6 +17,8 @@ namespace Esource.Views.auth
         {
 
         }
+
+        string MYDBConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
 
         public void toast(Page page, string message, string title, string type)
         {
@@ -37,10 +42,6 @@ namespace Esource.Views.auth
                 Session["error"] = "Account does not exist, please register.";
                 Response.Redirect("register.aspx");
             }
-            else if (password != user.password)
-            {
-                toast(this, "Incorrect password, please try again.", "Error", "error");
-            }
             else
             {
                 valid = true;
@@ -50,12 +51,31 @@ namespace Esource.Views.auth
 
         protected void btnLogin_Click(object sender, EventArgs e)
         {
+            User user = new User().SelectByEmail(email.Value);
+            string pwd = password.Value.ToString().Trim();
+
+            SHA512Managed hashing = new SHA512Managed();
+            string dbHash = user.password;
+            string dbSalt = user.passSalt;
+
             if (ValidateInput(email.Value, password.Value))
             {
-                User user = new User().SelectByEmail(email.Value);
-                Session["uid"] = user.Id;
-                Session["success"] = "You have logged in successfully";
-                Response.Redirect("~/Views/index.aspx");
+                if (dbSalt != null && dbSalt.Length > 0 && dbHash != null && dbHash.Length > 0)
+                {
+                    string pwdWithSalt = pwd + dbSalt;
+                    byte[] hashWithSalt = hashing.ComputeHash(Encoding.UTF8.GetBytes(pwdWithSalt));
+                    string userHash = Convert.ToBase64String(hashWithSalt);
+                    if (userHash.Equals(dbHash))
+                    {
+                        Session["uid"] = user.Id;
+                        Session["success"] = "You have logged in successfully";
+                        Response.Redirect("~/Views/index.aspx");
+                    }
+                    else
+                    {
+                        toast(this, "Incorrect password, please try again.", "Error", "error");
+                    }
+                }
             }
         }
     }

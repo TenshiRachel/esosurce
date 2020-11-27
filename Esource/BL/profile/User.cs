@@ -12,6 +12,7 @@ namespace Esource.BL.profile
         public string username { get; set; }
         public string email { get; set; }
         public string password { get; set; }
+        public string passSalt { get; set; }
         public string bio { get; set; }
         public string profile_src { get; set; }
         public string type { get; set; }
@@ -27,11 +28,12 @@ namespace Esource.BL.profile
 
         }
 
-        public User(string username, string email, string password, string bio, string profile_src, string type, string stripeId = "", string website = "Not Set", string birthday = "Not Set", string gender = "Not Set", string location = "Not Set", string occupation = "Not Set", int Id = -1)
+        public User(string username, string email, string password, string passSalt, string bio, string profile_src, string type, string stripeId = "", string website = "Not Set", string birthday = "Not Set", string gender = "Not Set", string location = "Not Set", string occupation = "Not Set", int Id = -1)
         {
             this.username = username;
             this.email = email;
             this.password = password;
+            this.passSalt = passSalt;
             this.bio = bio;
             this.profile_src = profile_src;
             this.type = type;
