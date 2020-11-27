@@ -25,9 +25,7 @@ namespace Esource.Views.jobs
                 }
                 if (!Page.IsPostBack)
                 {
-                    List<Jobs> jobs = new Jobs().SelectByUid(LblUid.Text);
-                    joblist.DataSource = jobs;
-                    joblist.DataBind();
+                    bind();
                 }
             }
             else
@@ -35,6 +33,13 @@ namespace Esource.Views.jobs
                 Session["error"] = "You need to log in to view jobs";
                 Response.Redirect("~/Views/index.aspx");
             }
+        }
+
+        public void bind()
+        {
+            List<Jobs> jobs = new Jobs().SelectByUid(LblUid.Text);
+            joblist.DataSource = jobs;
+            joblist.DataBind();
         }
 
         public void toast(Page page, string message, string title, string type)
@@ -60,6 +65,7 @@ namespace Esource.Views.jobs
                 {
                     Notification notif = new Notification(int.Parse(LblUid.Text), freelancer.username, int.Parse(ids[1]), service[0].name, ids[2], "request");
                     notif.AddNotif();
+                    bind();
                     toast(this, "An error occured while accepting job", "Error", "error");
                 }
                 else
@@ -79,6 +85,7 @@ namespace Esource.Views.jobs
                 {
                     Notification notif = new Notification(int.Parse(LblUid.Text), freelancer.username, int.Parse(ids[1]), service[0].name, ids[2], "req_cancel");
                     notif.AddNotif();
+                    bind();
                     toast(this, "An error occured while cancelling job", "Error", "error");
                 }
                 else
@@ -98,6 +105,7 @@ namespace Esource.Views.jobs
                 {
                     Notification notif = new Notification(int.Parse(LblUid.Text), freelancer.username, int.Parse(ids[1]), service[0].name, ids[2], "complete");
                     notif.AddNotif();
+                    bind();
                     toast(this, "An error occured while completing job", "Error", "error");
                 }
                 else

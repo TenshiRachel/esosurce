@@ -101,6 +101,7 @@ namespace Esource.Views.notification
             if (result == 1)
             {
                 toast(this, "Notification cleared successfully", "Success", "success");
+                bind();
             }
             else
             {
@@ -194,6 +195,7 @@ namespace Esource.Views.notification
                     toast(this, "An error occured while removing notifications", "Error", "error");
                 }
             }
+            bind();
             
         }
 

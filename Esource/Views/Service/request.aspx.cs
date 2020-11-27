@@ -80,6 +80,9 @@ namespace Esource.Views.service
                 {
                     Notification notif = new Notification(int.Parse(LblUid.Value), curr.username, int.Parse(ids[2]), service[0].name, ids[1], "job_cancel");
                     notif.AddNotif();
+                    List<Jobs> jobs = new Jobs().SelectByCid(LblUid.Value);
+                    reqlist.DataSource = jobs;
+                    reqlist.DataBind();
                     toast(this, "An error occured while cancelling request", "Error", "error");
                 }
                 else
