@@ -31,35 +31,35 @@
                                 <tbody>
                                     <asp:UpdatePanel runat="server" ID="jobPanel" UpdateMode="Conditional">
                                         <ContentTemplate>
-                                    <asp:Repeater runat="server" id="joblist" OnItemCommand="joblist_ItemCommand" OnItemDataBound="joblist_ItemDataBound">
-                                    <ItemTemplate>
-                                <tr class="animated faster">
-                                    <td headers="client" class="align-middle">
-                                       <asp:LinkButton runat="server" CommandArgument='<%#Eval("cid") %>' CommandName="viewprofile" ><%#Eval("cName") %></asp:LinkButton>
-                                    </td>
-                                    <td headers="date" class="align-middle"><%#Eval("date_created") %></td>
-                                    <td headers="service" class="align-middle"><%#Eval("sName") %></td>
-                                    <td headers="payment" class="align-middle">$<%#Eval("price") %></td>
-                                    <td headers="remarks" class="align-middle"><%#Eval("remarks") %></td>
-                                    <td headers="action" class="align-middle">
-                                        <asp:HiddenField runat="server" ID="status" Value='<%#Eval("status") %>' />
-                                        <asp:LinkButton runat="server" ID="btnAccept" CommandArgument='<%#Eval("Id") + "," + Eval("sid") + "," + Eval("cid")%>' CommandName="accept" CssClass="btn btn-sm btn-success material-tooltip-md"
-                                            data-tooltip="tooltip" data-placement="top" title="Accept Job" visible="false">
+                                            <asp:Repeater runat="server" ID="joblist" OnItemCommand="joblist_ItemCommand" OnItemDataBound="joblist_ItemDataBound">
+                                                <ItemTemplate>
+                                                    <tr class="animated faster">
+                                                        <td headers="client" class="align-middle">
+                                                            <asp:LinkButton runat="server" CommandArgument='<%#Eval("cid") %>' CommandName="viewprofile"><%#Eval("cName") %></asp:LinkButton>
+                                                        </td>
+                                                        <td headers="date" class="align-middle"><%#Eval("date_created") %></td>
+                                                        <td headers="service" class="align-middle"><%#Eval("sName") %></td>
+                                                        <td headers="payment" class="align-middle">$<%#Eval("price") %></td>
+                                                        <td headers="remarks" class="align-middle"><%#Eval("remarks") %></td>
+                                                        <td headers="action" class="align-middle">
+                                                            <asp:HiddenField runat="server" ID="status" Value='<%#Eval("status") %>' />
+                                                            <asp:LinkButton runat="server" ID="btnAccept" CommandArgument='<%#Eval("Id") + "," + Eval("sid") + "," + Eval("cid")%>' CommandName="accept" CssClass="btn btn-sm btn-success material-tooltip-md"
+                                                                data-tooltip="tooltip" data-placement="top" title="Accept Job" Visible="false">
                                             Accept Job<i class="fas fa-check ml-2"></i></asp:LinkButton>
-                                        <asp:LinkButton runat="server" ID="btnReject" CommandArgument='<%#Eval("Id") + "," + Eval("cid") %>' CommandName ="reject" CssClass="btn btn-sm btn-danger material-tooltip-md"
-                                            data-tooltip="tooltip" data-placement="top" title="Reject Job" visible="false">
+                                                            <asp:LinkButton runat="server" ID="btnReject" CommandArgument='<%#Eval("Id") + "," + Eval("sid") + "," + Eval("cid") %>' CommandName="reject" CssClass="btn btn-sm btn-danger material-tooltip-md"
+                                                                data-tooltip="tooltip" data-placement="top" title="Reject Job" Visible="false">
                                             Reject Job<i class="fas fa-times ml-2"></i>
-                                        </asp:LinkButton>
-                                        <p runat="server" id="await" class="text-center grey-text small font-weight-bold mb-0" visible="false">Awaiting payment</p>
-                                        <asp:LinkButton runat="server" ID="btnSubmit" CommandArgument='<%#Eval("Id") + "," + Eval("cid") %>' CommandName ="submit" CssClass="btn btn-sm btn-success material-tooltip-md"
-                                            data-tooltip="tooltip" data-placement="top" title="Submit Job" visible="false">
+                                                            </asp:LinkButton>
+                                                            <p runat="server" id="await" class="text-center grey-text small font-weight-bold mb-0" visible="false">Awaiting payment</p>
+                                                            <asp:LinkButton runat="server" ID="btnSubmit" CommandArgument='<%#Eval("Id") + "," + Eval("sid") + "," + Eval("cid") %>' CommandName="submit" CssClass="btn btn-sm btn-success material-tooltip-md"
+                                                                data-tooltip="tooltip" data-placement="top" title="Submit Job" Visible="false">
                                             Job completed<i class="fas fa-check ml-2"></i></asp:LinkButton>
-                                        <p runat="server" id="completed" visible="false" class="text-center grey-text small font-weight-bold mb-0">Completed</p>
-                                    </td>
-                                </tr>
-                                                                    </ItemTemplate>
-                                </asp:Repeater>
-                                                                                    </ContentTemplate>
+                                                            <p runat="server" id="completed" visible="false" class="text-center grey-text small font-weight-bold mb-0">Completed</p>
+                                                        </td>
+                                                    </tr>
+                                                </ItemTemplate>
+                                            </asp:Repeater>
+                                        </ContentTemplate>
                                     </asp:UpdatePanel>
                                 </tbody>
                             </table>

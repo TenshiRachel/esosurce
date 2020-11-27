@@ -46,7 +46,7 @@
                                                             <asp:LinkButton runat="server" ID="btnPay" CommandArgument='<%#Eval("sid") + "," + Eval("Id") %>' CommandName="pay" Visible="false" CssClass="btn btn-sm btn-success material-tooltip-md">
                                             Send payment<i class="fas fas-dollar-sign ml-2"></i></asp:LinkButton>
 
-                                                            <asp:LinkButton runat="server" ID="btnCancel" CommandArgument='<%#Eval("Id") %>' CommandName="cancel" Visible="false" CssClass="btn btn-sm btn-danger">Cancel request<i class="fas fa-times ml-2"></i>
+                                                            <asp:LinkButton runat="server" ID="btnCancel" CommandArgument='<%#Eval("Id") + "," + Eval("uid") + "," + Eval("sid") %>' CommandName="cancel" Visible="false" CssClass="btn btn-sm btn-danger">Cancel request<i class="fas fa-times ml-2"></i>
                                                             </asp:LinkButton>
 
                                                             <p runat="server" id="await" visible="false">Awaiting completion of request</p>

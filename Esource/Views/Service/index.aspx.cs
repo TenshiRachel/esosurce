@@ -7,6 +7,7 @@ using System.Web.UI.WebControls;
 using Esource.BL.service;
 using Esource.BL.profile;
 using Esource.BL.jobs;
+using Esource.BL.notification;
 
 namespace Esource.Views.service
 {
@@ -63,6 +64,8 @@ namespace Esource.Views.service
                     }
                     else
                     {
+                        Notification notif = new Notification(int.Parse(LblUid.Value), curruser.username, int.Parse(serviceId), service[0].name, freelancer.Id.ToString(), "job");
+                        notif.AddNotif();
                         Session["success"] = "Service requested successfully, please wait for " + freelancer.username + "\\'s response";
                         Response.Redirect("~/Views/service/servicelist.aspx");
                     }

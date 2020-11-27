@@ -6,6 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Esource.BL.profile;
 using Esource.BL.jobs;
+using Esource.BL.notification;
 
 namespace Esource.Views.service
 {
@@ -70,10 +71,15 @@ namespace Esource.Views.service
             }
             if (e.CommandName == "cancel")
             {
-                string jobId = e.CommandArgument.ToString();
-                int result = new Jobs().UpdateStatus(jobId, "req_cancel");
+                string idList = e.CommandArgument.ToString();
+                string[] ids = idList.Split(',');
+                User curr = new User().SelectById(LblUid.Value);
+                List<BL.service.Service> service = new BL.service.Service().SelectById(ids[2]);
+                int result = new Jobs().UpdateStatus(ids[0], "job_cancel");
                 if (result == 0)
                 {
+                    Notification notif = new Notification(int.Parse(LblUid.Value), curr.username, int.Parse(ids[2]), service[0].name, ids[1], "job_cancel");
+                    notif.AddNotif();
                     toast(this, "An error occured while cancelling request", "Error", "error");
                 }
                 else

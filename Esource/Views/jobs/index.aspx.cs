@@ -53,12 +53,12 @@ namespace Esource.Views.jobs
             {
                 string idList = e.CommandArgument.ToString();
                 string[] ids = idList.Split(',');
-                User curr = new User().SelectById(LblUid.Text);
+                User freelancer = new User().SelectById(LblUid.Text);
                 List<BL.service.Service> service = new BL.service.Service().SelectById(ids[1]);
                 int result = new Jobs().UpdateStatus(ids[0], "accepted");
                 if (result == 0)
                 {
-                    Notification notif = new Notification(int.Parse(LblUid.Text), curr.username, int.Parse(ids[1]), service[0].name, ids[2], "accepted");
+                    Notification notif = new Notification(int.Parse(LblUid.Text), freelancer.username, int.Parse(ids[1]), service[0].name, ids[2], "request");
                     notif.AddNotif();
                     toast(this, "An error occured while accepting job", "Error", "error");
                 }
@@ -70,10 +70,15 @@ namespace Esource.Views.jobs
 
             if (e.CommandName == "reject")
             {
-                string jobId = e.CommandArgument.ToString();
-                int result = new Jobs().UpdateStatus(jobId, "req_cancel");
+                string idList = e.CommandArgument.ToString();
+                string[] ids = idList.Split(',');
+                User freelancer = new User().SelectById(LblUid.Text);
+                List<BL.service.Service> service = new BL.service.Service().SelectById(ids[1]);
+                int result = new Jobs().UpdateStatus(ids[0], "cancelled");
                 if (result == 0)
                 {
+                    Notification notif = new Notification(int.Parse(LblUid.Text), freelancer.username, int.Parse(ids[1]), service[0].name, ids[2], "req_cancel");
+                    notif.AddNotif();
                     toast(this, "An error occured while cancelling job", "Error", "error");
                 }
                 else
@@ -84,10 +89,15 @@ namespace Esource.Views.jobs
 
             if(e.CommandName == "submit")
             {
-                string jobId = e.CommandArgument.ToString();
-                int result = new Jobs().UpdateStatus(jobId, "completed");
+                string idList = e.CommandArgument.ToString();
+                string[] ids = idList.Split(',');
+                User freelancer = new User().SelectById(LblUid.Text);
+                List<BL.service.Service> service = new BL.service.Service().SelectById(ids[1]);
+                int result = new Jobs().UpdateStatus(ids[0], "done");
                 if (result == 0)
                 {
+                    Notification notif = new Notification(int.Parse(LblUid.Text), freelancer.username, int.Parse(ids[1]), service[0].name, ids[2], "complete");
+                    notif.AddNotif();
                     toast(this, "An error occured while completing job", "Error", "error");
                 }
                 else

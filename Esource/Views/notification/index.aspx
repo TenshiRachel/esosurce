@@ -218,7 +218,7 @@
                                         <div class="pl-2 align-self-center pt-1">
                                             <h5>
                                                 <asp:LinkButton runat="server" CommandName="viewprofile" CommandArgument='<%#Eval("uid") %>'><%#Eval("username") %></asp:LinkButton>
-                                                requested your service of 
+                                                accepted your request of 
                                                 <asp:LinkButton runat="server" CommandName="viewservice" CommandArgument='<%#Eval("pid") %>'><%#Eval("title") %></asp:LinkButton>
                                             </h5>
                                         </div>
@@ -241,7 +241,7 @@
                                         <div class="pl-2 align-self-center pt-1">
                                             <h5>
                                                 <asp:LinkButton runat="server" CommandName="viewprofile" CommandArgument='<%#Eval("uid") %>'><%#Eval("username") %></asp:LinkButton>
-                                                cancelled your service of
+                                                cancelled your request of
                                                 <asp:LinkButton runat="server" CommandName="viewservice" CommandArgument='<%#Eval("pid") %>'><%#Eval("title") %></asp:LinkButton>
                                             </h5>
                                         </div>
