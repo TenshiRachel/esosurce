@@ -48,15 +48,14 @@ namespace Esource.Views.auth
 
         protected void btnLogin_Click(object sender, EventArgs e)
         {
-            User user = new User().SelectByEmail(email.Value);
-            string pwd = password.Value.ToString().Trim();
-
-            SHA512Managed hashing = new SHA512Managed();
-            string dbHash = user.password;
-            string dbSalt = user.passSalt;
-
             if (ValidateInput(email.Value, password.Value))
             {
+                User user = new User().SelectByEmail(email.Value);
+                string pwd = password.Value.ToString().Trim();
+
+                SHA512Managed hashing = new SHA512Managed();
+                string dbHash = user.password;
+                string dbSalt = user.passSalt;
                 if (dbSalt != null && dbSalt.Length > 0 && dbHash != null && dbHash.Length > 0)
                 {
                     string pwdWithSalt = pwd + dbSalt;
