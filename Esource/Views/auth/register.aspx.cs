@@ -72,7 +72,15 @@ namespace Esource.Views.auth
 
         public void registerUser(string username, string email, string pwd, string accType)
         {
-            string pwd_hash = password.Value.ToString().Trim();
+            string pwd_hash = "";
+            if (!String.IsNullOrEmpty(password.Value))
+            {
+                pwd_hash = password.Value.ToString().Trim();
+            }
+            else if (!String.IsNullOrEmpty(svc_password.Value))
+            {
+                pwd_hash = svc_password.Value.ToString().Trim();
+            }
 
             //Generate random "salt"
             RNGCryptoServiceProvider rng = new RNGCryptoServiceProvider();
