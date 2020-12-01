@@ -62,6 +62,18 @@ namespace Esource.BL.profile
             return result;
         }
 
+        public int UpdateFollowing(string id, int follows)
+        {
+            int result = new UserDAO().UpdateFollowing(id, follows);
+            return result;
+        }
+
+        public int UpdateFollower(string id, int follows)
+        {
+            int result = new UserDAO().UpdateFollower(id, follows);
+            return result;
+        }
+
         public User SelectById(string id)
         {
             User user = new UserDAO().SelectById(id);
