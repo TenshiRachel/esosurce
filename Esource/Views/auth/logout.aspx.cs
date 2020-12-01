@@ -13,7 +13,14 @@ namespace Esource.Views.auth
         {
             Session["uid"] = null;
             Session["success"] = "You have been logged out successfully";
-            Response.Redirect("~/Views/index.aspx");
+            Response.Redirect("~/Views/index.aspx", false);
+
+            if (Response.Cookies["ASP.NET_SessionId"] != null)
+            {
+                Response.Cookies["ASP.NET_SessionId"].Value = string.Empty;
+                Response.Cookies["ASP.NET_SessionId"].Expires = DateTime.Now.AddMonths(-20);
+            }
+            
         }
     }
 }

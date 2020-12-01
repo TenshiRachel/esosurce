@@ -16,8 +16,8 @@ namespace Esource.DAL.profile
             string DBConnect = ConfigurationManager.ConnectionStrings["ConnStr"].ConnectionString;
             SqlConnection conn = new SqlConnection(DBConnect);
 
-            string sqlStmt = "INSERT INTO [User] (username, email, password, passSalt, bio, profile_src, type, stripeId, website, birthday, gender, location, occupation)" +
-                "VALUES (@paraName, @paraEmail, @paraPassword, @paraSalt, @paraBio, @paraSrc, @paraType, @paraStripe, @paraSite, @paraBirthday, @paraGender, @paraLocation, @paraOccupation)";
+            string sqlStmt = "INSERT INTO [User] (username, email, password, passSalt, bio, profile_src, type, stripeId, following, followers, website, birthday, gender, location, occupation)" +
+                "VALUES (@paraName, @paraEmail, @paraPassword, @paraSalt, @paraBio, @paraSrc, @paraType, @paraStripe, @paraFollow, @paraFollowers, @paraSite, @paraBirthday, @paraGender, @paraLocation, @paraOccupation)";
 
             int result = 0;
             SqlCommand sqlCmd = new SqlCommand(sqlStmt, conn);
@@ -30,6 +30,8 @@ namespace Esource.DAL.profile
             sqlCmd.Parameters.AddWithValue("@paraSrc", user.profile_src);
             sqlCmd.Parameters.AddWithValue("@paraType", user.type);
             sqlCmd.Parameters.AddWithValue("@paraStripe", user.stripeId);
+            sqlCmd.Parameters.AddWithValue("@paraFollow", user.following);
+            sqlCmd.Parameters.AddWithValue("@paraFollowers", user.followers);
             sqlCmd.Parameters.AddWithValue("@paraSite", user.website);
             sqlCmd.Parameters.AddWithValue("@paraBirthday", user.birthday);
             sqlCmd.Parameters.AddWithValue("@paraGender", user.gender);
@@ -65,6 +67,50 @@ namespace Esource.DAL.profile
             return result;
         }
 
+        public int UpdateFollowing(string id, int follows)
+        {
+            string DBConnect = ConfigurationManager.ConnectionStrings["ConnStr"].ConnectionString;
+            SqlConnection conn = new SqlConnection(DBConnect);
+
+            string sqlStmt = "UPDATE [User] " +
+                "SET following = @paraFollow " +
+                "WHERE Id = @paraId";
+
+            int result = 0;
+            SqlCommand sqlCmd = new SqlCommand(sqlStmt, conn);
+
+            sqlCmd.Parameters.AddWithValue("@paraId", id);
+            sqlCmd.Parameters.AddWithValue("@paraFollow", follows);
+
+            conn.Open();
+            result = sqlCmd.ExecuteNonQuery();
+            conn.Close();
+
+            return result;
+        }
+
+        public int UpdateFollower(string id, int follows)
+        {
+            string DBConnect = ConfigurationManager.ConnectionStrings["ConnStr"].ConnectionString;
+            SqlConnection conn = new SqlConnection(DBConnect);
+
+            string sqlStmt = "UPDATE [User] " +
+                "SET followers = @paraFollow " +
+                "WHERE Id = @paraId";
+
+            int result = 0;
+            SqlCommand sqlCmd = new SqlCommand(sqlStmt, conn);
+
+            sqlCmd.Parameters.AddWithValue("@paraId", id);
+            sqlCmd.Parameters.AddWithValue("@paraFollow", follows);
+
+            conn.Open();
+            result = sqlCmd.ExecuteNonQuery();
+            conn.Close();
+
+            return result;
+        }
+
         public User SelectByEmail(string mail)
         {
             string DBConnect = ConfigurationManager.ConnectionStrings["ConnStr"].ConnectionString;
@@ -92,12 +138,14 @@ namespace Esource.DAL.profile
                 string src = row["profile_src"].ToString();
                 string type = row["type"].ToString();
                 string stripe = row["stripeId"].ToString();
+                int following = int.Parse(row["following"].ToString());
+                int follows = int.Parse(row["followers"].ToString());
                 string website = row["website"].ToString();
                 string birthday = row["birthday"].ToString();
                 string gender = row["gender"].ToString();
                 string location = row["location"].ToString();
                 string occupation = row["occupation"].ToString();
-                obj = new User(name, email, password, passSalt, bio, src, type, stripe, website, birthday, gender, location, occupation, id);
+                obj = new User(name, email, password, passSalt, bio, src, type, stripe, following, follows, website, birthday, gender, location, occupation, id);
             }
 
             return obj;
@@ -129,12 +177,14 @@ namespace Esource.DAL.profile
                 string src = row["profile_src"].ToString();
                 string type = row["type"].ToString();
                 string stripe = row["stripeId"].ToString();
+                int following = int.Parse(row["following"].ToString());
+                int follows = int.Parse(row["followers"].ToString());
                 string website = row["website"].ToString();
                 string birthday = row["birthday"].ToString();
                 string gender = row["gender"].ToString();
                 string location = row["location"].ToString();
                 string occupation = row["occupation"].ToString();
-                obj = new User(name, email, password, passSalt, bio, src, type, stripe, website, birthday, gender, location, occupation, int.Parse(id));
+                obj = new User(name, email, password, passSalt, bio, src, type, stripe, following, follows, website, birthday, gender, location, occupation, int.Parse(id));
             }
 
             return obj;
