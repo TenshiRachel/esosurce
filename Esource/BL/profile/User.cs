@@ -17,6 +17,8 @@ namespace Esource.BL.profile
         public string profile_src { get; set; }
         public string type { get; set; }
         public string stripeId { get; set; }
+        public int following { get; set; }
+        public int followers { get; set; }
         public string website { get; set; }
         public string birthday { get; set; }
         public string gender { get; set; }
@@ -28,7 +30,7 @@ namespace Esource.BL.profile
 
         }
 
-        public User(string username, string email, string password, string passSalt, string bio, string profile_src, string type, string stripeId = "", string website = "Not Set", string birthday = "Not Set", string gender = "Not Set", string location = "Not Set", string occupation = "Not Set", int Id = -1)
+        public User(string username, string email, string password, string passSalt, string bio, string profile_src, string type, string stripeId = "", int following = 0, int followers = 0, string website = "Not Set", string birthday = "Not Set", string gender = "Not Set", string location = "Not Set", string occupation = "Not Set", int Id = -1)
         {
             this.username = username;
             this.email = email;
@@ -39,6 +41,8 @@ namespace Esource.BL.profile
             this.type = type;
             this.stripeId = stripeId;
             this.Id = Id;
+            this.following = following;
+            this.followers = followers;
             this.website = website;
             this.birthday = birthday;
             this.gender = gender;
@@ -55,6 +59,18 @@ namespace Esource.BL.profile
         public int UpdateStripe(string id, string stripeId)
         {
             int result = new UserDAO().UpdateStripeId(id, stripeId);
+            return result;
+        }
+
+        public int UpdateFollowing(string id, int follows)
+        {
+            int result = new UserDAO().UpdateFollowing(id, follows);
+            return result;
+        }
+
+        public int UpdateFollower(string id, int follows)
+        {
+            int result = new UserDAO().UpdateFollower(id, follows);
             return result;
         }
 

@@ -16,6 +16,16 @@ namespace Esource.Views.profile
         string targetUserId = null;
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Session["error"] != null)
+            {
+                toast(this, Session["error"].ToString(), "Error", "error");
+                Session["error"] = null;
+            }
+            if (Session["success"] != null)
+            {
+                toast(this, Session["success"].ToString(), "Success", "success");
+                Session["success"] = null;
+            }
             if (Session["uid"] != null)
             {
                 currUserId = Session["uid"].ToString();
@@ -38,6 +48,12 @@ namespace Esource.Views.profile
                     if (user.type == "client")
                     {
                         viewUsertype.InnerHtml = "Client";
+                    }
+                    bool isFollowed = new Follow().isFollowed(currUserId, targetUserId);
+                    if (isFollowed)
+                    {
+                        unfollowButton.Visible = true;
+                        followButton.Visible = false;
                     }
 
                     List<BL.service.Service> services = new BL.service.Service().SelectByUid(targetUserId);
@@ -129,6 +145,31 @@ namespace Esource.Views.profile
             var img = e.Item.FindControl("poster") as Image;
             HiddenField path = (HiddenField)e.Item.FindControl("img_path");
             img.ImageUrl = Page.ResolveUrl(path.Value);
+        }
+
+        protected void followButton_Click(object sender, EventArgs e)
+        {
+            User currUser = new User().SelectById(currUserId);
+            User viewedUser = new User().SelectById(targetUserId);
+            currUser.UpdateFollowing(currUser.Id.ToString(), currUser.following + 1);
+            viewedUser.UpdateFollower(viewedUser.Id.ToString(), viewedUser.followers + 1);
+            Follow follow = new Follow(currUser.Id, viewedUser.Id);
+            follow.Insert();
+            Notification notif = new Notification(viewedUser.Id, viewedUser.username, currUser.Id, currUser.username, viewedUser.Id.ToString(), "follow");
+            notif.AddNotif();
+            Session["success"] = viewedUser.username + " followed";
+            Response.Redirect("~/Views/profile/view.aspx?id=" + viewedUser.Id);
+        }
+
+        protected void unfollowButton_Click(object sender, EventArgs e)
+        {
+            User currUser = new User().SelectById(currUserId);
+            User viewedUser = new User().SelectById(targetUserId);
+            currUser.UpdateFollowing(currUser.Id.ToString(), currUser.following - 1);
+            viewedUser.UpdateFollower(viewedUser.Id.ToString(), viewedUser.followers - 1);
+            new Follow().Remove(currUser.Id.ToString(), viewedUser.Id.ToString());
+            Session["success"] = viewedUser.username + " unfollowed";
+            Response.Redirect("~/Views/profile/view.aspx?id=" + viewedUser.Id);
         }
     }
 }

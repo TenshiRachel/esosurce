@@ -44,9 +44,12 @@
                                 </h5>
 
                                 <div class="">
-                                    <p onclick="followUser({{viewuser.id}})" id="followButton"
-                                        class="btn btn-secondary btn-rounded">
-                                        Follow </p>
+                                    <asp:LinkButton runat="server" visible="false" id="unfollowButton" OnClick="unfollowButton_Click"
+                                        class="btn btn-secondary active">
+                                        Followed </asp:LinkButton>
+                                    <asp:LinkButton runat="server" id="followButton" OnClick="followButton_Click"
+                                        class="btn btn-secondary">
+                                        Follow </asp:LinkButton>
                                 </div>
 
                                 <br>
