@@ -24,6 +24,11 @@ namespace Esource.Views.profile
                     gender.Value = user.gender;
                     location.Value = user.location;
                     occupation.Value = user.occupation;
+                    currUsername.InnerHtml = user.username;
+                    if (user.type == "client")
+                    {
+                        usertype.InnerHtml = "Client";
+                    }
                 }
             }
             else

@@ -22,7 +22,10 @@ namespace Esource.Views.profile
                 if (Request.QueryString["id"] != null)
                 {
                     targetUserId = Request.QueryString["id"].ToString();
-
+                    if (currUserId == targetUserId)
+                    {
+                        Response.Redirect("~/Views/profile/index.aspx");
+                    }
                     User user = new User().SelectById(targetUserId);
                     bio.InnerHtml = user.bio;
                     website.InnerHtml = user.website;
@@ -31,6 +34,11 @@ namespace Esource.Views.profile
                     location.InnerHtml = user.location;
                     occupation.InnerHtml = user.occupation;
                     email.InnerHtml = user.email;
+                    viewUsername.InnerHtml = user.username;
+                    if (user.type == "client")
+                    {
+                        viewUsertype.InnerHtml = "Client";
+                    }
 
                     List<BL.service.Service> services = new BL.service.Service().SelectByUid(targetUserId);
                     servList.DataSource = services;

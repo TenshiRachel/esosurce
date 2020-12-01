@@ -22,6 +22,12 @@ namespace Esource.Views.service
             else
             {
                 LblUid.Text = Session["uid"].ToString();
+                User user = new User().SelectById(LblUid.Text);
+                if (user.type == "client")
+                {
+                    Session["error"] = "You need to be a service provider to add a service";
+                    Response.Redirect("~/Views/index.aspx");
+                }
             }
         }
 

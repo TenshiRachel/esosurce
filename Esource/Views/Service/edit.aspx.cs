@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Esource.BL.service;
+using Esource.BL.profile;
 
 namespace Esource.Views.service
 {
@@ -20,7 +21,18 @@ namespace Esource.Views.service
                     if (Session["uid"] != null)
                     {
                         LblUid.Text = Session["uid"].ToString();
+                        User user = new User().SelectById(LblUid.Text);
+                        if (user.type == "client")
+                        {
+                            Session["error"] = "You need to be a service provider to edit a service";
+                            Response.Redirect("~/Views/index.aspx");
+                        }
                         List<BL.service.Service> service = new BL.service.Service().SelectById(Request.QueryString["id"]);
+                        if (user.Id != service[0].uid)
+                        {
+                            Session["error"] = "You are not allowed to edit other's services";
+                            Response.Redirect("~/Views/profile/index.aspx");
+                        }
                         tbName.Text = service[0].name;
                         tbDesc.Text = service[0].desc;
                         tbPrice.Text = service[0].price.ToString();

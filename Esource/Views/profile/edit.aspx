@@ -45,9 +45,9 @@
                     <!-- Content -->
                     <div class="card-body">
                         <!-- Name -->
-                        <h3 class="card-title">User</h3>
+                        <h3 runat="server" id="currUsername" class="card-title"></h3>
 
-                        <h5 class="card-title text-muted">Service Provider
+                        <h5 runat="server" id="usertype" class="card-title text-muted">Service Provider
                         </h5>
 
 
@@ -68,26 +68,23 @@
                         <div class="select-outline text-left">
                             <label for="gender" class="text-left">Gender</label>
                             <select runat="server" name="gender" id="gender"
-                                class="mdb-select md-form md-outline colorful-select dropdown-primary">
+                                class="md-form md-outline custom-select m-0">
                                 <option value="Not Set" selected>Not Set</option>
                                 <option value="Male">Male</option>
                                 <option value="Female">Female</option>
-                                <option value="Others">Others</option>
-
                             </select>
                         </div>
 
-                        <div class="select-outline text-left mb-n4">
+                        <div class="select-outline text-left mb-4 mt-2">
                             <label for="location" class="text-left">Country</label>
                             <select runat="server" name="location" id="location"
-                                class="mdb-select md-form md-outline colorful-select dropdown-primary"
+                                class="md-form md-outline custom-select m-0"
                                 placeholder="Country">
                                 <option value="Not Set">Not Set</option>
-                                <option value="{{this.name}}">{{this.name}}</option>
                             </select>
                         </div>
 
-                        <div class="md-form md-outline">
+                        <div class="md-form md-outline mt-4">
                             <input type="text" runat="server" class="form-control" name="occupation" id="occupation"
                                 aria-describedby="helpId" placeholder="e.g. Illustrator" value="">
                             <label for="occupation" class="text-left">Occupation</label>
@@ -211,7 +208,7 @@
                         <hr class="hr-primary">
 
                         <div class="mx-auto row justify-content-between">
-                            <a href="/profile/" onclick="e.preventDefault();" class="btn btn-md btn-secondary">Back
+                            <a href="<%=Page.ResolveUrl("~/Views/profile/index.aspx") %>" class="btn btn-md btn-secondary">Back
                             </a>
 
                             <asp:Button ID="updateProfile" runat="server" CssClass="btn btn-md btn-secondary" Text="Update Changes" OnClick="updateProfile_Click" />

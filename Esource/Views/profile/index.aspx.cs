@@ -35,6 +35,11 @@ namespace Esource.Views.profile
                 location.InnerHtml = user.location;
                 occupation.InnerHtml = user.occupation;
                 email.InnerHtml = user.email;
+                currUsername.InnerHtml = user.username;
+                if (user.type == "client")
+                {
+                    usertype.InnerHtml = "Client";
+                }
                 List<string> userFavs = new Fav().SelectUserFavs(LblUid.Text);
                 List<BL.service.Service> servFavs = new List<BL.service.Service>();
                 foreach(string favs in  userFavs)

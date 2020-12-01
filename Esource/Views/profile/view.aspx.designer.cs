@@ -22,6 +22,24 @@ namespace Esource.Views.profile {
         protected global::System.Web.UI.ScriptManager servscript;
         
         /// <summary>
+        /// viewUsername control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl viewUsername;
+        
+        /// <summary>
+        /// viewUsertype control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl viewUsertype;
+        
+        /// <summary>
         /// website control.
         /// </summary>
         /// <remarks>

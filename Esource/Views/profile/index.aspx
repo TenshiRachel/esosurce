@@ -51,9 +51,10 @@
 
                                 <!-- User Details -->
                                 <div class="card-body">
-                                    <h3 class="card-title">Cozen</h3>
+                                    <h3 class="card-title" runat="server" id="currUsername"></h3>
 
-                                    <h5 runat="server" id="usertype" class="card-title text-muted">Service Provider
+                                    <h5 runat="server" id="usertype" class="card-title text-muted">
+                                        Service Provider
                                     </h5>
 
                                     <br>

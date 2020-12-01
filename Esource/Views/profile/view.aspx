@@ -37,10 +37,10 @@
                             <!-- Content -->
                             <div class="card-body">
                                 <!-- Name -->
-                                <h3 class="card-title">Username</h3>
+                                <h3 runat="server" id="viewUsername" class="card-title"></h3>
 
-                                <h5 class="card-title text-muted">
-                                    Client
+                                <h5 runat="server" id="viewUsertype" class="card-title text-muted">
+                                    Service Provider
                                 </h5>
 
                                 <div class="">

@@ -31,6 +31,15 @@ namespace Esource.Views.profile {
         protected global::System.Web.UI.WebControls.Label LblUid;
         
         /// <summary>
+        /// currUsername control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl currUsername;
+        
+        /// <summary>
         /// usertype control.
         /// </summary>
         /// <remarks>
