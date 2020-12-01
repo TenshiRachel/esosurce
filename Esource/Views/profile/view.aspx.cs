@@ -49,7 +49,7 @@ namespace Esource.Views.profile
                     {
                         viewUsertype.InnerHtml = "Client";
                     }
-                    bool isFollowed = new Follow().isFollowed(targetUserId, currUserId);
+                    bool isFollowed = new Follow().isFollowed(currUserId, targetUserId);
                     if (isFollowed)
                     {
                         unfollowButton.Visible = true;
@@ -155,6 +155,8 @@ namespace Esource.Views.profile
             viewedUser.UpdateFollower(viewedUser.Id.ToString(), viewedUser.followers + 1);
             Follow follow = new Follow(currUser.Id, viewedUser.Id);
             follow.Insert();
+            Notification notif = new Notification(viewedUser.Id, viewedUser.username, currUser.Id, currUser.username, viewedUser.Id.ToString(), "follow");
+            notif.AddNotif();
             Session["success"] = viewedUser.username + " followed";
             Response.Redirect("~/Views/profile/view.aspx?id=" + viewedUser.Id);
         }

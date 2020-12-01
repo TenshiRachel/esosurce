@@ -42,6 +42,9 @@ namespace Esource.Views.notification
             List<Notification> notiflist = notif.UserNotifs(LblUid.Value, "fav");
             favs.DataSource = notiflist;
             favs.DataBind();
+            notiflist = notif.UserNotifs(LblUid.Value, "follow");
+            follows.DataSource = notiflist;
+            follows.DataBind();
             notiflist = notif.UserNotifs(LblUid.Value, "job");
             jobs.DataSource = notiflist;
             jobs.DataBind();
@@ -71,6 +74,11 @@ namespace Esource.Views.notification
             {
                 favclear.Visible = true;
                 favalert.Visible = true;
+            }
+            if (follows.Items.Count > 0)
+            {
+                followclear.Visible = true;
+                followalert.Visible = true;
             }
             if (jobs.Items.Count > 0 || jobpaid.Items.Count > 0 || jobscancel.Items.Count > 0)
             {
@@ -212,6 +220,26 @@ namespace Esource.Views.notification
             if (e.CommandName == "clear")
             {
                 clear(e.CommandArgument.ToString());
+            }
+        }
+
+        protected void follows_ItemCommand(object source, RepeaterCommandEventArgs e)
+        {
+            if (e.CommandName == "viewprofile")
+            {
+                Response.Redirect("~/Views/profile/view.aspx?id=" + e.CommandArgument.ToString());
+            }
+            if (e.CommandName == "clear")
+            {
+                clear(e.CommandArgument.ToString());
+            }
+        }
+
+        protected void follows_ItemDataBound(object sender, RepeaterItemEventArgs e)
+        {
+            if (e.Item.ItemType == ListItemType.Footer && follows.Items.Count < 1)
+            {
+                followErr.Visible = true;
             }
         }
     }
