@@ -40,6 +40,8 @@ namespace Esource.Views.profile
                 {
                     usertype.InnerHtml = "Client";
                 }
+                followers.InnerHtml = user.followers.ToString();
+                following.InnerHtml = user.following.ToString();
                 List<string> userFavs = new Fav().SelectUserFavs(LblUid.Text);
                 List<BL.service.Service> servFavs = new List<BL.service.Service>();
                 foreach(string favs in  userFavs)

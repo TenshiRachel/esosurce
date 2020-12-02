@@ -58,6 +58,24 @@ namespace Esource.Views.profile {
         protected global::System.Web.UI.WebControls.LinkButton followButton;
         
         /// <summary>
+        /// followers control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl followers;
+        
+        /// <summary>
+        /// following control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl following;
+        
+        /// <summary>
         /// website control.
         /// </summary>
         /// <remarks>
@@ -137,5 +155,23 @@ namespace Esource.Views.profile {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Repeater servList;
+        
+        /// <summary>
+        /// favPanel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel favPanel;
+        
+        /// <summary>
+        /// favList control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Repeater favList;
     }
 }

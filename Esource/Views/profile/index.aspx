@@ -58,18 +58,16 @@
                                     </h5>
 
                                     <br>
-                                    <p class="text-left">
+                                    <p class="text-left"  runat="server" id="followers">
                                         <a href="#" class="font-weight-bold" data-toggle="modal"
                                             data-target="#followersModal">Followers:
                                         </a>
-                                        0
                                     </p>
 
-                                    <p class="text-left">
+                                    <p class="text-left" runat="server" id="following">
                                         <a href="#" class="font-weight-bold" data-toggle="modal"
                                             data-target="#followingModal">Following:
                                         </a>
-                                        0
                                     </p>
                                     <hr class="hr-primary">
 
