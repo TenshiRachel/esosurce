@@ -24,7 +24,7 @@ namespace Esource.Views.profile
                     gender.Value = user.gender;
                     location.Value = user.location;
                     occupation.Value = user.occupation;
-                    currUsername.InnerHtml = user.username;
+                    currUsername.InnerHtml = user.username;   
                     if (user.type == "client")
                     {
                         usertype.InnerHtml = "Client";
@@ -38,9 +38,39 @@ namespace Esource.Views.profile
             }
         }
 
+        public string UpdateSocial(string twitter, string instagram, string facebook, string youtube, string deviantart)
+        {
+            List<string> socialList = new List<string>();
+            if (!String.IsNullOrEmpty(twitter))
+            {
+                socialList.Add(twitter);
+            }
+            if (!String.IsNullOrEmpty(instagram))
+            {
+                socialList.Add(instagram);
+            }
+            if (!String.IsNullOrEmpty(facebook))
+            {
+                socialList.Add(facebook);
+            }
+            if (!String.IsNullOrEmpty(youtube))
+            {
+                socialList.Add(youtube);
+            }
+            if (!String.IsNullOrEmpty(deviantart))
+            {
+                socialList.Add(deviantart);
+            }
+            string.Join(", ", socialList);
+
+            string social = socialList.ToString();
+            return social;
+        }
+
         protected void updateProfile_Click(object sender, EventArgs e)
         {
-            int result = new User().UpdateUser(LblUid.Text, bio.Value, "", website.Value, dob.Value, gender.Value, location.Value, occupation.Value);
+            string social = UpdateSocial(twitter.Value, instagram.Value, facebook.Value, youtube.Value, deviantart.Value);
+            int result = new User().UpdateUser(LblUid.Text, bio.Value, "", website.Value, dob.Value, gender.Value, location.Value, occupation.Value, social);
             if (result == 1)
             {
                 Session["success"] = "Your profile changes have been saved successfully";

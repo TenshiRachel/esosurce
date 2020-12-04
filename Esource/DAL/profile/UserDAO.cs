@@ -16,8 +16,8 @@ namespace Esource.DAL.profile
             string DBConnect = ConfigurationManager.ConnectionStrings["ConnStr"].ConnectionString;
             SqlConnection conn = new SqlConnection(DBConnect);
 
-            string sqlStmt = "INSERT INTO [User] (username, email, password, passSalt, bio, profile_src, type, stripeId, following, followers, website, birthday, gender, location, occupation)" +
-                "VALUES (@paraName, @paraEmail, @paraPassword, @paraSalt, @paraBio, @paraSrc, @paraType, @paraStripe, @paraFollow, @paraFollowers, @paraSite, @paraBirthday, @paraGender, @paraLocation, @paraOccupation)";
+            string sqlStmt = "INSERT INTO [User] (username, email, password, passSalt, bio, profile_src, type, stripeId, following, followers, website, birthday, gender, location, occupation, social)" +
+                "VALUES (@paraName, @paraEmail, @paraPassword, @paraSalt, @paraBio, @paraSrc, @paraType, @paraStripe, @paraFollow, @paraFollowers, @paraSite, @paraBirthday, @paraGender, @paraLocation, @paraOccupation, @paraSocial)";
 
             int result = 0;
             SqlCommand sqlCmd = new SqlCommand(sqlStmt, conn);
@@ -37,6 +37,7 @@ namespace Esource.DAL.profile
             sqlCmd.Parameters.AddWithValue("@paraGender", user.gender);
             sqlCmd.Parameters.AddWithValue("@paraLocation", user.location);
             sqlCmd.Parameters.AddWithValue("@paraOccupation", user.occupation);
+            sqlCmd.Parameters.AddWithValue("@paraSocial", user.social);
 
             conn.Open();
             result = sqlCmd.ExecuteNonQuery();
@@ -145,7 +146,8 @@ namespace Esource.DAL.profile
                 string gender = row["gender"].ToString();
                 string location = row["location"].ToString();
                 string occupation = row["occupation"].ToString();
-                obj = new User(name, email, password, passSalt, bio, src, type, stripe, following, follows, website, birthday, gender, location, occupation, id);
+                string social = row["social"].ToString();
+                obj = new User(name, email, password, passSalt, bio, src, type, stripe, following, follows, social, website, birthday, gender, location, occupation, id);
             }
 
             return obj;
@@ -184,19 +186,20 @@ namespace Esource.DAL.profile
                 string gender = row["gender"].ToString();
                 string location = row["location"].ToString();
                 string occupation = row["occupation"].ToString();
-                obj = new User(name, email, password, passSalt, bio, src, type, stripe, following, follows, website, birthday, gender, location, occupation, int.Parse(id));
+                string social = row["social"].ToString();
+                obj = new User(name, email, password, passSalt, bio, src, type, stripe, following, follows, social, website, birthday, gender, location, occupation, int.Parse(id));
             }
 
             return obj;
         }
 
-        public int Update(string id, string bio, string profile_src, string website, string birthday, string gender, string location, string occupation)
+        public int Update(string id, string bio, string profile_src, string website, string birthday, string gender, string location, string occupation, string social)
         {
             string DBConnect = ConfigurationManager.ConnectionStrings["ConnStr"].ConnectionString;
             SqlConnection conn = new SqlConnection(DBConnect);
 
             string sqlStmt = "UPDATE [User] " +
-                "SET bio = @paraBio, profile_src = @paraSrc, website = @paraSite, birthday = @paraBirthday, gender = @paraGender, location = @paraLocation, occupation = @paraOccupation " +
+                "SET bio = @paraBio, profile_src = @paraSrc, website = @paraSite, birthday = @paraBirthday, gender = @paraGender, location = @paraLocation, occupation = @paraOccupation, social = @paraSocial " +
                 "WHERE Id = @paraId";
 
             int result = 0;
@@ -210,6 +213,7 @@ namespace Esource.DAL.profile
             sqlCmd.Parameters.AddWithValue("@paraGender", gender);
             sqlCmd.Parameters.AddWithValue("@paraLocation", location);
             sqlCmd.Parameters.AddWithValue("@paraOccupation", occupation);
+            sqlCmd.Parameters.AddWithValue("@paraSocial", social);
 
             conn.Open();
             result = sqlCmd.ExecuteNonQuery();

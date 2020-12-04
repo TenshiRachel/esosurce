@@ -53,20 +53,19 @@
                                 <div class="card-body">
                                     <h3 class="card-title" runat="server" id="currUsername"></h3>
 
-                                    <h5 runat="server" id="usertype" class="card-title text-muted">
-                                        Service Provider
+                                    <h5 runat="server" id="usertype" class="card-title text-muted">Service Provider
                                     </h5>
 
                                     <br>
-                                    <p class="text-left"  runat="server" id="followers">
-                                        <a href="#" class="font-weight-bold" data-toggle="modal"
-                                            data-target="#followersModal">Followers:
+                                    <p class="text-left">
+                                        Followers: <a href="#" runat="server" id="followers" class="font-weight-bold" data-toggle="modal"
+                                            data-target="#followersModal">
                                         </a>
                                     </p>
 
-                                    <p class="text-left" runat="server" id="following">
-                                        <a href="#" class="font-weight-bold" data-toggle="modal"
-                                            data-target="#followingModal">Following:
+                                    <p class="text-left" runat="server">
+                                        Following: <a href="#" runat="server" id="following" class="font-weight-bold" data-toggle="modal"
+                                            data-target="#followingModal">
                                         </a>
                                     </p>
                                     <hr class="hr-primary">
@@ -120,14 +119,10 @@
                                 <hr class="hr-primary">
                             </div>
                         </div>
-
                     </div>
-
                     <!-- =============================== User Content =============================== -->
                     <div class="classic-tabs col-lg-8 col-sm-12">
-
                         <ul class="nav tabs-white rounded-0" id="myClassicTabShadow" role="tablist">
-
                             <li class="nav-item m-0">
                                 <a class="nav-link waves-light active show" id="portfolio-tab-classic-shadow"
                                     data-toggle="tab" href="#portfolio-classic-shadow" role="tab"
@@ -155,12 +150,118 @@
                                     href="#likes-classic-shadow" role="tab" aria-controls="likes-classic-shadow"
                                     aria-selected="false">Likes </a>
                             </li>
-
                         </ul>
-
                         <div class="tab-content min-vh-80 p-0" id="myClassicTabContentShadow">
                             <div class="tab-pane fade active show profile-content" id="portfolio-classic-shadow"
                                 role="tabpanel" aria-labelledby="portfolio-tab-classic-shadow">
+                                <div class="tab-pane fade active show profile-content" id="portfolio-classic-shadow"
+                                    role="tabpanel" aria-labelledby="portfolio-tab-classic-shadow">
+                                    <div class="accordion md-accordion" id="accordionEx4" role="tablist" aria-multiselectable="true">
+                                        <div class="card">
+                                            <!-- Card body -->
+                                            <div id="collapsePortfolio4" class="collapse show" role="tabpanel" aria-labelledby="headingPortfolio4"
+                                                data-parent="#accordionEx4">
+                                                <div class="card-body">
+                                                    {{#if projects}}
+                <div class="row justify-content-start">
+                    {{#if viewuser.id}}
+                    {{else}}
+                    <div class="col-sm-5 col-lg-4 py-0 px-1">
+                        <div class="portoflio-img-sm view overlay mb-1 rounded border border-depth-2 p-0">
+                            <div class="h-100 row mx-auto">
+                                <div class="col align-self-center">
+                                    <i class="fa fa-plus fa-7x" aria-hidden="true"></i>
+                                </div>
+                            </div>
+                            <a href="/profile/submit">
+                                <div class="mask flex-center waves-effect waves-light rgba-black-light">
+                                    <h2 class="text-white">Add Project</h2>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    {{/if}}
+                    <asp:Repeater runat="server" ID="projects">
+                        <ItemTemplate>
+                            <div class="col-sm-5 col-lg-4 py-0 px-1">
+                                <div class="portoflio-img-sm view overlay mb-1 rounded border p-0" data-toggle="modal"
+                                    data-target="#project{{id}}">
+
+                                    <img loading="lazy" src="/uploads/profile/{{uid}}/projects/{{id}}.png"
+                                        class="h-100 mx-auto d-block" alt="">
+
+                                    <div id="viewproject{{id}}" onclick="viewProject({{id}})"
+                                        class="mask flex-center waves-effect waves-light rgba-black-strong">
+                                        <div
+                                            class="row col-12 align-items-end justify-content-end justify-content-around p-0 h-100">
+
+                                            <div class="row col-12 justify-content-between p-0">
+                                                <h5 class="col-12 text-white text-left font-weight-bold">{{title}}
+                                                </h5>
+                                                <h6 style="font-size: 2vh;" class="col-6 white-text text-left font-weight-bold">{{#if ../viewuser.id}}
+                                            {{../viewuser.username}}
+                                            {{else}}
+                                            {{../user.username}}
+                                            {{/if}}
+                                                </h6>
+                                                <h6 class="white-text text-right col-6">
+                                                    <i class="far fa-heart"></i>
+                                                    {{#if likes}}
+                                            {{getNum likes}}
+                                            {{else}}
+                                            0
+                                            {{/if}}&nbsp;
+                                            <i class="fas fa-comment"></i>
+                                                    {{#if comments}}
+                                            {{comments.length}}
+                                            {{else}}
+                                            0
+                                            {{/if}}
+                                                </h6>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </ItemTemplate>
+                    </asp:Repeater>
+                </div>
+                                                    {{else}}
+                <div class="row justify-content-center">
+                    {{#if viewuser.id}}
+                    <h1 class="my-5 py-5">This user has no Projects</h1>
+                    {{else}}
+                    <h1></h1>
+                    {{/if}}
+                </div>
+
+                                                    {{#if viewuser.id}}
+                {{else}}
+                <div class="row justify-content-start">
+                    <div class="col-sm-5 col-lg-4 py-0 px-1">
+                        <div class="portoflio-img-sm view overlay mb-1 rounded border border-depth-2 p-0">
+                            <div class="h-100 row mx-auto">
+                                <div class="col align-self-center">
+                                    <i class="fa fa-plus fa-7x" aria-hidden="true"></i>
+
+                                </div>
+                            </div>
+                            <a href="/profile/submit">
+                                <div class="mask flex-center waves-effect waves-light rgba-black-light">
+                                    <h2 class="text-white">Add Project</h2>
+
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                                                    {{/if}}
+                {{/if}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                             <div class="tab-pane fade profile-content" id="services-classic-shadow" role="tabpanel"
                                 aria-labelledby="services-tab-classic-shadow">
@@ -185,7 +286,6 @@
                                                                 </asp:LinkButton>
                                                             </div>
                                                             <div class="card-body d-flex flex-column">
-
                                                                 <div class="d-flex mt-2">
                                                                     <div class="flex-fill">
                                                                         <img src="<%#Eval("profile_src") %>" onerror="this.src='<%= Page.ResolveUrl("~/Content/img/placeholder.jpg") %>'" class="rounded-circle img-fluid z-depth-1 avatar" style="max-width: 2rem;" />
@@ -197,7 +297,6 @@
                                                                         </span>
                                                                     </div>
                                                                 </div>
-
                                                                 <div class="d-flex mt-4">
                                                                     <div class="flex-fill">
                                                                         <h4 class="name card-title mb-0" data-name="<%#Eval("name") %>"><%#Eval("name") %></h4>
@@ -207,14 +306,12 @@
                                                                         <%#Eval("views") %><i class="far fa-eye ml-2"></i>
                                                                     </div>
                                                                 </div>
-
                                                                 <hr class="w-100" />
                                                                 <div class="flex-fill">
                                                                     <p class="card-text">
                                                                         <%#Eval("desc") %>
                                                                     </p>
                                                                 </div>
-
                                                                 <div class="d-flex">
                                                                     <div class="flex-fill text-right">
                                                                         <asp:LinkButton runat="server" CssClass="btn btn-sm btn-red mr-0" CommandName="favourite" CommandArgument='<%#Eval("Id") %>'
@@ -227,7 +324,6 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
-
                                                             <div class="card-footer accent-2 white-text deep-purple text-center">
                                                                 <h5 class="m-0">$<%#Eval("price") %></h5>
                                                             </div>
@@ -265,7 +361,6 @@
                                                                 </asp:LinkButton>
                                                             </div>
                                                             <div class="card-body d-flex flex-column">
-
                                                                 <div class="d-flex mt-2">
                                                                     <div class="flex-fill">
                                                                         <img src="<%#Eval("profile_src") %>" onerror="this.src='<%= Page.ResolveUrl("~/Content/img/placeholder.jpg") %>'" class="rounded-circle img-fluid z-depth-1 avatar" style="max-width: 2rem;" />
@@ -277,12 +372,10 @@
                                                                         </span>
                                                                     </div>
                                                                 </div>
-
                                                                 <div class="d-flex mt-4">
                                                                     <div class="flex-fill">
                                                                         <h4 class="name card-title mb-0" data-name="<%#Eval("name") %>"><%#Eval("name") %></h4>
                                                                     </div>
-
                                                                     <div class="d-flex align-items-center font-weight-bold ml-3">
                                                                         <%#Eval("views") %><i class="far fa-eye ml-2"></i>
                                                                     </div>
@@ -294,7 +387,6 @@
                                                                         <%#Eval("desc") %>
                                                                     </p>
                                                                 </div>
-
                                                                 <div class="d-flex">
                                                                     <div class="flex-fill text-right">
                                                                         <asp:LinkButton runat="server" CssClass="btn btn-sm btn-red mr-0" CommandName="favourite" CommandArgument='<%#Eval("Id") %>'
@@ -307,7 +399,6 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
-
                                                             <div class="card-footer accent-2 white-text deep-purple text-center">
                                                                 <h5 class="m-0">$<%#Eval("price") %></h5>
                                                             </div>

@@ -116,34 +116,33 @@
                         <h3 class="card-title">Social Medias</h3>
 
                         <div class="md-form md-outline">
-                            <input type="url" class="form-control" name="twitter" id="twitter" aria-describedby="helpId"
-                                placeholder="e.g. https:///www.twitter.com/{{user.username}}123" value="">
+                            <input type="url" runat="server" class="form-control" name="twitter" id="twitter" aria-describedby="helpId"
+                                placeholder="e.g. https:///www.twitter.com/username" value="">
                             <label for="twitter" class="text-left">Twitter </label>
                         </div>
 
                         <div class="md-form md-outline">
-                            <input type="url" class="form-control" name="instagram" id="instagram" aria-describedby="helpId"
-                                placeholder="e.g. https:///www.instagram.com/{{user.username}}123"
-                                value="">
+                            <input type="url" runat="server" class="form-control" name="instagram" id="instagram" aria-describedby="helpId"
+                                placeholder="e.g. https:///www.instagram.com/username" value="">
                             <label for="instagram" class="text-left">Instagram </label>
                         </div>
 
                         <div class="md-form md-outline">
-                            <input type="url" class="form-control" name="facebook" id="facebook" aria-describedby="helpId"
-                                placeholder="e.g. https:///www.facebook.com/{{user.username}}123" value="">
+                            <input type="url" runat="server" class="form-control" name="facebook" id="facebook" aria-describedby="helpId"
+                                placeholder="e.g. https:///www.facebook.com/username" value="">
                             <label for="facebook" class="text-left">Facebook </label>
                         </div>
 
                         <div class="md-form md-outline">
-                            <input type="url" class="form-control" name="youtube" id="youtube" aria-describedby="helpId"
-                                placeholder="e.g. https:///www.youtube.com/channel/UCFKDEp9si4RmHFWJW1vYsMA"
+                            <input type="url" runat="server" class="form-control" name="youtube" id="youtube" aria-describedby="helpId"
+                                placeholder="e.g. https:///www.youtube.com/channel/username"
                                 value="">
                             <label for="youtube" class="text-left">YouTube </label>
                         </div>
 
                         <div class="md-form md-outline">
-                            <input type="url" class="form-control" name="deviantart" id="deviantart"
-                                aria-describedby="helpId" placeholder="e.g. https://www.deviantart.com/{{user.username}}123"
+                            <input type="url" runat="server" class="form-control" name="deviantart" id="deviantart"
+                                aria-describedby="helpId" placeholder="e.g. https://www.deviantart.com/username"
                                 value="">
                             <label for="deviantart" class="text-left">Deviantart </label>
                         </div>
