@@ -7,6 +7,7 @@ using System.Text;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Esource.Utilities;
 
 namespace Esource.Views.auth
 {
@@ -28,15 +29,15 @@ namespace Esource.Views.auth
             User user = new User().SelectByEmail(email);
             if (String.IsNullOrEmpty(email))
             {
-                toast(this, "Please enter your email.", "Error", "error");
+                Toast.error(this, "Please enter your email");
             }
             else if (String.IsNullOrEmpty(password))
             {
-                toast(this, "Please enter your password.", "Error", "error");
+                Toast.error(this, "Please enter your password");
             }
             else if (user == null)
             {
-                Session["error"] = "Account does not exist, please register.";
+                Session["error"] = "Account does not exist, please register";
                 Response.Redirect("register.aspx");
             }
             else
@@ -69,7 +70,7 @@ namespace Esource.Views.auth
                     }
                     else
                     {
-                        toast(this, "Incorrect password, please try again.", "Error", "error");
+                        Toast.error(this, "Incorrect password, please try again");
                     }
                 }
             }

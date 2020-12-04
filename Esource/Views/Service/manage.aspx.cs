@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Esource.BL.service;
+using Esource.Utilities;
 
 namespace Esource.Views.service
 {
@@ -14,12 +15,12 @@ namespace Esource.Views.service
         {
             if (Session["success"] != null)
             {
-                toast(this, Session["success"].ToString(), "Success", "success");
+                Toast.success(this, Session["success"].ToString());
                 Session["success"] = null;
             }
             if (Session["error"] != null)
             {
-                toast(this, Session["error"].ToString(), "Error", "error");
+                Toast.error(this, Session["error"].ToString());
                 Session["error"] = null;
             }
             if (!Page.IsPostBack)
@@ -43,11 +44,6 @@ namespace Esource.Views.service
             }
         }
 
-        public void toast(Page page, string message, string title, string type)
-        {
-            ScriptManager.RegisterClientScriptBlock(page, page.GetType(), "toastmsg", "toastnotif('" + message + "','" + title + "','" + type.ToLower() + "');", true);
-        }
-
         protected void managelist_ItemCommand(object source, RepeaterCommandEventArgs e)
         {
             if (e.CommandName == "viewprofile")
@@ -63,11 +59,11 @@ namespace Esource.Views.service
                 int result = new BL.service.Service().Delete(e.CommandArgument.ToString());
                 if (result == 1)
                 {
-                    toast(this, "Service deleted successfully", "Success", "success");
+                    Toast.success(this, "Service deleted successfully");
                 }
                 else
                 {
-                    toast(this, "An error occured while deleting service", "Error", "error");
+                    Toast.error(this, "An error occured while deleting service");
                 }
                 List<BL.service.Service> services = new BL.service.Service().SelectByUid(LblUid.Text);
                 managelist.DataSource = services;
@@ -90,11 +86,11 @@ namespace Esource.Views.service
                     int favres = fav.Add();
                     if (favres == 1 && servres == 1)
                     {
-                        toast(this, "Service favourited", "Success", "success");
+                        Toast.success(this, "Service favourited");
                     }
                     else
                     {
-                        toast(this, "An error occured while favouriting the service", "Error", "error");
+                        Toast.error(this, "An error occured while favouriting the service");
                     }
                 }
                 else
@@ -104,11 +100,11 @@ namespace Esource.Views.service
                     int favres = fav.Remove(int.Parse(LblUid.Text), int.Parse(serviceId));
                     if (favres == 1 && servres == 1)
                     {
-                        toast(this, "Service unfavourited", "Success", "success");
+                        Toast.success(this, "Service unfavourited");
                     }
                     else
                     {
-                        toast(this, "An error occured while unfavouriting the service", "Error", "error");
+                        Toast.error(this, "An error occured while unfavouriting the service");
                     }
                 }
                 List<BL.service.Service> services = new BL.service.Service().SelectByUid(LblUid.Text);

@@ -7,6 +7,7 @@ using System.Web.UI.WebControls;
 using Esource.BL.profile;
 using Esource.BL.jobs;
 using Esource.BL.notification;
+using Esource.Utilities;
 
 namespace Esource.Views.service
 {
@@ -16,12 +17,12 @@ namespace Esource.Views.service
         {
             if (Session["error"] != null)
             {
-                toast(this, Session["error"].ToString(), "Error", "error");
+                Toast.error(this, Session["error"].ToString());
                 Session["error"] = null;
             }
             if (Session["success"] != null)
             {
-                toast(this, Session["success"].ToString(), "Success", "success");
+                Toast.success(this, Session["success"].ToString());
                 Session["success"] = null;
             }
             if (Session["uid"] != null)
@@ -52,11 +53,6 @@ namespace Esource.Views.service
             }
         }
 
-        public void toast(Page page, string message, string title, string type)
-        {
-            ScriptManager.RegisterClientScriptBlock(page, page.GetType(), "toastmsg", "toastnotif('" + message + "','" + title + "','" + type.ToLower() + "');", true);
-        }
-
         protected void reqlist_ItemCommand(object source, RepeaterCommandEventArgs e)
         {
             if (e.CommandName == "viewprofile")
@@ -75,19 +71,20 @@ namespace Esource.Views.service
                 string[] ids = idList.Split(',');
                 User curr = new User().SelectById(LblUid.Value);
                 List<BL.service.Service> service = new BL.service.Service().SelectById(ids[2]);
-                int result = new Jobs().UpdateStatus(ids[0], "job_cancel");
+                int result = new Jobs().UpdateStatus(ids[0], "cancelled");
                 if (result == 0)
+                {
+
+                    Toast.error(this, "An error occured while cancelling request");
+                }
+                else
                 {
                     Notification notif = new Notification(int.Parse(LblUid.Value), curr.username, int.Parse(ids[2]), service[0].name, ids[1], "job_cancel");
                     notif.AddNotif();
                     List<Jobs> jobs = new Jobs().SelectByCid(LblUid.Value);
                     reqlist.DataSource = jobs;
                     reqlist.DataBind();
-                    toast(this, "An error occured while cancelling request", "Error", "error");
-                }
-                else
-                {
-                    toast(this, "Request cancelled", "Success", "success");
+                    Toast.success(this, "Request cancelled");
                 }
             }
         }

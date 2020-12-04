@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Esource.Utilities;
 
 namespace Esource.Views.profile
 {
@@ -64,13 +65,8 @@ namespace Esource.Views.profile
             }
             else
             {
-                toast(this, "An error occurred while updating profile", "Error", "error");
+                Toast.error(this, "An error occurred while updating profile");
             }
-        }
-
-        public void toast(Page page, string message, string title, string type)
-        {
-            ScriptManager.RegisterClientScriptBlock(page, page.GetType(), "toastmsg", "toastnotif('" + message + "','" + title + "','" + type.ToLower() + "');", true);
         }
     }
 }

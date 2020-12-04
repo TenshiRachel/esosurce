@@ -7,6 +7,7 @@ using System.Text;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Esource.Utilities;
 
 namespace Esource.Views.auth
 {
@@ -21,14 +22,14 @@ namespace Esource.Views.auth
         {
             if (Session["error"] != null)
             {
-                toast(this, Session["error"].ToString(), "Error", "error");
+                Toast.error(this, Session["error"].ToString());
                 Session["error"] = null;
             }
-        }
-
-        public void toast(Page page, string message, string title, string type)
-        {
-            ScriptManager.RegisterClientScriptBlock(page, page.GetType(), "toastmsg", "toastnotif('" + message + "','" + title + "','" + type.ToLower() + "');", true);
+            if (Session["success"] != null)
+            {
+                Toast.success(this, Session["success"].ToString());
+                Session["success"] = null;
+            }
         }
 
         public bool ValidateInput(string name, string email, string password, string confirm_password)
@@ -37,31 +38,31 @@ namespace Esource.Views.auth
             User user = new User().SelectByEmail(email);
             if (String.IsNullOrEmpty(name))
             {
-                toast(this, "Please enter a username", "Error", "error");
+                Toast.error(this, "Please enter a username");
             }
             else if (String.IsNullOrEmpty(email))
             {
-                toast(this, "Please enter an email", "Error", "error");
+                Toast.error(this, "Please enter an email");
             }
             else if (!email.Contains("@"))
             {
-                toast(this, "Please enter a valid email", "Error", "error");
+                Toast.error(this, "Please enter a valid email");
             }
             else if (String.IsNullOrEmpty(password))
             {
-                toast(this, "Please enter a password", "Error", "error");
+                Toast.error(this, "Please enter a password");
             }
             else if (password.Length < 8)
             {
-                toast(this, "Password must have 8 characters or more", "Error", "error");
+                Toast.error(this, "Your password must be 8 characters or longer");
             }
             else if (password != confirm_password)
             {
-                toast(this, "Passwords do not match", "Error", "error");
+                Toast.error(this, "The passwords do not match");
             }
             else if (user != null)
             {
-                toast(this, "Account already exists", "Error", "error");
+                Toast.error(this, "Account already exists");
             }
             else
             {

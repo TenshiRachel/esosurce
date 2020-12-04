@@ -6,6 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Esource.BL.profile;
 using Esource.BL.notification;
+using Esource.Utilities;
 
 namespace Esource.Views.notification
 {
@@ -97,23 +98,18 @@ namespace Esource.Views.notification
             }
         }
 
-        public void toast(Page page, string message, string title, string type)
-        {
-            ScriptManager.RegisterClientScriptBlock(page, page.GetType(), "toastmsg", "toastnotif('" + message + "','" + title + "','" + type.ToLower() + "');", true);
-        }
-
         public void clear(string id)
         {
             Notification notif = new Notification();
             int result = notif.Remove(id);
             if (result == 1)
             {
-                toast(this, "Notification cleared successfully", "Success", "success");
+                Toast.success(this, "Notification cleared successfully");
                 bind();
             }
             else
             {
-                toast(this, "An error occured while removing notification", "Error", "error");
+                Toast.error(this, "An error occured while removing notification");
             }
         }
 
@@ -196,11 +192,11 @@ namespace Esource.Views.notification
                 int result = notif.ClearAll(LblUid.Value, type);
                 if (result == 1)
                 {
-                    toast(this, "Notifications cleared successfully", "Success", "success");
+                    Toast.success(this, "Notifications cleared successfully");
                 }
                 else
                 {
-                    toast(this, "An error occured while removing notifications", "Error", "error");
+                    Toast.error(this, "An error occured while removing notifications");
                 }
             }
             bind();
