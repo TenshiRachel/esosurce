@@ -7,6 +7,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Esource.BL.service;
 using Esource.BL.notification;
+using Esource.Utilities;
 
 namespace Esource.Views.profile
 {
@@ -16,12 +17,12 @@ namespace Esource.Views.profile
         {
             if (Session["success"] != null)
             {
-                toast(this, Session["success"].ToString(), "Success", "success");
+                Toast.success(this, Session["success"].ToString());
                 Session["success"] = null;
             }
             if (Session["error"] != null)
             {
-                toast(this, Session["error"].ToString(), "Error", "error");
+                Toast.error(this, Session["error"].ToString());
                 Session["error"] = null;
             }
             if (Session["uid"] != null)
@@ -62,11 +63,6 @@ namespace Esource.Views.profile
             }
         }
 
-        public void toast(Page page, string message, string title, string type)
-        {
-            ScriptManager.RegisterClientScriptBlock(page, page.GetType(), "toastmsg", "toastnotif('" + message + "','" + title + "','" + type.ToLower() + "');", true);
-        }
-
         protected void servList_ItemCommand(object source, RepeaterCommandEventArgs e)
         {
             if (e.CommandName == "view")
@@ -102,11 +98,11 @@ namespace Esource.Views.profile
                     {
                         Notification notif = new Notification(int.Parse(LblUid.Text), curruser.username, service[0].Id, service[0].name, freelancer.Id.ToString(), "fav");
                         notif.AddNotif();
-                        toast(this, "Service favourited", "Success", "success");
+                        Toast.success(this, "Service favourited");
                     }
                     else
                     {
-                        toast(this, "An error occured while favouriting the service", "Error", "error");
+                        Toast.error(this, "An error occured while favouriting the service");
                     }
                 }
                 else
@@ -116,11 +112,11 @@ namespace Esource.Views.profile
                     int favres = fav.Remove(int.Parse(LblUid.Text), int.Parse(serviceId));
                     if (favres == 1 && servres == 1)
                     {
-                        toast(this, "Service unfavourited", "Success", "success");
+                        Toast.success(this, "Service unfavourited");
                     }
                     else
                     {
-                        toast(this, "An error occured while unfavouriting the service", "Error", "error");
+                        Toast.error(this, "An error occured while unfavouriting the service");
                     }
                 }
                 List<BL.service.Service> services = new BL.service.Service().SelectByUid(LblUid.Text);
@@ -171,11 +167,11 @@ namespace Esource.Views.profile
                     {
                         Notification notif = new Notification(int.Parse(LblUid.Text), curruser.username, service[0].Id, service[0].name, freelancer.Id.ToString(), "fav");
                         notif.AddNotif();
-                        toast(this, "Service favourited", "Success", "success");
+                        Toast.success(this, "Service favourited");
                     }
                     else
                     {
-                        toast(this, "An error occured while favouriting the service", "Error", "error");
+                        Toast.error(this, "An error occured while favouriting the service");
                     }
                 }
                 else
@@ -185,11 +181,11 @@ namespace Esource.Views.profile
                     int favres = fav.Remove(int.Parse(LblUid.Text), int.Parse(serviceId));
                     if (favres == 1 && servres == 1)
                     {
-                        toast(this, "Service unfavourited", "Success", "success");
+                        Toast.success(this, "Service unfavourited");
                     }
                     else
                     {
-                        toast(this, "An error occured while unfavouriting the service", "Error", "error");
+                        Toast.error(this, "An error occured while unfavouriting the service");
                     }
                 }
                 List<string> userFavs = new Fav().SelectUserFavs(LblUid.Text);

@@ -7,6 +7,7 @@ using System.Web.UI.WebControls;
 using Esource.BL.service;
 using Esource.BL.profile;
 using System.IO;
+using Esource.Utilities;
 
 namespace Esource.Views.service
 {
@@ -31,25 +32,20 @@ namespace Esource.Views.service
             }
         }
 
-        public void toast(Page page, string message, string title, string type)
-        {
-            ScriptManager.RegisterClientScriptBlock(page, page.GetType(), "toastmsg", "toastnotif('" + message + "','" + title + "','" + type.ToLower() + "');", true);
-        }
-
         public bool ValidateInput(string name, string desc, string price)
         {
             bool valid = false;
             if (String.IsNullOrEmpty(name))
             {
-                toast(this, "Please enter a name", "Error", "error");
+                Toast.error(this, "Please enter a name");
             }
             else if (String.IsNullOrEmpty(desc))
             {
-                toast(this, "Please enter a description", "Error", "error");
+                Toast.error(this, "Please enter a description");
             }
             else if (String.IsNullOrEmpty(price))
             {
-                toast(this, "Please enter a price", "Error", "error");
+                Toast.error(this, "Please enter a price");
             }
             else
             {
@@ -79,7 +75,7 @@ namespace Esource.Views.service
 
             else
             {
-                toast(this, "Only image files are accepted", "Error", "error");
+                Toast.error(this, "Only image files are accepted");
             }
 
             return img_path;
@@ -99,7 +95,7 @@ namespace Esource.Views.service
             }
             
             if (count == 0) {
-                toast(this, "Please check at least one category", "Error", "error");
+                Toast.error(this, "Please check at least one category");
             }
             else if (ValidateInput(tbName.Text, tbDesc.Text, tbPrice.Text))
             {
@@ -118,7 +114,7 @@ namespace Esource.Views.service
                 int result = service.AddService();
                 if (result == 0)
                 {
-                    toast(this, "Error occured while adding service", "Error", "error");
+                    Toast.error(this, "Error occured while adding service");
                 }
                 else
                 {

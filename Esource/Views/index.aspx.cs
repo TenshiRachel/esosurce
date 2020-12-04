@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Esource.Utilities;
 
 namespace Esource.Views
 {
@@ -14,21 +15,15 @@ namespace Esource.Views
         {
             if (Session["success"] != null)
             {
-                toast(this, Session["success"].ToString(), "Success", "success");
+                Toast.success(this, Session["success"].ToString());
                 Session["success"] = null;
             }
             if (Session["error"] != null)
             {
-                toast(this, Session["error"].ToString(), "Error", "error");
+                Toast.error(this, Session["error"].ToString());
                 Session["error"] = null;
             }
         }
-
-        public void toast(Page page, string message, string title, string type)
-        {
-            ScriptManager.RegisterClientScriptBlock(page, page.GetType(), "toastmsg", "toastnotif('" + message + "','" + title + "','" + type.ToLower() + "');", true);
-        }
-
 
     }
 }

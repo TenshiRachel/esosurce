@@ -6,6 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Esource.BL.profile;
 using Esource.BL.service;
+using Esource.Utilities;
 
 namespace Esource.Views.service
 {
@@ -15,12 +16,12 @@ namespace Esource.Views.service
         {
             if (Session["success"] != null)
             {
-                toast(this, Session["success"].ToString(), "Success", "success");
+                Toast.success(this, Session["success"].ToString());
                 Session["success"] = null;
             }
             if (Session["error"] != null)
             {
-                toast(this, Session["error"].ToString(), "Error", "error");
+                Toast.error(this, Session["error"].ToString());
                 Session["error"] = null;
             }
             if (Session["uid"] == null)
@@ -41,11 +42,6 @@ namespace Esource.Views.service
                 translist.DataSource = trans;
                 translist.DataBind();
             }
-        }
-
-        public void toast(Page page, string message, string title, string type)
-        {
-            ScriptManager.RegisterClientScriptBlock(page, page.GetType(), "toastmsg", "toastnotif('" + message + "','" + title + "','" + type.ToLower() + "');", true);
         }
 
         protected void translist_ItemCommand(object source, RepeaterCommandEventArgs e)

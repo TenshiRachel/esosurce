@@ -7,6 +7,7 @@ using System.Web.UI.WebControls;
 using Esource.BL.jobs;
 using Esource.BL.profile;
 using Esource.BL.notification;
+using Esource.Utilities;
 
 namespace Esource.Views.jobs
 {
@@ -42,11 +43,6 @@ namespace Esource.Views.jobs
             joblist.DataBind();
         }
 
-        public void toast(Page page, string message, string title, string type)
-        {
-            ScriptManager.RegisterClientScriptBlock(page, page.GetType(), "toastmsg", "toastnotif('" + message + "','" + title + "','" + type.ToLower() + "');", true);
-        }
-
         protected void joblist_ItemCommand(object source, RepeaterCommandEventArgs e)
         {
             if (e.CommandName == "viewprofile")
@@ -63,14 +59,14 @@ namespace Esource.Views.jobs
                 int result = new Jobs().UpdateStatus(ids[0], "accepted");
                 if (result == 0)
                 {
-                    Notification notif = new Notification(int.Parse(LblUid.Text), freelancer.username, int.Parse(ids[1]), service[0].name, ids[2], "request");
-                    notif.AddNotif();
-                    bind();
-                    toast(this, "An error occured while accepting job", "Error", "error");
+                    Toast.error(this, "An error occured while accepting job");
                 }
                 else
                 {
-                    toast(this, "Job accepted", "Success", "success");
+                    Notification notif = new Notification(int.Parse(LblUid.Text), freelancer.username, int.Parse(ids[1]), service[0].name, ids[2], "request");
+                    notif.AddNotif();
+                    bind();
+                    Toast.success(this, "Job accepted");
                 }
             }
 
@@ -83,14 +79,14 @@ namespace Esource.Views.jobs
                 int result = new Jobs().UpdateStatus(ids[0], "cancelled");
                 if (result == 0)
                 {
-                    Notification notif = new Notification(int.Parse(LblUid.Text), freelancer.username, int.Parse(ids[1]), service[0].name, ids[2], "req_cancel");
-                    notif.AddNotif();
-                    bind();
-                    toast(this, "An error occured while cancelling job", "Error", "error");
+                    Toast.error(this, "An error occured while cancelling job");
                 }
                 else
                 {
-                    toast(this, "Job cancelled", "Success", "success");
+                    Notification notif = new Notification(int.Parse(LblUid.Text), freelancer.username, int.Parse(ids[1]), service[0].name, ids[2], "req_cancel");
+                    notif.AddNotif();
+                    bind();
+                    Toast.success(this, "Job cancelled");
                 }
             }
 
@@ -103,14 +99,14 @@ namespace Esource.Views.jobs
                 int result = new Jobs().UpdateStatus(ids[0], "done");
                 if (result == 0)
                 {
-                    Notification notif = new Notification(int.Parse(LblUid.Text), freelancer.username, int.Parse(ids[1]), service[0].name, ids[2], "complete");
-                    notif.AddNotif();
-                    bind();
-                    toast(this, "An error occured while completing job", "Error", "error");
+                    Toast.error(this, "An error occured while completing job");
                 }
                 else
                 {
-                    toast(this, "Job completed", "Success", "success");
+                    Notification notif = new Notification(int.Parse(LblUid.Text), freelancer.username, int.Parse(ids[1]), service[0].name, ids[2], "complete");
+                    notif.AddNotif();
+                    bind();
+                    Toast.success(this, "Job completed");
                 }
             }
         }
