@@ -9,6 +9,7 @@ namespace Esource.Views.file
 {
     public partial class index : System.Web.UI.Page
     {
+        string currUserId = null;
         protected void Page_Load(object sender, EventArgs e)
         {
 
