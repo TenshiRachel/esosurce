@@ -16,6 +16,7 @@ namespace Esource.Views.profile
             {
                 LblUid.Text = Session["uid"].ToString();
                 User user = new User().SelectById(LblUid.Text);
+                string [] socialList = user.social.Split(',');
                 if (!Page.IsPostBack)
                 {
                     bio.Value = user.bio;
@@ -24,7 +25,15 @@ namespace Esource.Views.profile
                     gender.Value = user.gender;
                     location.Value = user.location;
                     occupation.Value = user.occupation;
-                    currUsername.InnerHtml = user.username;   
+                    currUsername.InnerHtml = user.username;
+                    if (socialList.Any())
+                    {
+                        twitter.Value = socialList[0];
+                        instagram.Value = socialList[1];
+                        facebook.Value = socialList[2];
+                        youtube.Value = socialList[3];
+                        deviantart.Value = socialList[4];
+                    }
                     if (user.type == "client")
                     {
                         usertype.InnerHtml = "Client";
@@ -40,30 +49,7 @@ namespace Esource.Views.profile
 
         public string UpdateSocial(string twitter, string instagram, string facebook, string youtube, string deviantart)
         {
-            List<string> socialList = new List<string>();
-            if (!String.IsNullOrEmpty(twitter))
-            {
-                socialList.Add(twitter);
-            }
-            if (!String.IsNullOrEmpty(instagram))
-            {
-                socialList.Add(instagram);
-            }
-            if (!String.IsNullOrEmpty(facebook))
-            {
-                socialList.Add(facebook);
-            }
-            if (!String.IsNullOrEmpty(youtube))
-            {
-                socialList.Add(youtube);
-            }
-            if (!String.IsNullOrEmpty(deviantart))
-            {
-                socialList.Add(deviantart);
-            }
-            string.Join(", ", socialList);
-
-            string social = socialList.ToString();
+            string social = twitter + "," + instagram + "," + facebook + "," + youtube + "," + deviantart;
             return social;
         }
 
