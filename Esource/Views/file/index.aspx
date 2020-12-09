@@ -6,7 +6,7 @@
     <section class="files">
         <div class="row">
             <div class="col-12 col-md-9 col-lg-7">
-                <div id="files-card" class="card card-cascade narrower">
+                <div id="files-card" class="card">
                     <div class="card-body p-0">
                         <div class="table-responsive table-hover w-100">
                             <table id="files-table" class="table table-striped text-center mb-0">
@@ -24,7 +24,7 @@
                                     <th id="modified" class="d-none d-md-table-cell rounded-top-right">Modified</th>
                                 </thead>
                                 <tbody>
-                                    <asp:Repeater runat="server" ID="files">
+                                    <asp:Repeater runat="server" ID="files" OnItemCommand="files_ItemCommand" OnItemDataBound="files_ItemDataBound">
                                         <ItemTemplate>
                                             <tr class="animated faster d-none">
                                                 <td headers="select">
@@ -37,15 +37,13 @@
                                                         <label for="ff-{{ this.id }}" class="form-check-label"></label>
                                                     </div>
                                                 </td>
-                                                <td headers="name">{{#if this.link}}
-                    <a class="d-flex flex-fill justify-content-center" href="{{ this.link }}">{{ this.name }}</a>
-                                                    {{else}}
-                    {{ this.name }}
-                {{/if}}
+                                                <td headers="name">
+                                                    <asp:LinkButton runat="server" CommandName="download" CssClass="d-flex flex-fill justify-content-center"><%#Eval("fileName") %>
+                                                    </asp:LinkButton>
                                                 </td>
-                                                <td headers="size" class="d-none d-md-table-cell">{{ this.size }}
+                                                <td headers="size" class="d-none d-md-table-cell"><%#Eval("size") %>
                                                 </td>
-                                                <td headers="type" class="d-none d-md-table-cell text-capitalize">{{ this.type }}</td>
+                                                <td headers="type" class="d-none d-md-table-cell text-capitalize"><%#Eval("type") %></td>
                                                 <td headers="shared" class="cursor-default d-none d-md-table-cell">
                                                     <!-- ToDo: <i class="far fa-link mr-1"></i> -->
                                                     {{#if this.shareCode}}
@@ -62,7 +60,7 @@
                     Only you
                 {{/if}}
                                                 </td>
-                                                <td headers="modified" class="d-none d-md-table-cell{{#if @last}} rounded-bottom-right{{/if}}">{{ this.modified }}</td>
+                                                <td headers="modified" class="d-none d-md-table-cell">{{ this.modified }}</td>
                                             </tr>
                                         </ItemTemplate>
                                     </asp:Repeater>
@@ -70,7 +68,7 @@
                             </table>
                         </div>
 
-                        <p runat="server" id="filesErr" class="text-center grey-text small font-weight-bold mt-3">End of contents</p>
+                        <p runat="server" visible="false" id="filesErr" class="text-center grey-text small font-weight-bold mt-3">End of contents</p>
                     </div>
                 </div>
             </div>
@@ -135,15 +133,15 @@
                         </div>
 
                         <div class="list-group list-group-flush">
-                            <button class="list-group-item list-group-item-action" data-toggle="modal" data-target="#upload-modal">
-                                <i class="far fa-cloud-upload-alt mr-1"></i>Upload File(s)
-                            </button>
-                            <button class="list-group-item list-group-item-action" data-toggle="modal" data-target="#newfile-modal">
-                                <i class="far fa-file-plus mr-1"></i>New File
-                            </button>
+                            <a class="list-group-item list-group-item-action" data-toggle="modal" data-target="#upload-modal">
+                                <i class="fas fa-cloud-upload-alt mr-1"></i>Upload File(s)
+                            </a>
+                            <a class="list-group-item list-group-item-action" data-toggle="modal" data-target="#newfile-modal">
+                                <i class="fas fa-file-plus mr-1"></i>New File
+                            </a>
                         </div>
 
-                    <hr class="my-0">
+                        <hr class="my-0">
 
                         <div class="animated faster d-none select-actions">
                             <p class="mt-3 mb-1">
@@ -152,34 +150,30 @@
 
                             <div class="list-group list-group-flush">
 
-                            <div class="single-select animated faster">
-                                <a class="download list-group-item list-group-item-action" href="{{ postRoot }}" download>
-                                    <i class="far fa-cloud-download-alt mr-1"></i>Download
-                                </a>
-                                {{#ifCond 'urlRoot === "/files/my-drive" || urlRoot === "/files"'}}
-                                    <button class="list-group-item list-group-item-action" data-toggle="modal" data-target="#share-modal">
-                                        <i class="far fa-share-alt mr-1"></i>Share
-                                    </button>
-                                <a class="edit list-group-item list-group-item-action d-none" href="">
-                                    <i class="far fa-edit mr-1"></i>Edit
-                                </a>
-                                <button class="list-group-item list-group-item-action" data-toggle="modal" data-target="#rename-modal">
-                                    <i class="far fa-i-cursor mr-1"></i>Rename
-                                </button>
-                                {{/ifCond}}
-                            </div>
+                                <div class="single-select animated faster">
+                                    <a class="download list-group-item list-group-item-action" href="{{ postRoot }}" download>
+                                        <i class="fas fa-cloud-download-alt mr-1"></i>Download
+                                    </a>
+                                    <a class="list-group-item list-group-item-action" data-toggle="modal" data-target="#share-modal">
+                                        <i class="fas fa-share-alt mr-1"></i>Share
+                                    </a>
+                                    <a class="edit list-group-item list-group-item-action d-none" href="">
+                                        <i class="fas fa-edit mr-1"></i>Edit
+                                    </a>
+                                    <a class="list-group-item list-group-item-action" data-toggle="modal" data-target="#rename-modal">
+                                        <i class="fas fa-i-cursor mr-1"></i>Rename
+                                    </a>
+                                </div>
 
-                                {{#ifCond 'urlRoot === "/files/my-drive" || urlRoot === "/files"'}}
-                                <button class="list-group-item list-group-item-action move-action" data-toggle="modal" data-target="#move-modal">
+                                <a class="list-group-item list-group-item-action move-action" data-toggle="modal" data-target="#move-modal">
                                     <i class="fas fa-exchange-alt mr-1"></i>Move
-                                </button>
-                                <button class="list-group-item list-group-item-action copy-action" data-toggle="modal" data-target="#copy-modal">
+                                </a>
+                                <a class="list-group-item list-group-item-action copy-action" data-toggle="modal" data-target="#copy-modal">
                                     <i class="far fa-copy mr-1"></i>Copy
-                                </button>
-                                <button class="list-group-item list-group-item-action delete-action">
+                                </a>
+                                <a class="list-group-item list-group-item-action delete-action">
                                     <i class="far fa-trash-alt mr-1"></i>Delete
-                                </button>
-                                {{/ifCond}}
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -484,7 +478,7 @@
 
                         <div class="flex-md-fill text-left text-md-right">
                             <button class="btn btn-md btn-primary m-0" type="submit">
-                                <i class="far fa-link mr-2"></i>Create Share Link
+                                <i class="fas fa-link mr-2"></i>Create Share Link
                             </button>
                         </div>
 
@@ -496,30 +490,44 @@
     </div>
 
     <!-- Upload Files Modal -->
-    <div id="upload-modal" class="modal fade" tabindex="-1" role="dialog">
+    <div id="upload-modal" class="modal fade" tabindex="-1" role="dialog" data-backdrop="false">
         <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header deep-purple accent-2 white-text">
                     <h4 class="modal-title">
-                        <i class="far fa-cloud-upload-alt mr-1"></i>UPLOAD FILE(S)
+                        <i class="fas fa-cloud-upload-alt mr-1"></i>UPLOAD FILE(S)
                     </h4>
 
-                    <button type="button" class="close" data-dismiss="modal">
+                    <a class="close" data-dismiss="modal">
                         <span class="white-text">&times;</span>
-                    </button>
+                    </a>
                 </div>
 
                 <div class="modal-body">
-                    <input type="file" name="files" multiple />
+                    <div class="filepreview">
+                        <div class="wrapper">
+                            <div class="preview">
+                                <img src="<%=Page.ResolveUrl("~/Content/img/placeholder.jpg") %>" id="poster" />
+                            </div>
+                            <div class="card-text">
+                                <i class="fas fa-5x fa-image"></i>
+                                <p class="font-weight-bolder">No File Uploaded</p>
+                            </div>
+                            <div class="custom-file">
+                                <asp:FileUpload runat="server" ID="upPoster" AllowMultiple="true" />
+                            </div>
+                        </div>
+                    </div>
                     <p class="text-center m-0 mt-3">
                         <small class="form-text text-muted">You are can only upload up to a maximum of 100mb.
                         </small>
                         <small class="form-text text-danger font-weight-500">* If uploaded file or files exist in the current directory, that file or files will be overwritten.
                         </small>
                     </p>
+                    <asp:LinkButton runat="server" ID="uploadBtn" CssClass="btn btn-block btn-success" OnClick="uploadBtn_Click"></asp:LinkButton>
                 </div>
             </div>
         </div>
     </div>
-
+    <script type="text/javascript" src="<%=Page.ResolveUrl("~/Scripts/servicescript.js") %>"></script>
 </asp:Content>

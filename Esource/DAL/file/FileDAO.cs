@@ -16,7 +16,7 @@ namespace Esource.DAL.file
             string DBConnect = ConfigurationManager.ConnectionStrings["ConnStr"].ConnectionString;
             SqlConnection conn = new SqlConnection(DBConnect);
 
-            string sqlStmt = "INSERT INTO File (fileName, fullPath, type, size, shareId, uid)" +
+            string sqlStmt = "INSERT INTO [File] (fileName, fullPath, type, size, shareId, uid)" +
                 "VALUES (@paraName, @paraPath, @paraType, @paraSize, @paraShareid, @paraUid)";
 
             int result = 0;
@@ -41,7 +41,7 @@ namespace Esource.DAL.file
             string DBConnect = ConfigurationManager.ConnectionStrings["ConnStr"].ConnectionString;
             SqlConnection conn = new SqlConnection(DBConnect);
 
-            string sqlStmt = "SELECT * FROM File WHERE uid=@paraUid";
+            string sqlStmt = "SELECT * FROM [File] WHERE uid=@paraUid";
 
             SqlDataAdapter da = new SqlDataAdapter(sqlStmt, conn);
             da.SelectCommand.Parameters.AddWithValue("@paraUid", uid);
@@ -61,9 +61,9 @@ namespace Esource.DAL.file
                     string path = row["fullPath"].ToString();
                     string type = row["type"].ToString();
                     decimal size = decimal.Parse(row["size"].ToString());
-                    int shareId = int.Parse(row["shareId"].ToString());
+                    string shareId = row["shareId"].ToString();
                     int Id = int.Parse(row["Id"].ToString());
-                    obj = new File(name, path, type, size, shareId,int.Parse(uid), Id);
+                    obj = new File(name, path, type, size, int.Parse(uid), shareId, Id);
                     files.Add(obj);
                 }
             }
@@ -76,7 +76,7 @@ namespace Esource.DAL.file
             string DBConnect = ConfigurationManager.ConnectionStrings["ConnStr"].ConnectionString;
             SqlConnection conn = new SqlConnection(DBConnect);
 
-            string sqlStmt = "SELECT * FROM File WHERE shareId=@paraSid";
+            string sqlStmt = "SELECT * FROM [File] WHERE shareId=@paraSid";
 
             SqlDataAdapter da = new SqlDataAdapter(sqlStmt, conn);
             da.SelectCommand.Parameters.AddWithValue("@paraSid", shareId);
@@ -98,7 +98,7 @@ namespace Esource.DAL.file
                     decimal size = decimal.Parse(row["size"].ToString());
                     int uid = int.Parse(row["uid"].ToString());
                     int Id = int.Parse(row["Id"].ToString());
-                    obj = new File(name, path, type, size, int.Parse(shareId), uid, Id);
+                    obj = new File(name, path, type, size, uid, shareId, Id);
                     files.Add(obj);
                 }
             }
@@ -111,7 +111,7 @@ namespace Esource.DAL.file
             string DBConnect = ConfigurationManager.ConnectionStrings["ConnStr"].ConnectionString;
             SqlConnection conn = new SqlConnection(DBConnect);
 
-            string sqlStmt = "DELETE FROM File WHERE Id=@paraId";
+            string sqlStmt = "DELETE FROM [File] WHERE Id=@paraId";
 
             int result = 0;
             SqlCommand sqlCmd = new SqlCommand(sqlStmt, conn);
