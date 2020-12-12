@@ -35,7 +35,7 @@
     </asp:ContentPlaceHolder>
 </head>
 <body>
-    <form runat="server">
+    <form runat="server" autocomplete="off">
         <asp:Label runat="server" Visible="false" ID="LblUid"></asp:Label>
         <nav class="navbar navbar-expand-md navbar-dark z-depth-3 scrolling-navbar fixed-top primary-color blue-gradient"
             style="padding-left: 12px 1rem !important;">

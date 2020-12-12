@@ -106,6 +106,28 @@ namespace Esource.DAL.file
             return files;
         }
 
+        public int UpdateShare(string id, string shares)
+        {
+            string DBConnect = ConfigurationManager.ConnectionStrings["ConnStr"].ConnectionString;
+            SqlConnection conn = new SqlConnection(DBConnect);
+
+            string sqlStmt = "UPDATE [File] " +
+                "SET shareId = @paraShare " +
+                "WHERE Id = @paraId";
+
+            int result = 0;
+            SqlCommand sqlCmd = new SqlCommand(sqlStmt, conn);
+
+            sqlCmd.Parameters.AddWithValue("@paraId", id);
+            sqlCmd.Parameters.AddWithValue("@paraShare", shares);
+
+            conn.Open();
+            result = sqlCmd.ExecuteNonQuery();
+            conn.Close();
+
+            return result;
+        }
+
         public int Delete(string Id)
         {
             string DBConnect = ConfigurationManager.ConnectionStrings["ConnStr"].ConnectionString;

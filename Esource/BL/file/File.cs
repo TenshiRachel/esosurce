@@ -50,6 +50,12 @@ namespace Esource.BL.file
             return files;
         }
 
+        public int UpdateShares(string id, string shares)
+        {
+            int result = new FileDAO().UpdateShare(id, shares);
+            return result;
+        }
+
         public int Remove(string Id)
         {
             int result = new FileDAO().Delete(Id);

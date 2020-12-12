@@ -18,9 +18,12 @@ namespace Esource.Views.file
             if (Session["uid"] != null)
             {
                 currUserId = Session["uid"].ToString();
-                List<BL.file.File> userfiles = new BL.file.File().SelectByUid(currUserId);
-                files.DataSource = userfiles;
-                files.DataBind();
+                if (!Page.IsPostBack)
+                {
+                    List<BL.file.File> userfiles = new BL.file.File().SelectByUid(currUserId);
+                    files.DataSource = userfiles;
+                    files.DataBind();
+                }
             }
             else
             {
@@ -52,13 +55,14 @@ namespace Esource.Views.file
                 string file_path = "";
 
                 string fileName = Path.GetFileName(postedFile.FileName);
+                string ext = Path.GetExtension(fileName);
                 string dirPath = Server.MapPath("~/Content/uploads/files/" + currUserId + "/");
                 Directory.CreateDirectory(dirPath);
                 postedFile.SaveAs(dirPath + fileName);
 
                 file_path = "~/Content/uploads/files/" + currUserId + "/" + fileName;
 
-                BL.file.File file = new BL.file.File(fileName, file_path, postedFile.ContentType, postedFile.ContentLength, int.Parse(currUserId));
+                BL.file.File file = new BL.file.File(fileName, file_path, ext, postedFile.ContentLength, int.Parse(currUserId));
                 int result = file.AddFile();
                 if (result == 1)
                 {
@@ -84,6 +88,37 @@ namespace Esource.Views.file
             {
                 Toast.error(this, "Please upload a file");
             }
+        }
+
+        protected void btn_Download_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void btn_Share_Click(object sender, EventArgs e)
+        {
+            
+        }
+
+        protected void btn_Delete_Click(object sender, EventArgs e)
+        {
+            List<string> fileIds = new List<string>();
+            foreach(RepeaterItem item in files.Items)
+            {
+                CheckBox chkbox = item.FindControl("checkFile") as CheckBox;
+                if (chkbox.Checked && chkbox != null)
+                {
+                    fileIds.Add(chkbox.Attributes["CommandArgument"]);
+                }
+            }
+            foreach(string id in fileIds)
+            {
+                int result = new BL.file.File().Remove(id);
+            }
+            List<BL.file.File> userfiles = new BL.file.File().SelectByUid(currUserId);
+            files.DataSource = userfiles;
+            files.DataBind();
+            Toast.success(this, "File(s) deleted successfully");
         }
     }
 }

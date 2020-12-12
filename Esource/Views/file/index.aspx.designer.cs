@@ -31,6 +31,33 @@ namespace Esource.Views.file {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl filesErr;
         
         /// <summary>
+        /// btn_Download control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton btn_Download;
+        
+        /// <summary>
+        /// btn_Delete control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton btn_Delete;
+        
+        /// <summary>
+        /// btn_Share control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton btn_Share;
+        
+        /// <summary>
         /// upPoster control.
         /// </summary>
         /// <remarks>

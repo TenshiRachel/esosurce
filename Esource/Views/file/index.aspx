@@ -13,7 +13,7 @@
                                 <thead class="deep-purple accent-3 white-text">
                                     <th id="select" class="rounded-top-left">
                                         <div class="form-check">
-                                            <input id="check-all" class="form-check-input" type="checkbox">
+                                            <input id="check-all" class="form-check-input" type="checkbox" onchange="Checkall()">
                                             <label class="form-check-label" for="check-all"></label>
                                         </div>
                                     </th>
@@ -21,35 +21,27 @@
                                     <th id="sizes" class="d-none d-md-table-cell">Size</th>
                                     <th id="type" class="d-none d-md-table-cell">Type</th>
                                     <th id="shared" class="d-none d-md-table-cell">Shared</th>
-                                    <th id="modified" class="d-none d-md-table-cell rounded-top-right">Modified</th>
                                 </thead>
                                 <tbody>
                                     <asp:Repeater runat="server" ID="files" OnItemCommand="files_ItemCommand" OnItemDataBound="files_ItemDataBound">
                                         <ItemTemplate>
-                                            <tr class="animated faster d-none">
+                                            <tr class="animated faster<%-- d-none--%>">
                                                 <td headers="select">
                                                     <div class="form-check">
-                                                        <input id="ff-{{ this.id }}"
-                                                            class="form-check-input" type="checkbox"
-                                                            data-id="{{ this.id }}"
-                                                            data-name="{{ this.name }}"
-                                                            name="fid">
-                                                        <label for="ff-{{ this.id }}" class="form-check-label"></label>
+                                                        <asp:CheckBox runat="server" ID="checkFile" CommandArgument='<%#Eval("Id") %>'
+                                                            CssClass="form-check-input files-check" />
+                                                        <label for='ff-<%#Eval("Id") %>' class="form-check-label"></label>
                                                     </div>
                                                 </td>
                                                 <td headers="name">
                                                     <asp:LinkButton runat="server" CommandName="download" CssClass="d-flex flex-fill justify-content-center"><%#Eval("fileName") %>
                                                     </asp:LinkButton>
                                                 </td>
-                                                <td headers="size" class="d-none d-md-table-cell"><%#Eval("size") %>
+                                                <td headers="size" class="<%--d-none--%> d-md-table-cell"><%#Eval("size") %>
                                                 </td>
-                                                <td headers="type" class="d-none d-md-table-cell text-capitalize"><%#Eval("type") %></td>
-                                                <td headers="shared" class="cursor-default d-none d-md-table-cell">
-                                                    <!-- ToDo: <i class="far fa-link mr-1"></i> -->
-                                                    {{#if this.shareCode}}
-                    <i class="far fa-link mr-1 material-tooltip-sm" data-tooltip="tooltip" title="Share Link Created"></i>
-                                                    {{/if}}
-                {{#if this.share}}
+                                                <td headers="type" class="<%--d-none--%> d-md-table-cell text-capitalize"><%#Eval("type") %></td>
+                                                <td headers="shared" class="cursor-default <%--d-none --%>d-md-table-cell">
+<%--                {{#if this.share}}
                     <span class="material-tooltip-sm" data-tooltip="tooltip" title="{{ joinSeperator ', ' this.share.usernames }}">{{#ifCond 'this.share.usernames.length > 1'}}
                             {{ this.share.usernames.length }} users
                         {{else}}
@@ -58,9 +50,8 @@
                     </span>
                                                     {{else}}
                     Only you
-                {{/if}}
+                {{/if}}--%>
                                                 </td>
-                                                <td headers="modified" class="d-none d-md-table-cell">{{ this.modified }}</td>
                                             </tr>
                                         </ItemTemplate>
                                     </asp:Repeater>
@@ -117,17 +108,6 @@
                                         <label class="custom-control-label cursor-pointer" for="filter-type">Type</label>
                                     </div>
 
-                                    {{#ifCond 'urlRoot === "/files/my-drive" || urlRoot === "/files"'}}
-                                    <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" class="custom-control-input filter-shared" checked>
-                                        <label class="custom-control-label cursor-pointer" for="filter-shared">Shared</label>
-                                    </div>
-                                    {{/ifCond}}
-
-                                <div class="custom-control custom-checkbox mb-3">
-                                    <input type="checkbox" class="custom-control-input filter-modified" checked>
-                                    <label class="custom-control-label cursor-pointer" for="filter-modified">Modified</label>
-                                </div>
                                 </div>
                             </div>
                         </div>
@@ -136,14 +116,14 @@
                             <a class="list-group-item list-group-item-action" data-toggle="modal" data-target="#upload-modal">
                                 <i class="fas fa-cloud-upload-alt mr-1"></i>Upload File(s)
                             </a>
-                            <a class="list-group-item list-group-item-action" data-toggle="modal" data-target="#newfile-modal">
+<%--                            <a class="list-group-item list-group-item-action" data-toggle="modal" data-target="#newfile-modal">
                                 <i class="fas fa-file-plus mr-1"></i>New File
-                            </a>
+                            </a>--%>
                         </div>
 
                         <hr class="my-0">
 
-                        <div class="animated faster d-none select-actions">
+                        <div class="animated faster select-actions">
                             <p class="mt-3 mb-1">
                                 <small class="px-3 font-weight-bolder grey-text select-count">0 Item Selected</small>
                             </p>
@@ -151,29 +131,29 @@
                             <div class="list-group list-group-flush">
 
                                 <div class="single-select animated faster">
-                                    <a class="download list-group-item list-group-item-action" href="{{ postRoot }}" download>
+                                    <asp:LinkButton runat="server" OnClick="btn_Download_Click" ID="btn_Download" CssClass="download list-group-item list-group-item-action">
                                         <i class="fas fa-cloud-download-alt mr-1"></i>Download
-                                    </a>
+                                    </asp:LinkButton>
                                     <a class="list-group-item list-group-item-action" data-toggle="modal" data-target="#share-modal">
                                         <i class="fas fa-share-alt mr-1"></i>Share
                                     </a>
-                                    <a class="edit list-group-item list-group-item-action d-none" href="">
+<%--                                    <a class="edit list-group-item list-group-item-action d-none">
                                         <i class="fas fa-edit mr-1"></i>Edit
-                                    </a>
+                                    </a>--%>
                                     <a class="list-group-item list-group-item-action" data-toggle="modal" data-target="#rename-modal">
                                         <i class="fas fa-i-cursor mr-1"></i>Rename
                                     </a>
                                 </div>
 
-                                <a class="list-group-item list-group-item-action move-action" data-toggle="modal" data-target="#move-modal">
+<%--                                <a class="list-group-item list-group-item-action move-action" data-toggle="modal" data-target="#move-modal">
                                     <i class="fas fa-exchange-alt mr-1"></i>Move
                                 </a>
                                 <a class="list-group-item list-group-item-action copy-action" data-toggle="modal" data-target="#copy-modal">
                                     <i class="far fa-copy mr-1"></i>Copy
-                                </a>
-                                <a class="list-group-item list-group-item-action delete-action">
+                                </a>--%>
+                                <asp:LinkButton runat="server" ID="btn_Delete" OnClick="btn_Delete_Click" CssClass="list-group-item list-group-item-action delete-action">
                                     <i class="far fa-trash-alt mr-1"></i>Delete
-                                </a>
+                                </asp:LinkButton>
                             </div>
                         </div>
                     </div>
@@ -183,7 +163,7 @@
     </section>
 
     <!-- Copy Modal -->
-    <div id="copy-modal" class="modal fade" tabindex="-1" role="dialog">
+<%--    <div id="copy-modal" class="modal fade" tabindex="-1" role="dialog">
         <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header deep-purple accent-2 white-text">
@@ -228,10 +208,10 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div>--%>
 
     <!-- Move Modal -->
-    <div id="move-modal" class="modal fade" tabindex="-1" role="dialog">
+<%--    <div id="move-modal" class="modal fade" tabindex="-1" role="dialog">
         <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header deep-purple accent-2 white-text">
@@ -276,10 +256,10 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div>--%>
 
     <!-- New File Modal -->
-    <div id="newfile-modal" class="modal fade" tabindex="-1" role="dialog">
+    <%--<div id="newfile-modal" class="modal fade" tabindex="-1" role="dialog">
         <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header deep-purple accent-2 white-text">
@@ -353,7 +333,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div>--%>
 
     <!-- Rename Modal -->
     <div id="rename-modal" class="modal fade" tabindex="-1" role="dialog">
@@ -415,19 +395,16 @@
                         <div class="md-form md-outline">
                             <input id="share-user-input" class="form-control mdb-autocomplete" type="text" name="shareUser">
                             <button class="mdb-autocomplete-clear deep-purple-text">
-                                <i class="far fa-times"></i>
+                                <i class="fas fa-times"></i>
                             </button>
                             <label for="share-user-input">Username or Email</label>
 
-                            <div class="invalid-tooltip">
-                                {{ forms.errors.shareUser }}
-                            </div>
                         </div>
 
                         <div class="input-group-append">
-                            <button class="btn btn-md btn-primary m-0 px-3 py-2" type="submit">
-                                <i class="far fa-share-alt mr-1"></i>Share
-                            </button>
+                            <asp:LinkButton runat="server" ID="btn_Share" OnClick="btn_Share_Click" CssClass="btn btn-md btn-primary m-0 px-3 py-2">
+                                <i class="fas fa-share-alt mr-1"></i>Share
+                            </asp:LinkButton>
                         </div>
                     </div>
 
@@ -440,7 +417,7 @@
                         <hr>
 
                         <h6 class="card-title pt-2">
-                            <i class="far fa-users mr-2"></i>Shared With
+                            <i class="fas fa-users mr-2"></i>Shared With
                         </h6>
 
                         <div class="text-right">
@@ -469,7 +446,7 @@
                     </div>
                 </div>
 
-                <div class="modal-footer d-block">
+<%--                <div class="modal-footer d-block">
                     <div class="needs-validation d-block d-md-flex flex-fill">
                         <div class="flex-md-fill mb-3 mt-0 mb-md-auto mt-md-auto text-left">
                             <i class="far fa-unlink fa-sm border border-primary rounded-circle p-2 mr-2"></i>
@@ -484,7 +461,7 @@
 
                         <input type="hidden" name="fid" value="">
                     </div>
-                </div>
+                </div>--%>
             </div>
         </div>
     </div>
@@ -524,10 +501,10 @@
                         <small class="form-text text-danger font-weight-500">* If uploaded file or files exist in the current directory, that file or files will be overwritten.
                         </small>
                     </p>
-                    <asp:LinkButton runat="server" ID="uploadBtn" CssClass="btn btn-block btn-success" OnClick="uploadBtn_Click"></asp:LinkButton>
+                    <asp:LinkButton runat="server" ID="uploadBtn" Text="Upload" CssClass="btn btn-block btn-success" OnClick="uploadBtn_Click"></asp:LinkButton>
                 </div>
             </div>
         </div>
     </div>
-    <script type="text/javascript" src="<%=Page.ResolveUrl("~/Scripts/servicescript.js") %>"></script>
+    <script type="text/javascript" src="<%=Page.ResolveUrl("~/Scripts/files.js") %>"></script>
 </asp:Content>
