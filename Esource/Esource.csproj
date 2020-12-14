@@ -602,7 +602,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Content\uploads\services\1\" />
+    <Folder Include="Content\uploads\files\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>

@@ -49,6 +49,24 @@ namespace Esource.Views.file {
         protected global::System.Web.UI.WebControls.LinkButton btn_Delete;
         
         /// <summary>
+        /// rename_input control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText rename_input;
+        
+        /// <summary>
+        /// btn_Rename control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton btn_Rename;
+        
+        /// <summary>
         /// btn_Share control.
         /// </summary>
         /// <remarks>

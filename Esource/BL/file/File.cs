@@ -50,9 +50,21 @@ namespace Esource.BL.file
             return files;
         }
 
+        public File SelectById(string id)
+        {
+            File file = new FileDAO().SelectById(id);
+            return file;
+        }
+
         public int UpdateShares(string id, string shares)
         {
             int result = new FileDAO().UpdateShare(id, shares);
+            return result;
+        }
+
+        public int UpdateFilePath(string id, string filePath, string fileName)
+        {
+            int result = new FileDAO().UpdateFilePath(id, filePath, fileName);
             return result;
         }
 

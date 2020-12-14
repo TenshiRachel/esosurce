@@ -16,7 +16,7 @@ namespace Esource.DAL.file
             string DBConnect = ConfigurationManager.ConnectionStrings["ConnStr"].ConnectionString;
             SqlConnection conn = new SqlConnection(DBConnect);
 
-            string sqlStmt = "INSERT INTO [File] (fileName, fullPath, type, size, shareId, uid)" +
+            string sqlStmt = "INSERT INTO [File] (fileName, fullPath, type, size, shareId, uid) OUTPUT INSERTED.Id " +
                 "VALUES (@paraName, @paraPath, @paraType, @paraSize, @paraShareid, @paraUid)";
 
             int result = 0;
@@ -30,7 +30,7 @@ namespace Esource.DAL.file
             sqlCmd.Parameters.AddWithValue("@paraUid", file.uid);
 
             conn.Open();
-            result = sqlCmd.ExecuteNonQuery();
+            result = (int)sqlCmd.ExecuteScalar();
             conn.Close();
 
             return result;
@@ -106,6 +106,36 @@ namespace Esource.DAL.file
             return files;
         }
 
+        public File SelectById(string id)
+        {
+            string DBConnect = ConfigurationManager.ConnectionStrings["ConnStr"].ConnectionString;
+            SqlConnection conn = new SqlConnection(DBConnect);
+
+            string sqlStmt = "SELECT * FROM [File] WHERE Id=@paraId";
+
+            SqlDataAdapter da = new SqlDataAdapter(sqlStmt, conn);
+            da.SelectCommand.Parameters.AddWithValue("@paraId", id);
+
+            DataSet ds = new DataSet();
+            da.Fill(ds);
+            int rec_cnt = ds.Tables[0].Rows.Count;
+
+            File obj = null;
+            if (rec_cnt > 0)
+            {
+                DataRow row = ds.Tables[0].Rows[0];
+                string name = row["fileName"].ToString();
+                string path = row["fullPath"].ToString();
+                string type = row["type"].ToString();
+                decimal size = decimal.Parse(row["size"].ToString());
+                int uid = int.Parse(row["uid"].ToString());
+                string shareId = row["shareId"].ToString();
+                obj = new File(name, path, type, size, uid, shareId, int.Parse(id));
+            }
+
+            return obj;
+        }
+
         public int UpdateShare(string id, string shares)
         {
             string DBConnect = ConfigurationManager.ConnectionStrings["ConnStr"].ConnectionString;
@@ -120,6 +150,29 @@ namespace Esource.DAL.file
 
             sqlCmd.Parameters.AddWithValue("@paraId", id);
             sqlCmd.Parameters.AddWithValue("@paraShare", shares);
+
+            conn.Open();
+            result = sqlCmd.ExecuteNonQuery();
+            conn.Close();
+
+            return result;
+        }
+
+        public int UpdateFilePath(string id, string filePath, string fileName)
+        {
+            string DBConnect = ConfigurationManager.ConnectionStrings["ConnStr"].ConnectionString;
+            SqlConnection conn = new SqlConnection(DBConnect);
+
+            string sqlStmt = "UPDATE [File] " +
+                "SET fullPath = @paraPath, fileName = @paraName " +
+                "WHERE Id = @paraId";
+
+            int result = 0;
+            SqlCommand sqlCmd = new SqlCommand(sqlStmt, conn);
+
+            sqlCmd.Parameters.AddWithValue("@paraId", id);
+            sqlCmd.Parameters.AddWithValue("@paraPath", filePath);
+            sqlCmd.Parameters.AddWithValue("@paraName", fileName);
 
             conn.Open();
             result = sqlCmd.ExecuteNonQuery();

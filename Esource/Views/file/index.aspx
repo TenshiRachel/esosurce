@@ -336,7 +336,7 @@
     </div>--%>
 
     <!-- Rename Modal -->
-    <div id="rename-modal" class="modal fade" tabindex="-1" role="dialog">
+    <div id="rename-modal" class="modal fade" tabindex="-1" role="dialog" data-backdrop="false">
         <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header deep-purple accent-2 white-text">
@@ -350,20 +350,17 @@
                 </div>
 
                 <div class="modal-body">
-                    <div class="input-group mb-0">
-                        <div class="md-form md-outline">
-                            <input id="rename-name-input" class="form-control" type="text" name="rename">
-                            <label for="rename-name-input">New Name</label>
+                    <div class="input-group mb-4 md-form md-outline">
+                        <div class="">
+                            <input id="rename_input" runat="server" class="form-control" type="text" name="rename" required>
+                            <label for="rename_input">New Name</label>
 
-                            <div class="invalid-tooltip">
-                                {{ forms.errors.rename }}
-                            </div>
                         </div>
 
-                        <div class="input-group-prepend">
-                            <button class="btn btn-md btn-primary m-0 px-3 py-2" type="submit">
-                                <i class="far fa-i-cursor mr-2"></i>Rename
-                            </button>
+                        <div class="input-group-append">
+                            <asp:LinkButton runat="server" ID="btn_Rename" CssClass="btn btn-md btn-primary m-0 px-3 py-2" OnClick="btn_Rename_Click">
+                                <i class="fas fa-i-cursor mr-2"></i>Rename
+                            </asp:LinkButton>
                         </div>
                     </div>
 

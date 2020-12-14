@@ -64,16 +64,31 @@ namespace Esource.Views.file
 
                 BL.file.File file = new BL.file.File(fileName, file_path, ext, postedFile.ContentLength, int.Parse(currUserId));
                 int result = file.AddFile();
-                if (result == 1)
+                if (result == 0)
                 {
-                    Toast.success(this, "File(s) uploaded successfully");
-                    List<BL.file.File> userfiles = new BL.file.File().SelectByUid(currUserId);
-                    files.DataSource = userfiles;
-                    files.DataBind();
+                    Toast.error(this, "An error occured while adding file");
                 }
                 else
                 {
-                    Toast.error(this, "An error occured while adding file");
+                    string newDirPath = Server.MapPath("~/Content/uploads/files/" + currUserId + "/" + result + "/");
+                    Directory.CreateDirectory(newDirPath);
+                    if (System.IO.File.Exists(dirPath + fileName))
+                    {
+                        System.IO.File.Delete(dirPath + fileName);
+                    }
+                    postedFile.SaveAs(newDirPath + fileName);
+                    result = new BL.file.File().UpdateFilePath(result.ToString(), newDirPath + fileName, fileName);
+                    if (result == 0)
+                    {
+                        Toast.error(this, "An error occured while adding file");
+                    }
+                    else
+                    {
+                        Toast.success(this, "File(s) uploaded successfully");
+                        List<BL.file.File> userfiles = new BL.file.File().SelectByUid(currUserId);
+                        files.DataSource = userfiles;
+                        files.DataBind();
+                    }
                 }
             }
         }
@@ -119,6 +134,35 @@ namespace Esource.Views.file
             files.DataSource = userfiles;
             files.DataBind();
             Toast.success(this, "File(s) deleted successfully");
+        }
+
+        protected void btn_Rename_Click(object sender, EventArgs e)
+        {
+            string fid = "";
+            foreach (RepeaterItem item in files.Items)
+            {
+                CheckBox chkbox = item.FindControl("checkFile") as CheckBox;
+                if (chkbox.Checked && chkbox != null)
+                {
+                    fid = chkbox.Attributes["CommandArgument"];
+                }
+            }
+            BL.file.File file = new BL.file.File().SelectById(fid);
+            string newPath = Server.MapPath("~/Content/uploads/files/" + currUserId + "/" + fid + "/");
+            System.IO.File.Copy(file.fullPath, newPath + rename_input.Value);
+            System.IO.File.Delete(file.fullPath);
+            int result = new BL.file.File().UpdateFilePath(fid, newPath + rename_input.Value, rename_input.Value);
+            if (result == 0)
+            {
+                Toast.error(this, "An error occured while renaming file");
+            }
+            else
+            {
+                List<BL.file.File> userfiles = new BL.file.File().SelectByUid(currUserId);
+                files.DataSource = userfiles;
+                files.DataBind();
+                Toast.success(this, "File renamed successfully");
+            }
         }
     }
 }
