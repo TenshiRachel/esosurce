@@ -31,7 +31,7 @@ namespace Esource.BL.profile
 
         }
 
-        public User(string username, string email, string password, string passSalt, string bio, string profile_src, string type, string stripeId = "", int following = 0, int followers = 0, string social = "", string website = "Not Set", string birthday = "Not Set", string gender = "Not Set", string location = "Not Set", string occupation = "Not Set", int Id = -1)
+        public User(string username, string email, string password, string passSalt, string bio, string profile_src, string type, string stripeId = "", int following = 0, int followers = 0, string social = ",,,,", string website = "Not Set", string birthday = "Not Set", string gender = "Not Set", string location = "Not Set", string occupation = "Not Set", int Id = -1)
         {
             this.username = username;
             this.email = email;
@@ -91,6 +91,12 @@ namespace Esource.BL.profile
         public int UpdateUser(string id, string bio, string profile_src, string website, string birthday, string gender, string location, string occupation, string social)
         {
             int result = new UserDAO().Update(id, bio, profile_src, website, birthday, gender, location, occupation, social);
+            return result;
+        }
+
+        public int UpdatePassword(string password, string passSalt, string id)
+        {
+            int result = new UserDAO().UpdatePassword(password, passSalt, id);
             return result;
         }
     }

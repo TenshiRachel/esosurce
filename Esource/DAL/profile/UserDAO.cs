@@ -221,5 +221,28 @@ namespace Esource.DAL.profile
 
             return result;
         }
+
+        public int UpdatePassword(string password, string passSalt, string id)
+        {
+            string DBConnect = ConfigurationManager.ConnectionStrings["ConnStr"].ConnectionString;
+            SqlConnection conn = new SqlConnection(DBConnect);
+
+            string sqlStmt = "UPDATE [User] " +
+                "SET password = @paraPassword, passSalt = @paraSalt " +
+                "WHERE Id = @paraId";
+
+            int result = 0;
+            SqlCommand sqlCmd = new SqlCommand(sqlStmt, conn);
+
+            sqlCmd.Parameters.AddWithValue("@paraPassword", password);
+            sqlCmd.Parameters.AddWithValue("@paraSalt", passSalt);
+            sqlCmd.Parameters.AddWithValue("@paraId", id);
+
+            conn.Open();
+            result = sqlCmd.ExecuteNonQuery();
+            conn.Close();
+
+            return result;
+        }
     }
 }

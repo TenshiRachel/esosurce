@@ -37,8 +37,7 @@ namespace Esource.Views.auth
             }
             else if (user == null)
             {
-                Session["error"] = "Account does not exist, please register";
-                Response.Redirect("register.aspx");
+                Toast.error(this, "Incorrect email or password, please try again");
             }
             else
             {
@@ -70,7 +69,7 @@ namespace Esource.Views.auth
                     }
                     else
                     {
-                        Toast.error(this, "Incorrect password, please try again");
+                        Toast.error(this, "Incorrect email or password, please try again");
                     }
                 }
             }

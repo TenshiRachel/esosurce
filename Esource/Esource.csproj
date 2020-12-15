@@ -202,6 +202,7 @@
     <Content Include="Scripts\umd\popper-utils.min.js" />
     <Content Include="Scripts\umd\popper.js" />
     <Content Include="Scripts\umd\popper.min.js" />
+    <Content Include="Views\auth\changepass.aspx" />
     <Content Include="Views\auth\login.aspx" />
     <Content Include="Views\auth\logout.aspx" />
     <Content Include="Views\auth\register.aspx" />
@@ -251,6 +252,13 @@
     <Compile Include="Utilities\Email.cs" />
     <Compile Include="Utilities\Payment.cs" />
     <Compile Include="Utilities\Toast.cs" />
+    <Compile Include="Views\auth\changepass.aspx.cs">
+      <DependentUpon>changepass.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\auth\changepass.aspx.designer.cs">
+      <DependentUpon>changepass.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Views\auth\login.aspx.cs">
       <DependentUpon>login.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

@@ -99,7 +99,7 @@
                         <hr class="hr-primary">
                         <div class="mt-5 text-center py-4">
                             <h4 class="card-title">Change Password</h4>
-                            <a class="btn btn-secondary btn-md" href="/changepass"><i
+                            <a class="btn btn-secondary btn-md" href="<%=Page.ResolveUrl("~/Views/auth/changepass.aspx") %>"><i
                                 class="fas fa-key fa-lg mr-1"></i>Change Password</a>
                         </div>
                     </div>

@@ -30,6 +30,14 @@
                             <i class="fas fa-sign-in-alt mr-2"></i>Login
                         </asp:LinkButton>
                     </div>
+                    <div class="card-footer">
+                        <p class="text-center small m-0">
+                            Don't have an account? <a href="<%=Page.ResolveUrl("~/Views/auth/register.aspx") %>">Register here.</a>
+                        </p>
+                        <p class="text-center small m-0">
+                            <a href="<%=Page.ResolveUrl("~/Views/auth/forgot.aspx") %>">Forgot password</a>
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
