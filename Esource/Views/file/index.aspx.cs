@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Esource.BL.file;
+using Esource.BL.profile;
 using Esource.Utilities;
 
 namespace Esource.Views.file
@@ -112,7 +113,26 @@ namespace Esource.Views.file
 
         protected void btn_Share_Click(object sender, EventArgs e)
         {
-            
+            string fileId = "";
+            foreach (RepeaterItem item in files.Items)
+            {
+                CheckBox chkbox = item.FindControl("checkFile") as CheckBox;
+                if (chkbox.Checked && chkbox != null)
+                {
+                    fileId = chkbox.Attributes["CommandArgument"];
+                }
+            }
+            BL.file.File file = new BL.file.File().SelectById(fileId);
+            User targetShare = new User().SelectByEmail(share_user_input.Value);
+            int result = file.UpdateShares(fileId, file.shareId + "," + targetShare.Id);
+            if (result == 0)
+            {
+                Toast.error(this, "An error occured while sharing file");
+            }
+            else
+            {
+                Toast.success(this, "File shared successfully");
+            }
         }
 
         protected void btn_Delete_Click(object sender, EventArgs e)
@@ -128,7 +148,13 @@ namespace Esource.Views.file
             }
             foreach(string id in fileIds)
             {
+                BL.file.File file = new BL.file.File().SelectById(id);
+                if (System.IO.File.Exists(file.fullPath))
+                {
+                    System.IO.File.Delete(file.fullPath);
+                }
                 int result = new BL.file.File().Remove(id);
+                
             }
             List<BL.file.File> userfiles = new BL.file.File().SelectByUid(currUserId);
             files.DataSource = userfiles;

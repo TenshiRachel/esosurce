@@ -76,10 +76,9 @@ namespace Esource.DAL.file
             string DBConnect = ConfigurationManager.ConnectionStrings["ConnStr"].ConnectionString;
             SqlConnection conn = new SqlConnection(DBConnect);
 
-            string sqlStmt = "SELECT * FROM [File] WHERE shareId=@paraSid";
+            string sqlStmt = "SELECT * FROM [File]";
 
             SqlDataAdapter da = new SqlDataAdapter(sqlStmt, conn);
-            da.SelectCommand.Parameters.AddWithValue("@paraSid", shareId);
 
             DataSet ds = new DataSet();
             da.Fill(ds);
@@ -96,10 +95,15 @@ namespace Esource.DAL.file
                     string path = row["fullPath"].ToString();
                     string type = row["type"].ToString();
                     decimal size = decimal.Parse(row["size"].ToString());
+                    string shareIds = row["shareId"].ToString();
                     int uid = int.Parse(row["uid"].ToString());
                     int Id = int.Parse(row["Id"].ToString());
-                    obj = new File(name, path, type, size, uid, shareId, Id);
-                    files.Add(obj);
+                    string[] sharedIdList = shareIds.Split(','); 
+                    if (sharedIdList.Contains(shareId))
+                    {
+                        obj = new File(name, path, type, size, uid, shareId, Id);
+                        files.Add(obj);
+                    }
                 }
             }
 

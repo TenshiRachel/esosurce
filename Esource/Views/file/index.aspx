@@ -123,14 +123,14 @@
 
                         <hr class="my-0">
 
-                        <div class="animated faster select-actions">
+                        <div class="animated faster select-actions" id="action_panel" runat="server" visible="false">
                             <p class="mt-3 mb-1">
                                 <small class="px-3 font-weight-bolder grey-text select-count">0 Item Selected</small>
                             </p>
 
                             <div class="list-group list-group-flush">
 
-                                <div class="single-select animated faster">
+                                <div class="single-select animated faster" id="single_action_panel" runat="server" visible="false">
                                     <asp:LinkButton runat="server" OnClick="btn_Download_Click" ID="btn_Download" CssClass="download list-group-item list-group-item-action">
                                         <i class="fas fa-cloud-download-alt mr-1"></i>Download
                                     </asp:LinkButton>
@@ -390,11 +390,11 @@
                 <div class="modal-body">
                     <div class="input-group mb-0">
                         <div class="md-form md-outline">
-                            <input id="share-user-input" class="form-control mdb-autocomplete" type="text" name="shareUser">
+                            <input runat="server" id="share_user_input" class="form-control mdb-autocomplete" type="email" name="shareUser" required>
                             <button class="mdb-autocomplete-clear deep-purple-text">
                                 <i class="fas fa-times"></i>
                             </button>
-                            <label for="share-user-input">Username or Email</label>
+                            <label for="share_user_input">Email</label>
 
                         </div>
 
@@ -405,7 +405,7 @@
                         </div>
                     </div>
 
-                    <small class="form-text text-muted">Accepts registered user's username, email or username (email) format.
+                    <small class="form-text text-muted">Accepts registered user's email format.
                     </small>
 
                     <input type="hidden" name="fid" value="">
@@ -484,7 +484,7 @@
                                 <img src="<%=Page.ResolveUrl("~/Content/img/placeholder.jpg") %>" id="poster" />
                             </div>
                             <div class="card-text">
-                                <i class="fas fa-5x fa-image"></i>
+                                <i class="fas fa-5x fa-cloud-download-alt"></i>
                                 <p class="font-weight-bolder">No File Uploaded</p>
                             </div>
                             <div class="custom-file">
