@@ -8,6 +8,7 @@ using System.Web.UI.WebControls;
 using Esource.BL.file;
 using Esource.BL.profile;
 using Esource.Utilities;
+using Esource.BL.notification;
 
 namespace Esource.Views.file
 {
@@ -133,6 +134,8 @@ namespace Esource.Views.file
                 }
                 else
                 {
+                    Notification notif = new Notification(targetShare.Id, targetShare.username, file.Id, file.fileName, targetShare.Id.ToString(), "file");
+                    notif.AddNotif();
                     Toast.success(this, "File shared successfully");
                 }
             }
@@ -250,6 +253,20 @@ namespace Esource.Views.file
                 action_panel.Visible = false;
                 single_action_panel.Visible = false;
             }
+        }
+
+        protected void viewOwn_Btn_Click(object sender, EventArgs e)
+        {
+            List<BL.file.File> userfiles = new BL.file.File().SelectByUid(currUserId);
+            files.DataSource = userfiles;
+            files.DataBind();
+        }
+
+        protected void viewShared_Btn_Click(object sender, EventArgs e)
+        {
+            List<BL.file.File> sharedFiles = new BL.file.File().SelectByShare(currUserId);
+            files.DataSource = sharedFiles;
+            files.DataBind();
         }
     }
 }

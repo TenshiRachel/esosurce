@@ -157,7 +157,7 @@ namespace Esource.Views.notification
             }
             if (e.CommandName == "viewfile")
             {
-                Response.Redirect("~/Views/file/index.aspx?id=" + e.CommandArgument.ToString());
+                Response.Redirect("~/Views/file/index.aspx");
             }
             if (e.CommandName == "clear")
             {

@@ -14,19 +14,19 @@
                                 <h4 class="mx-3">Files</h4>
                             </div>
 
-                            <a class="link">
+                            <asp:LinkButton runat="server" ID="viewOwn_Btn" CssClass="link black-text" OnClick="viewOwn_Btn_Click">
                                 <h6 class="pt-2 pl-3 mb-3">
                                     <i class="fas fa-hdd mr-2"></i>My Drive
                                 </h6>
-                            </a>
+                            </asp:LinkButton>
 
                             <hr class="my-0">
 
-                            <a class="link">
+                            <asp:LinkButton runat="server" ID="viewShared_Btn" CssClass="link black-text" OnClick="viewShared_Btn_Click">
                                 <h6 class="pt-2 pl-3 mt-3 mb-3">
                                     <i class="fas fa-users mr-2"></i>Shared With Me
                                 </h6>
-                            </a>
+                            </asp:LinkButton>
                         </div>
                     </div>
                     <div class="col-12 col-md-9 col-lg-7">
@@ -95,43 +95,39 @@
                             </div>
 
                             <div class="card-body card-body-cascade p-0">
-                                <div id="action-search" class="input-group px-3 mt-2 mb-3">
-                                    <div class="md-form md-outline">
+                                <div id="action-search" class="px-3 mt-2 mb-3">
+                                    <div class="input-group md-form md-outline">
                                         <input id="action-search-input" class="form-control mdb-autocomplete" type="text" name="search">
-                                        <button class="mdb-autocomplete-clear deep-purple-text">
-                                            <i class="far fa-times"></i>
-                                        </button>
                                         <label for="action-search-input">Search</label>
-                                    </div>
+                                        <div class="dropdown input-group-append">
+                                            <button class="btn btn-primary btn-md dropdown-toggle m-0" data-toggle="dropdown">
+                                                <i class="fas fa-filter"></i>
+                                            </button>
 
-                                    <div class="dropdown input-group-prepend">
-                                        <button class="btn btn-primary btn-md dropdown-toggle m-0" data-toggle="dropdown">
-                                            <i class="far fa-filter"></i>
-                                        </button>
+                                            <div id="action-filters" class="search-filters dropdown-menu dropdown-menu-right px-3">
+                                                <h6 class="dropdown-header px-0 pb-3">Search Filters</h6>
 
-                                        <div id="action-filters" class="search-filters dropdown-menu dropdown-menu-right px-3">
-                                            <h6 class="dropdown-header px-0 pb-3">Search Filters</h6>
+                                                <div class="custom-control custom-checkbox">
+                                                    <input type="checkbox" class="custom-control-input filter-all" checked>
+                                                    <label class="custom-control-label cursor-pointer" for="filter-all">All</label>
+                                                </div>
 
-                                            <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input filter-all" checked>
-                                                <label class="custom-control-label cursor-pointer" for="filter-all">All</label>
+                                                <div class="custom-control custom-checkbox">
+                                                    <input type="checkbox" class="custom-control-input filter-name" checked>
+                                                    <label class="custom-control-label cursor-pointer" for="filter-name">Name</label>
+                                                </div>
+
+                                                <div class="custom-control custom-checkbox">
+                                                    <input type="checkbox" class="custom-control-input filter-size" checked>
+                                                    <label class="custom-control-label cursor-pointer" for="filter-size">Size</label>
+                                                </div>
+
+                                                <div class="custom-control custom-checkbox">
+                                                    <input type="checkbox" class="custom-control-input filter-type" checked>
+                                                    <label class="custom-control-label cursor-pointer" for="filter-type">Type</label>
+                                                </div>
+
                                             </div>
-
-                                            <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input filter-name" checked>
-                                                <label class="custom-control-label cursor-pointer" for="filter-name">Name</label>
-                                            </div>
-
-                                            <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input filter-size" checked>
-                                                <label class="custom-control-label cursor-pointer" for="filter-size">Size</label>
-                                            </div>
-
-                                            <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input filter-type" checked>
-                                                <label class="custom-control-label cursor-pointer" for="filter-type">Type</label>
-                                            </div>
-
                                         </div>
                                     </div>
                                 </div>

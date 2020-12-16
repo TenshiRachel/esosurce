@@ -22,6 +22,24 @@ namespace Esource.Views.file {
         protected global::System.Web.UI.UpdatePanel file_panel;
         
         /// <summary>
+        /// viewOwn_Btn control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton viewOwn_Btn;
+        
+        /// <summary>
+        /// viewShared_Btn control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton viewShared_Btn;
+        
+        /// <summary>
         /// check_all control.
         /// </summary>
         /// <remarks>
