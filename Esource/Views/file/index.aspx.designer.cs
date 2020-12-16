@@ -13,6 +13,24 @@ namespace Esource.Views.file {
     public partial class index {
         
         /// <summary>
+        /// file_panel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel file_panel;
+        
+        /// <summary>
+        /// check_all control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox check_all;
+        
+        /// <summary>
         /// files control.
         /// </summary>
         /// <remarks>
@@ -38,6 +56,15 @@ namespace Esource.Views.file {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl action_panel;
+        
+        /// <summary>
+        /// items_selected control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl items_selected;
         
         /// <summary>
         /// single_action_panel control.

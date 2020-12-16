@@ -11,11 +11,11 @@ function clickUpload() {
     fileUpload.click();
 }
 
-function Checkall() {
-    if ($('#check-all').is(':checked')) {
-        $('.files-check').attr('checked', 'true');
-    }
-    else {
-        $('.files-check').removeAttr('checked', 'false');
-    }
-}
+//function Checkall() {
+//    if ($('#check-all').is(':checked')) {
+//        $('.files-check > input').attr('checked', 'true');
+//    }
+//    else {
+//        $('.files-check > input').removeAttr('checked', 'false');
+//    }
+//}

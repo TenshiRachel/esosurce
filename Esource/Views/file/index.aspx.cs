@@ -124,14 +124,21 @@ namespace Esource.Views.file
             }
             BL.file.File file = new BL.file.File().SelectById(fileId);
             User targetShare = new User().SelectByEmail(share_user_input.Value);
-            int result = file.UpdateShares(fileId, file.shareId + "," + targetShare.Id);
-            if (result == 0)
+            if (targetShare != null)
             {
-                Toast.error(this, "An error occured while sharing file");
+                int result = file.UpdateShares(fileId, file.shareId + "," + targetShare.Id);
+                if (result == 0)
+                {
+                    Toast.error(this, "An error occured while sharing file");
+                }
+                else
+                {
+                    Toast.success(this, "File shared successfully");
+                }
             }
             else
             {
-                Toast.success(this, "File shared successfully");
+                Toast.error(this, "User not found, please try again");
             }
         }
 
@@ -188,6 +195,60 @@ namespace Esource.Views.file
                 files.DataSource = userfiles;
                 files.DataBind();
                 Toast.success(this, "File renamed successfully");
+            }
+        }
+
+        protected void checkFile_CheckedChanged(object sender, EventArgs e)
+        {
+            List<string> fileIds = new List<string>();
+            foreach (RepeaterItem item in files.Items)
+            {
+                CheckBox chkbox = item.FindControl("checkFile") as CheckBox;
+                if (chkbox.Checked && chkbox != null)
+                {
+                    fileIds.Add(chkbox.Attributes["CommandArgument"]);
+                }
+            }
+            if (fileIds.Count == 1)
+            {
+                action_panel.Visible = true;
+                single_action_panel.Visible = true;
+            }
+            else if (fileIds.Count > 1)
+            {
+                action_panel.Visible = true;
+                single_action_panel.Visible = false;
+            }
+            else
+            {
+                action_panel.Visible = false;
+                single_action_panel.Visible = false;
+            }
+            items_selected.InnerHtml = fileIds.Count + " items selected";
+        }
+
+        protected void check_all_CheckedChanged(object sender, EventArgs e)
+        {
+            if (check_all.Checked)
+            {
+                foreach (RepeaterItem item in files.Items)
+                {
+                    CheckBox chkbox = item.FindControl("checkFile") as CheckBox;
+                    chkbox.Checked = true;
+                }
+                action_panel.Visible = true;
+                single_action_panel.Visible = false;
+                items_selected.InnerHtml = files.Items.Count + " items selected";
+            }
+            else
+            {
+                foreach (RepeaterItem item in files.Items)
+                {
+                    CheckBox chkbox = item.FindControl("checkFile") as CheckBox;
+                    chkbox.Checked = false;
+                }
+                action_panel.Visible = false;
+                single_action_panel.Visible = false;
             }
         }
     }
