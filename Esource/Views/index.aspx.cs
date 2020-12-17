@@ -130,7 +130,7 @@ namespace Esource.Views
             var img = e.Item.FindControl("poster") as Image;
             HiddenField path = (HiddenField)e.Item.FindControl("img_path");
             img.ImageUrl = Page.ResolveUrl(path.Value);
-            HiddenField providerId = (HiddenField)e.Item.FindControl("servProviderId");
+            HiddenField providerId = (HiddenField)e.Item.FindControl("provider_ID");
             User servProvider = new User().SelectById(providerId.Value);
             img = e.Item.FindControl("userImg") as Image;
             img.ImageUrl = Page.ResolveUrl(servProvider.profile_src);
@@ -139,7 +139,7 @@ namespace Esource.Views
             var occupation = e.Item.FindControl("occupation") as Label;
             var location = e.Item.FindControl("country") as Label;
             var bio = e.Item.FindControl("bio") as Label;
-            if (!string.IsNullOrEmpty(servProvider.occupation))
+            if (servProvider.occupation == "Not set")
             {
                 occupation.Text = servProvider.occupation;
             }
@@ -147,7 +147,7 @@ namespace Esource.Views
             {
                 occupation.Text = "Freelancer";
             }
-            if (!string.IsNullOrEmpty(servProvider.location))
+            if (servProvider.location == "Not set")
             {
                 location.Text = servProvider.location;
             }

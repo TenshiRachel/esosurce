@@ -104,7 +104,7 @@
                                                 <div class="card-body d-flex flex-column">
                                                     <div class="d-flex mt-2">
                                                         <div class="flex-fill">
-                                                            <asp:HiddenField runat="server" ID="servProviderId" Value='<%#Eval("uid") %>' />
+                                                            <asp:HiddenField runat="server" ID="provider_ID" Value='<%#Eval("uid") %>' />
                                                             <asp:Image runat="server" ID="userImg" CssClass="d-inline rounded-circle img-fluid z-depth-1" Style="max-width: 2rem;" />
 
                                                             <asp:LinkButton runat="server" CssClass="align-middle ml-1" CommandArgument='<%#Eval("uid") %>'><%#Eval("username") %></asp:LinkButton>
@@ -182,21 +182,21 @@
 
                                                     <div class="d-flex mt-3">
                                                         <div class="flex-fill text-muted">
-                                                            <p runat="server" id="occupation" class="card-title mb-0">
-                                                            </p>
+                                                            <asp:Label runat="server" ID="occupation" CssClass="card-title mb-0">
+                                                            </asp:Label>
                                                         </div>
 
                                                         <div class="d-flex align-items-center text-muted ml-3">
-                                                            <p runat="server" id="country" class="card-title mb-0">
-                                                            </p>
+                                                            <asp:Label runat="server" ID="country" CssClass="card-title mb-0">
+                                                            </asp:Label>
                                                         </div>
                                                     </div>
 
                                                     <hr class="w-100">
 
                                                     <div class="flex-fill flex-center">
-                                                        <p runat="server" id="bio" class="card-text">
-                                                        </p>
+                                                        <asp:Label runat="server" ID="bio" CssClass="card-text">
+                                                        </asp:Label>
                                                     </div>
 
                                                     <%--                                            {{#if this.user.skills}}
@@ -247,11 +247,9 @@
                         </div>
                     </div>
                 </section>
-                <section runat="server" id="servViewsSection" class="service-views view z-depth-2 mx-n3 my-4 px-3 pb-5 pt-9 z-depth-1" data-jarallax-video="mp4:/vid/home_parallax/1.mp4">
-                    <div class="mask rgba-deep-purple-light">
-                        <h3 class="h3-responsive font-weight-bold text-center text-white mb-4 p-3">Top Viewed Services
-                        </h3>
-                    </div>
+                <section runat="server" id="servViewsSection" class="mask rgba-deep-purple-light service-views view z-depth-2 mx-n3 my-4 px-3 pb-5 pt-9 z-depth-1" data-jarallax-video="mp4:/vid/home_parallax/1.mp4">
+                    <h3 class="h3-responsive font-weight-bold text-center text-white mb-4 p-3">Top Viewed Services
+                    </h3>
                     <div runat="server" id="servViewsDiv" class="row">
                         <asp:Repeater runat="server" ID="topViewServ" OnItemCommand="topViewServ_ItemCommand" OnItemDataBound="topViewServ_ItemDataBound">
                             <ItemTemplate>
@@ -279,6 +277,7 @@
                                                 <div class="card-body d-flex flex-column">
                                                     <div class="d-flex mt-2">
                                                         <div class="flex-fill">
+                                                            <asp:HiddenField runat="server" ID="provider_ID" Value='<%#Eval("uid") %>' />
                                                             <asp:Image runat="server" ID="userImg" CssClass="d-inline rounded-circle img-fluid z-depth-1" Style="max-width: 2rem;" />
 
                                                             <asp:LinkButton runat="server" CssClass="align-middle ml-1" CommandArgument='<%#Eval("uid") %>'><%#Eval("username") %></asp:LinkButton>
@@ -286,7 +285,7 @@
 
                                                         <div class="d-flex align-items-center">
                                                             <span class="text-muted small">
-                                                                <i class="far fa-clock mr-2"></i><%#Eval("date_created") %>
+                                                                <i class="fas fa-clock mr-2"></i><%#Eval("date_created") %>
                                                             </span>
                                                         </div>
                                                     </div>
@@ -297,7 +296,7 @@
                                                         </div>
 
                                                         <div class="d-flex align-items-center font-weight-bold ml-3">
-                                                            <%#Eval("views") %><i class="far fa-eye ml-2"></i>
+                                                            <%#Eval("views") %><i class="fas fa-eye ml-2"></i>
                                                         </div>
                                                     </div>
 
@@ -332,10 +331,10 @@
                                                 </div>
 
                                                 <div class="btn-action text-right ml-auto mr-3">
-                                                    <a class="rotate-btn btn-floating btn-action btn-primary m-0 mr-2 material-tooltip-sm" data-card="card-tvs-{{@index}}" data-tooltip="tooltip" data-placement="top" title="View User Info">
+                                                    <a class="rotate-btn btn-sm btn-primary m-0 mr-2 material-tooltip-sm" data-card="" data-tooltip="tooltip" data-placement="top" title="View User Info">
                                                         <i class="fas fa-id-card"></i>
                                                     </a>
-                                                    <a class="btn-floating btn-action btn-primary m-0 material-tooltip-sm" data-tooltip="tooltip" data-placement="top" title="View User Profile" href="/profile/view/{{this.uid}}">
+                                                    <a class="btn-primary btn-sm m-0 material-tooltip-sm" data-tooltip="tooltip" data-placement="top" title="View User Profile" href="/profile/view/{{this.uid}}">
                                                         <i class="fas fa-user-tie"></i>
                                                     </a>
                                                 </div>
@@ -356,21 +355,21 @@
 
                                                     <div class="d-flex mt-3">
                                                         <div class="flex-fill text-muted">
-                                                            <p runat="server" id="occupation" class="card-title mb-0">
-                                                            </p>
+                                                            <asp:Label runat="server" ID="occupation" CssClass="card-title mb-0">
+                                                            </asp:Label>
                                                         </div>
 
                                                         <div class="d-flex align-items-center text-muted ml-3">
-                                                            <p runat="server" id="country" class="card-title mb-0">
-                                                            </p>
+                                                            <asp:Label runat="server" ID="country" CssClass="card-title mb-0">
+                                                            </asp:Label>
                                                         </div>
                                                     </div>
 
                                                     <hr class="w-100">
 
                                                     <div class="flex-fill flex-center">
-                                                        <p runat="server" id="bio" class="card-text">
-                                                        </p>
+                                                        <asp:Label runat="server" ID="bio" CssClass="card-text">
+                                                        </asp:Label>
                                                     </div>
 
                                                     <%--{{#if this.user.skills}}
