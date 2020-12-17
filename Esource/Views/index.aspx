@@ -1,7 +1,9 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Masters/index.Master" AutoEventWireup="true" CodeBehind="index.aspx.cs" Inherits="Esource.Views.index" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+    <asp:ScriptManager runat="server"></asp:ScriptManager>
     <section class="home-hero">
         <div class="carousel slide carousel-fade z-depth-3" data-ride="carousel">
             <div class="carousel-inner" role="listbox">
@@ -39,7 +41,7 @@
                             </p>
 
                             <a class="btn btn-md btn-primary" href="<%=Page.ResolveUrl("~/Views/service/servicelist.aspx") %>">
-                                <i class="fas fa-eye"></i> View Marketplace
+                                <i class="fas fa-eye"></i>View Marketplace
                             </a>
                         </div>
                     </div>
@@ -61,12 +63,364 @@
                             </p>
 
                             <a class="btn btn-md btn-light-green" href="<%=Page.ResolveUrl("~/Views/auth/register.aspx") %>">
-                                <i class="fas fa-user-plus"></i> Register
+                                <i class="fas fa-user-plus"></i>Register
                             </a>
                         </div>
                     </div>
                 </div>
-            </div>            
+            </div>
         </div>
+    </section>
+    <section class="home">
+        <asp:UpdatePanel runat="server" UpdateMode="Conditional">
+            <ContentTemplate>
+                <section class="service-favs deep-purple lighten-5 mx-n3 my-4 px-3 py-5 z-depth-1">
+                    <h3 class="h3-responsive font-weight-bold text-center text-primary mb-4">Top Favourite Services
+                    </h3>
+                    <div class="row">
+                        <asp:Repeater runat="server" ID="topServiceFavs" OnItemCommand="topServiceFavs_ItemCommand" OnItemDataBound="topServiceFavs_ItemDataBound">
+                            <ItemTemplate>
+                                <div class="col-12 col-md-3 d-flex align-items-stretch mt-4 mt-md-0">
+                                    <div class="card-wrapper">
+                                        <div id="" class="card card-rotating w-100">
+                                            <div class="face front d-flex flex-column rounded">
+                                                <div class="view overlay border-bottom border-primary rounded-top">
+                                                    <asp:HiddenField runat="server" ID="img_path" Value='<%#Eval("img_path") %>' />
+                                                    <asp:Image runat="server" ID="poster" CssClass="card-img-top" />
+                                                    <a>
+                                                        <div class="mask rgba-black-light"></div>
+                                                    </a>
+                                                </div>
+
+                                                <div class="btn-action text-right ml-auto mr-3">
+                                                    <a class="rotate-btn btn-sm btn-primary m-0 mr-2 material-tooltip-sm" data-card="" data-tooltip="tooltip" data-placement="top" title="View User Info">
+                                                        <i class="fas fa-id-card"></i>
+                                                    </a>
+                                                    <asp:LinkButton runat="server" CssClass="btn-primary btn-sm m-0 material-tooltip-sm" data-tooltip="tooltip" data-placement="top" title="View Service Details" CommandName="view" CommandArgument='<%#Eval("Id") %>'>
+                                                <i class="fas fa-eye"></i>
+                                                    </asp:LinkButton>
+                                                </div>
+
+                                                <div class="card-body d-flex flex-column">
+                                                    <div class="d-flex mt-2">
+                                                        <div class="flex-fill">
+                                                            <asp:HiddenField runat="server" ID="servProviderId" Value='<%#Eval("uid") %>' />
+                                                            <asp:Image runat="server" ID="userImg" CssClass="d-inline rounded-circle img-fluid z-depth-1" Style="max-width: 2rem;" />
+
+                                                            <asp:LinkButton runat="server" CssClass="align-middle ml-1" CommandArgument='<%#Eval("uid") %>'><%#Eval("username") %></asp:LinkButton>
+                                                        </div>
+
+                                                        <div class="d-flex align-items-center">
+                                                            <span class="text-muted small">
+                                                                <i class="fas fa-clock mr-2"></i><%#Eval("date_created") %>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="d-flex mt-4">
+                                                        <div class="flex-fill">
+                                                            <h4 class="card-title mb-0"><%#Eval("name") %></h4>
+                                                        </div>
+
+                                                        <div class="d-flex align-items-center font-weight-bold ml-3">
+                                                            <%#Eval("views") %><i class="fas fa-eye ml-2"></i>
+                                                        </div>
+                                                    </div>
+
+                                                    <hr class="w-100">
+
+                                                    <div class="flex-fill">
+                                                        <p class="card-text">
+                                                            <%#Eval("desc") %>
+                                                        </p>
+                                                    </div>
+
+                                                    <div class="d-flex">
+                                                        <asp:LinkButton runat="server" CommandName="fav" CommandArgument='<%#Eval("Id") %>' CssClass="btn btn-sm btn-red mr-0 material-tooltip-sm">
+                                                        <span class="font-weight-bold"><%#Eval("favs") %><i class="fas fa-heart ml-2"></i>
+                                                        </span>
+                                                        </asp:LinkButton>
+                                                    </div>
+                                                </div>
+
+                                                <div class="card-footer deep-purple accent-3 white-text text-center">
+                                                    $<%#Eval("price") %>
+                                                </div>
+                                            </div>
+
+                                            <div class="face back d-flex flex-column rounded">
+                                                <div class="view overlay border-bottom border-primary rounded-top">
+                                                    <asp:Image runat="server" CssClass="card-img-top" ID="userBanner" />
+                                                    <a>
+                                                        <div class="mask rgba-black-light"></div>
+                                                    </a>
+                                                </div>
+
+                                                <div class="btn-action text-right ml-auto mr-3">
+                                                    <a class="rotate-btn btn-sm btn-primary m-0 mr-2 material-tooltip-sm" data-card="" data-tooltip="tooltip" data-placement="top" title="View User Info">
+                                                        <i class="fas fa-id-card"></i>
+                                                    </a>
+                                                    <asp:LinkButton runat="server" CssClass="btn-primary btn-sm m-0 material-tooltip-sm" data-tooltip="tooltip" data-placement="top" title="View User Profile" CommandArgument='<%#Eval("uid") %>' CommandName="viewprofile">
+                                                <i class="fas fa-user-tie"></i>
+                                                    </asp:LinkButton>
+                                                </div>
+
+                                                <div class="card-body d-flex flex-column">
+                                                    <div class="d-flex mt-3">
+                                                        <div class="flex-fill">
+                                                            <h6 class="card-title mb-0">
+                                                                <asp:Image runat="server" ID="profileImg" CssClass="d-inline img-fluid rounded-circle z-depth-1" Style="max-width: 2rem;" />
+
+                                                                <asp:LinkButton runat="server" CssClass="align-middle ml-1" CommandName="viewprofile" CommandArgument='<%#Eval("uid") %>'><%#Eval("username") %></asp:LinkButton>
+                                                            </h6>
+                                                        </div>
+
+                                                        <div class="d-flex align-items-center">
+                                                            <i class="fas fa-venus-mars fa-2x text-muted"></i>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="d-flex mt-3">
+                                                        <div class="flex-fill text-muted">
+                                                            <p runat="server" id="occupation" class="card-title mb-0">
+                                                            </p>
+                                                        </div>
+
+                                                        <div class="d-flex align-items-center text-muted ml-3">
+                                                            <p runat="server" id="country" class="card-title mb-0">
+                                                            </p>
+                                                        </div>
+                                                    </div>
+
+                                                    <hr class="w-100">
+
+                                                    <div class="flex-fill flex-center">
+                                                        <p runat="server" id="bio" class="card-text">
+                                                        </p>
+                                                    </div>
+
+                                                    <%--                                            {{#if this.user.skills}}
+                                            <div class="d-flex text-center">
+                                                <div class="flex-fill">
+                                                    <h5 class="text-primary mb-0">Skills</h5>
+                                                </div>
+                                            </div>
+
+                                            <hr class="w-100">
+
+                                            <div class="d-flex text-center">
+                                                <div class="flex-fill">
+                                                    {{#each this.user.skills}}
+                                                        <div class="chip chip-sm deep-purple accent-3 white-text">
+                                                            {{this}}
+                                                        </div>
+                                                    {{/each}}
+                                                </div>
+                                            </div>
+                                            {{/if}}--%>
+                                                </div>
+
+                                                <div class="card-footer d-flex deep-purple accent-3 white-text">
+                                                    <div class="flex-fill">
+                                                        <i class="fas fa-globe-asia"></i>
+                                                        <i class="fas fa-envelope"></i>
+                                                    </div>
+
+                                                    <div class="flex-fill text-right">
+                                                        <a runat="server" id="website" class="white-text" href="#"></a>
+                                                        <a runat="server" id="useremail" class="white-text" href="#"></a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </ItemTemplate>
+                        </asp:Repeater>
+                        <div class="col-12" runat="server" id="servFavErr" visible="false">
+                            <h1 class="h1-responsive font-weight-bold text-center text-danger my-4">
+                                <i class="fas fa-exclamation-triangle fa-3x"></i>
+                            </h1>
+                            <h1 class="h1-responsive font-weight-bold text-center text-muted">No Services To Display
+                            </h1>
+                        </div>
+                    </div>
+                </section>
+                <section runat="server" id="servViewsSection" class="service-views view z-depth-2 mx-n3 my-4 px-3 pb-5 pt-9 z-depth-1" data-jarallax-video="mp4:/vid/home_parallax/1.mp4">
+                    <div class="mask rgba-deep-purple-light">
+                        <h3 class="h3-responsive font-weight-bold text-center text-white mb-4 p-3">Top Viewed Services
+                        </h3>
+                    </div>
+                    <div runat="server" id="servViewsDiv" class="row">
+                        <asp:Repeater runat="server" ID="topViewServ" OnItemCommand="topViewServ_ItemCommand" OnItemDataBound="topViewServ_ItemDataBound">
+                            <ItemTemplate>
+                                <div class="col-12 col-md-3 d-flex align-items-stretch mt-4 mt-md-0">
+                                    <div class="card-wrapper">
+                                        <div id="" class="card card-rotating z-depth-3 w-100">
+                                            <div class="face front d-flex flex-column rounded">
+                                                <div class="view overlay border-bottom border-primary rounded-top">
+                                                    <asp:HiddenField runat="server" ID="img_path" Value='<%#Eval("img_path") %>' />
+                                                    <asp:Image runat="server" ID="poster" CssClass="card-img-top" />
+                                                    <a>
+                                                        <div class="mask rgba-black-light"></div>
+                                                    </a>
+                                                </div>
+
+                                                <div class="btn-action text-right ml-auto mr-3">
+                                                    <a class="rotate-btn btn-sm btn-primary m-0 mr-2 material-tooltip-sm" data-card="" data-tooltip="tooltip" data-placement="top" title="View User Info">
+                                                        <i class="fas fa-id-card"></i>
+                                                    </a>
+                                                    <asp:LinkButton runat="server" CssClass="btn-sm btn-primary m-0 material-tooltip-sm" data-tooltip="tooltip" data-placement="top" title="View Service Details" CommandName="view" CommandArgument='<%#Eval("Id") %>'>
+                                                <i class="fas fa-eye"></i>
+                                                    </asp:LinkButton>
+                                                </div>
+
+                                                <div class="card-body d-flex flex-column">
+                                                    <div class="d-flex mt-2">
+                                                        <div class="flex-fill">
+                                                            <asp:Image runat="server" ID="userImg" CssClass="d-inline rounded-circle img-fluid z-depth-1" Style="max-width: 2rem;" />
+
+                                                            <asp:LinkButton runat="server" CssClass="align-middle ml-1" CommandArgument='<%#Eval("uid") %>'><%#Eval("username") %></asp:LinkButton>
+                                                        </div>
+
+                                                        <div class="d-flex align-items-center">
+                                                            <span class="text-muted small">
+                                                                <i class="far fa-clock mr-2"></i><%#Eval("date_created") %>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="d-flex mt-4">
+                                                        <div class="flex-fill">
+                                                            <h4 class="card-title mb-0"><%#Eval("name") %></h4>
+                                                        </div>
+
+                                                        <div class="d-flex align-items-center font-weight-bold ml-3">
+                                                            <%#Eval("views") %><i class="far fa-eye ml-2"></i>
+                                                        </div>
+                                                    </div>
+
+                                                    <hr class="w-100">
+
+                                                    <div class="flex-fill">
+                                                        <p class="card-text">
+                                                            <%#Eval("views") %>
+                                                        </p>
+                                                    </div>
+
+                                                    <div class="d-flex">
+                                                        <asp:LinkButton runat="server" CssClass="btn btn-sm btn-red mr-0 material-tooltip-sm" CommandArgument='<%#Eval("Id") %>' CommandName="fav" data-tooltip="tooltip" data-placement="top" title="Favourite/Unfavourite">
+                                                        <span class="font-weight-bold"><%#Eval("favs") %><i class="fas fa-heart ml-2"></i>
+                                                        </span>
+                                                        </asp:LinkButton>
+                                                    </div>
+                                                </div>
+
+                                                <div class="card-footer deep-purple accent-3 white-text text-center">
+                                                    $<%#Eval("price") %>
+                                                </div>
+                                            </div>
+
+                                            <div class="face back d-flex flex-column rounded">
+                                                <div class="view overlay border-bottom border-primary rounded-top">
+                                                    <asp:Image runat="server" CssClass="card-img-top" ID="userBanner" />
+
+                                                    <a>
+                                                        <div class="mask rgba-black-light"></div>
+                                                    </a>
+                                                </div>
+
+                                                <div class="btn-action text-right ml-auto mr-3">
+                                                    <a class="rotate-btn btn-floating btn-action btn-primary m-0 mr-2 material-tooltip-sm" data-card="card-tvs-{{@index}}" data-tooltip="tooltip" data-placement="top" title="View User Info">
+                                                        <i class="fas fa-id-card"></i>
+                                                    </a>
+                                                    <a class="btn-floating btn-action btn-primary m-0 material-tooltip-sm" data-tooltip="tooltip" data-placement="top" title="View User Profile" href="/profile/view/{{this.uid}}">
+                                                        <i class="fas fa-user-tie"></i>
+                                                    </a>
+                                                </div>
+
+                                                <div class="card-body d-flex flex-column">
+                                                    <div class="d-flex mt-3">
+                                                        <div class="flex-fill">
+                                                            <asp:Image runat="server" ID="profileImg" CssClass="d-inline img-fluid rounded-circle z-depth-1" Style="max-width: 2rem;" />
+
+                                                            <asp:LinkButton runat="server" CssClass="align-middle ml-1" CommandName="viewprofile" CommandArgument='<%#Eval("uid") %>'><%#Eval("username") %></asp:LinkButton>
+                                                            </h6>
+                                                        </div>
+
+                                                        <div class="d-flex align-items-center">
+                                                            <i class="fas fa-venus-mars fa-2x text-muted"></i>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="d-flex mt-3">
+                                                        <div class="flex-fill text-muted">
+                                                            <p runat="server" id="occupation" class="card-title mb-0">
+                                                            </p>
+                                                        </div>
+
+                                                        <div class="d-flex align-items-center text-muted ml-3">
+                                                            <p runat="server" id="country" class="card-title mb-0">
+                                                            </p>
+                                                        </div>
+                                                    </div>
+
+                                                    <hr class="w-100">
+
+                                                    <div class="flex-fill flex-center">
+                                                        <p runat="server" id="bio" class="card-text">
+                                                        </p>
+                                                    </div>
+
+                                                    <%--{{#if this.user.skills}}
+                                            <div class="d-flex text-center">
+                                                <div class="flex-fill">
+                                                    <h5 class="text-primary mb-0">Skills</h5>
+                                                </div>
+                                            </div>
+
+                                            <hr class="w-100">
+
+                                            <div class="d-flex text-center">
+                                                <div class="flex-fill">
+                                                    {{#each this.user.skills}}
+                                                        <div class="chip chip-sm deep-purple accent-3 white-text">
+                                                            {{this}}
+                                                        </div>
+                                                    {{/each}}
+                                                </div>
+                                            </div>
+                                            {{/if}}--%>
+                                                </div>
+
+                                                <div class="card-footer d-flex deep-purple accent-3 white-text">
+                                                    <div class="flex-fill">
+                                                        <i class="fas fa-globe-asia"></i>
+                                                        <i class="fas fa-envelope"></i>
+                                                    </div>
+
+                                                    <div class="flex-fill text-right">
+                                                        <a runat="server" id="website" class="white-text" href="#"></a>
+                                                        <a runat="server" id="useremail" class="white-text" href="#"></a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </ItemTemplate>
+                        </asp:Repeater>
+                        <div class="col-12" id="servViewErr" runat="server" visible="false">
+                            <h1 class="h1-responsive font-weight-bold text-center text-danger my-4">
+                                <i class="fas fa-exclamation-triangle fa-3x"></i>
+                            </h1>
+                            <h1 class="h1-responsive font-weight-bold text-center text-white">No Services To Display
+                            </h1>
+                        </div>
+                    </div>
+                </section>
+            </ContentTemplate>
+        </asp:UpdatePanel>
     </section>
 </asp:Content>

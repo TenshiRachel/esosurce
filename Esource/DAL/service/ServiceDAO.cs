@@ -131,6 +131,47 @@ namespace Esource.DAL.service
             return services;
         }
 
+        public List<Service> OrderedSelectAll(string param)
+        {
+            string DBConnect = ConfigurationManager.ConnectionStrings["ConnStr"].ConnectionString;
+            SqlConnection conn = new SqlConnection(DBConnect);
+
+            string sqlStmt = "SELECT * FROM Service WHERE status = '' ORDER BY " + param + " DESC";
+
+            SqlDataAdapter da = new SqlDataAdapter(sqlStmt, conn);
+
+            DataSet ds = new DataSet();
+            da.Fill(ds);
+            int rec_cnt = ds.Tables[0].Rows.Count;
+
+            Service obj = null;
+            List<Service> services = new List<Service>();
+            if (rec_cnt > 0)
+            {
+                for (int i = 0; i < rec_cnt; i++)
+                {
+                    DataRow row = ds.Tables[0].Rows[i];
+                    string name = row["name"].ToString();
+                    string desc = row["descript"].ToString();
+                    decimal price = decimal.Parse(row["price"].ToString());
+                    string date_create = row["date_created"].ToString();
+                    string categories = row["categories"].ToString();
+                    string img_path = row["img_path"].ToString();
+                    string username = row["username"].ToString();
+                    string profile_src = row["profile_src"].ToString();
+                    string status = row["status"].ToString();
+                    int favs = int.Parse(row["favs"].ToString());
+                    int views = int.Parse(row["views"].ToString());
+                    int uid = int.Parse(row["uid"].ToString());
+                    int Id = int.Parse(row["Id"].ToString());
+                    obj = new Service(name, desc, price, categories, img_path, uid, username, profile_src, status, favs, views, date_create, Id);
+                    services.Add(obj);
+                }
+            }
+
+            return services;
+        }
+
         public List<Service> SelectByUid(string uid)
         {
             string DBConnect = ConfigurationManager.ConnectionStrings["ConnStr"].ConnectionString;

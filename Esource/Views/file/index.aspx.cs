@@ -124,6 +124,7 @@ namespace Esource.Views.file
                 }
             }
             BL.file.File file = new BL.file.File().SelectById(fileId);
+            User currUser = new User().SelectById(currUserId);
             User targetShare = new User().SelectByEmail(share_user_input.Value);
             if (targetShare != null)
             {
@@ -134,7 +135,7 @@ namespace Esource.Views.file
                 }
                 else
                 {
-                    Notification notif = new Notification(targetShare.Id, targetShare.username, file.Id, file.fileName, targetShare.Id.ToString(), "file");
+                    Notification notif = new Notification(int.Parse(currUserId), currUser.username, file.Id, file.fileName, targetShare.Id.ToString(), "file");
                     notif.AddNotif();
                     Toast.success(this, "File shared successfully");
                 }

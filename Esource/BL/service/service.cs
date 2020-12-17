@@ -68,6 +68,12 @@ namespace Esource.BL.service
             return services;
         }
 
+        public List<Service> OrderedSelectAll(string param)
+        {
+            List<Service> services = new ServiceDAO().OrderedSelectAll(param);
+            return services;
+        }
+
         public List<Service> SelectByUid(string uid)
         {
             List<Service> services = new ServiceDAO().SelectByUid(uid);
