@@ -53,13 +53,13 @@
                                     </div>
 
                                     <br>
-                                    <p class="text-left" runat="server" id="followers">
-                                        <a href="#" class="font-weight-bold" data-toggle="modal"
-                                            data-target="#followersModal">Followers:</a>
+                                    <p class="text-left">Followers: 
+                                        <a href="#" runat="server" id="followers" class="font-weight-bold" data-toggle="modal"
+                                            data-target="#followersModal"></a>
                                     </p>
-                                    <p class="text-left" runat="server" id="following">
-                                        <a href="#" class="font-weight-bold" data-toggle="modal"
-                                            data-target="#followingModal">Following:</a>
+                                    <p class="text-left">Following: 
+                                        <a href="#" runat="server" id="following" class="font-weight-bold" data-toggle="modal"
+                                            data-target="#followingModal"></a>
                                     </p>
                                     <hr class="hr-primary">
 

@@ -64,7 +64,7 @@ namespace Esource.Views.profile {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl followers;
+        protected global::System.Web.UI.HtmlControls.HtmlAnchor followers;
         
         /// <summary>
         /// following control.
@@ -73,7 +73,7 @@ namespace Esource.Views.profile {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl following;
+        protected global::System.Web.UI.HtmlControls.HtmlAnchor following;
         
         /// <summary>
         /// website control.
