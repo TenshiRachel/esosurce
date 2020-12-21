@@ -26,6 +26,15 @@ namespace Esource.Views.file
                     files.DataSource = userfiles;
                     files.DataBind();
                 }
+                if (Session["file"] != null && Session["folder"] != null)
+                {
+                    Response.Clear();
+                    Response.ContentType = "application/octet-stream";
+                    Response.AppendHeader("content-disposition", $"filename={Session["file"].ToString()}");
+                    Response.TransmitFile(Session["folder"].ToString() + "\\" + Session["file"].ToString());
+                    Session["file"] = null;
+                    Session["folder"] = null;
+                }
             }
             else
             {
@@ -109,7 +118,19 @@ namespace Esource.Views.file
 
         protected void btn_Download_Click(object sender, EventArgs e)
         {
-
+            string fileId = "";
+            foreach (RepeaterItem item in files.Items)
+            {
+                CheckBox chkbox = item.FindControl("checkFile") as CheckBox;
+                if (chkbox.Checked && chkbox != null)
+                {
+                    fileId = chkbox.Attributes["CommandArgument"];
+                }
+            }
+            BL.file.File file = new BL.file.File().SelectById(fileId);
+            Session["file"] = file.fileName;
+            Session["folder"] = Server.MapPath("~/Content/uploads/files/") + file.uid + "/" + file.Id;
+            Response.Redirect("~/Views/file/index.aspx");
         }
 
         protected void btn_Share_Click(object sender, EventArgs e)
@@ -242,6 +263,10 @@ namespace Esource.Views.file
                 }
                 action_panel.Visible = true;
                 single_action_panel.Visible = false;
+                if (files.Items.Count == 1)
+                {
+                    single_action_panel.Visible = true;
+                }
                 items_selected.InnerHtml = files.Items.Count + " items selected";
             }
             else
