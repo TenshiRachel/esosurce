@@ -324,5 +324,91 @@
                 </div>
 
             </div>
+            <!-- =============================== Followers Modal =============================== -->
+        <div class="modal fade" id="followersModal" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
+            aria-hidden="true" data-backdrop="false">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 runat="server" class="modal-title" id="followerTitle"></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body vh-30 overflow-auto">
+                        <p runat="server" visible="false" class="text-center" id="noFollower">This user has no followers ;-;</p>
+                        <asp:Repeater runat="server" ID="followerRepeater" OnItemCommand="followerRepeater_ItemCommand">
+                            <ItemTemplate>
+                                <asp:LinkButton runat="server" CommandArgument='<%#Eval("Id") %>'>
+                                    <div class="row justify-content-start">
+                                        <div class="col-2">
+                                            <asp:HiddenField runat="server" ID="profileSrc" Value='<%#Eval("profile_src") %>' />
+                                            <asp:Image runat="server" CssClass="rounded-circle border w-100" />
+                                        </div>
+                                        <div class="col-5">
+                                            <%#Eval("username") %>
+
+                                            <br>
+                                            <p>
+                                                <%#Eval("type") %>
+                                            </p>
+                                        </div>
+
+                                    </div>
+                                </asp:LinkButton>
+                                <hr class="hr-primary p-0 mt-0">
+                            </ItemTemplate>
+                        </asp:Repeater>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- =============================== Following Modal =============================== -->
+        <div class="modal fade" id="followingModal" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
+            aria-hidden="true" data-backdrop="false">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 runat="server" class="modal-title" id="followingTitle"></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body vh-30 overflow-auto">
+                        <p runat="server" visible="false" class="text-center" id="noFollowing">Wow very empty. Much following.</p>
+                        <asp:Repeater runat="server" ID="followingRepeater" OnItemCommand="followerRepeater_ItemCommand">
+                            <ItemTemplate>
+                                <asp:LinkButton runat="server" CommandArgument='<%#Eval("Id") %>'>
+                                    <div class="row justify-content-start">
+                                        <div class="col-2">
+                                            <asp:HiddenField runat="server" ID="profileSrc" Value='<%#Eval("profile_src") %>' />
+                                            <asp:Image runat="server" CssClass="rounded-circle border w-100" />
+                                        </div>
+                                        <div class="col-5">
+
+                                            <b><%#Eval("username") %></b>
+
+                                            <br>
+                                            <p>
+                                                <%#Eval("type") %>
+                                            </p>
+                                        </div>
+
+                                    </div>
+                                </asp:LinkButton>
+                                <hr class="hr-primary p-0 mt-0">
+                            </ItemTemplate>
+                        </asp:Repeater>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
 </asp:Content>

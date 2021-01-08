@@ -39,5 +39,17 @@ namespace Esource.BL.profile
             bool followed = new FollowDAO().isFollowed(followerId, followingId);
             return followed;
         }
+
+        public List<string> SelectFollowing(string userId)
+        {
+            List<string> following = new FollowDAO().SelectFollowing(userId);
+            return following;
+        }
+
+        public List<string> SelectFollowers(string userId)
+        {
+            List<string> followers = new FollowDAO().SelectFollowers(userId);
+            return followers;
+        }
     }
 }

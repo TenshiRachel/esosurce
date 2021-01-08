@@ -22,6 +22,7 @@ namespace Esource.Views.file
                 currUserId = Session["uid"].ToString();
                 if (Session["success"] != null) {
                     Toast.success(this, Session["success"].ToString());
+                    Session["success"] = null;
                 }
                 if (!Page.IsPostBack)
                 {

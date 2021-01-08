@@ -75,5 +75,59 @@ namespace Esource.DAL.profile
 
             return followed;
         }
+
+        public List<string> SelectFollowing(string userId)
+        {
+            string DBConnect = ConfigurationManager.ConnectionStrings["ConnStr"].ConnectionString;
+            SqlConnection conn = new SqlConnection(DBConnect);
+
+            string sqlStmt = "SELECT * FROM Follower WHERE followedId = @paraUser";
+
+            SqlDataAdapter da = new SqlDataAdapter(sqlStmt, conn);
+            da.SelectCommand.Parameters.AddWithValue("@paraUser", userId);
+
+            DataSet ds = new DataSet();
+            da.Fill(ds);
+            int rec_cnt = ds.Tables[0].Rows.Count;
+            List<string> followingIds = new List<string>();
+
+            if (rec_cnt > 0)
+            {
+                for (int i = 0; i < rec_cnt; i++)
+                {
+                    DataRow row = ds.Tables[0].Rows[i];
+                    followingIds.Add(row["followingId"].ToString());
+                }
+            }
+
+            return followingIds;
+        }
+
+        public List<string> SelectFollowers(string userId)
+        {
+            string DBConnect = ConfigurationManager.ConnectionStrings["ConnStr"].ConnectionString;
+            SqlConnection conn = new SqlConnection(DBConnect);
+
+            string sqlStmt = "SELECT * FROM Follower WHERE followingId = @paraUser";
+
+            SqlDataAdapter da = new SqlDataAdapter(sqlStmt, conn);
+            da.SelectCommand.Parameters.AddWithValue("@paraUser", userId);
+
+            DataSet ds = new DataSet();
+            da.Fill(ds);
+            int rec_cnt = ds.Tables[0].Rows.Count;
+            List<string> followerIds = new List<string>();
+
+            if (rec_cnt > 0)
+            {
+                for (int i = 0; i < rec_cnt; i++)
+                {
+                    DataRow row = ds.Tables[0].Rows[i];
+                    followerIds.Add(row["followerId"].ToString());
+                }
+            }
+
+            return followerIds;
+        }
     }
 }

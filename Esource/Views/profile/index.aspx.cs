@@ -43,6 +43,8 @@ namespace Esource.Views.profile
                 }
                 followers.InnerHtml = user.followers.ToString();
                 following.InnerHtml = user.following.ToString();
+                followerTitle.InnerHtml = user.username + "'s followers";
+                followingTitle.InnerHtml = user.username + "'s following";
                 List<string> userFavs = new Fav().SelectUserFavs(LblUid.Text);
                 List<BL.service.Service> servFavs = new List<BL.service.Service>();
                 foreach(string favs in  userFavs)
@@ -55,6 +57,32 @@ namespace Esource.Views.profile
                 servList.DataBind();
                 favList.DataSource = servFavs;
                 favList.DataBind();
+                List<string> followingIds = new Follow().SelectFollowing(LblUid.Text);
+                List<User> usersFollowing = new List<User>();
+                foreach(string id in followingIds)
+                {
+                    User followingUser = new User().SelectById(id);
+                    usersFollowing.Add(followingUser);
+                }
+                followingRepeater.DataSource = usersFollowing;
+                followingRepeater.DataBind();
+                List<string> followerIds = new Follow().SelectFollowers(LblUid.Text);
+                List<User> usersFollower = new List<User>();
+                foreach(string id in followerIds)
+                {
+                    User followerUser = new User().SelectById(id);
+                    usersFollower.Add(followerUser);
+                }
+                followerRepeater.DataSource = usersFollower;
+                followerRepeater.DataBind();
+                if (followingRepeater.Items.Count == 0)
+                {
+                    noFollowing.Visible = true;
+                }
+                if (followerRepeater.Items.Count == 0)
+                {
+                    noFollower.Visible = true;
+                }
             }
             else
             {
@@ -198,6 +226,11 @@ namespace Esource.Views.profile
                 favList.DataSource = servFavs;
                 favList.DataBind();
             }
+        }
+
+        protected void followerRepeater_ItemCommand(object source, RepeaterCommandEventArgs e)
+        {
+            Response.Redirect("~/Views/profile/view.aspx?id=" + e.CommandArgument.ToString());
         }
     }
 }

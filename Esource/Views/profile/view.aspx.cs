@@ -52,6 +52,8 @@ namespace Esource.Views.profile
                     }
                     followers.InnerHtml = user.followers.ToString();
                     following.InnerHtml = user.following.ToString();
+                    followerTitle.InnerHtml = user.username + "'s followers";
+                    followingTitle.InnerHtml = user.username + "'s following";
                     bool isFollowed = new Follow().isFollowed(currUserId, targetUserId);
                     if (isFollowed)
                     {
@@ -72,6 +74,32 @@ namespace Esource.Views.profile
                     List<BL.service.Service> services = new BL.service.Service().SelectByUid(targetUserId);
                     servList.DataSource = services;
                     servList.DataBind();
+                    List<string> followingIds = new Follow().SelectFollowing(targetUserId);
+                    List<User> usersFollowing = new List<User>();
+                    foreach (string id in followingIds)
+                    {
+                        User followingUser = new User().SelectById(id);
+                        usersFollowing.Add(followingUser);
+                    }
+                    followingRepeater.DataSource = usersFollowing;
+                    followingRepeater.DataBind();
+                    List<string> followerIds = new Follow().SelectFollowers(targetUserId);
+                    List<User> usersFollower = new List<User>();
+                    foreach (string id in followerIds)
+                    {
+                        User followerUser = new User().SelectById(id);
+                        usersFollower.Add(followerUser);
+                    }
+                    followerRepeater.DataSource = usersFollower;
+                    followerRepeater.DataBind();
+                    if (followingRepeater.Items.Count == 0)
+                    {
+                        noFollowing.Visible = true;
+                    }
+                    if (followerRepeater.Items.Count == 0)
+                    {
+                        noFollower.Visible = true;
+                    }
                 }
                 else
                 {
@@ -246,6 +274,11 @@ namespace Esource.Views.profile
             new Follow().Remove(currUser.Id.ToString(), viewedUser.Id.ToString());
             Session["success"] = viewedUser.username + " unfollowed";
             Response.Redirect("~/Views/profile/view.aspx?id=" + viewedUser.Id);
+        }
+
+        protected void followerRepeater_ItemCommand(object source, RepeaterCommandEventArgs e)
+        {
+            Response.Redirect("~/Views/profile/view.aspx?id=" + e.CommandArgument.ToString());
         }
     }
 }
