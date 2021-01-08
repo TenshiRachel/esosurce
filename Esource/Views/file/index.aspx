@@ -3,10 +3,10 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <section class="files">
-        <asp:ScriptManager runat="server"></asp:ScriptManager>
-        <asp:UpdatePanel runat="server" ID="file_panel" UpdateMode="Conditional">
-            <ContentTemplate>
+    <asp:ScriptManager runat="server"></asp:ScriptManager>
+    <asp:UpdatePanel runat="server" ID="file_panel" UpdateMode="Conditional">
+        <ContentTemplate>
+            <section class="files">
                 <div class="row">
                     <div class="col-12 col-md-3 col-lg-2 my-4 my-md-0">
                         <div id="folders-card" class="card">
@@ -180,13 +180,10 @@
                         </div>
                     </div>
                 </div>
+            </section>
 
-            </ContentTemplate>
-        </asp:UpdatePanel>
-    </section>
-
-    <!-- Copy Modal -->
-    <%--    <div id="copy-modal" class="modal fade" tabindex="-1" role="dialog">
+            <!-- Copy Modal -->
+            <%--    <div id="copy-modal" class="modal fade" tabindex="-1" role="dialog">
         <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header deep-purple accent-2 white-text">
@@ -233,8 +230,8 @@
         </div>
     </div>--%>
 
-    <!-- Move Modal -->
-    <%--    <div id="move-modal" class="modal fade" tabindex="-1" role="dialog">
+            <!-- Move Modal -->
+            <%--    <div id="move-modal" class="modal fade" tabindex="-1" role="dialog">
         <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header deep-purple accent-2 white-text">
@@ -281,8 +278,8 @@
         </div>
     </div>--%>
 
-    <!-- New File Modal -->
-    <%--<div id="newfile-modal" class="modal fade" tabindex="-1" role="dialog">
+            <!-- New File Modal -->
+            <%--<div id="newfile-modal" class="modal fade" tabindex="-1" role="dialog">
         <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header deep-purple accent-2 white-text">
@@ -358,112 +355,128 @@
         </div>
     </div>--%>
 
-    <!-- Rename Modal -->
-    <div id="rename-modal" class="modal fade" tabindex="-1" role="dialog" data-backdrop="false">
-        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header deep-purple accent-2 white-text">
-                    <h4 class="modal-title">
-                        <i class="far fa-i-cursor mr-1"></i>RENAME
-                    </h4>
+            <!-- Rename Modal -->
+            <div id="rename-modal" class="modal fade" tabindex="-1" role="dialog" data-backdrop="false">
+                <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header deep-purple accent-2 white-text">
+                            <h4 class="modal-title">
+                                <i class="far fa-i-cursor mr-1"></i>RENAME
+                            </h4>
 
-                    <button type="button" class="close" data-dismiss="modal">
-                        <span class="white-text">&times;</span>
-                    </button>
-                </div>
-
-                <div class="modal-body">
-                    <div class="input-group mb-4 md-form md-outline">
-                        <div class="">
-                            <input id="rename_input" runat="server" class="form-control" type="text" name="rename" required>
-                            <label for="rename_input">New Name</label>
-
+                            <button type="button" class="close" data-dismiss="modal">
+                                <span class="white-text">&times;</span>
+                            </button>
                         </div>
 
-                        <div class="input-group-append">
-                            <asp:LinkButton runat="server" ID="btn_Rename" CssClass="btn btn-md btn-primary m-0 px-3 py-2" OnClick="btn_Rename_Click">
+                        <div class="modal-body">
+                            <div class="input-group mb-4 md-form md-outline">
+                                <div class="">
+                                    <input id="rename_input" runat="server" class="form-control" type="text" name="rename" required>
+                                    <label for="rename_input">New Name</label>
+
+                                </div>
+
+                                <div class="input-group-append">
+                                    <asp:LinkButton runat="server" ID="btn_Rename" CssClass="btn btn-md btn-primary m-0 px-3 py-2" OnClick="btn_Rename_Click">
                                 <i class="fas fa-i-cursor mr-2"></i>Rename
-                            </asp:LinkButton>
-                        </div>
-                    </div>
-
-                    <small class="form-text text-muted">File name should exclude file extension. And file or folder name only allow alphanumeric, space, underscore and dash.
-                    </small>
-
-                    <input type="hidden" name="fid" value="">
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Share Link Modal -->
-    <div id="share-modal" class="modal fade" tabindex="-1" role="dialog" data-backdrop="false">
-        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header deep-purple accent-2 white-text">
-                    <h4 class="modal-title">
-                        <i class="far fa-share-alt mr-1"></i>SHARE
-                    </h4>
-
-                    <button type="button" class="close" data-dismiss="modal">
-                        <span class="white-text">&times;</span>
-                    </button>
-                </div>
-
-                <div class="modal-body">
-                    <div class="input-group mb-4 md-form md-outline">
-                        <div class="">
-                            <input runat="server" id="share_user_input" class="form-control mdb-autocomplete" type="email" name="shareUser" required>
-                            <label for="share_user_input">Email</label>
-
-                        </div>
-
-                        <div class="input-group-append">
-                            <asp:LinkButton runat="server" ID="btn_Share" OnClick="btn_Share_Click" CssClass="btn btn-md btn-primary m-0 px-3 py-2">
-                                <i class="fas fa-share-alt mr-1"></i>Share
-                            </asp:LinkButton>
-                        </div>
-                    </div>
-
-                    <small class="form-text text-muted">Accepts registered user's email format.
-                    </small>
-
-                    <input type="hidden" name="fid" value="">
-
-                    <div class="share-users d-none">
-                        <hr>
-
-                        <h6 class="card-title pt-2">
-                            <i class="fas fa-users mr-2"></i>Shared With
-                        </h6>
-
-                        <div class="text-right">
-                            <div class="table-fixed table-hover w-100 mb-3">
-                                <table id="share-users-table" class="table table-striped text-center mb-0">
-                                    <thead class="deep-purple accent-3 white-text">
-                                        <th id="share-select" class="rounded-top-left">
-                                            <div class="form-check">
-                                                <input id="check-all-share-user" class="form-check-input" type="checkbox">
-                                                <label class="form-check-label" for="check-all-share-user"></label>
-                                            </div>
-                                        </th>
-                                        <th id="share-name">Name</th>
-                                        <th id="share-email" class="rounded-top-right">Email</th>
-                                    </thead>
-                                    <tbody></tbody>
-                                </table>
+                                    </asp:LinkButton>
+                                </div>
                             </div>
 
-                            <button class="btn btn-md btn-danger animated faster d-none" type="submit">
-                                <i class="fas fa-user-times mr-2"></i>Unshare with selected user(s)
-                            </button>
+                            <small class="form-text text-muted">File name should exclude file extension. And file or folder name only allow alphanumeric, space, underscore and dash.
+                            </small>
 
                             <input type="hidden" name="fid" value="">
                         </div>
                     </div>
                 </div>
+            </div>
 
-                <%--                <div class="modal-footer d-block">
+            <!-- Share Link Modal -->
+            <asp:UpdatePanel runat="server" UpdateMode="Conditional">
+                <ContentTemplate>
+                    <div id="share-modal" class="modal fade" tabindex="-1" role="dialog" data-backdrop="false">
+                        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header deep-purple accent-2 white-text">
+                                    <h4 class="modal-title">
+                                        <i class="far fa-share-alt mr-1"></i>SHARE
+                                    </h4>
+
+                                    <button type="button" class="close" data-dismiss="modal">
+                                        <span class="white-text">&times;</span>
+                                    </button>
+                                </div>
+
+                                <div class="modal-body">
+                                    <div class="input-group mb-4 md-form md-outline">
+                                        <div class="">
+                                            <input runat="server" id="share_user_input" class="form-control mdb-autocomplete" type="email" name="shareUser" required>
+                                            <label for="share_user_input">Email</label>
+
+                                        </div>
+
+                                        <div class="input-group-append">
+                                            <asp:LinkButton runat="server" ID="btn_Share" OnClick="btn_Share_Click" CssClass="btn btn-md btn-primary m-0 px-3 py-2">
+                                <i class="fas fa-share-alt mr-1"></i>Share
+                                            </asp:LinkButton>
+                                        </div>
+                                    </div>
+
+                                    <small class="form-text text-muted">Accepts registered user's email format.
+                                    </small>
+
+                                    <input type="hidden" name="fid" value="">
+
+                                    <div runat="server" visible="false" class="share-users" id="sharedUsersDiv">
+                                        <hr>
+
+                                        <h6 class="card-title pt-2">
+                                            <i class="fas fa-users mr-2"></i>Shared With
+                                        </h6>
+                                        <div class="text-right">
+                                            <div class="table-fixed table-hover w-100 mb-3">
+                                                <table id="share-users-table" class="table table-striped text-center mb-0">
+                                                    <thead class="deep-purple accent-3 white-text">
+                                                        <th id="share-select" class="rounded-top-left">
+                                                            <div class="form-check">
+                                                                <asp:CheckBox runat="server" ID="checkAllShared" AutoPostBack="true" CssClass="form-check-input" type="checkbox" OnCheckedChanged="checkAllShared_CheckedChanged" />
+                                                                <label class="form-check-label" for="checkAllShared"></label>
+                                                            </div>
+                                                        </th>
+                                                        <th id="share-name">Name</th>
+                                                        <th id="share-email" class="rounded-top-right">Email</th>
+                                                    </thead>
+                                                    <tbody>
+                                                        <asp:Repeater runat="server" ID="sharedUsers">
+                                                            <ItemTemplate>
+                                                                <tr class="animated faster">
+                                                                    <td headers="share-select">
+                                                                        <div class="form-check">
+                                                                            <asp:CheckBox runat="server" AutoPostBack="true" ID="checkShared" CommandArgument='<%#Eval("Id") %>'
+                                                                                CssClass="form-check-input files-check" OnCheckedChanged="checkShared_CheckedChanged" />
+                                                                            <label for='ff-<%#Eval("Id") %>' class="form-check-label"></label>
+                                                                        </div>
+                                                                    </td>
+                                                                    <td headers="share-name" class="d-md-table-cell"><%#Eval("username") %></td>
+                                                                    <td headers="share-email" class="d-md-table-cell"><%#Eval("email") %></td>
+                                                                </tr>
+                                                            </ItemTemplate>
+                                                        </asp:Repeater>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <asp:LinkButton runat="server" CssClass="btn btn-md btn-danger animated faster" ID="unshareBtn" Visible="false" OnClick="unshareBtn_Click">
+                                <i class="fas fa-user-times mr-2"></i>Unshare with selected user(s)
+                                            </asp:LinkButton>
+
+                                            <input type="hidden" name="fid" value="">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <%--                <div class="modal-footer d-block">
                     <div class="needs-validation d-block d-md-flex flex-fill">
                         <div class="flex-md-fill mb-3 mt-0 mb-md-auto mt-md-auto text-left">
                             <i class="far fa-unlink fa-sm border border-primary rounded-circle p-2 mr-2"></i>
@@ -479,49 +492,54 @@
                         <input type="hidden" name="fid" value="">
                     </div>
                 </div>--%>
-            </div>
-        </div>
-    </div>
-
-    <!-- Upload Files Modal -->
-    <div id="upload-modal" class="modal fade" tabindex="-1" role="dialog" data-backdrop="false">
-        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header deep-purple accent-2 white-text">
-                    <h4 class="modal-title">
-                        <i class="fas fa-cloud-upload-alt mr-1"></i>UPLOAD FILE(S)
-                    </h4>
-
-                    <a class="close" data-dismiss="modal">
-                        <span class="white-text">&times;</span>
-                    </a>
-                </div>
-
-                <div class="modal-body">
-                    <div class="filepreview">
-                        <div class="wrapper">
-                            <div class="preview">
-                                <img src="<%=Page.ResolveUrl("~/Content/img/placeholder.jpg") %>" id="poster" />
-                            </div>
-                            <div class="card-text">
-                                <i class="fas fa-5x fa-cloud-download-alt"></i>
-                                <p class="font-weight-bolder">No File Uploaded</p>
-                            </div>
-                            <div class="custom-file">
-                                <asp:FileUpload runat="server" ID="upPoster" AllowMultiple="true" />
                             </div>
                         </div>
                     </div>
-                    <p class="text-center m-0 mt-3">
-                        <small class="form-text text-muted">You are can only upload up to a maximum of 100mb.
-                        </small>
-                        <small class="form-text text-danger font-weight-500">* If uploaded file or files exist in the current directory, that file or files will be overwritten.
-                        </small>
-                    </p>
-                    <asp:LinkButton runat="server" ID="uploadBtn" Text="Upload" CssClass="btn btn-block btn-success" OnClick="uploadBtn_Click"></asp:LinkButton>
+
+                </ContentTemplate>
+            </asp:UpdatePanel>
+
+            <!-- Upload Files Modal -->
+            <div id="upload-modal" class="modal fade" tabindex="-1" role="dialog" data-backdrop="false">
+                <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header deep-purple accent-2 white-text">
+                            <h4 class="modal-title">
+                                <i class="fas fa-cloud-upload-alt mr-1"></i>UPLOAD FILE(S)
+                            </h4>
+
+                            <a class="close" data-dismiss="modal">
+                                <span class="white-text">&times;</span>
+                            </a>
+                        </div>
+
+                        <div class="modal-body">
+                            <div class="filepreview">
+                                <div class="wrapper">
+                                    <div class="preview">
+                                        <img src="<%=Page.ResolveUrl("~/Content/img/placeholder.jpg") %>" id="poster" />
+                                    </div>
+                                    <div class="card-text">
+                                        <i class="fas fa-5x fa-cloud-download-alt"></i>
+                                        <p class="font-weight-bolder">No File Uploaded</p>
+                                    </div>
+                                    <div class="custom-file">
+                                        <asp:FileUpload runat="server" ID="upPoster" AllowMultiple="true" />
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="text-center m-0 mt-3">
+                                <small class="form-text text-muted">You are can only upload up to a maximum of 100mb.
+                                </small>
+                                <small class="form-text text-danger font-weight-500">* If uploaded file or files exist in the current directory, that file or files will be overwritten.
+                                </small>
+                            </p>
+                            <asp:LinkButton runat="server" ID="uploadBtn" Text="Upload" CssClass="btn btn-block btn-success" OnClick="uploadBtn_Click"></asp:LinkButton>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
+        </ContentTemplate>
+    </asp:UpdatePanel>
     <script type="text/javascript" src="<%=Page.ResolveUrl("~/Scripts/files.js") %>"></script>
 </asp:Content>

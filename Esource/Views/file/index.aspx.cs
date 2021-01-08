@@ -156,8 +156,9 @@ namespace Esource.Views.file
                 }
                 else
                 {
-                    Notification notif = new Notification(int.Parse(currUserId), currUser.username, file.Id, file.fileName, targetShare.Id.ToString(), "file");
+                    Notification notif = new Notification(int.Parse(currUserId), currUser.username, file.Id, file.fileName.Substring(0, 30) + "...", targetShare.Id.ToString(), "file");
                     notif.AddNotif();
+                    bindSharedUsers(file.Id.ToString());
                     Toast.success(this, "File shared successfully");
                 }
             }
@@ -191,6 +192,8 @@ namespace Esource.Views.file
             List<BL.file.File> userfiles = new BL.file.File().SelectByUid(currUserId);
             files.DataSource = userfiles;
             files.DataBind();
+            action_panel.Visible = false;
+            single_action_panel.Visible = false;
             Toast.success(this, "File(s) deleted successfully");
         }
 
@@ -219,8 +222,35 @@ namespace Esource.Views.file
                 List<BL.file.File> userfiles = new BL.file.File().SelectByUid(currUserId);
                 files.DataSource = userfiles;
                 files.DataBind();
+                action_panel.Visible = false;
+                single_action_panel.Visible = false;
                 Toast.success(this, "File renamed successfully");
             }
+        }
+
+        public void bindSharedUsers(string fileId)
+        {
+            BL.file.File file = new BL.file.File().SelectById(fileId);
+            string[] sharedList = file.shareId.Split(',');
+            List<User> sharedUserList = new List<User>();
+            foreach (string shareId in sharedList)
+            {
+                User sharedUser = new User().SelectById(shareId);
+                if (sharedUser != null)
+                {
+                    sharedUserList.Add(sharedUser);
+                }
+            }
+            if (sharedUserList.Count > 0)
+            {
+                sharedUsersDiv.Visible = true;
+            }
+            else
+            {
+                sharedUsersDiv.Visible = false;
+            }
+            sharedUsers.DataSource = sharedUserList;
+            sharedUsers.DataBind();
         }
 
         protected void checkFile_CheckedChanged(object sender, EventArgs e)
@@ -236,6 +266,7 @@ namespace Esource.Views.file
             }
             if (fileIds.Count == 1)
             {
+                bindSharedUsers(fileIds[0]);
                 action_panel.Visible = true;
                 single_action_panel.Visible = true;
             }
@@ -256,15 +287,18 @@ namespace Esource.Views.file
         {
             if (check_all.Checked)
             {
+                string fileId = "";
                 foreach (RepeaterItem item in files.Items)
                 {
                     CheckBox chkbox = item.FindControl("checkFile") as CheckBox;
                     chkbox.Checked = true;
+                    fileId = chkbox.Attributes["CommandArgument"];
                 }
                 action_panel.Visible = true;
                 single_action_panel.Visible = false;
                 if (files.Items.Count == 1)
                 {
+                    bindSharedUsers(fileId);
                     single_action_panel.Visible = true;
                 }
                 items_selected.InnerHtml = files.Items.Count + " items selected";
@@ -293,6 +327,92 @@ namespace Esource.Views.file
             List<BL.file.File> sharedFiles = new BL.file.File().SelectByShare(currUserId);
             files.DataSource = sharedFiles;
             files.DataBind();
+        }
+
+        protected void checkAllShared_CheckedChanged(object sender, EventArgs e)
+        {
+            ClientScript.RegisterStartupScript(this.GetType(), "Popup", "$('#share-modal').modal('show')", true);
+            if (checkAllShared.Checked)
+            {
+                foreach(RepeaterItem item in sharedUsers.Items)
+                {
+                    CheckBox chkbox = item.FindControl("checkShared") as CheckBox;
+                    chkbox.Checked = true;
+                }
+                unshareBtn.Visible = true;
+            }
+            else
+            {
+                foreach (RepeaterItem item in sharedUsers.Items)
+                {
+                    CheckBox chkbox = item.FindControl("checkShared") as CheckBox;
+                    chkbox.Checked = false;
+                }
+                unshareBtn.Visible = false;
+            }
+        }
+
+        protected void checkShared_CheckedChanged(object sender, EventArgs e)
+        {
+            ClientScript.RegisterStartupScript(this.GetType(), "Popup", "$('#share-modal').modal('show')", true);
+            List<int> checkedList = new List<int>();
+            foreach (RepeaterItem item in sharedUsers.Items)
+            {
+                CheckBox chkbox = item.FindControl("checkShared") as CheckBox;
+                if (chkbox.Checked)
+                {
+                    checkedList.Add(1);
+                }
+                else
+                {
+                    checkedList.Add(0);
+                }
+            }
+            if (checkedList.Contains(1))
+            {
+                unshareBtn.Visible = true;
+            }
+            else
+            {
+                unshareBtn.Visible = false;
+            }
+        }
+
+        protected void unshareBtn_Click(object sender, EventArgs e)
+        {
+            List<string> shareIds = new List<string>();
+            string fileId = "";
+            foreach (RepeaterItem item in files.Items)
+            {
+                CheckBox chkbox = item.FindControl("checkFile") as CheckBox;
+                chkbox.Checked = true;
+                fileId = chkbox.Attributes["CommandArgument"];
+            }
+            foreach (RepeaterItem item in sharedUsers.Items)
+            {
+                CheckBox chkbox = item.FindControl("checkShared") as CheckBox;
+                if (chkbox.Checked)
+                {
+                    shareIds.Add(chkbox.Attributes["CommandArgument"]);
+                }
+            }
+            BL.file.File file = new BL.file.File().SelectById(fileId);
+            string[] shared = file.shareId.Split(',');
+            foreach (string id in shareIds)
+            {
+                shared = shared.Where(val => val != id).ToArray();
+            }
+            string newShares = string.Join(",", shared);
+            int result = new BL.file.File().UpdateShares(fileId, newShares);
+            if (result == 0)
+            {
+                Toast.error(this, "An error occured while unsharing file");
+            }
+            else
+            {
+                Toast.success(this, "File unshared successfully");
+                bindSharedUsers(fileId);
+            }
         }
     }
 }

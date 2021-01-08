@@ -148,6 +148,42 @@ namespace Esource.Views.file {
         protected global::System.Web.UI.WebControls.LinkButton btn_Share;
         
         /// <summary>
+        /// sharedUsersDiv control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl sharedUsersDiv;
+        
+        /// <summary>
+        /// checkAllShared control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox checkAllShared;
+        
+        /// <summary>
+        /// sharedUsers control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Repeater sharedUsers;
+        
+        /// <summary>
+        /// unshareBtn control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton unshareBtn;
+        
+        /// <summary>
         /// upPoster control.
         /// </summary>
         /// <remarks>
