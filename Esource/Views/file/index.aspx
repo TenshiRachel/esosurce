@@ -394,47 +394,47 @@
             </div>
 
             <!-- Share Link Modal -->
-            <asp:UpdatePanel runat="server" UpdateMode="Conditional">
-                <ContentTemplate>
-                    <div id="share-modal" class="modal fade" tabindex="-1" role="dialog" data-backdrop="false">
-                        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header deep-purple accent-2 white-text">
-                                    <h4 class="modal-title">
-                                        <i class="far fa-share-alt mr-1"></i>SHARE
-                                    </h4>
+            <div id="share-modal" class="modal fade" tabindex="-1" role="dialog" data-backdrop="false">
+                <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header deep-purple accent-2 white-text">
+                            <h4 class="modal-title">
+                                <i class="far fa-share-alt mr-1"></i>SHARE
+                            </h4>
 
-                                    <button type="button" class="close" data-dismiss="modal">
-                                        <span class="white-text">&times;</span>
-                                    </button>
+                            <button type="button" class="close" data-dismiss="modal">
+                                <span class="white-text">&times;</span>
+                            </button>
+                        </div>
+
+                        <div class="modal-body">
+                            <div class="input-group mb-4 md-form md-outline">
+                                <div class="">
+                                    <input runat="server" id="share_user_input" class="form-control mdb-autocomplete" type="email" name="shareUser" required>
+                                    <label for="share_user_input">Email</label>
+
                                 </div>
 
-                                <div class="modal-body">
-                                    <div class="input-group mb-4 md-form md-outline">
-                                        <div class="">
-                                            <input runat="server" id="share_user_input" class="form-control mdb-autocomplete" type="email" name="shareUser" required>
-                                            <label for="share_user_input">Email</label>
-
-                                        </div>
-
-                                        <div class="input-group-append">
-                                            <asp:LinkButton runat="server" ID="btn_Share" OnClick="btn_Share_Click" CssClass="btn btn-md btn-primary m-0 px-3 py-2">
+                                <div class="input-group-append">
+                                    <asp:LinkButton runat="server" ID="btn_Share" OnClick="btn_Share_Click" CssClass="btn btn-md btn-primary m-0 px-3 py-2">
                                 <i class="fas fa-share-alt mr-1"></i>Share
-                                            </asp:LinkButton>
-                                        </div>
-                                    </div>
+                                    </asp:LinkButton>
+                                </div>
+                            </div>
 
-                                    <small class="form-text text-muted">Accepts registered user's email format.
-                                    </small>
+                            <small class="form-text text-muted">Accepts registered user's email format.
+                            </small>
 
-                                    <input type="hidden" name="fid" value="">
+                            <input type="hidden" name="fid" value="">
 
-                                    <div runat="server" visible="false" class="share-users" id="sharedUsersDiv">
-                                        <hr>
+                            <div runat="server" visible="false" class="share-users" id="sharedUsersDiv">
+                                <hr>
 
-                                        <h6 class="card-title pt-2">
-                                            <i class="fas fa-users mr-2"></i>Shared With
-                                        </h6>
+                                <h6 class="card-title pt-2">
+                                    <i class="fas fa-users mr-2"></i>Shared With
+                                </h6>
+                                <asp:UpdatePanel runat="server" UpdateMode="Conditional">
+                                    <ContentTemplate>
                                         <div class="text-right">
                                             <div class="table-fixed table-hover w-100 mb-3">
                                                 <table id="share-users-table" class="table table-striped text-center mb-0">
@@ -473,10 +473,12 @@
 
                                             <input type="hidden" name="fid" value="">
                                         </div>
-                                    </div>
-                                </div>
+                                    </ContentTemplate>
+                                </asp:UpdatePanel>
+                            </div>
+                        </div>
 
-                                <%--                <div class="modal-footer d-block">
+                        <%--                <div class="modal-footer d-block">
                     <div class="needs-validation d-block d-md-flex flex-fill">
                         <div class="flex-md-fill mb-3 mt-0 mb-md-auto mt-md-auto text-left">
                             <i class="far fa-unlink fa-sm border border-primary rounded-circle p-2 mr-2"></i>
@@ -492,12 +494,9 @@
                         <input type="hidden" name="fid" value="">
                     </div>
                 </div>--%>
-                            </div>
-                        </div>
                     </div>
-
-                </ContentTemplate>
-            </asp:UpdatePanel>
+                </div>
+            </div>
 
             <!-- Upload Files Modal -->
             <div id="upload-modal" class="modal fade" tabindex="-1" role="dialog" data-backdrop="false">

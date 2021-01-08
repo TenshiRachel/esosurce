@@ -20,6 +20,9 @@ namespace Esource.Views.file
             if (Session["uid"] != null)
             {
                 currUserId = Session["uid"].ToString();
+                if (Session["success"] != null) {
+                    Toast.success(this, Session["success"].ToString());
+                }
                 if (!Page.IsPostBack)
                 {
                     List<BL.file.File> userfiles = new BL.file.File().SelectByUid(currUserId);
@@ -156,7 +159,12 @@ namespace Esource.Views.file
                 }
                 else
                 {
-                    Notification notif = new Notification(int.Parse(currUserId), currUser.username, file.Id, file.fileName.Substring(0, 30) + "...", targetShare.Id.ToString(), "file");
+                    string fileName = file.fileName;
+                    if (file.fileName.Length > 31)
+                    {
+                        fileName = file.fileName.Substring(0, 30) + "...";
+                    }
+                    Notification notif = new Notification(int.Parse(currUserId), currUser.username, file.Id, fileName, targetShare.Id.ToString(), "file");
                     notif.AddNotif();
                     bindSharedUsers(file.Id.ToString());
                     Toast.success(this, "File shared successfully");
@@ -331,7 +339,6 @@ namespace Esource.Views.file
 
         protected void checkAllShared_CheckedChanged(object sender, EventArgs e)
         {
-            ClientScript.RegisterStartupScript(this.GetType(), "Popup", "$('#share-modal').modal('show')", true);
             if (checkAllShared.Checked)
             {
                 foreach(RepeaterItem item in sharedUsers.Items)
@@ -354,7 +361,6 @@ namespace Esource.Views.file
 
         protected void checkShared_CheckedChanged(object sender, EventArgs e)
         {
-            ClientScript.RegisterStartupScript(this.GetType(), "Popup", "$('#share-modal').modal('show')", true);
             List<int> checkedList = new List<int>();
             foreach (RepeaterItem item in sharedUsers.Items)
             {
@@ -410,8 +416,8 @@ namespace Esource.Views.file
             }
             else
             {
-                Toast.success(this, "File unshared successfully");
-                bindSharedUsers(fileId);
+                Session["success"] = "File unshared successfully";
+                Response.Redirect("~/Views/file/index.aspx");
             }
         }
     }
