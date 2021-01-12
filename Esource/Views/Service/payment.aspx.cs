@@ -88,7 +88,7 @@ namespace Esource.Views.service
                 "<p>Service Name: " + service[0].name + "</p>" +
                 "<p>Price: $" + service[0].price + "</p>" +
                 "<p>Please click on the following link or paste it into your browser to complete the payment.</p>" +
-                "<a href=" + link + ">" + link + "</a>" +
+                "<a href='" + link + "'>" + link + "</a>" +
                 "<p>If you did not request this, please ignore this email and your balance will not be deducted.</p>");
         }
     }

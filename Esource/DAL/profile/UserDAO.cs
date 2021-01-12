@@ -147,7 +147,13 @@ namespace Esource.DAL.profile
                 string location = row["location"].ToString();
                 string occupation = row["occupation"].ToString();
                 string social = row["social"].ToString();
-                obj = new User(name, email, password, passSalt, bio, src, type, stripe, following, follows, social, website, birthday, gender, location, occupation, id);
+                string resetToken = row["resetToken"].ToString();
+                string resetTokenExpiry = row["resetTokenExpiry"].ToString();
+                string paymentToken = row["paymentToken"].ToString();
+                string paymentTokenExpiry = row["paymentTokenExpiry"].ToString();
+
+                obj = new User(name, email, password, passSalt, bio, src, type, stripe, following, follows, social, website, birthday, gender, location, occupation, resetToken, resetTokenExpiry,
+                    paymentToken, paymentTokenExpiry, id);
             }
 
             return obj;
@@ -187,7 +193,13 @@ namespace Esource.DAL.profile
                 string location = row["location"].ToString();
                 string occupation = row["occupation"].ToString();
                 string social = row["social"].ToString();
-                obj = new User(name, email, password, passSalt, bio, src, type, stripe, following, follows, social, website, birthday, gender, location, occupation, int.Parse(id));
+                string resetToken = row["resetToken"].ToString();
+                string resetTokenExpiry = row["resetTokenExpiry"].ToString();
+                string paymentToken = row["paymentToken"].ToString();
+                string paymentTokenExpiry = row["paymentTokenExpiry"].ToString();
+
+                obj = new User(name, email, password, passSalt, bio, src, type, stripe, following, follows, social, website, birthday, gender, location, occupation,
+                    resetToken, resetTokenExpiry, paymentToken, paymentTokenExpiry, int.Parse(id));
             }
 
             return obj;
