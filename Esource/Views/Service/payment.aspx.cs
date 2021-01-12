@@ -78,50 +78,18 @@ namespace Esource.Views.service
             string sid = Request.QueryString["sid"].ToString();
             List<BL.service.Service> service = new BL.service.Service().SelectById(sid);
             User freelancer = new User().SelectById(service[0].uid.ToString());
-            Customer cust = new Customer();
-            Customer freelance = new Customer();
-            CustomerService serv = new CustomerService();
 
-            if (string.IsNullOrEmpty(user.stripeId))
-            {
-                CustomerCreateOptions options = new CustomerCreateOptions
-                {
-                    Description = user.username,
-                    Balance = 5000
-                };
-                cust = serv.Create(options);
-                user.UpdateStripe(user.Id.ToString(), cust.Id);
-            }
-            else
-            {
-                cust = serv.Get(user.stripeId);
-            }
-            if (string.IsNullOrEmpty(freelancer.stripeId))
-            {
-                CustomerCreateOptions options = new CustomerCreateOptions
-                {
-                    Description = freelancer.username,
-                    Balance = 5000
-                };
-                freelance = serv.Create(options);
-                user.UpdateStripe(freelancer.Id.ToString(), freelance.Id);
-            }
-            else
-            {
-                freelance = serv.Get(freelancer.stripeId);
-            }
             string price = servprice.InnerHtml.Replace("$", string.Empty);
-            Payment.pay(cust, freelance, price);
-            new Jobs().UpdateStatus(Request.QueryString["jid"].ToString(), "paid");
-            Notification notif = new Notification(user.Id, user.username, int.Parse(sid), service[0].name, freelancer.Id.ToString(), "job_paid");
-            notif.AddNotif();
-            Transaction trans = null;
-            trans = new Transaction(freelancer.username, service[0].name, "SGD", service[0].price, user.Id);
-            trans.AddTrans();
-            trans = new Transaction(user.username, service[0].name, "SGD", service[0].price, freelancer.Id);
-            trans.AddTrans();
-            Session["success"] = "Transaction successful";
-            Response.Redirect("~/Views/service/paymentList.aspx");
+            string token = Auth.generateToken();
+            new User().UpdatePaymentToken(user.Id.ToString(), token, (DateTime.Now.Ticks + 3600000).ToString());
+            string link = "https://localhost:44309/Views/service/paymentSuccess.aspx?sid=" + sid + "&fid=" + freelancer.Id + "&jid=" + Request.QueryString["jid"].ToString() + "&token=" + token;
+            Email.Send(user.email, user.username, "Outsource Service payment",
+                "<p>You are receiving this because you (or someone else) is trying to pay for a service on Outsource.</p>" +
+                "<p>Service Name: " + service[0].name + "</p>" +
+                "<p>Price: $" + service[0].price + "</p>" +
+                "<p>Please click on the following link or paste it into your browser to complete the payment.</p>" +
+                "<a href=" + link + ">" + link + "</a>" +
+                "<p>If you did not request this, please ignore this email and your balance will not be deducted.</p>");
         }
     }
 }

@@ -9,13 +9,13 @@ namespace Esource.Utilities
 {
     public static class Email
     {
-        public static void Send(string receiverEmail, string subject, string body)
+        public static void Send(string receiverEmail, string receiverName, string subject, string body)
         {
             ComponentInfo.SetLicense("FREE-LIMITED-KEY");
 
             MailMessage mailMessage = new MailMessage(
                 new MailAddress("outsource.automation@gmail.com", "Sender"),
-                new MailAddress(receiverEmail, "First receiver"));
+                new MailAddress(receiverEmail, receiverName));
 
             mailMessage.Subject = subject;
             mailMessage.BodyHtml = body;

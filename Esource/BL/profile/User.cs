@@ -25,13 +25,18 @@ namespace Esource.BL.profile
         public string location { get; set; }
         public string occupation { get; set; }
         public string social { get; set; }
+        public string resetToken { get; set; }
+        public string resetTokenExpiry { get; set; }
+        public string paymentToken { get; set; }
+        public string paymentTokenExpiry { get; set; }
 
         public User()
         {
 
         }
 
-        public User(string username, string email, string password, string passSalt, string bio, string profile_src, string type, string stripeId = "", int following = 0, int followers = 0, string social = ",,,,", string website = "Not Set", string birthday = "Not Set", string gender = "Not Set", string location = "Not Set", string occupation = "Not Set", int Id = -1)
+        public User(string username, string email, string password, string passSalt, string bio, string profile_src, string type, string stripeId = "", int following = 0, int followers = 0, string social = ",,,,", string website = "Not Set", string birthday = "Not Set", string gender = "Not Set", string location = "Not Set", string occupation = "Not Set", string resetToken = "",
+            string resetTokenExpiry = "", string paymentToken = "", string paymentTokenExpiry = "", int Id = -1)
         {
             this.username = username;
             this.email = email;
@@ -50,6 +55,10 @@ namespace Esource.BL.profile
             this.location = location;
             this.occupation = occupation;
             this.social = social;
+            this.resetToken = resetToken;
+            this.resetTokenExpiry = resetTokenExpiry;
+            this.paymentToken = paymentToken;
+            this.paymentTokenExpiry = paymentTokenExpiry;
         }
 
         public int AddUser()
@@ -98,6 +107,24 @@ namespace Esource.BL.profile
         {
             int result = new UserDAO().UpdatePassword(password, passSalt, id);
             return result;
+        }
+
+        public int UpdateReset(string id, string token, string expiry)
+        {
+            int result = new UserDAO().UpdateReset(id, token, expiry);
+            return result;
+        }
+
+        public int UpdatePaymentToken(string id, string token, string expiry)
+        {
+            int result = new UserDAO().UpdatePaymentToken(id, token, expiry);
+            return result;
+        }
+
+        public bool CheckTokenValid(string type, string token, string expiry)
+        {
+            bool valid = new UserDAO().CheckTokenValid(type, token, expiry);
+            return valid;
         }
     }
 }

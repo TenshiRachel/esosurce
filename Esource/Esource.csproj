@@ -220,6 +220,7 @@
     <Content Include="Views\service\payment.aspx" />
     <Content Include="Views\service\paymentDetails.aspx" />
     <Content Include="Views\service\paymentList.aspx" />
+    <Content Include="Views\service\paymentSuccess.aspx" />
     <Content Include="Views\service\request.aspx" />
     <Content Include="Views\service\servicelist.aspx" />
     <Content Include="Web.config" />
@@ -384,6 +385,13 @@
     </Compile>
     <Compile Include="Views\service\paymentList.aspx.designer.cs">
       <DependentUpon>paymentList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\service\paymentSuccess.aspx.cs">
+      <DependentUpon>paymentSuccess.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\service\paymentSuccess.aspx.designer.cs">
+      <DependentUpon>paymentSuccess.aspx</DependentUpon>
     </Compile>
     <Compile Include="Views\service\request.aspx.cs">
       <DependentUpon>request.aspx</DependentUpon>

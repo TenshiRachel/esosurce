@@ -244,5 +244,90 @@ namespace Esource.DAL.profile
 
             return result;
         }
+
+        public int UpdateReset(string id, string token, string expiry)
+        {
+            string DBConnect = ConfigurationManager.ConnectionStrings["ConnStr"].ConnectionString;
+            SqlConnection conn = new SqlConnection(DBConnect);
+
+            string sqlStmt = "UPDATE [User] " +
+                "SET resetToken = @paraToken, resetTokenExpiry = @paraExpiry " +
+                "WHERE Id = @paraId";
+
+            int result = 0;
+            SqlCommand sqlCmd = new SqlCommand(sqlStmt, conn);
+
+            sqlCmd.Parameters.AddWithValue("@paraToken", token);
+            sqlCmd.Parameters.AddWithValue("@paraExpiry", expiry);
+            sqlCmd.Parameters.AddWithValue("@paraId", id);
+
+            conn.Open();
+            result = sqlCmd.ExecuteNonQuery();
+            conn.Close();
+
+            return result;
+        }
+
+        public int UpdatePaymentToken(string id, string token, string expiry)
+        {
+            string DBConnect = ConfigurationManager.ConnectionStrings["ConnStr"].ConnectionString;
+            SqlConnection conn = new SqlConnection(DBConnect);
+
+            string sqlStmt = "UPDATE [User] " +
+                "SET paymentToken = @paraToken, paymentTokenExpiry = @paraExpiry " +
+                "WHERE Id = @paraId";
+
+            int result = 0;
+            SqlCommand sqlCmd = new SqlCommand(sqlStmt, conn);
+
+            sqlCmd.Parameters.AddWithValue("@paraToken", token);
+            sqlCmd.Parameters.AddWithValue("@paraExpiry", expiry);
+            sqlCmd.Parameters.AddWithValue("@paraId", id);
+
+            conn.Open();
+            result = sqlCmd.ExecuteNonQuery();
+            conn.Close();
+
+            return result;
+        }
+
+        public bool CheckTokenValid(string type, string token, string expiry)
+        {
+            bool valid = false;
+            string DBConnect = ConfigurationManager.ConnectionStrings["ConnStr"].ConnectionString;
+            SqlConnection conn = new SqlConnection(DBConnect);
+            string sqlStmt = "SELECT * FROM [User] WHERE resetToken = @paraToken AND resetTokenExpiry = @paraExpiry";
+
+            if (type == "payment")
+            {
+                sqlStmt = "SELECT * FROM [User] WHERE paymentToken = @paraToken AND paymentTokenExpiry = @paraExpiry";
+            }
+
+            SqlDataAdapter da = new SqlDataAdapter(sqlStmt, conn);
+            da.SelectCommand.Parameters.AddWithValue("@paraToken", token);
+            da.SelectCommand.Parameters.AddWithValue("@paraExpiry", expiry);
+
+            DataSet ds = new DataSet();
+            da.Fill(ds);
+            int rec_cnt = ds.Tables[0].Rows.Count;
+
+            if (rec_cnt > 0)
+            {
+                DataRow row = ds.Tables[0].Rows[0];
+                long currDate = DateTime.Now.Ticks;
+                long exprDate = long.Parse(row["resetExpiry"].ToString());
+                if (type == "payment")
+                {
+                    exprDate = long.Parse(row["paymentExpiry"].ToString());
+                }
+                long expired = exprDate - currDate;
+                if (expired > 0)
+                {
+                    valid = true;
+                }
+            }
+
+            return valid;
+        }
     }
 }

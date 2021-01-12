@@ -60,5 +60,14 @@ namespace Esource.Utilities
             finally { }
             return plainText;
         }
+
+        public static string generateToken()
+        {
+            Random random = new Random();
+            byte[] buffer = new byte[20 / 2];
+            random.NextBytes(buffer);
+            string result = String.Concat(buffer.Select(x => x.ToString("X2")).ToArray());
+            return result;
+        }
     }
 }
