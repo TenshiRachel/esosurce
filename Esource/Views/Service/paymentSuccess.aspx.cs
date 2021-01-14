@@ -25,6 +25,7 @@ namespace Esource.Views.service
             }
             else
             {
+                StripeConfiguration.ApiKey = "sk_test_51Hnjg6K2AIXSM7wrvlwz0S8eQSrtxjb7irpnIhvWGSKSsbWJzUymiC3tHbwxYQCumbmK5gC06kRIw7wr1eHEpj6D00CDgHmOpO";
                 currUserId = Session["uid"].ToString();
                 User user = new User().SelectById(currUserId);
                 User freelancer = new User().SelectById(Request.QueryString["fid"].ToString());
@@ -61,7 +62,7 @@ namespace Esource.Views.service
                 {
                     freelance = serv.Get(freelancer.stripeId);
                 }
-                bool tokenValid = new User().CheckTokenValid("payment", Request.QueryString["token"].ToString(), user.paymentTokenExpiry);
+                bool tokenValid = new User().CheckTokenValid("payment", Request.QueryString["token"].ToString());
 
                 if (tokenValid)
                 {

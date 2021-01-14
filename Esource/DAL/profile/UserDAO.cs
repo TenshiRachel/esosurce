@@ -303,21 +303,20 @@ namespace Esource.DAL.profile
             return result;
         }
 
-        public bool CheckTokenValid(string type, string token, string expiry)
+        public bool CheckTokenValid(string type, string token)
         {
             bool valid = false;
             string DBConnect = ConfigurationManager.ConnectionStrings["ConnStr"].ConnectionString;
             SqlConnection conn = new SqlConnection(DBConnect);
-            string sqlStmt = "SELECT * FROM [User] WHERE resetToken = @paraToken AND resetTokenExpiry = @paraExpiry";
+            string sqlStmt = "SELECT * FROM [User] WHERE resetToken = @paraToken";
 
             if (type == "payment")
             {
-                sqlStmt = "SELECT * FROM [User] WHERE paymentToken = @paraToken AND paymentTokenExpiry = @paraExpiry";
+                sqlStmt = "SELECT * FROM [User] WHERE paymentToken = @paraToken";
             }
 
             SqlDataAdapter da = new SqlDataAdapter(sqlStmt, conn);
             da.SelectCommand.Parameters.AddWithValue("@paraToken", token);
-            da.SelectCommand.Parameters.AddWithValue("@paraExpiry", expiry);
 
             DataSet ds = new DataSet();
             da.Fill(ds);
@@ -327,10 +326,23 @@ namespace Esource.DAL.profile
             {
                 DataRow row = ds.Tables[0].Rows[0];
                 long currDate = DateTime.Now.Ticks;
-                long exprDate = long.Parse(row["resetExpiry"].ToString());
+                long exprDate = 0;
+                if (type == "reset")
+                {
+                    string resetExpr = row["resetTokenExpiry"].ToString();
+                    if (!string.IsNullOrEmpty(resetExpr))
+                    {
+                        exprDate = long.Parse(resetExpr);
+                    }
+                }
+                
                 if (type == "payment")
                 {
-                    exprDate = long.Parse(row["paymentExpiry"].ToString());
+                    string paymentExpr = row["paymentTokenExpiry"].ToString();
+                    if (!string.IsNullOrEmpty(paymentExpr))
+                    {
+                        exprDate = long.Parse(paymentExpr);
+                    }
                 }
                 long expired = exprDate - currDate;
                 if (expired > 0)

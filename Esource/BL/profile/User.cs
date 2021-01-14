@@ -121,9 +121,9 @@ namespace Esource.BL.profile
             return result;
         }
 
-        public bool CheckTokenValid(string type, string token, string expiry)
+        public bool CheckTokenValid(string type, string token)
         {
-            bool valid = new UserDAO().CheckTokenValid(type, token, expiry);
+            bool valid = new UserDAO().CheckTokenValid(type, token);
             return valid;
         }
     }
