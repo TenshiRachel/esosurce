@@ -14,16 +14,16 @@ namespace Esource.Utilities
             ComponentInfo.SetLicense("FREE-LIMITED-KEY");
 
             MailMessage mailMessage = new MailMessage(
-                new MailAddress("outsource.automation@gmail.com", "Sender"),
+                new MailAddress("outsource.automated@gmail.com", "OutSource"),
                 new MailAddress(receiverEmail, receiverName));
 
             mailMessage.Subject = subject;
             mailMessage.BodyHtml = body;
 
-            using (SmtpClient smtp = new SmtpClient("smtp.gmail.com"))
+            using (SmtpClient smtp = new SmtpClient("smtp.gmail.com", 465))
             {
                 smtp.Connect();
-                smtp.Authenticate("USERNAME", "TOKEN");
+                smtp.Authenticate("outsource.automated@gmail.com", "");
                 smtp.SendMessage(mailMessage);
             }
         }
