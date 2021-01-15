@@ -18,11 +18,6 @@ namespace Esource.Views.auth
 
         }
 
-        public void toast(Page page, string message, string title, string type)
-        {
-            ScriptManager.RegisterClientScriptBlock(page, page.GetType(), "toastmsg", "toastnotif('" + message + "','" + title + "','" + type.ToLower() + "');", true);
-        }
-
         public bool ValidateInput(string email, string password)
         {
             bool valid = false;
