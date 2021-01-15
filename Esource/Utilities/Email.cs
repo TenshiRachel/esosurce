@@ -23,7 +23,7 @@ namespace Esource.Utilities
             using (SmtpClient smtp = new SmtpClient("smtp.gmail.com", 465))
             {
                 smtp.Connect();
-                smtp.Authenticate("outsource.automated@gmail.com", "");
+                smtp.Authenticate("outsource.automated@gmail.com", "0pfwlwruzitW");
                 smtp.SendMessage(mailMessage);
             }
         }

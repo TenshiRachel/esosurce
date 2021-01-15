@@ -66,7 +66,7 @@ namespace Esource.Views.service
 
                 if (tokenValid)
                 {
-                    Payment.pay(cust, freelance, service[0].ToString());
+                    Payment.pay(cust, freelance, service[0].price.ToString());
                     new Jobs().UpdateStatus(Request.QueryString["jid"].ToString(), "paid");
                     Notification notif = new Notification(user.Id, user.username, int.Parse(Request.QueryString["sid"].ToString()), service[0].name, freelancer.Id.ToString(), "job_paid");
                     notif.AddNotif();
