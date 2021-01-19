@@ -133,7 +133,7 @@ namespace Esource.Views.notification
             }
             if (e.CommandName == "viewjob")
             {
-                Response.Redirect("~/Views/job/index.aspx");
+                Response.Redirect("~/Views/jobs/index.aspx");
             }
             if (e.CommandName == "clear")
             {
