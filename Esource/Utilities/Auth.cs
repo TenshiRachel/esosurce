@@ -61,6 +61,37 @@ namespace Esource.Utilities
             return plainText;
         }
 
+        public static Tuple<string, string> hash(string password)
+        {
+            string finalHash;
+            string salt;
+            byte[] Key;
+            byte[] IV;
+            //Generate random "salt"
+            RNGCryptoServiceProvider rng = new RNGCryptoServiceProvider();
+            byte[] saltByte = new byte[8];
+
+            //Fills array of bytes with a cryptographically strong sequence of random values.
+            rng.GetBytes(saltByte);
+            salt = Convert.ToBase64String(saltByte);
+
+            SHA512Managed hashing = new SHA512Managed();
+
+            string pwdWithSalt = password + salt;
+            byte[] plainHash = hashing.ComputeHash(Encoding.UTF8.GetBytes(password));
+            byte[] hashWithSalt = hashing.ComputeHash(Encoding.UTF8.GetBytes(pwdWithSalt));
+
+            finalHash = Convert.ToBase64String(hashWithSalt);
+
+            RijndaelManaged cipher = new RijndaelManaged();
+            cipher.GenerateKey();
+            Key = cipher.Key;
+            IV = cipher.IV;
+            password = finalHash;
+
+            return Tuple.Create(password, salt);
+        }
+
         public static string generateToken()
         {
             Random random = new Random();

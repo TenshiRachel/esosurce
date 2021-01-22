@@ -10,15 +10,15 @@
                         <h3 class="text-center">Change Password</h3>
 
                         <div class="md-form md-outline">
-                            <input id="password" type="password" name="newpass" class="form-control" />
+                            <input runat="server" id="password" type="password" name="newpass" class="form-control" />
                             <label for="password">New Password</label>
                         </div>
                         <div class="md-form md-outline">
-                            <input id="confirmpass" type="password" name="newconfirmpass" class="form-control" />
+                            <input runat="server" id="confirmpass" type="password" name="newconfirmpass" class="form-control" />
                             <label for="confirmpass">Confirm Password</label>
                         </div>
 
-                        <button class="btn btn-primary" type="submit">Reset Password</button>
+                        <asp:LinkButton runat="server" ID="btnReset" CssClass="btn btn-primary" OnClick="btnReset_Click">Reset Password</asp:LinkButton>
                     </div>
                 </div>
             </div>

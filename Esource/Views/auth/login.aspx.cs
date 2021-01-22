@@ -15,7 +15,11 @@ namespace Esource.Views.auth
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (Session["success"] != null)
+            {
+                Toast.error(this, Session["success"].ToString());
+                Session["success"] = null;
+            }
         }
 
         public bool ValidateInput(string email, string password)
