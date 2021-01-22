@@ -14,7 +14,7 @@ namespace Esource.Views.auth
         string currUserId = "";
         protected void Page_Load(object sender, EventArgs e)
         {
-            bool tokenValid = new User().CheckTokenValid("reset", Request.QueryString["token"].ToString());
+            bool tokenValid = new User().CheckTokenValid("reset", Request.QueryString["token"].ToString(), currUserId);
 
             if (!tokenValid)
             {

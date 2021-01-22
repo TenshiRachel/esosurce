@@ -62,7 +62,8 @@ namespace Esource.Views.service
                 {
                     freelance = serv.Get(freelancer.stripeId);
                 }
-                bool tokenValid = new User().CheckTokenValid("payment", Request.QueryString["token"].ToString());
+                string token = Request.QueryString["token"].ToString();
+                bool tokenValid = new User().CheckTokenValid("payment", token, currUserId);
 
                 if (tokenValid)
                 {

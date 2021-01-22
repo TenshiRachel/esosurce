@@ -80,7 +80,7 @@ namespace Esource.Views.service
 
             string price = servprice.InnerHtml.Replace("$", string.Empty);
             string token = Auth.generateToken();
-            new User().UpdatePaymentToken(user.Id.ToString(), token, (DateTime.Now.AddHours(1).Ticks).ToString());
+            new User().UpdatePaymentToken(user.Id.ToString(), Auth.encrypt(token, Convert.FromBase64String(user.IV)), (DateTime.Now.AddHours(1).Ticks).ToString());
             string link = "https://localhost:44309/Views/service/paymentSuccess.aspx?sid=" + sid + "&fid=" + freelancer.Id + "&jid=" + Request.QueryString["jid"].ToString() + "&token=" + token;
             Email.Send(user.email, user.username, "Outsource Service payment",
                 "<p>You are receiving this because you (or someone else) is trying to pay for a service on Outsource.</p>" +

@@ -10,14 +10,26 @@ namespace Esource.Utilities
 {
     public static class Auth
     {
-        public static byte[] encrypt(string plaintext)
+        public static string encrypt(string plaintext, byte[] IV)
         {
             byte[] cipherText = null;
             try
             {
                 RijndaelManaged cipher = new RijndaelManaged();
-                cipher.IV = null;
+                cipher.IV = IV;
                 cipher.Key = null;
+                string rootPath = HttpContext.Current.Server.MapPath("~");
+                string keyPath = Path.GetFullPath(Path.Combine(rootPath + "../encryptKey.txt"));
+
+                if (!File.Exists(keyPath))
+                {
+                    StreamWriter w = File.AppendText(keyPath);
+                    cipher.GenerateKey();
+                    w.WriteLine(Convert.ToBase64String(cipher.Key));
+                }
+                string key = File.ReadAllText(keyPath);
+                cipher.Key = Convert.FromBase64String(key);
+                
                 ICryptoTransform encryptTransform = cipher.CreateEncryptor();
                 byte[] plainText = Encoding.UTF8.GetBytes(plaintext);
                 cipherText = encryptTransform.TransformFinalBlock(plainText, 0, plainText.Length);
@@ -27,18 +39,22 @@ namespace Esource.Utilities
                 throw new Exception(ex.ToString());
             }
             finally { }
-            return cipherText;
+            return Convert.ToBase64String(cipherText);
         }
 
-        public static string decrypt(byte[] ciphertext)
+        public static string decrypt(byte[] ciphertext, byte[] IV)
         {
             string plainText = null;
 
             try
             {
                 RijndaelManaged cipher = new RijndaelManaged();
-                cipher.IV = null;
-                cipher.Key = null;
+                cipher.IV = IV;
+                string rootPath = HttpContext.Current.Server.MapPath("~");
+                string keyPath = Path.GetFullPath(Path.Combine(rootPath + "../encryptKey.txt"));
+
+                string key = File.ReadAllText(keyPath);
+                cipher.Key = Convert.FromBase64String(key);
                 // Create a decrytor to perform the stream transform.
                 ICryptoTransform decryptTransform = cipher.CreateDecryptor();
 

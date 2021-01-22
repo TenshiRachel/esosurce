@@ -68,10 +68,13 @@ namespace Esource.Views.auth
 
         public void registerUser(string username, string email, string pwd, string accType)
         {
-
+            byte[] IV = null;
             Tuple<string, string> pwdAndSalt = Auth.hash(pwd);
+            RijndaelManaged cipher = new RijndaelManaged();
+            cipher.GenerateIV();
+            IV = cipher.IV;
 
-            User user = new User(username, email, pwdAndSalt.Item1, pwdAndSalt.Item2, "", "", accType);
+            User user = new User(username, Auth.encrypt(email, IV), pwdAndSalt.Item1, pwdAndSalt.Item2, "", "", accType, Convert.ToBase64String(IV));
             user.AddUser();
             Session["success"] = "Registered successfully";
             Response.Redirect("~/Views/auth/login.aspx");
