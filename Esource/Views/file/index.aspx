@@ -514,8 +514,8 @@
 
                         <div class="modal-body">
                             <div class="filepreview">
-                                <div class="wrapper">
-                                    <div class="preview">
+                                <div class="wrapper card card-body view overlay text-center z-depth-2">
+                                    <div class="preview deep-purple accent-3">
                                         <img src="<%=Page.ResolveUrl("~/Content/img/placeholder.jpg") %>" id="poster" />
                                     </div>
                                     <div class="card-text">

@@ -321,9 +321,8 @@ namespace Esource.DAL.profile
                 string resetToken = Auth.decrypt(Convert.FromBase64String(encryptedReset), IV);
                 string encryptedPayment = row["paymentToken"].ToString();
                 string paymentToken = Auth.decrypt(Convert.FromBase64String(encryptedPayment), IV);
-                bool tokenMatch = (token == resetToken || token == paymentToken);
 
-                if (type == "reset" && tokenMatch)
+                if (type == "reset" && token == resetToken)
                 {
                     string resetExpr = row["resetTokenExpiry"].ToString();
                     if (!string.IsNullOrEmpty(resetExpr))
@@ -332,7 +331,7 @@ namespace Esource.DAL.profile
                     }
                 }
                 
-                if (type == "payment" && tokenMatch)
+                if (type == "payment" && token == paymentToken)
                 {
                     string paymentExpr = row["paymentTokenExpiry"].ToString();
                     if (!string.IsNullOrEmpty(paymentExpr))
