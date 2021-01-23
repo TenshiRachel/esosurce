@@ -155,7 +155,7 @@ namespace Esource.DAL.profile
                 string paymentToken = row["paymentToken"].ToString();
                 string paymentTokenExpiry = row["paymentTokenExpiry"].ToString();
 
-                email = Auth.decrypt(Convert.FromBase64String(email), Convert.FromBase64String(IV));
+                stripe = Auth.decrypt(Convert.FromBase64String(stripe), Convert.FromBase64String(IV));
 
                 obj = new User(name, email, password, passSalt, bio, src, type, IV, stripe, following, follows, social, website, birthday, gender, location, occupation, resetToken, resetTokenExpiry,
                     paymentToken, paymentTokenExpiry, id);
@@ -204,7 +204,7 @@ namespace Esource.DAL.profile
                 string paymentToken = row["paymentToken"].ToString();
                 string paymentTokenExpiry = row["paymentTokenExpiry"].ToString();
 
-                email = Auth.decrypt(Convert.FromBase64String(email), Convert.FromBase64String(IV));
+                stripe = Auth.decrypt(Convert.FromBase64String(stripe), Convert.FromBase64String(IV));
 
                 obj = new User(name, email, password, passSalt, bio, src, type, IV, stripe, following, follows, social, website, birthday, gender, location, occupation,
                     resetToken, resetTokenExpiry, paymentToken, paymentTokenExpiry, int.Parse(id));

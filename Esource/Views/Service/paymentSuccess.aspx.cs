@@ -42,7 +42,7 @@ namespace Esource.Views.service
                         Balance = 5000
                     };
                     cust = serv.Create(options);
-                    user.UpdateStripe(user.Id.ToString(), cust.Id);
+                    user.UpdateStripe(user.Id.ToString(), Auth.encrypt(cust.Id, Convert.FromBase64String(user.IV)));
                 }
                 else
                 {
@@ -56,7 +56,7 @@ namespace Esource.Views.service
                         Balance = 5000
                     };
                     freelance = serv.Create(options);
-                    user.UpdateStripe(freelancer.Id.ToString(), freelance.Id);
+                    user.UpdateStripe(freelancer.Id.ToString(), Auth.encrypt(freelance.Id, Convert.FromBase64String(user.IV)));
                 }
                 else
                 {

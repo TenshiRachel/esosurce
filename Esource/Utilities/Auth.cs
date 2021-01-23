@@ -75,10 +75,9 @@ namespace Esource.Utilities
             return plainText;
         }
 
-        public static Tuple<string, string> hash(string password)
+        public static Tuple<string, string> hash(string password, string salt = "")
         {
             string finalHash;
-            string salt;
             byte[] Key;
             byte[] IV;
             //Generate random "salt"
@@ -87,8 +86,11 @@ namespace Esource.Utilities
 
             //Fills array of bytes with a cryptographically strong sequence of random values.
             rng.GetBytes(saltByte);
-            salt = Convert.ToBase64String(saltByte);
-
+            if (string.IsNullOrEmpty(salt))
+            {
+                salt = Convert.ToBase64String(saltByte);
+            }
+            
             SHA512Managed hashing = new SHA512Managed();
 
             string pwdWithSalt = password + salt;
