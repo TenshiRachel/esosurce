@@ -48,28 +48,6 @@ namespace Esource.DAL.profile
             return result;
         }
 
-        public int UpdateStripeId(string id, string stripeId)
-        {
-            string DBConnect = ConfigurationManager.ConnectionStrings["ConnStr"].ConnectionString;
-            SqlConnection conn = new SqlConnection(DBConnect);
-
-            string sqlStmt = "UPDATE [User] " +
-                "SET stripeId = @paraStripe " +
-                "WHERE Id = @paraId";
-
-            int result = 0;
-            SqlCommand sqlCmd = new SqlCommand(sqlStmt, conn);
-
-            sqlCmd.Parameters.AddWithValue("@paraId", id);
-            sqlCmd.Parameters.AddWithValue("@paraStripe", stripeId);
-
-            conn.Open();
-            result = sqlCmd.ExecuteNonQuery();
-            conn.Close();
-
-            return result;
-        }
-
         public int UpdateFollowing(string id, int follows)
         {
             string DBConnect = ConfigurationManager.ConnectionStrings["ConnStr"].ConnectionString;
@@ -155,7 +133,10 @@ namespace Esource.DAL.profile
                 string paymentToken = row["paymentToken"].ToString();
                 string paymentTokenExpiry = row["paymentTokenExpiry"].ToString();
 
-                stripe = Auth.decrypt(Convert.FromBase64String(stripe), Convert.FromBase64String(IV));
+                if (!string.IsNullOrEmpty(stripe))
+                {
+                    stripe = Auth.decrypt(Convert.FromBase64String(stripe), Convert.FromBase64String(IV));
+                }
 
                 obj = new User(name, email, password, passSalt, bio, src, type, IV, stripe, following, follows, social, website, birthday, gender, location, occupation, resetToken, resetTokenExpiry,
                     paymentToken, paymentTokenExpiry, id);
@@ -204,7 +185,10 @@ namespace Esource.DAL.profile
                 string paymentToken = row["paymentToken"].ToString();
                 string paymentTokenExpiry = row["paymentTokenExpiry"].ToString();
 
-                stripe = Auth.decrypt(Convert.FromBase64String(stripe), Convert.FromBase64String(IV));
+                if (!string.IsNullOrEmpty(stripe))
+                {
+                    stripe = Auth.decrypt(Convert.FromBase64String(stripe), Convert.FromBase64String(IV));
+                }
 
                 obj = new User(name, email, password, passSalt, bio, src, type, IV, stripe, following, follows, social, website, birthday, gender, location, occupation,
                     resetToken, resetTokenExpiry, paymentToken, paymentTokenExpiry, int.Parse(id));

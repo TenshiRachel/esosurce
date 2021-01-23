@@ -69,12 +69,6 @@ namespace Esource.BL.profile
             return result;
         }
 
-        public int UpdateStripe(string id, string stripeId)
-        {
-            int result = new UserDAO().UpdateStripeId(id, stripeId);
-            return result;
-        }
-
         public int UpdateFollowing(string id, int follows)
         {
             int result = new UserDAO().UpdateFollowing(id, follows);
