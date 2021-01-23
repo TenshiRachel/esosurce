@@ -17,15 +17,13 @@ namespace Esource.Utilities
             {
                 RijndaelManaged cipher = new RijndaelManaged();
                 cipher.IV = IV;
-                cipher.Key = null;
                 string rootPath = HttpContext.Current.Server.MapPath("~");
-                string keyPath = Path.GetFullPath(Path.Combine(rootPath + "../encryptKey.txt"));
+                string keyPath = Path.GetFullPath(Path.Combine(rootPath + "../../encryptKey.txt"));
 
                 if (!File.Exists(keyPath))
                 {
-                    StreamWriter w = File.AppendText(keyPath);
                     cipher.GenerateKey();
-                    w.WriteLine(Convert.ToBase64String(cipher.Key));
+                    File.WriteAllText(keyPath, Convert.ToBase64String(cipher.Key));
                 }
                 string key = File.ReadAllText(keyPath);
                 cipher.Key = Convert.FromBase64String(key);
@@ -51,7 +49,7 @@ namespace Esource.Utilities
                 RijndaelManaged cipher = new RijndaelManaged();
                 cipher.IV = IV;
                 string rootPath = HttpContext.Current.Server.MapPath("~");
-                string keyPath = Path.GetFullPath(Path.Combine(rootPath + "../encryptKey.txt"));
+                string keyPath = Path.GetFullPath(Path.Combine(rootPath + "../../encryptKey.txt"));
 
                 string key = File.ReadAllText(keyPath);
                 cipher.Key = Convert.FromBase64String(key);

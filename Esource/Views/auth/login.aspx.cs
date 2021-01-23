@@ -17,7 +17,7 @@ namespace Esource.Views.auth
         {
             if (Session["success"] != null)
             {
-                Toast.error(this, Session["success"].ToString());
+                Toast.success(this, Session["success"].ToString());
                 Session["success"] = null;
             }
         }
