@@ -83,6 +83,9 @@ namespace Esource.Views.profile
                 {
                     noFollower.Visible = true;
                 }
+                List<Portfolio> portfolios = new Portfolio().SelectByUid(int.Parse(LblUid.Text));
+                projects.DataSource = portfolios;
+                projects.DataBind();
             }
             else
             {
@@ -231,6 +234,11 @@ namespace Esource.Views.profile
         protected void followerRepeater_ItemCommand(object source, RepeaterCommandEventArgs e)
         {
             Response.Redirect("~/Views/profile/view.aspx?id=" + e.CommandArgument.ToString());
+        }
+
+        protected void projects_ItemDataBound(object sender, RepeaterItemEventArgs e)
+        {
+
         }
     }
 }

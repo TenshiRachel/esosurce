@@ -16,8 +16,8 @@ namespace Esource.DAL.profile
             string DBConnect = ConfigurationManager.ConnectionStrings["ConnStr"].ConnectionString;
             SqlConnection conn = new SqlConnection(DBConnect);
 
-            string sqlStmt = "INSERT INTO Portfolio (uid, title, category, content, datePosted, views, likes)" +
-                "VALUES (@paraUID, @paraTitle, @paraCategory, @paraContent, @paraDatePosted, @paraViews, @paraLikes)";
+            string sqlStmt = "INSERT INTO Portfolio (uid, title, category, content, datePosted, views, likes, likeslist)" +
+                "VALUES (@paraUID, @paraTitle, @paraCategory, @paraContent, @paraDatePosted, @paraViews, @paraLikes, @paraLikeslist)";
 
             int result = 0;
             SqlCommand sqlCmd = new SqlCommand(sqlStmt, conn);
@@ -29,6 +29,7 @@ namespace Esource.DAL.profile
             sqlCmd.Parameters.AddWithValue("@paraDatePosted", portfolio.datePosted);
             sqlCmd.Parameters.AddWithValue("@paraViews", portfolio.views);
             sqlCmd.Parameters.AddWithValue("@paraLikes", portfolio.likes);
+            sqlCmd.Parameters.AddWithValue("@paraLikeslist", portfolio.likeslist);
 
             conn.Open();
             result = sqlCmd.ExecuteNonQuery();
@@ -37,7 +38,7 @@ namespace Esource.DAL.profile
             return result;
         }
 
-        public Portfolio SelectByUid(int UID)
+        public List<Portfolio> SelectByUid(int UID)
         {
             string DBConnect = ConfigurationManager.ConnectionStrings["ConnStr"].ConnectionString;
             SqlConnection conn = new SqlConnection(DBConnect);
@@ -52,6 +53,8 @@ namespace Esource.DAL.profile
             int rec_cnt = ds.Tables[0].Rows.Count;
 
             Portfolio obj = null;
+            List<Portfolio> portfolios = new List<Portfolio>();
+
             if (rec_cnt > 0)
             {
                 DataRow row = ds.Tables[0].Rows[0];
@@ -62,11 +65,13 @@ namespace Esource.DAL.profile
                 string content = row["content"].ToString();
                 string datePosted = row["datePosted"].ToString();
                 int views = int.Parse(row["views"].ToString());
-                string likes = row["likes"].ToString();
-                obj = new Portfolio(uid, title, category, content, likes, datePosted, views, id);
+                int likes = int.Parse(row["likes"].ToString());
+                string likeslist = row["likeslist"].ToString();
+                obj = new Portfolio(uid, title, category, content, likeslist, datePosted, views, likes, id);
+                portfolios.Add(obj);
             }
 
-            return obj;
+            return portfolios;
         }
 
         public Portfolio SelectById(int ID)
@@ -94,8 +99,9 @@ namespace Esource.DAL.profile
                 string content = row["content"].ToString();
                 string datePosted = row["datePosted"].ToString();
                 int views = int.Parse(row["views"].ToString());
-                string likes = row["likes"].ToString();
-                obj = new Portfolio(uid, title, category, content, likes, datePosted, views, Id);
+                int likes = int.Parse(row["likes"].ToString());
+                string likeslist = row["likeslist"].ToString();
+                obj = new Portfolio(uid, title, category, content, likeslist, datePosted, views, likes, Id);
             }
 
             return obj;
@@ -147,19 +153,20 @@ namespace Esource.DAL.profile
             return result;
         }
 
-        public int UpdateLikes(string likes, string Id)
+        public int UpdateLikes(int likes, string likeslist, string Id)
         {
             string DBConnect = ConfigurationManager.ConnectionStrings["ConnStr"].ConnectionString;
             SqlConnection conn = new SqlConnection(DBConnect);
 
             string sqlStmt = "UPDATE Portfolio " +
-                "SET likes = @paraLikes " +
+                "SET likes = @paraLikes AND likeslist = @paraLikeslist " +
                 "WHERE Id = @paraID";
 
             int result = 0;
             SqlCommand sqlCmd = new SqlCommand(sqlStmt, conn);
 
             sqlCmd.Parameters.AddWithValue("@paraLikes", likes);
+            sqlCmd.Parameters.AddWithValue("@paraLikeslist", likeslist);
             sqlCmd.Parameters.AddWithValue("@paraID", Id);
 
             conn.Open();

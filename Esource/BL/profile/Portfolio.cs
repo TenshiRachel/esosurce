@@ -15,14 +15,15 @@ namespace Esource.BL.profile
         public string content { get; set; }
         public string datePosted { get; set; }
         public int views { get; set; }
-        public string likes { get; set; }
+        public int likes { get; set; }
+        public string likeslist { get; set; }
 
         public Portfolio()
         {
 
         }
 
-        public Portfolio(int uid, string title, string category, string content, string likes, string datePosted = null, int views = 0, int Id = -1)
+        public Portfolio(int uid, string title, string category, string content, string likeslist, string datePosted = null, int views = 0, int likes = 0, int Id = -1)
         {
             this.uid = uid;
             this.title = title;
@@ -31,6 +32,7 @@ namespace Esource.BL.profile
             this.datePosted = datePosted ?? DateTime.Today.ToString("dd/MM/yyyy");
             this.views = views;
             this.likes = likes;
+            this.likeslist = likeslist;
         }
 
         public int AddPortfolio()
@@ -39,10 +41,10 @@ namespace Esource.BL.profile
             return result;
         }
 
-        public Portfolio SelectByUid(int uid)
+        public List<Portfolio> SelectByUid(int uid)
         {
-            Portfolio portfolio = new PortfolioDAO().SelectByUid(uid);
-            return portfolio;
+            List<Portfolio> portfolios = new PortfolioDAO().SelectByUid(uid);
+            return portfolios;
         }
 
         public Portfolio SelectById(int ID)

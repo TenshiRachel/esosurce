@@ -166,42 +166,32 @@
                                                                     <i class="fa fa-plus fa-7x" aria-hidden="true"></i>
                                                                 </div>
                                                             </div>
-                                                            <a href="/profile/submit">
+                                                            <a href="<%=Page.ResolveUrl("~/Views/profile/addProject.aspx") %>">
                                                                 <div class="mask flex-center waves-effect waves-light rgba-black-light">
                                                                     <h2 class="text-white">Add Project</h2>
                                                                 </div>
                                                             </a>
                                                         </div>
                                                     </div>
-                                                    <asp:Repeater runat="server" ID="projects">
+                                                    <asp:Repeater runat="server" ID="projects" OnItemDataBound="projects_ItemDataBound">
                                                         <ItemTemplate>
                                                             <div class="col-sm-5 col-lg-4 py-0 px-1">
                                                                 <div class="portoflio-img-sm view overlay mb-1 rounded border p-0" data-toggle="modal"
-                                                                    data-target="#project{{id}}">
-                                                                    <img loading="lazy" src="/uploads/profile/{{uid}}/projects/{{id}}.png"
+                                                                    data-target="#project<%#Eval("Id") %>">
+                                                                    <img loading="lazy" src="/uploads/profile/<%#Eval("uid") %>/projects/<%#Eval("Id") %>.png"
                                                                         class="h-100 mx-auto d-block" alt="">
 
-                                                                    <div id="viewproject{{id}}" onclick="viewProject({{id}})"
+                                                                    <div id="viewproject<%#Eval("Id") %>"
                                                                         class="mask flex-center waves-effect waves-light rgba-black-strong">
-                                                                        <div
-                                                                            class="row col-12 align-items-end justify-content-end justify-content-around p-0 h-100">
+                                                                        <div class="row col-12 align-items-end justify-content-end justify-content-around p-0 h-100">
 
                                                                             <div class="row col-12 justify-content-between p-0">
-                                                                                <h5 class="col-12 text-white text-left font-weight-bold">{{title}}
+                                                                                <h5 class="col-12 text-white text-left font-weight-bold"><%#Eval("title") %>
                                                                                 </h5>
-                                                                                <h6 style="font-size: 2vh;" class="col-6 white-text text-left font-weight-bold">{{#if ../viewuser.id}}
-                                            {{../viewuser.username}}
-                                            {{else}}
-                                            {{../user.username}}
-                                            {{/if}}
-                                                                                </h6>
+                                                                                <h6 runat="server" id="username" style="font-size: 2vh;" class="col-6 white-text text-left font-weight-bold"></h6>
                                                                                 <h6 class="white-text text-right col-6">
-                                                                                    <i class="far fa-heart"></i>
-                                                                                    {{#if likes}}
-                                            {{getNum likes}}
-                                            {{else}}
-                                            0
-                                            {{/if}}&nbsp;
+                                                                                    <i class="fas fa-heart"></i>
+                                                                                    <%#Eval("likes") %>&nbsp;
                                             <i class="fas fa-comment"></i>
                                                                                     {{#if comments}}
                                             {{comments.length}}
@@ -214,31 +204,298 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                        </ItemTemplate>
-                                                    </asp:Repeater>
+                                                            <div class="modal fade project" id="project<%#Eval("Id") %>" tabindex="-1" role="dialog" aria-labelledby="project{{id}}Label"
+                                                                aria-hidden="true">
+
+
+                                                                <button type="button" class="close m-2" data-dismiss="modal" aria-label="Close">
+                                                                    <span aria-hidden="true" class="text-white">&times;</span>
+                                                                </button>
+
+                                                                <div class="modal-dialog-project modal-dialog" role="document">
+                                                                    <div class="modal-content mt-5 p-0">
+
+                                                                        <div class="modal-header">
+                                                                            <div class="col-12 row justify-content-between">
+                                                                                <div class="col-lg-3 col-sm-12 row justify-content-start pl-4">
+
+                                                                                    <div class="col-2 align-self-center p-0 h-100">
+                                                                                        <img loading="lazy" onerror='this.src = "/img/profile/default.png"'
+                                                                                            src="#"
+                                                                                            class="white img-fluid rounded-circle  " alt="">
+                                                                                    </div>
+
+                                                                                    <div class="col-8 align-self-center pl-3 h-100">
+                                                                                        <div class="row m-auto h-100 p-0">
+                                                                                            <h5 class="col-12 p-0 align-self-start text-left font-weight-bold"><%#Eval("title") %></h5>
+                                                                                            <a href="<%=Page.ResolveUrl("~/Views/profile/index.aspx") %>">
+                                                                                                <h6 runat="server" id="modal_username" class="col-12 p-0 align-self-end text-left"></h6>
+                                                                                            </a>
+                                                                                        </div>
+
+                                                                                    </div>
+
+                                                                                </div>
+
+                                                                                <div class="col-lg-3 col-sm-12 row justify-content-end px-0">
+                                                                                    <div id="deleteButton" class="row justify-content-between">
+                                                                                        <asp:LinkButton CommandName="edit" runat="server" CssClass="btn btn-success justify-content-center">
+                                                                                            <i class="fas fa-edit fa-lg"></i>&nbsp; Edit
+                                                                                        </asp:LinkButton>
+                                                                                        <a data-toggle="modal" data-target="#confirmDelete{{id}}">
+                                                                                            <button type="button" class="btn btn-danger justify-content-center">
+                                                                                                <i class="fas fa-trash-alt fa-lg"></i>&nbsp; Delete
+                                                                                            </button>
+                                                                                        </a>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="modal-body black p-0">
+                                                                            {{!-- ======================= Content ======================= --}}
+                    <div id="contentTest" class="col-12 overflow-auto white p-4 min-vh-80">
+                        <%#Eval("content") %>
+                    </div>
+
+
+                                                                            {{!-- ======================= Services ======================= --}}
+                    <div class="container black w-100 row justify-content-center mx-0 py-5">
+
+                        <div class="row justify-content-center">
+                            <img loading="lazy" onerror='this.src = "/img/profile/default.png"'
+                                src="#"
+                                class="white img-fluid rounded-circle w-20" style="">
+                            <h3 class="col-12 text-center white-text font-weight-bold my-3">Services by
+                                <span runat="server" id="modal_username2"></span>
+                            </h3>
+                        </div>
+                        <div class="row col-12 justify-content-around">
+                            <asp:Repeater runat="server" ID="userServices">
+                                <ItemTemplate>
+
+                                    <div class="card-body border-purple white col-lg-3 col-sm-12 rounded mx-2">
+                                        <div class="row justify-content-around">
+
+                                            <div class="card">
+                                                <div class="view overlay">
+                                                    <img loading="lazy" class="card-img-top service-img w-100"
+                                                        src="#">
                                                 </div>
-                                                <div class="row justify-content-center">
-                                                    <h1 class="my-5 py-5">This user has no Projects</h1>
-                                                    <h1></h1>
+
+                                                <asp:LinkButton runat="server" class="btn-primary ml-auto mr-4 material-tooltip-sm"
+                                                    data-tooltip="tooltip" data-placement="top" title="View More Details"
+                                                    CommandName="view" CommandArgument='<%#Eval("Id") %>'>
+                                            <i class="fas fa-eye"></i>
+                                                </asp:LinkButton>
+
+                                                <div class="card-body">
+                                                    <h4 class="card-title name" data-names="Service Title"><%#Eval("name") %></h4>
+
+                                                    <hr>
+
+                                                    <p class="card-text">
+                                                        <%#Eval("desc") %>
+                                                    </p>
                                                 </div>
-                                                <%--                                                    <div class="row justify-content-start">
-                                                        <div class="col-sm-5 col-lg-4 py-0 px-1">
-                                                            <div class="portoflio-img-sm view overlay mb-1 rounded border border-depth-2 p-0">
-                                                                <div class="h-100 row mx-auto">
-                                                                    <div class="col align-self-center">
-                                                                        <i class="fa fa-plus fa-7x" aria-hidden="true"></i>
+
+                                                <div class="card-footer deep-purple accent-2 white-text text-center mt-4">
+                                                    <h5 class="m-0">$<%#Eval("price") %>
+                                                    </h5>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </ItemTemplate>
+                            </asp:Repeater>
+                        </div>
+                        <div runat="server" id="noService" visible="false" class="row col-12 justify-content-around">
+                            <h4 class="text-white my-5">This user has no services </h4>
+                        </div>
+                    </div>
+
+
+                                                                        </div>
+
+                                                                        <div class="modal-footer blue-grey lighten-5">
+                                                                            <div class="row mx-auto justify-content-around col-12">
+                                                                                {{!-- Comments --}}
+                        <div id="commentSection" class="col-lg-8 col-sm-12 border p-4 white">
+                            <h4 class="text-center">Comments </h4>
+                            <hr class="hr-primary">
+                            <ul class="list-unstyled chat">
+
+                                <li class="row mb-4">
+
+                                    <div class="col-1 pr-2">
+                                        <img loading="lazy"
+                                            class="avatar white img-fluid rounded-circle accent-3 z-depth-1"
+                                            id="profileimg" onerror='this.src = "/img/profile/default.png"'
+                                            src="#">
+                                    </div>
+
+                                    <div class="col-11 pl-2">
+                                        <div class="chat-body rounded white p-3 z-depth-1">
+                                            <div class="header d-flex">
+                                                <div class="flex-fill text-left">
+                                                    <strong runat="server" class="primary-font"
+                                                        id="formUsername"></strong>
+                                                </div>
+                                            </div>
+
+                                            <hr class="w-100">
+
+
+                                            <textarea class="form-control" name="commentContent"
+                                                id="commentContent<%#Eval("Id") %>" maxlength="300"></textarea>
+
+
+                                        </div>
+                                        <div class="row justify-content-end mx-auto">
+                                            <asp:LinkButton runat="server" CommandName="comment" class="btn btn-secondary" CommandArgument='<%#Eval("Id") %>'>
+                                                    Submit
+                                                    Comment
+                                            </asp:LinkButton>
+                                        </div>
+                                    </div>
+                                </li>
+
+                            </ul>
+
+                            <hr class="hr-primary">
+                            <div class="chat-message flex-fill">
+                                <ul class="list-unstyled chat" id="hrAfter<%#Eval("Id") %>">
+                                    <asp:Repeater runat="server" ID="comments">
+                                        <ItemTemplate>
+                                            <li class="row mb-4">
+
+                                                <div class="col-1 pr-2">
+                                                    <img loading="lazy"
+                                                        class="avatar white img-fluid rounded-circle accent-3 z-depth-1"
+                                                        onerror='this.src = "/img/profile/default.png"'
+                                                        src="#">
+                                                </div>
+
+                                                <div class="col-11 pl-2">
+                                                    <div class="chat-body rounded white p-3 z-depth-1">
+                                                        <div class="header d-flex">
+                                                            <div class="flex-fill text-left">
+                                                                <asp:LinkButton runat="server" CommandName="viewProfile" CommandArgument='<%#Eval("uid") %>'>
+                                                                    <strong class="primary-font"><%#Eval("username") %></strong>
+                                                                </asp:LinkButton>
+                                                            </div>
+                                                            <div class="flex-fill text-right">
+                                                                <small class="pull-right text-muted">
+                                                                    <i class="far fa-clock mr-1"></i><%#Eval("date") %>
+                                                                </small>
+                                                            </div>
+                                                        </div>
+
+                                                        <hr class="w-100">
+
+                                                        <p class="text-left mb-0">
+                                                            <%#Eval("content") %>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </li>
+
+                                        </ItemTemplate>
+                                    </asp:Repeater>
+                                </ul>
+                            </div>
+                            <div runat="server" visible="false" id="noComments">
+                                <h5 class="text-center mb-3 text-muted">
+                                    <i class="fas fa-comment-times fa-3x"></i>
+                                </h5>
+                                <h5 class="text-center text-muted">No Comments
+                                </h5>
+                            </div>
+                        </div>
+
+                                                                                {{!-- Details --}}
+                        <div class="col-lg-3 col-sm-12 p-0">
+                            <div class="border p-4 white">
+                                <h4 class="text-center">Details </h4>
+                                <hr class="hr-primary w-100">
+
+                                <div class="row justify-content-between">
+                                    <div class="col-6">
+                                        <p class="text-right font-weight-bold">Posted:</p>
+                                        <p class="text-right font-weight-bold">Views: </p>
+                                        <p class="text-right font-weight-bold">Likes: </p>
+                                        <p class="text-right font-weight-bold">Comments: </p>
+                                    </div>
+                                    <div class="col-6">
+                                        <p class="text-left"><%#Eval("datePosted") %></p>
+                                        <p class="text-left"><%#Eval("views") %></p>
+                                        <p class="text-left">
+                                            <%#Eval("likes") %>
+                                        </p>
+                                        <p class="text-left">
+                                            {{#if comments}}
+                                            {{comments.length}}
+                                            {{else}}
+                                            0
+                                            {{/if}}
+                                        </p>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <%--<div class="border p-4 white mt-4">
+                                <h4 class="text-center ">Share</h4>
+                                <hr class="hr-primary w-100">
+
+                                <div class="btn-group btn-group-sm btn-block" role="group" aria-label="Basic example">
+                                    <a target="_blank" class="btn btn-tw btn-md btn-sm"
+                                        href="https://twitter.com/intent/tweet?text=Check+out+{{title}}+at+&url=http://{{../hostURL}}/profile/view/{{uid}}/{{id}}">
+                                        <i class="fab fa-twitter pr-1"></i>
+
+                                    </a>
+
+                                    <a target="_blank" class="btn btn-fb btn-md btn-sm"
+                                        href="https://www.facebook.com/sharer/sharer.php?u=http://{{../hostURL}}/profile/view/{{uid}}/{{id}}">
+                                        <i class="fab fa-facebook-f pr-1"></i>
+                                    </a>
+
+                                    <a target="_blank" class="btn btn-li btn-md btn-sm"
+                                        href="https://www.linkedin.com/shareArticle?mini=true&url=http://{{../hostURL}}/profile/view/{{uid}}/{{id}}&title={{title}}&summary=Check+out+{{title}}+at+&source=http://{{../hostURL}}/profile/view/{{uid}}/{{id}}">
+                                        <i class="fab fa-linkedin-in pr-1"></i>
+
+                                    </a>
+
+                                    <a target="_blank" class="btn btn-reddit btn-md btn-sm"
+                                        href="http://www.reddit.com/submit?url=http://{{../hostURL}}/profile/view/{{uid}}/{{id}}&title={{title}}">
+                                        <i class="fab fa-reddit-alien pr-1"></i>
+
+                                    </a>
+
+                                    <a target="_blank" class="btn btn-tmblr btn-md btn-sm"
+                                        href="http://www.tumblr.com/share/link?url=http://{{../hostURL}}/profile/view/{{uid}}/{{id}}&description=Check+out+{{title}}+at+Outsource">
+                                        <i class="fab fa-tumblr"></i>
+                                    </a>
+                                </div>
+                            </div>--%>
+                        </div>
+                                                                            </div>
+                                                                        </div>
 
                                                                     </div>
                                                                 </div>
-                                                                <a href="/profile/submit">
-                                                                    <div class="mask flex-center waves-effect waves-light rgba-black-light">
-                                                                        <h2 class="text-white">Add Project</h2>
 
-                                                                    </div>
-                                                                </a>
+
+
                                                             </div>
-                                                        </div>
-                                                    </div>--%>
+                                                        </ItemTemplate>
+                                                    </asp:Repeater>
+                                                </div>
+                                                <div runat="server" id="noProj" visible="false" class="row justify-content-center">
+                                                    <h1 class="my-5 py-5">Currently no Projects</h1>
+                                                    <h1></h1>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
