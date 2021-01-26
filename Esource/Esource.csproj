@@ -233,6 +233,8 @@
     <Compile Include="BL\jobs\Jobs.cs" />
     <Compile Include="BL\notification\Notification.cs" />
     <Compile Include="BL\profile\Follow.cs" />
+    <Compile Include="BL\profile\PortComment.cs" />
+    <Compile Include="BL\profile\Portfolio.cs" />
     <Compile Include="BL\profile\User.cs" />
     <Compile Include="BL\service\Fav.cs" />
     <Compile Include="BL\service\Service.cs" />
@@ -241,6 +243,8 @@
     <Compile Include="DAL\jobs\JobsDAO.cs" />
     <Compile Include="DAL\notification\NotificationDAO.cs" />
     <Compile Include="DAL\profile\FollowDAO.cs" />
+    <Compile Include="DAL\profile\PortCommentDAO.cs" />
+    <Compile Include="DAL\profile\PortfolioDAO.cs" />
     <Compile Include="DAL\profile\UserDAO.cs" />
     <Compile Include="DAL\service\FavDAO.cs" />
     <Compile Include="DAL\service\ServiceDAO.cs" />
