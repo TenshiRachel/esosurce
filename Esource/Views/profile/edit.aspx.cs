@@ -68,5 +68,31 @@ namespace Esource.Views.profile
                 Toast.error(this, "An error occurred while updating profile");
             }
         }
+
+        protected void btn_PIN_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(jobpin.Value))
+            {
+                Toast.error(this, "Please enter a PIN number");
+            }
+            else if (jobpin.Value.Length != 6)
+            {
+                Toast.error(this, "The pin number must be 6 digits long");
+            }
+            else
+            {
+                int result = new User().UpdateJobPin(LblUid.Text, jobpin.Value);
+                if (result == 0)
+                {
+                    Toast.error(this, "An error occured while setting PIN");
+                }
+                else
+                {
+                    Session["success"] = "Job/Request PIN set successfully";
+                    Response.Redirect("~/Views/profile/index.aspx");
+                }
+            }
+            
+        }
     }
 }

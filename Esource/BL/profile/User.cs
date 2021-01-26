@@ -29,14 +29,16 @@ namespace Esource.BL.profile
         public string resetTokenExpiry { get; set; }
         public string paymentToken { get; set; }
         public string paymentTokenExpiry { get; set; }
+        public string jobPin { get; set; }
         public string IV { get; set; }
+        
 
         public User()
         {
 
         }
 
-        public User(string username, string email, string password, string passSalt, string bio, string profile_src, string type, string IV, string stripeId = "", int following = 0, int followers = 0, string social = ",,,,", string website = "Not Set", string birthday = "Not Set", string gender = "Not Set", string location = "Not Set", string occupation = "Not Set", string resetToken = "",
+        public User(string username, string email, string password, string passSalt, string bio, string profile_src, string type, string IV, string stripeId = "", string jobPin = "", int following = 0, int followers = 0, string social = ",,,,", string website = "Not Set", string birthday = "Not Set", string gender = "Not Set", string location = "Not Set", string occupation = "Not Set", string resetToken = "",
             string resetTokenExpiry = "", string paymentToken = "", string paymentTokenExpiry = "", int Id = -1)
         {
             this.username = username;
@@ -48,6 +50,7 @@ namespace Esource.BL.profile
             this.type = type;
             this.IV = IV;
             this.stripeId = stripeId;
+            this.jobPin = jobPin;
             this.Id = Id;
             this.following = following;
             this.followers = followers;
@@ -122,5 +125,11 @@ namespace Esource.BL.profile
             bool valid = new UserDAO().CheckTokenValid(type, token, uid);
             return valid;
         }
+        public int UpdateJobPin(string uid, string pin)
+        {
+            int result = new UserDAO().UpdateJobPIN(uid, pin);
+            return result;
+        }
+
     }
 }

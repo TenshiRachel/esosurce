@@ -120,6 +120,7 @@ namespace Esource.DAL.profile
                 string type = row["type"].ToString();
                 string IV = row["IV"].ToString();
                 string stripe = row["stripeId"].ToString();
+                string jobPin = row["jobpin"].ToString();
                 int following = int.Parse(row["following"].ToString());
                 int follows = int.Parse(row["followers"].ToString());
                 string website = row["website"].ToString();
@@ -137,8 +138,12 @@ namespace Esource.DAL.profile
                 {
                     stripe = Auth.decrypt(Convert.FromBase64String(stripe), Convert.FromBase64String(IV));
                 }
+                if (!string.IsNullOrEmpty(jobPin))
+                {
+                    jobPin = Auth.decrypt(Convert.FromBase64String(jobPin), Convert.FromBase64String(IV));
+                }
 
-                obj = new User(name, email, password, passSalt, bio, src, type, IV, stripe, following, follows, social, website, birthday, gender, location, occupation, resetToken, resetTokenExpiry,
+                obj = new User(name, email, password, passSalt, bio, src, type, IV, stripe, jobPin, following, follows, social, website, birthday, gender, location, occupation, resetToken, resetTokenExpiry,
                     paymentToken, paymentTokenExpiry, id);
             }
 
@@ -172,6 +177,7 @@ namespace Esource.DAL.profile
                 string type = row["type"].ToString();
                 string IV = row["IV"].ToString();
                 string stripe = row["stripeId"].ToString();
+                string jobPin = row["jobpin"].ToString();
                 int following = int.Parse(row["following"].ToString());
                 int follows = int.Parse(row["followers"].ToString());
                 string website = row["website"].ToString();
@@ -190,7 +196,12 @@ namespace Esource.DAL.profile
                     stripe = Auth.decrypt(Convert.FromBase64String(stripe), Convert.FromBase64String(IV));
                 }
 
-                obj = new User(name, email, password, passSalt, bio, src, type, IV, stripe, following, follows, social, website, birthday, gender, location, occupation,
+                if (!string.IsNullOrEmpty(jobPin))
+                {
+                    jobPin = Auth.decrypt(Convert.FromBase64String(jobPin), Convert.FromBase64String(IV));
+                }
+
+                obj = new User(name, email, password, passSalt, bio, src, type, IV, stripe, jobPin, following, follows, social, website, birthday, gender, location, occupation,
                     resetToken, resetTokenExpiry, paymentToken, paymentTokenExpiry, int.Parse(id));
             }
 
@@ -347,6 +358,28 @@ namespace Esource.DAL.profile
             }
 
             return valid;
+        }
+
+        public int UpdateJobPIN(string uid, string pin)
+        {
+            string DBConnect = ConfigurationManager.ConnectionStrings["ConnStr"].ConnectionString;
+            SqlConnection conn = new SqlConnection(DBConnect);
+
+            string sqlStmt = "UPDATE [User] " +
+                "SET jobpin = @paraPin " +
+                "WHERE Id = @paraId";
+
+            int result = 0;
+            SqlCommand sqlCmd = new SqlCommand(sqlStmt, conn);
+
+            sqlCmd.Parameters.AddWithValue("@paraPin", pin);
+            sqlCmd.Parameters.AddWithValue("@paraId", uid);
+
+            conn.Open();
+            result = sqlCmd.ExecuteNonQuery();
+            conn.Close();
+
+            return result;
         }
     }
 }

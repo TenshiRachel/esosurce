@@ -148,7 +148,19 @@
                         </div>
                     </div>
                 </div>
-
+                <div class="card z-depth-2 pt-2">
+                    <div class="card-body">
+                        <h5 class="text-center">Set a custom PIN number for your job/request (Optional)</h5>
+                        <div class="md-form md-outline">
+                            <input type="password" runat="server" class="form-control" id="jobpin" />
+                            <label for="jobpin" class="text-left">Job PIN</label>
+                        </div>
+                        <asp:LinkButton runat="server" ID="btn_PIN" CssClass="btn btn-success" OnClick="btn_PIN_Click">
+                            <i class="fas fa-lock"></i>
+                            Set PIN
+                        </asp:LinkButton>
+                    </div>
+                </div>
 
             </div>
             <!-- Miscellaneous -->
