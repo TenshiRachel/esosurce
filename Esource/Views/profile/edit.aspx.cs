@@ -72,6 +72,7 @@ namespace Esource.Views.profile
 
         protected void btn_PIN_Click(object sender, EventArgs e)
         {
+            int outParse = 0;
             if (string.IsNullOrEmpty(jobpin.Value))
             {
                 Toast.error(this, "Please enter a PIN number");
@@ -79,6 +80,10 @@ namespace Esource.Views.profile
             else if (jobpin.Value.Length != 6)
             {
                 Toast.error(this, "The pin number must be 6 digits long");
+            }
+            else if (!Int32.TryParse(jobpin.Value, out outParse) && outParse == 0)
+            {
+                Toast.error(this, "Only numeric digits are accepted");
             }
             else
             {

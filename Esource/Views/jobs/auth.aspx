@@ -11,7 +11,7 @@
                         <h3 class="text-center">Job/Request PIN</h3>
 
                         <div class="md-form md-outline">
-                            <input id="jobPin" type="password" class="form-control w-25" runat="server">
+                            <input id="jobPin" type="password" maxlength="6" class="form-control w-25" runat="server">
                             <label for="jobPin">Job PIN</label>
                         </div>
 
