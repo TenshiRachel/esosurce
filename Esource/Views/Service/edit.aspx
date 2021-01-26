@@ -29,7 +29,7 @@
                         <label class="font-italic">Service poster (Optional)</label>
                         <div class="filepreview">
                             <div class="wrapper card card-body view overlay text-center z-depth-2">
-                                <div class="preview">
+                                <div class="preview deep-purple accent-3">
                                     <img src="#" runat="server" id="poster" />
                                 </div>
                                 <div class="card-text d-none">

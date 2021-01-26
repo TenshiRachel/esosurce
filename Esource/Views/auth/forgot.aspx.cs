@@ -22,7 +22,7 @@ namespace Esource.Views.auth
             if (user != null)
             {
                 string token = Auth.generateToken();
-                new User().UpdateReset(user.Id.ToString(), Auth.encrypt(token, Convert.FromBase64String(user.IV)), (DateTime.Now.Ticks + 3600000).ToString());
+                new User().UpdateReset(user.Id.ToString(), Auth.encrypt(token, Convert.FromBase64String(user.IV)), (DateTime.Now.AddHours(1).Ticks).ToString());
                 string link = "https://localhost:44309/Views/auth/reset.aspx?uid=" + user.Id.ToString() + "&token=" + token;
                 Email.Send(user.email, user.username, "Outsource Reset password",
                     "<p>You are receiving this because you (or someone else) have requested the reset of the password for your account.</p>" +
