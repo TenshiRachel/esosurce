@@ -15,6 +15,11 @@ namespace Esource.Views.jobs
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Session["success"] != null)
+            {
+                Toast.success(this, Session["success"].ToString());
+                Session["success"] = null;
+            }
             if (Session["uid"] != null)
             {
                 LblUid.Text = Session["uid"].ToString();
@@ -23,6 +28,11 @@ namespace Esource.Views.jobs
                 {
                     Session["error"] = "You need to be a service provider to view jobs";
                     Response.Redirect("~/Views/index.aspx");
+                }
+                if (!string.IsNullOrEmpty(user.jobPin))
+                {
+                    Session["error"] = "Please enter your Job PIN to view jobs";
+                    Response.Redirect("~/Views/jobs/auth.aspx");
                 }
                 if (!Page.IsPostBack)
                 {

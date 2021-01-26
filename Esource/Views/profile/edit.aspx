@@ -152,10 +152,14 @@
                     <div class="card-body">
                         <h5 class="text-center">Set a custom PIN number for your job/request (Optional)</h5>
                         <div class="md-form md-outline">
-                            <input type="password" runat="server" class="form-control" id="jobpin" />
+                            <input type="password" runat="server" class="form-control w-25" id="jobpin" />
                             <label for="jobpin" class="text-left">Job PIN</label>
                         </div>
-                        <asp:LinkButton runat="server" ID="btn_PIN" CssClass="btn btn-success" OnClick="btn_PIN_Click">
+                        <asp:LinkButton runat="server" ID="btn_removePIN" CssClass="btn btn-danger text-left" OnClick="btn_removePIN_Click">
+                            <i class="fas fa-unlock-alt"></i>
+                            Remove PIN
+                        </asp:LinkButton>
+                        <asp:LinkButton runat="server" ID="btn_PIN" CssClass="btn btn-success text-right" OnClick="btn_PIN_Click">
                             <i class="fas fa-lock"></i>
                             Set PIN
                         </asp:LinkButton>

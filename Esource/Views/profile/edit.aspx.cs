@@ -26,6 +26,7 @@ namespace Esource.Views.profile
                     gender.Value = user.gender;
                     location.Value = user.location;
                     occupation.Value = user.occupation;
+                    jobpin.Value = user.jobPin;
                     currUsername.InnerHtml = user.username;
                     if (socialList.Any())
                     {
@@ -81,7 +82,8 @@ namespace Esource.Views.profile
             }
             else
             {
-                int result = new User().UpdateJobPin(LblUid.Text, jobpin.Value);
+                User user = new User().SelectById(LblUid.Text);
+                int result = new User().UpdateJobPin(LblUid.Text, Auth.encrypt(jobpin.Value, Convert.FromBase64String(user.IV)));
                 if (result == 0)
                 {
                     Toast.error(this, "An error occured while setting PIN");
@@ -93,6 +95,20 @@ namespace Esource.Views.profile
                 }
             }
             
+        }
+
+        protected void btn_removePIN_Click(object sender, EventArgs e)
+        {
+            int result = new User().UpdateJobPin(LblUid.Text, "");
+            if (result == 0)
+            {
+                Toast.error(this, "An error occured while removing PIN");
+            }
+            else
+            {
+                Session["success"] = "PIN removed successfully";
+                Response.Redirect("~/Views/profile/index.aspx");
+            }
         }
     }
 }

@@ -210,6 +210,7 @@
     <Content Include="Views\auth\reset.aspx" />
     <Content Include="Views\file\index.aspx" />
     <Content Include="Views\index.aspx" />
+    <Content Include="Views\jobs\auth.aspx" />
     <Content Include="Views\jobs\index.aspx" />
     <Content Include="Views\notification\index.aspx" />
     <Content Include="Views\profile\edit.aspx" />
@@ -310,6 +311,13 @@
     </Compile>
     <Compile Include="Views\index.aspx.designer.cs">
       <DependentUpon>index.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\jobs\auth.aspx.cs">
+      <DependentUpon>auth.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\jobs\auth.aspx.designer.cs">
+      <DependentUpon>auth.aspx</DependentUpon>
     </Compile>
     <Compile Include="Views\jobs\index.aspx.cs">
       <DependentUpon>index.aspx</DependentUpon>
