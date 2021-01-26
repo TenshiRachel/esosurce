@@ -34,35 +34,11 @@ namespace Esource.Views.service
                 Customer freelance = new Customer();
                 CustomerService serv = new CustomerService();
 
-                if (string.IsNullOrEmpty(user.stripeId))
-                {
-                    CustomerCreateOptions options = new CustomerCreateOptions
-                    {
-                        Description = user.username,
-                        Balance = 5000
-                    };
-                    cust = serv.Create(options);
-                    user.UpdateStripe(user.Id.ToString(), cust.Id);
-                }
-                else
-                {
-                    cust = serv.Get(user.stripeId);
-                }
-                if (string.IsNullOrEmpty(freelancer.stripeId))
-                {
-                    CustomerCreateOptions options = new CustomerCreateOptions
-                    {
-                        Description = freelancer.username,
-                        Balance = 5000
-                    };
-                    freelance = serv.Create(options);
-                    user.UpdateStripe(freelancer.Id.ToString(), freelance.Id);
-                }
-                else
-                {
-                    freelance = serv.Get(freelancer.stripeId);
-                }
-                bool tokenValid = new User().CheckTokenValid("payment", Request.QueryString["token"].ToString());
+                cust = serv.Get(user.stripeId);
+                freelance = serv.Get(freelancer.stripeId);
+
+                string token = Request.QueryString["token"].ToString();
+                bool tokenValid = new User().CheckTokenValid("payment", token, currUserId);
 
                 if (tokenValid)
                 {

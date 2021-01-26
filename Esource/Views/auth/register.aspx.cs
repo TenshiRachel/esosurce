@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Esource.Utilities;
+using Stripe;
 
 namespace Esource.Views.auth
 {
@@ -68,10 +69,23 @@ namespace Esource.Views.auth
 
         public void registerUser(string username, string email, string pwd, string accType)
         {
-
+            byte[] IV = null;
             Tuple<string, string> pwdAndSalt = Auth.hash(pwd);
+            RijndaelManaged cipher = new RijndaelManaged();
+            cipher.GenerateIV();
+            IV = cipher.IV;
 
-            User user = new User(username, email, pwdAndSalt.Item1, pwdAndSalt.Item2, "", "", accType);
+            StripeConfiguration.ApiKey = "sk_test_51Hnjg6K2AIXSM7wrvlwz0S8eQSrtxjb7irpnIhvWGSKSsbWJzUymiC3tHbwxYQCumbmK5gC06kRIw7wr1eHEpj6D00CDgHmOpO";
+            Customer cust = new Customer();
+            CustomerService serv = new CustomerService();
+            CustomerCreateOptions options = new CustomerCreateOptions
+            {
+                Description = username,
+                Balance = 5000
+            };
+            cust = serv.Create(options);
+
+            User user = new User(username, email, pwdAndSalt.Item1, pwdAndSalt.Item2, "", "", accType, Convert.ToBase64String(IV), Auth.encrypt(cust.Id, IV));
             user.AddUser();
             Session["success"] = "Registered successfully";
             Response.Redirect("~/Views/auth/login.aspx");

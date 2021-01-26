@@ -500,6 +500,7 @@ nav.navbar .navbar-brand {
     display: inline-block;
     width: 100%;
     height: calc(1.5em + .75rem + 2px);
+    min-height: 500px;
     margin-bottom: 0;
 }
 

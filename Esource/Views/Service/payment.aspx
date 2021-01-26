@@ -23,7 +23,7 @@
                         </div>
 
                         <!-- Avatar -->
-                        <div class="avatar mx-auto white mt-4">
+                        <div class="mx-auto white mt-4">
                             <img runat="server" id="client_avatar" src="#" class="rounded-circle" alt="avatar">
                         </div>
 
@@ -63,7 +63,7 @@
                         </div>
 
                         <!-- Avatar -->
-                        <div class="avatar mx-auto white mt-4">
+                        <div class="mx-auto white mt-4">
                             <img runat="server" id="freelance_avatar" src="#" class="rounded-circle " alt="">
                         </div>
 

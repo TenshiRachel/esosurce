@@ -9,7 +9,7 @@
             <div class="card card-body">
                 <h3 class="text-info font-weight-bold">Add Service</h3>
                 <div class="row">
-                    <div class="col-lg-9">
+                    <div class="col-lg-8">
                         <div class="md-form md-outline">
                             <asp:Label runat="server" AssociatedControlID="tbName" Text="Service name"></asp:Label>
                             <asp:TextBox runat="server" ID="tbName" CssClass="form-control w-50"></asp:TextBox>
@@ -25,11 +25,11 @@
                             <asp:TextBox runat="server" TextMode="Number" ID="tbPrice" CssClass="form-control w-25"></asp:TextBox>
                         </div>
                     </div>
-                    <div class="col-lg-3">
+                    <div class="col-lg-4">
                         <label class="font-italic">Service poster (Optional)</label>
                         <div class="filepreview">
-                            <div class="wrapper">
-                                <div class="preview">
+                            <div class="wrapper card card-body view overlay text-center z-depth-2">
+                                <div class="preview deep-purple accent-3">
                                     <img src="<%=Page.ResolveUrl("~/Content/img/placeholder.jpg") %>" id="poster" />                                  
                                 </div>
                                 <div class="card-text">

@@ -11,7 +11,7 @@
                 <div class="card">
                     <div
                         class="view primary-light-gradient py-2 mx-4 mb-3 d-flex justify-content-center align-items-center text-center">
-                        <span class="mx-3 font-weight-bold">Requests</span>
+                        <h3 class="mx-3 font-weight-bold">Requests</h3>
                     </div>
 
                     <div class="card-body">
@@ -70,7 +70,7 @@
             <div class="col-12 col-md-3 my-4 my-md-0 order-0 order-md-1">
                 <div class="card">
                     <div class="view primary-light-gradient py-2 mx-4 mb-3 d-flex justify-content-center align-items-center text-center">
-                        <span class="mx-3 font-weight-bold">Action</span>
+                        <h3 class="mx-3 font-weight-bold">Action</h3>
                     </div>
 
                     <div class="card-body">

@@ -10,14 +10,24 @@ namespace Esource.Utilities
 {
     public static class Auth
     {
-        public static byte[] encrypt(string plaintext)
+        public static string encrypt(string plaintext, byte[] IV)
         {
             byte[] cipherText = null;
             try
             {
                 RijndaelManaged cipher = new RijndaelManaged();
-                cipher.IV = null;
-                cipher.Key = null;
+                cipher.IV = IV;
+                string rootPath = HttpContext.Current.Server.MapPath("~");
+                string keyPath = Path.GetFullPath(Path.Combine(rootPath + "../../encryptKey.txt"));
+
+                if (!File.Exists(keyPath))
+                {
+                    cipher.GenerateKey();
+                    File.WriteAllText(keyPath, Convert.ToBase64String(cipher.Key));
+                }
+                string key = File.ReadAllText(keyPath);
+                cipher.Key = Convert.FromBase64String(key);
+                
                 ICryptoTransform encryptTransform = cipher.CreateEncryptor();
                 byte[] plainText = Encoding.UTF8.GetBytes(plaintext);
                 cipherText = encryptTransform.TransformFinalBlock(plainText, 0, plainText.Length);
@@ -27,18 +37,22 @@ namespace Esource.Utilities
                 throw new Exception(ex.ToString());
             }
             finally { }
-            return cipherText;
+            return Convert.ToBase64String(cipherText);
         }
 
-        public static string decrypt(byte[] ciphertext)
+        public static string decrypt(byte[] ciphertext, byte[] IV)
         {
             string plainText = null;
 
             try
             {
                 RijndaelManaged cipher = new RijndaelManaged();
-                cipher.IV = null;
-                cipher.Key = null;
+                cipher.IV = IV;
+                string rootPath = HttpContext.Current.Server.MapPath("~");
+                string keyPath = Path.GetFullPath(Path.Combine(rootPath + "../../encryptKey.txt"));
+
+                string key = File.ReadAllText(keyPath);
+                cipher.Key = Convert.FromBase64String(key);
                 // Create a decrytor to perform the stream transform.
                 ICryptoTransform decryptTransform = cipher.CreateDecryptor();
 
@@ -61,10 +75,9 @@ namespace Esource.Utilities
             return plainText;
         }
 
-        public static Tuple<string, string> hash(string password)
+        public static Tuple<string, string> hash(string password, string salt = "")
         {
             string finalHash;
-            string salt;
             byte[] Key;
             byte[] IV;
             //Generate random "salt"
@@ -73,8 +86,11 @@ namespace Esource.Utilities
 
             //Fills array of bytes with a cryptographically strong sequence of random values.
             rng.GetBytes(saltByte);
-            salt = Convert.ToBase64String(saltByte);
-
+            if (string.IsNullOrEmpty(salt))
+            {
+                salt = Convert.ToBase64String(saltByte);
+            }
+            
             SHA512Managed hashing = new SHA512Managed();
 
             string pwdWithSalt = password + salt;

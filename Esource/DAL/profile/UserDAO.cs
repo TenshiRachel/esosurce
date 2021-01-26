@@ -6,6 +6,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
+using Esource.Utilities;
 
 namespace Esource.DAL.profile
 {
@@ -16,8 +17,8 @@ namespace Esource.DAL.profile
             string DBConnect = ConfigurationManager.ConnectionStrings["ConnStr"].ConnectionString;
             SqlConnection conn = new SqlConnection(DBConnect);
 
-            string sqlStmt = "INSERT INTO [User] (username, email, password, passSalt, bio, profile_src, type, stripeId, following, followers, website, birthday, gender, location, occupation, social)" +
-                "VALUES (@paraName, @paraEmail, @paraPassword, @paraSalt, @paraBio, @paraSrc, @paraType, @paraStripe, @paraFollow, @paraFollowers, @paraSite, @paraBirthday, @paraGender, @paraLocation, @paraOccupation, @paraSocial)";
+            string sqlStmt = "INSERT INTO [User] (username, email, password, passSalt, bio, profile_src, type, IV, stripeId, following, followers, website, birthday, gender, location, occupation, social)" +
+                "VALUES (@paraName, @paraEmail, @paraPassword, @paraSalt, @paraBio, @paraSrc, @paraType, @paraIV, @paraStripe, @paraFollow, @paraFollowers, @paraSite, @paraBirthday, @paraGender, @paraLocation, @paraOccupation, @paraSocial)";
 
             int result = 0;
             SqlCommand sqlCmd = new SqlCommand(sqlStmt, conn);
@@ -29,6 +30,7 @@ namespace Esource.DAL.profile
             sqlCmd.Parameters.AddWithValue("@paraBio", user.bio);
             sqlCmd.Parameters.AddWithValue("@paraSrc", user.profile_src);
             sqlCmd.Parameters.AddWithValue("@paraType", user.type);
+            sqlCmd.Parameters.AddWithValue("@paraIV", user.IV);
             sqlCmd.Parameters.AddWithValue("@paraStripe", user.stripeId);
             sqlCmd.Parameters.AddWithValue("@paraFollow", user.following);
             sqlCmd.Parameters.AddWithValue("@paraFollowers", user.followers);
@@ -38,28 +40,6 @@ namespace Esource.DAL.profile
             sqlCmd.Parameters.AddWithValue("@paraLocation", user.location);
             sqlCmd.Parameters.AddWithValue("@paraOccupation", user.occupation);
             sqlCmd.Parameters.AddWithValue("@paraSocial", user.social);
-
-            conn.Open();
-            result = sqlCmd.ExecuteNonQuery();
-            conn.Close();
-
-            return result;
-        }
-
-        public int UpdateStripeId(string id, string stripeId)
-        {
-            string DBConnect = ConfigurationManager.ConnectionStrings["ConnStr"].ConnectionString;
-            SqlConnection conn = new SqlConnection(DBConnect);
-
-            string sqlStmt = "UPDATE [User] " +
-                "SET stripeId = @paraStripe " +
-                "WHERE Id = @paraId";
-
-            int result = 0;
-            SqlCommand sqlCmd = new SqlCommand(sqlStmt, conn);
-
-            sqlCmd.Parameters.AddWithValue("@paraId", id);
-            sqlCmd.Parameters.AddWithValue("@paraStripe", stripeId);
 
             conn.Open();
             result = sqlCmd.ExecuteNonQuery();
@@ -138,6 +118,7 @@ namespace Esource.DAL.profile
                 string bio = row["bio"].ToString();
                 string src = row["profile_src"].ToString();
                 string type = row["type"].ToString();
+                string IV = row["IV"].ToString();
                 string stripe = row["stripeId"].ToString();
                 int following = int.Parse(row["following"].ToString());
                 int follows = int.Parse(row["followers"].ToString());
@@ -152,7 +133,12 @@ namespace Esource.DAL.profile
                 string paymentToken = row["paymentToken"].ToString();
                 string paymentTokenExpiry = row["paymentTokenExpiry"].ToString();
 
-                obj = new User(name, email, password, passSalt, bio, src, type, stripe, following, follows, social, website, birthday, gender, location, occupation, resetToken, resetTokenExpiry,
+                if (!string.IsNullOrEmpty(stripe))
+                {
+                    stripe = Auth.decrypt(Convert.FromBase64String(stripe), Convert.FromBase64String(IV));
+                }
+
+                obj = new User(name, email, password, passSalt, bio, src, type, IV, stripe, following, follows, social, website, birthday, gender, location, occupation, resetToken, resetTokenExpiry,
                     paymentToken, paymentTokenExpiry, id);
             }
 
@@ -184,6 +170,7 @@ namespace Esource.DAL.profile
                 string bio = row["bio"].ToString();
                 string src = row["profile_src"].ToString();
                 string type = row["type"].ToString();
+                string IV = row["IV"].ToString();
                 string stripe = row["stripeId"].ToString();
                 int following = int.Parse(row["following"].ToString());
                 int follows = int.Parse(row["followers"].ToString());
@@ -198,7 +185,12 @@ namespace Esource.DAL.profile
                 string paymentToken = row["paymentToken"].ToString();
                 string paymentTokenExpiry = row["paymentTokenExpiry"].ToString();
 
-                obj = new User(name, email, password, passSalt, bio, src, type, stripe, following, follows, social, website, birthday, gender, location, occupation,
+                if (!string.IsNullOrEmpty(stripe))
+                {
+                    stripe = Auth.decrypt(Convert.FromBase64String(stripe), Convert.FromBase64String(IV));
+                }
+
+                obj = new User(name, email, password, passSalt, bio, src, type, IV, stripe, following, follows, social, website, birthday, gender, location, occupation,
                     resetToken, resetTokenExpiry, paymentToken, paymentTokenExpiry, int.Parse(id));
             }
 
@@ -303,22 +295,18 @@ namespace Esource.DAL.profile
             return result;
         }
 
-        public bool CheckTokenValid(string type, string token)
+        public bool CheckTokenValid(string type, string token, string uid)
         {
             bool valid = false;
             string DBConnect = ConfigurationManager.ConnectionStrings["ConnStr"].ConnectionString;
             SqlConnection conn = new SqlConnection(DBConnect);
-            string sqlStmt = "SELECT * FROM [User] WHERE resetToken = @paraToken";
-
-            if (type == "payment")
-            {
-                sqlStmt = "SELECT * FROM [User] WHERE paymentToken = @paraToken";
-            }
+            string sqlStmt = "SELECT * FROM [User] WHERE Id = @paraUid";
 
             SqlDataAdapter da = new SqlDataAdapter(sqlStmt, conn);
-            da.SelectCommand.Parameters.AddWithValue("@paraToken", token);
+            da.SelectCommand.Parameters.AddWithValue("@paraUid", uid);
 
             DataSet ds = new DataSet();
+
             da.Fill(ds);
             int rec_cnt = ds.Tables[0].Rows.Count;
 
@@ -327,7 +315,14 @@ namespace Esource.DAL.profile
                 DataRow row = ds.Tables[0].Rows[0];
                 long currDate = DateTime.Now.Ticks;
                 long exprDate = 0;
-                if (type == "reset")
+                byte[] IV = Convert.FromBase64String(row["IV"].ToString());
+
+                string encryptedReset = row["resetToken"].ToString();
+                string resetToken = Auth.decrypt(Convert.FromBase64String(encryptedReset), IV);
+                string encryptedPayment = row["paymentToken"].ToString();
+                string paymentToken = Auth.decrypt(Convert.FromBase64String(encryptedPayment), IV);
+
+                if (type == "reset" && token == resetToken)
                 {
                     string resetExpr = row["resetTokenExpiry"].ToString();
                     if (!string.IsNullOrEmpty(resetExpr))
@@ -336,7 +331,7 @@ namespace Esource.DAL.profile
                     }
                 }
                 
-                if (type == "payment")
+                if (type == "payment" && token == paymentToken)
                 {
                     string paymentExpr = row["paymentTokenExpiry"].ToString();
                     if (!string.IsNullOrEmpty(paymentExpr))

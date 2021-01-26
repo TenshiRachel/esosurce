@@ -17,7 +17,7 @@ namespace Esource.Views.auth
         {
             if (Session["success"] != null)
             {
-                Toast.error(this, Session["success"].ToString());
+                Toast.success(this, Session["success"].ToString());
                 Session["success"] = null;
             }
         }
@@ -55,21 +55,17 @@ namespace Esource.Views.auth
                 SHA512Managed hashing = new SHA512Managed();
                 string dbHash = user.password;
                 string dbSalt = user.passSalt;
-                if (dbSalt != null && dbSalt.Length > 0 && dbHash != null && dbHash.Length > 0)
+                Tuple<string, string> pwdAndSalt = Auth.hash(pwd, dbSalt);
+
+                if (dbHash.Equals(pwdAndSalt.Item1))
                 {
-                    string pwdWithSalt = pwd + dbSalt;
-                    byte[] hashWithSalt = hashing.ComputeHash(Encoding.UTF8.GetBytes(pwdWithSalt));
-                    string userHash = Convert.ToBase64String(hashWithSalt);
-                    if (userHash.Equals(dbHash))
-                    {
-                        Session["uid"] = user.Id;
-                        Session["success"] = "You have logged in successfully";
-                        Response.Redirect("~/Views/index.aspx");
-                    }
-                    else
-                    {
-                        Toast.error(this, "Incorrect email or password, please try again");
-                    }
+                    Session["uid"] = user.Id;
+                    Session["success"] = "You have logged in successfully";
+                    Response.Redirect("~/Views/index.aspx");
+                }
+                else
+                {
+                    Toast.error(this, "Incorrect email or password, please try again");
                 }
             }
         }

@@ -14,16 +14,13 @@ namespace Esource.Views.auth
         string currUserId = "";
         protected void Page_Load(object sender, EventArgs e)
         {
-            bool tokenValid = new User().CheckTokenValid("reset", Request.QueryString["token"].ToString());
+            currUserId = Request.QueryString["uid"].ToString();
+            bool tokenValid = new User().CheckTokenValid("reset", Request.QueryString["token"].ToString(), currUserId);
 
             if (!tokenValid)
             {
                 Session["error"] = "Token is invalid or has expired";
                 Response.Redirect("~/Views/index.aspx");
-            }
-            else
-            {
-                currUserId = Request.QueryString["uid"].ToString();
             }
         }
 

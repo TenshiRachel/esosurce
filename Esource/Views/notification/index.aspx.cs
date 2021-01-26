@@ -75,26 +75,31 @@ namespace Esource.Views.notification
             {
                 favclear.Visible = true;
                 favalert.Visible = true;
+                favErr.Visible = false;
             }
             if (follows.Items.Count > 0)
             {
                 followclear.Visible = true;
                 followalert.Visible = true;
+                followErr.Visible = false;
             }
             if (jobs.Items.Count > 0 || jobpaid.Items.Count > 0 || jobscancel.Items.Count > 0)
             {
                 jobclear.Visible = true;
                 jobalert.Visible = true;
+                jobErr.Visible = false;
             }
             if (files.Items.Count > 0)
             {
                 fileclear.Visible = true;
                 falert.Visible = true;
+                fileErr.Visible = false;
             }
             if (requests.Items.Count > 0 || reqcomplete.Items.Count > 0 || reqcancel.Items.Count > 0)
             {
                 reqclear.Visible = true;
                 ralert.Visible = true;
+                reqErr.Visible = false;
             }
         }
 
@@ -110,14 +115,6 @@ namespace Esource.Views.notification
             else
             {
                 Toast.error(this, "An error occured while removing notification");
-            }
-        }
-
-        protected void favs_ItemDataBound(object sender, RepeaterItemEventArgs e)
-        {
-            if (e.Item.ItemType == ListItemType.Footer && favs.Items.Count < 1)
-            {
-                favErr.Visible = true;
             }
         }
 
@@ -141,14 +138,6 @@ namespace Esource.Views.notification
             }
         }
 
-        protected void jobs_ItemDataBound(object sender, RepeaterItemEventArgs e)
-        {
-            if (jobs.Items.Count < 1 && jobpaid.Items.Count < 1 && jobscancel.Items.Count < 1)
-            {
-                jobErr.Visible = true;
-            }
-        }
-
         protected void files_ItemCommand(object source, RepeaterCommandEventArgs e)
         {
             if (e.CommandName == "viewprofile")
@@ -162,22 +151,6 @@ namespace Esource.Views.notification
             if (e.CommandName == "clear")
             {
                 clear(e.CommandArgument.ToString());
-            }
-        }
-
-        protected void files_ItemDataBound(object sender, RepeaterItemEventArgs e)
-        {
-            if (e.Item.ItemType == ListItemType.Footer && files.Items.Count < 1)
-            {
-                fileErr.Visible = true;
-            }
-        }
-
-        protected void requests_ItemDataBound(object sender, RepeaterItemEventArgs e)
-        {
-            if (requests.Items.Count < 1 && reqcancel.Items.Count < 1 && reqcomplete.Items.Count < 1)
-            {
-                reqErr.Visible = true;
             }
         }
 
@@ -228,14 +201,6 @@ namespace Esource.Views.notification
             if (e.CommandName == "clear")
             {
                 clear(e.CommandArgument.ToString());
-            }
-        }
-
-        protected void follows_ItemDataBound(object sender, RepeaterItemEventArgs e)
-        {
-            if (e.Item.ItemType == ListItemType.Footer && follows.Items.Count < 1)
-            {
-                followErr.Visible = true;
             }
         }
     }

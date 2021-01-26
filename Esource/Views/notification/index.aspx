@@ -55,10 +55,10 @@
                         </div>
                         <div class="text-center mt-2">
                             <h4>
-                                <asp:Label runat="server" ID="favErr" Text="No Notifications" Visible="false"></asp:Label>
+                                <asp:Label runat="server" ID="favErr" Text="No Notifications"></asp:Label>
                             </h4>
                         </div>
-                        <asp:Repeater runat="server" ID="favs" OnItemCommand="common_ItemCommand" OnItemDataBound="favs_ItemDataBound">
+                        <asp:Repeater runat="server" ID="favs" OnItemCommand="common_ItemCommand">
                             <ItemTemplate>
                                 <div id="notif<%#Eval("Id") %>" class="col-12 row justify-content-between z-depth-1 my-2">
                                     <div class="col-8 row mx-auto my-3">
@@ -92,10 +92,10 @@
                         </div>
                         <div class="text-center mt-2">
                             <h4>
-                                <asp:Label runat="server" ID="followErr" Text="No Notifications" Visible="false"></asp:Label>
+                                <asp:Label runat="server" ID="followErr" Text="No Notifications"></asp:Label>
                             </h4>
                         </div>
-                        <asp:Repeater runat="server" ID="follows" OnItemCommand="follows_ItemCommand" OnItemDataBound="follows_ItemDataBound">
+                        <asp:Repeater runat="server" ID="follows" OnItemCommand="follows_ItemCommand">
                             <ItemTemplate>
                                 <div id="notif<%#Eval("Id") %>" class="col-12 row justify-content-between z-depth-1 my-2">
                                     <div class="col-8 row mx-auto my-3">
@@ -128,10 +128,10 @@
                         </div>
                         <div class="text-center mt-2">
                             <h4>
-                                <asp:Label runat="server" ID="jobErr" Text="No Notifications" Visible="false"></asp:Label>
+                                <asp:Label runat="server" ID="jobErr" Text="No Notifications"></asp:Label>
                             </h4>
                         </div>
-                        <asp:Repeater runat="server" ID="jobs" OnItemCommand="jobs_ItemCommand" OnItemDataBound="jobs_ItemDataBound">
+                        <asp:Repeater runat="server" ID="jobs" OnItemCommand="jobs_ItemCommand">
                             <ItemTemplate>
                                 <div id="notif<%#Eval("Id") %>" class="col-12 row justify-content-between z-depth-1 my-2">
                                     <div class="col-8 row mx-auto my-3">
@@ -213,10 +213,10 @@
                         </div>
                         <div class="text-center mt-2">
                             <h4>
-                                <asp:Label runat="server" ID="fileErr" Text="No Notifications" Visible="false"></asp:Label>
+                                <asp:Label runat="server" ID="fileErr" Text="No Notifications"></asp:Label>
                             </h4>
                         </div>
-                        <asp:Repeater runat="server" ID="files" OnItemCommand="files_ItemCommand" OnItemDataBound="files_ItemDataBound">
+                        <asp:Repeater runat="server" ID="files" OnItemCommand="files_ItemCommand">
                             <ItemTemplate>
                                 <div id="notif<%#Eval("Id") %>" class="col-12 row justify-content-between z-depth-1 my-2">
                                     <div class="col-8 row mx-auto my-3">
@@ -250,10 +250,10 @@
                         </div>
                         <div class="text-center mt-2">
                             <h4>
-                                <asp:Label runat="server" ID="reqErr" Text="No Notifications" Visible="false"></asp:Label>
+                                <asp:Label runat="server" ID="reqErr" Text="No Notifications"></asp:Label>
                             </h4>
                         </div>
-                        <asp:Repeater runat="server" ID="requests" OnItemCommand="common_ItemCommand" OnItemDataBound="requests_ItemDataBound">
+                        <asp:Repeater runat="server" ID="requests" OnItemCommand="common_ItemCommand">
                             <ItemTemplate>
                                 <div id="notif<%#Eval("Id") %>" class="col-12 row justify-content-between z-depth-1 my-2">
                                     <div class="col-8 row mx-auto my-3">
