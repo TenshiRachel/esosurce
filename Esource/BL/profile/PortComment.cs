@@ -36,10 +36,10 @@ namespace Esource.BL.profile
             return result;
         }
 
-        public PortComment SelectByPid(int pid)
+        public List<PortComment> SelectByPid(int pid)
         {
-            PortComment comment = new PortCommentDAO().SelectByPid(pid);
-            return comment;
+            List<PortComment> comments = new PortCommentDAO().SelectByPid(pid);
+            return comments;
         }
     }
 }

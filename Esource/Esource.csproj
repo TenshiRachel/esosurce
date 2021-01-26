@@ -213,6 +213,7 @@
     <Content Include="Views\jobs\auth.aspx" />
     <Content Include="Views\jobs\index.aspx" />
     <Content Include="Views\notification\index.aspx" />
+    <Content Include="Views\profile\addProject.aspx" />
     <Content Include="Views\profile\edit.aspx" />
     <Content Include="Views\profile\index.aspx" />
     <Content Include="Views\profile\view.aspx" />
@@ -343,6 +344,13 @@
     </Compile>
     <Compile Include="Views\notification\index.aspx.designer.cs">
       <DependentUpon>index.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\profile\addProject.aspx.cs">
+      <DependentUpon>addProject.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\profile\addProject.aspx.designer.cs">
+      <DependentUpon>addProject.aspx</DependentUpon>
     </Compile>
     <Compile Include="Views\profile\edit.aspx.cs">
       <DependentUpon>edit.aspx</DependentUpon>

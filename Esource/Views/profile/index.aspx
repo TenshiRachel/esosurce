@@ -126,11 +126,14 @@
                                     data-toggle="tab" href="#portfolio-classic-shadow" role="tab"
                                     aria-controls="portfolio-classic-shadow" aria-selected="true">Portfolio</a>
                             </li>
+                            <%if (getCurrUser().type == "freelancer")
+                                { %>
                             <li class="nav-item">
                                 <a class="nav-link waves-light" id="services-tab-classic-shadow" data-toggle="tab"
                                     href="#services-classic-shadow" role="tab" aria-controls="services-classic-shadow"
                                     aria-selected="false">Services </a>
                             </li>
+                            <%} %>
                             <li class="nav-item">
                                 <a class="nav-link waves-light" id="status-tab-classic-shadow" data-toggle="tab"
                                     href="#status-classic-shadow" role="tab" aria-controls="status-classic-shadow"
@@ -176,6 +179,7 @@
                                                     <asp:Repeater runat="server" ID="projects" OnItemDataBound="projects_ItemDataBound">
                                                         <ItemTemplate>
                                                             <div class="col-sm-5 col-lg-4 py-0 px-1">
+                                                                <asp:HiddenField runat="server" ID="projectId" Value='<%#Eval("Id") %>' />
                                                                 <div class="portoflio-img-sm view overlay mb-1 rounded border p-0" data-toggle="modal"
                                                                     data-target="#project<%#Eval("Id") %>">
                                                                     <img loading="lazy" src="/uploads/profile/<%#Eval("uid") %>/projects/<%#Eval("Id") %>.png"
@@ -242,7 +246,7 @@
                                                                                         <asp:LinkButton CommandName="edit" runat="server" CssClass="btn btn-success justify-content-center">
                                                                                             <i class="fas fa-edit fa-lg"></i>&nbsp; Edit
                                                                                         </asp:LinkButton>
-                                                                                        <a data-toggle="modal" data-target="#confirmDelete{{id}}">
+                                                                                        <a data-toggle="modal" data-target="#confirmDelete<%#Eval("Id") %>">
                                                                                             <button type="button" class="btn btn-danger justify-content-center">
                                                                                                 <i class="fas fa-trash-alt fa-lg"></i>&nbsp; Delete
                                                                                             </button>

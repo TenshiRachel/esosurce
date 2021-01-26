@@ -28,7 +28,7 @@ namespace Esource.Views.profile
             if (Session["uid"] != null)
             {
                 LblUid.Text = Session["uid"].ToString();
-                User user = new User().SelectById(LblUid.Text);
+                User user = getCurrUser();
                 bio.InnerHtml = user.bio;
                 website.InnerHtml = user.website;
                 dob.InnerHtml = user.birthday;
@@ -94,6 +94,11 @@ namespace Esource.Views.profile
             }
         }
 
+        public User getCurrUser()
+        {
+            return new User().SelectById(LblUid.Text);
+        }
+
         protected void servList_ItemCommand(object source, RepeaterCommandEventArgs e)
         {
             if (e.CommandName == "view")
@@ -115,7 +120,7 @@ namespace Esource.Views.profile
                 string serviceId = e.CommandArgument.ToString();
                 List<BL.service.Service> service = new BL.service.Service().SelectById(serviceId);
                 BL.service.Service curr = new BL.service.Service();
-                User curruser = new User().SelectById(LblUid.Text);
+                User curruser = getCurrUser();
                 User freelancer = new User().SelectById(service[0].uid.ToString());
 
                 List<string> userfavs = new Fav().SelectUserFavs(LblUid.Text);
@@ -184,7 +189,7 @@ namespace Esource.Views.profile
                 string serviceId = e.CommandArgument.ToString();
                 List<BL.service.Service> service = new BL.service.Service().SelectById(serviceId);
                 BL.service.Service curr = new BL.service.Service();
-                User curruser = new User().SelectById(LblUid.Text);
+                User curruser = getCurrUser();
                 User freelancer = new User().SelectById(service[0].uid.ToString());
 
                 List<string> userfavs = new Fav().SelectUserFavs(LblUid.Text);
@@ -238,7 +243,18 @@ namespace Esource.Views.profile
 
         protected void projects_ItemDataBound(object sender, RepeaterItemEventArgs e)
         {
+            User currUser = getCurrUser();
+            HiddenField projIdField = e.Item.FindControl("projectId") as HiddenField;
 
+            Repeater servicerepeater = e.Item.FindControl("userServices") as Repeater;
+            List<BL.service.Service> userServices = new BL.service.Service().SelectByUid(currUser.Id.ToString());
+            servicerepeater.DataSource = userServices;
+            servicerepeater.DataBind();
+
+            Repeater commentrepeater = e.Item.FindControl("comments") as Repeater;
+            List<PortComment> comments = new PortComment().SelectByPid(int.Parse(projIdField.Value));
+            commentrepeater.DataSource = comments;
+            commentrepeater.DataBind();
         }
     }
 }

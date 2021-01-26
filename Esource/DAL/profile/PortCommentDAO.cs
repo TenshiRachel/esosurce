@@ -35,7 +35,7 @@ namespace Esource.DAL.profile
             return result;
         }
 
-        public PortComment SelectByPid(int PID)
+        public List<PortComment> SelectByPid(int PID)
         {
             string DBConnect = ConfigurationManager.ConnectionStrings["ConnStr"].ConnectionString;
             SqlConnection conn = new SqlConnection(DBConnect);
@@ -50,6 +50,7 @@ namespace Esource.DAL.profile
             int rec_cnt = ds.Tables[0].Rows.Count;
 
             PortComment obj = null;
+            List<PortComment> comments = new List<PortComment>();
             if (rec_cnt > 0)
             {
                 DataRow row = ds.Tables[0].Rows[0];
@@ -60,9 +61,11 @@ namespace Esource.DAL.profile
                 string date = row["date"].ToString();
                 int pid = int.Parse(row[""].ToString());
                 obj = new PortComment(uid, username, content, date, pid, Id);
+
+                comments.Add(obj);
             }
 
-            return obj;
+            return comments;
         }
     }
 }

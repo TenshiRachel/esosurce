@@ -65,9 +65,9 @@ namespace Esource.BL.profile
             return result;
         }
 
-        public int UpdateLikes(string likes, string uid)
+        public int UpdateLikes(int likes, string likeslist, string uid)
         {
-            int result = new PortfolioDAO().UpdateLikes(likes, uid);
+            int result = new PortfolioDAO().UpdateLikes(likes, likeslist, uid);
             return result;
         }
     }
