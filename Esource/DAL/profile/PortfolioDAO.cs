@@ -117,7 +117,7 @@ namespace Esource.DAL.profile
 
             string sqlStmt = "UPDATE Portfolio " +
                 "SET title = @paraTitle, category = @paraCategory, content = @paraContent " +
-                "WHERE id = @paraID";
+                "WHERE Id = @paraID";
 
             int result = 0;
             SqlCommand sqlCmd = new SqlCommand(sqlStmt, conn);

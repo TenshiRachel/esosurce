@@ -56,9 +56,9 @@ namespace Esource.BL.profile
             return portfolio;
         }
 
-        public int UpdatePortfolio(string title, string category, string content, string uid)
+        public int UpdatePortfolio(string title, string category, string content, string id)
         {
-            int result = new PortfolioDAO().UpdatePortfolio(title, category, content, uid);
+            int result = new PortfolioDAO().UpdatePortfolio(title, category, content, id);
             return result;
         }
 
