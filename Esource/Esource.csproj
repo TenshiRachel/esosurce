@@ -215,6 +215,7 @@
     <Content Include="Views\notification\index.aspx" />
     <Content Include="Views\profile\addProject.aspx" />
     <Content Include="Views\profile\edit.aspx" />
+    <Content Include="Views\profile\editProject.aspx" />
     <Content Include="Views\profile\index.aspx" />
     <Content Include="Views\profile\view.aspx" />
     <Content Include="Views\service\add.aspx" />
@@ -358,6 +359,13 @@
     </Compile>
     <Compile Include="Views\profile\edit.aspx.designer.cs">
       <DependentUpon>edit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\profile\editProject.aspx.cs">
+      <DependentUpon>editProject.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\profile\editProject.aspx.designer.cs">
+      <DependentUpon>editProject.aspx</DependentUpon>
     </Compile>
     <Compile Include="Views\profile\index.aspx.cs">
       <DependentUpon>index.aspx</DependentUpon>

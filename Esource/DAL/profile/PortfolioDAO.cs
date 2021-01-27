@@ -16,8 +16,8 @@ namespace Esource.DAL.profile
             string DBConnect = ConfigurationManager.ConnectionStrings["ConnStr"].ConnectionString;
             SqlConnection conn = new SqlConnection(DBConnect);
 
-            string sqlStmt = "INSERT INTO Portfolio (uid, title, category, content, datePosted, views, likes, likeslist) OUTPUT INSERTED.Id " +
-                "VALUES (@paraUID, @paraTitle, @paraCategory, @paraContent, @paraDatePosted, @paraViews, @paraLikes, @paraLikeslist)";
+            string sqlStmt = "INSERT INTO Portfolio (uid, title, category, content, datePosted, views, likes, comments, likeslist) OUTPUT INSERTED.Id " +
+                "VALUES (@paraUID, @paraTitle, @paraCategory, @paraContent, @paraDatePosted, @paraViews, @paraLikes, @paraComm, @paraLikeslist)";
 
             int result = 0;
             SqlCommand sqlCmd = new SqlCommand(sqlStmt, conn);
@@ -29,6 +29,7 @@ namespace Esource.DAL.profile
             sqlCmd.Parameters.AddWithValue("@paraDatePosted", portfolio.datePosted);
             sqlCmd.Parameters.AddWithValue("@paraViews", portfolio.views);
             sqlCmd.Parameters.AddWithValue("@paraLikes", portfolio.likes);
+            sqlCmd.Parameters.AddWithValue("@paraComm", portfolio.comments);
             sqlCmd.Parameters.AddWithValue("@paraLikeslist", portfolio.likeslist);
 
             conn.Open();
@@ -66,8 +67,9 @@ namespace Esource.DAL.profile
                 string datePosted = row["datePosted"].ToString();
                 int views = int.Parse(row["views"].ToString());
                 int likes = int.Parse(row["likes"].ToString());
+                int comments = int.Parse(row["comments"].ToString());
                 string likeslist = row["likeslist"].ToString();
-                obj = new Portfolio(uid, title, category, content, likeslist, datePosted, views, likes, id);
+                obj = new Portfolio(uid, title, category, content, likeslist, datePosted, views, likes, comments, id);
                 portfolios.Add(obj);
             }
 
@@ -100,8 +102,9 @@ namespace Esource.DAL.profile
                 string datePosted = row["datePosted"].ToString();
                 int views = int.Parse(row["views"].ToString());
                 int likes = int.Parse(row["likes"].ToString());
+                int comments = int.Parse(row["comments"].ToString());
                 string likeslist = row["likeslist"].ToString();
-                obj = new Portfolio(uid, title, category, content, likeslist, datePosted, views, likes, Id);
+                obj = new Portfolio(uid, title, category, content, likeslist, datePosted, views, likes, comments, Id);
             }
 
             return obj;
@@ -168,6 +171,28 @@ namespace Esource.DAL.profile
             sqlCmd.Parameters.AddWithValue("@paraLikes", likes);
             sqlCmd.Parameters.AddWithValue("@paraLikeslist", likeslist);
             sqlCmd.Parameters.AddWithValue("@paraID", Id);
+
+            conn.Open();
+            result = sqlCmd.ExecuteNonQuery();
+            conn.Close();
+
+            return result;
+        }
+
+        public int UpdateComm(string id, int comm)
+        {
+            string DBConnect = ConfigurationManager.ConnectionStrings["ConnStr"].ConnectionString;
+            SqlConnection conn = new SqlConnection(DBConnect);
+
+            string sqlStmt = "UPDATE Portfolio " +
+                "SET comments = @paraComm " +
+                "WHERE Id = @paraID";
+
+            int result = 0;
+            SqlCommand sqlCmd = new SqlCommand(sqlStmt, conn);
+
+            sqlCmd.Parameters.AddWithValue("@paraComm", comm);
+            sqlCmd.Parameters.AddWithValue("@paraID", id);
 
             conn.Open();
             result = sqlCmd.ExecuteNonQuery();
