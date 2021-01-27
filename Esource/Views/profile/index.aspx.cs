@@ -337,6 +337,8 @@ namespace Esource.Views.profile
                     else
                     {
                         Toast.success(this, "Comment added");
+                        Portfolio currPort = new Portfolio().SelectById(int.Parse(pid));
+                        new Portfolio().UpdateComm(pid, currPort.comments + 1);
                         Repeater commentrepeater = e.Item.FindControl("comments") as Repeater;
                         List<PortComment> comments = new PortComment().SelectByPid(int.Parse(pid));
                         commentrepeater.DataSource = comments;
