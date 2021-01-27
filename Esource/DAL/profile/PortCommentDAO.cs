@@ -59,8 +59,7 @@ namespace Esource.DAL.profile
                 string username = row["username"].ToString();
                 string content = row["content"].ToString();
                 string date = row["date"].ToString();
-                int pid = int.Parse(row[""].ToString());
-                obj = new PortComment(uid, username, content, date, pid, Id);
+                obj = new PortComment(uid, username, content, PID, date, Id);
 
                 comments.Add(obj);
             }

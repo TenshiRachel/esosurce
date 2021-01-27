@@ -66,9 +66,8 @@ namespace Esource.Views.profile
             return valid;
         }
 
-        public string storeFile(string pid)
+        public void storeFile(string pid)
         {
-            string img_path = "";
             List<string> acceptedTypes = new List<string>() {
                 "image/png",
                 "image/jpeg",
@@ -80,17 +79,17 @@ namespace Esource.Views.profile
                 string fileName = Path.GetFileName(upPoster.FileName);
                 string dirPath = Server.MapPath("~/Content/uploads/profile/" + currUserId + "/projects/");
                 Directory.CreateDirectory(dirPath);
+                if (File.Exists(dirPath + pid + ".png"))
+                {
+                    File.Delete(dirPath + pid + ".png");
+                }
                 upPoster.SaveAs(dirPath + pid + ".png");
-
-                img_path = "~/Content/uploads/profile/" + currUserId + "/projects/" + pid + ".png";
             }
 
             else
             {
                 Toast.error(this, "Only image files are accepted");
             }
-
-            return img_path;
         }
 
         protected void saveProj_Click(object sender, EventArgs e)

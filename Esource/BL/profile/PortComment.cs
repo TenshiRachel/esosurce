@@ -21,7 +21,7 @@ namespace Esource.BL.profile
 
         }
 
-        public PortComment(int uid, string username, string content, string date, int pid, int Id = -1)
+        public PortComment(int uid, string username, string content, int pid, string date = null, int Id = -1)
         {
             this.uid = uid;
             this.username = username;

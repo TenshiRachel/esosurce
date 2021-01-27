@@ -83,9 +83,17 @@ namespace Esource.Views.profile
                 {
                     noFollower.Visible = true;
                 }
-                List<Portfolio> portfolios = new Portfolio().SelectByUid(int.Parse(LblUid.Text));
-                projects.DataSource = portfolios;
-                projects.DataBind();
+                if (!Page.IsPostBack)
+                {
+                    List<Portfolio> portfolios = new Portfolio().SelectByUid(int.Parse(LblUid.Text));
+                    projects.DataSource = portfolios;
+                    projects.DataBind();
+                    if (portfolios.Count < 1)
+                    {
+                        noProj.Visible = true;
+                    }
+                }
+
             }
             else
             {
@@ -276,7 +284,7 @@ namespace Esource.Views.profile
             LblUsername.Text = currUser.username;
             LblUsername = e.Item.FindControl("formUsername") as Label;
             LblUsername.Text = currUser.username;
-
+            
             Repeater servicerepeater = e.Item.FindControl("userServices") as Repeater;
             List<BL.service.Service> userServices = new BL.service.Service().SelectByUid(currUser.Id.ToString());
             servicerepeater.DataSource = userServices;
@@ -301,6 +309,33 @@ namespace Esource.Views.profile
             if (e.CommandName == "edit")
             {
                 Response.Redirect("~/Views/profile/editProject.aspx?id=" + e.CommandArgument.ToString());
+            }
+            if (e.CommandName == "comment")
+            {
+                TextBox tbcomment = e.Item.FindControl("tbComment") as TextBox;
+                if (!string.IsNullOrEmpty(tbcomment.Text))
+                {
+                    string pid = e.CommandArgument.ToString();
+                    User user = new User().SelectById(LblUid.Text);
+                    PortComment comment = new PortComment(user.Id, user.username, tbcomment.Text, int.Parse(pid));
+                    int result = comment.AddComment();
+                    if (result == 0)
+                    {
+                        Toast.error(this, "An error occured while adding comment");
+                    }
+                    else
+                    {
+                        Toast.success(this, "Comment added");
+                        Repeater commentrepeater = e.Item.FindControl("comments") as Repeater;
+                        List<PortComment> comments = new PortComment().SelectByPid(int.Parse(pid));
+                        commentrepeater.DataSource = comments;
+                        commentrepeater.DataBind();
+                    }
+                }
+                else
+                {
+                    Toast.error(this, "Please enter a comment");
+                }
             }
         }
 

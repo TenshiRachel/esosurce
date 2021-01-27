@@ -314,91 +314,96 @@
                                                                                     <div id="commentSection" class="col-lg-8 col-sm-12 border p-4 white">
                                                                                         <h4 class="text-center">Comments </h4>
                                                                                         <hr class="hr-primary">
-                                                                                        <ul class="list-unstyled chat">
+                                                                                        <asp:UpdatePanel runat="server" UpdateMode="Conditional">
+                                                                                            <ContentTemplate>
+                                                                                                <ul class="list-unstyled chat">
 
-                                                                                            <li class="row mb-4">
+                                                                                                    <li class="row mb-4">
 
-                                                                                                <div class="col-1 pr-2">
-                                                                                                    <asp:Image runat="server" loading="lazy" ImageUrl="~/Content/img/placeholder.jpg"
-                                                                                                        CssClass="avatar white img-fluid rounded-circle accent-3 z-depth-1"
-                                                                                                        ID="modal_profilePic" />
-                                                                                                </div>
-
-                                                                                                <div class="col-11 pl-2">
-                                                                                                    <div class="chat-body rounded white p-3 z-depth-1">
-                                                                                                        <div class="header d-flex">
-                                                                                                            <div class="flex-fill text-left">
-                                                                                                                <asp:Label runat="server" CssClass="primary-font font-weight-bold"
-                                                                                                                    ID="formUsername"></asp:Label>
-                                                                                                            </div>
+                                                                                                        <div class="col-1 pr-2">
+                                                                                                            <asp:Image runat="server" loading="lazy" ImageUrl="~/Content/img/placeholder.jpg"
+                                                                                                                CssClass="avatar white img-fluid rounded-circle accent-3 z-depth-1"
+                                                                                                                ID="modal_profilePic" />
                                                                                                         </div>
 
-                                                                                                        <hr class="w-100">
+                                                                                                        <div class="col-11 pl-2">
+                                                                                                            <div class="chat-body rounded white p-3 z-depth-1">
+                                                                                                                <div class="header d-flex">
+                                                                                                                    <div class="flex-fill text-left">
+                                                                                                                        <asp:Label runat="server" CssClass="primary-font font-weight-bold"
+                                                                                                                            ID="formUsername"></asp:Label>
+                                                                                                                    </div>
+                                                                                                                </div>
+
+                                                                                                                <hr class="w-100">
 
 
-                                                                                                        <textarea class="form-control" name="commentContent"
-                                                                                                            id="commentContent<%#Eval("Id") %>" maxlength="300"></textarea>
+                                                                                                                <asp:TextBox runat="server" CssClass="form-control" name="commentContent"
+                                                                                                                    ID="tbComment" maxlength="300"></asp:TextBox>
 
 
-                                                                                                    </div>
-                                                                                                    <div class="row justify-content-end mx-auto">
-                                                                                                        <asp:LinkButton runat="server" CommandName="comment" class="btn btn-secondary" CommandArgument='<%#Eval("Id") %>'>
+                                                                                                            </div>
+                                                                                                            <div class="row justify-content-end mx-auto">
+                                                                                                                <asp:LinkButton runat="server" CommandName="comment" class="btn btn-secondary" CommandArgument='<%#Eval("Id") %>'>
                                                     Submit
                                                     Comment
-                                                                                                        </asp:LinkButton>
-                                                                                                    </div>
-                                                                                                </div>
-                                                                                            </li>
-
-                                                                                        </ul>
-
-                                                                                        <hr class="hr-primary">
-                                                                                        <div class="chat-message flex-fill">
-                                                                                            <ul class="list-unstyled chat" id="hrAfter<%#Eval("Id") %>">
-                                                                                                <asp:Repeater runat="server" ID="comments">
-                                                                                                    <ItemTemplate>
-                                                                                                        <li class="row mb-4">
-
-                                                                                                            <div class="col-1 pr-2">
-                                                                                                                <asp:Image runat="server" loading="lazy" ID="modal_othersPic" ImageUrl="~/Content/img/placeholder.jpg"
-                                                                                                                    CssClass="avatar white img-fluid rounded-circle accent-3 z-depth-1" />
+                                                                                                                </asp:LinkButton>
                                                                                                             </div>
+                                                                                                        </div>
+                                                                                                    </li>
 
-                                                                                                            <div class="col-11 pl-2">
-                                                                                                                <div class="chat-body rounded white p-3 z-depth-1">
-                                                                                                                    <div class="header d-flex">
-                                                                                                                        <div class="flex-fill text-left">
-                                                                                                                            <asp:LinkButton runat="server" CommandName="viewProfile" CommandArgument='<%#Eval("uid") %>'>
-                                                                    <strong class="primary-font"><%#Eval("username") %></strong>
-                                                                                                                            </asp:LinkButton>
-                                                                                                                        </div>
-                                                                                                                        <div class="flex-fill text-right">
-                                                                                                                            <small class="pull-right text-muted">
-                                                                                                                                <i class="far fa-clock mr-1"></i><%#Eval("date") %>
-                                                                                                                            </small>
-                                                                                                                        </div>
+                                                                                                </ul>
+
+                                                                                                <hr class="hr-primary">
+                                                                                                <div class="chat-message flex-fill">
+                                                                                                    <ul class="list-unstyled chat" id="hrAfter<%#Eval("Id") %>">
+                                                                                                        <asp:Repeater runat="server" ID="comments">
+                                                                                                            <ItemTemplate>
+                                                                                                                <li class="row mb-4">
+
+                                                                                                                    <div class="col-1 pr-2">
+                                                                                                                        <asp:Image runat="server" loading="lazy" ID="modal_othersPic" ImageUrl="~/Content/img/placeholder.jpg"
+                                                                                                                            CssClass="avatar white img-fluid rounded-circle accent-3 z-depth-1" />
                                                                                                                     </div>
 
-                                                                                                                    <hr class="w-100">
+                                                                                                                    <div class="col-11 pl-2">
+                                                                                                                        <div class="chat-body rounded white p-3 z-depth-1">
+                                                                                                                            <div class="header d-flex">
+                                                                                                                                <div class="flex-fill text-left">
+                                                                                                                                    <asp:LinkButton runat="server" CommandName="viewProfile" CommandArgument='<%#Eval("uid") %>'>
+                                                                    <strong class="primary-font"><%#Eval("username") %></strong>
+                                                                                                                                    </asp:LinkButton>
+                                                                                                                                </div>
+                                                                                                                                <div class="flex-fill text-right">
+                                                                                                                                    <small class="pull-right text-muted">
+                                                                                                                                        <i class="far fa-clock mr-1"></i><%#Eval("date") %>
+                                                                                                                                    </small>
+                                                                                                                                </div>
+                                                                                                                            </div>
 
-                                                                                                                    <p class="text-left mb-0">
-                                                                                                                        <%#Eval("content") %>
-                                                                                                                    </p>
-                                                                                                                </div>
-                                                                                                            </div>
-                                                                                                        </li>
+                                                                                                                            <hr class="w-100">
 
-                                                                                                    </ItemTemplate>
-                                                                                                </asp:Repeater>
-                                                                                            </ul>
-                                                                                        </div>
-                                                                                        <div runat="server" visible="false" id="noComments">
-                                                                                            <h5 class="text-center mb-3 text-muted">
-                                                                                                <i class="fas fa-comment-times fa-3x"></i>
-                                                                                            </h5>
-                                                                                            <h5 class="text-center text-muted">No Comments
-                                                                                            </h5>
-                                                                                        </div>
+                                                                                                                            <p class="text-left mb-0">
+                                                                                                                                <%#Eval("content") %>
+                                                                                                                            </p>
+                                                                                                                        </div>
+                                                                                                                    </div>
+                                                                                                                </li>
+
+                                                                                                            </ItemTemplate>
+                                                                                                        </asp:Repeater>
+                                                                                                    </ul>
+                                                                                                </div>
+                                                                                                <div runat="server" visible="false" id="noComments">
+                                                                                                    <h5 class="text-center mb-3 text-muted">
+                                                                                                        <i class="fas fa-comment-times fa-3x"></i>
+                                                                                                    </h5>
+                                                                                                    <h5 class="text-center text-muted">No Comments
+                                                                                                    </h5>
+                                                                                                </div>
+
+                                                                                            </ContentTemplate>
+                                                                                        </asp:UpdatePanel>
                                                                                     </div>
 
                                                                                     <div class="col-lg-3 col-sm-12 p-0">
