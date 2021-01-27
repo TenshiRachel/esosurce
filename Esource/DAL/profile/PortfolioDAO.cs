@@ -58,19 +58,22 @@ namespace Esource.DAL.profile
 
             if (rec_cnt > 0)
             {
-                DataRow row = ds.Tables[0].Rows[0];
-                int id = int.Parse(row["Id"].ToString());
-                int uid = int.Parse(row["uid"].ToString());
-                string title = row["title"].ToString();
-                string category = row["category"].ToString();
-                string content = row["content"].ToString();
-                string datePosted = row["datePosted"].ToString();
-                int views = int.Parse(row["views"].ToString());
-                int likes = int.Parse(row["likes"].ToString());
-                int comments = int.Parse(row["comments"].ToString());
-                string likeslist = row["likeslist"].ToString();
-                obj = new Portfolio(uid, title, category, content, likeslist, datePosted, views, likes, comments, id);
-                portfolios.Add(obj);
+                for (int i = 0; i < rec_cnt; i++)
+                {
+                    DataRow row = ds.Tables[0].Rows[i];
+                    int id = int.Parse(row["Id"].ToString());
+                    int uid = int.Parse(row["uid"].ToString());
+                    string title = row["title"].ToString();
+                    string category = row["category"].ToString();
+                    string content = row["content"].ToString();
+                    string datePosted = row["datePosted"].ToString();
+                    int views = int.Parse(row["views"].ToString());
+                    int likes = int.Parse(row["likes"].ToString());
+                    int comments = int.Parse(row["comments"].ToString());
+                    string likeslist = row["likeslist"].ToString();
+                    obj = new Portfolio(uid, title, category, content, likeslist, datePosted, views, likes, comments, id);
+                    portfolios.Add(obj);
+                }
             }
 
             return portfolios;
@@ -192,6 +195,25 @@ namespace Esource.DAL.profile
             SqlCommand sqlCmd = new SqlCommand(sqlStmt, conn);
 
             sqlCmd.Parameters.AddWithValue("@paraComm", comm);
+            sqlCmd.Parameters.AddWithValue("@paraID", id);
+
+            conn.Open();
+            result = sqlCmd.ExecuteNonQuery();
+            conn.Close();
+
+            return result;
+        }
+
+        public int Delete(string id)
+        {
+            string DBConnect = ConfigurationManager.ConnectionStrings["ConnStr"].ConnectionString;
+            SqlConnection conn = new SqlConnection(DBConnect);
+
+            string sqlStmt = "Delete FROM Portfolio WHERE Id = @paraID";
+
+            int result = 0;
+            SqlCommand sqlCmd = new SqlCommand(sqlStmt, conn);
+
             sqlCmd.Parameters.AddWithValue("@paraID", id);
 
             conn.Open();

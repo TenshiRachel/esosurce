@@ -79,5 +79,11 @@ namespace Esource.BL.profile
             int result = new PortfolioDAO().UpdateComm(id, comm);
             return result;
         }
+
+        public int Delete(string id)
+        {
+            int result = new PortfolioDAO().Delete(id);
+            return result;
+        }
     }
 }

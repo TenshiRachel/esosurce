@@ -251,10 +251,6 @@ namespace Esource.Views.profile
 
         protected void projects_ItemDataBound(object sender, RepeaterItemEventArgs e)
         {
-            if (projects.Items.Count < 1)
-            {
-                noProj.Visible = true;
-            }
             User currUser = getCurrUser();
             HiddenField projIdField = e.Item.FindControl("projectId") as HiddenField;
 
@@ -306,6 +302,21 @@ namespace Esource.Views.profile
 
         protected void projects_ItemCommand(object source, RepeaterCommandEventArgs e)
         {
+            if (e.CommandName == "delete")
+            {
+                int result = new Portfolio().Delete(e.CommandArgument.ToString());
+                if (result == 0)
+                {
+                    Toast.error(this, "An error occured while deleteing project");
+                }
+                else
+                {
+                    Toast.success(this, "Project deleted successfully");
+                    List<Portfolio> ports = new Portfolio().SelectByUid(int.Parse(LblUid.Text));
+                    projects.DataSource = ports;
+                    projects.DataBind();
+                }
+            }
             if (e.CommandName == "edit")
             {
                 Response.Redirect("~/Views/profile/editProject.aspx?id=" + e.CommandArgument.ToString());
