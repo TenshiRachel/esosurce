@@ -16,7 +16,7 @@ namespace Esource.DAL.profile
             string DBConnect = ConfigurationManager.ConnectionStrings["ConnStr"].ConnectionString;
             SqlConnection conn = new SqlConnection(DBConnect);
 
-            string sqlStmt = "INSERT INTO Portfolio (uid, title, category, content, datePosted, views, likes, likeslist)" +
+            string sqlStmt = "INSERT INTO Portfolio (uid, title, category, content, datePosted, views, likes, likeslist) OUTPUT INSERTED.Id " +
                 "VALUES (@paraUID, @paraTitle, @paraCategory, @paraContent, @paraDatePosted, @paraViews, @paraLikes, @paraLikeslist)";
 
             int result = 0;
@@ -32,7 +32,7 @@ namespace Esource.DAL.profile
             sqlCmd.Parameters.AddWithValue("@paraLikeslist", portfolio.likeslist);
 
             conn.Open();
-            result = sqlCmd.ExecuteNonQuery();
+            result = (int)sqlCmd.ExecuteScalar();
             conn.Close();
 
             return result;
