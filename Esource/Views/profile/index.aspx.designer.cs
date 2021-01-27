@@ -139,6 +139,15 @@ namespace Esource.Views.profile {
         protected global::System.Web.UI.WebControls.Repeater projects;
         
         /// <summary>
+        /// noProj control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl noProj;
+        
+        /// <summary>
         /// servpanel control.
         /// </summary>
         /// <remarks>

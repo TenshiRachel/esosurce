@@ -15,14 +15,16 @@ namespace Esource.BL.profile
         public string content { get; set; }
         public string datePosted { get; set; }
         public int views { get; set; }
-        public string likes { get; set; }
+        public int likes { get; set; }
+        public int comments { get; set; }
+        public string likeslist { get; set; }
 
         public Portfolio()
         {
 
         }
 
-        public Portfolio(int uid, string title, string category, string content, string likes, string datePosted = null, int views = 0, int Id = -1)
+        public Portfolio(int uid, string title, string category, string content, string likeslist, string datePosted = null, int views = 0, int likes = 0, int comments = 0, int Id = -1)
         {
             this.uid = uid;
             this.title = title;
@@ -31,6 +33,9 @@ namespace Esource.BL.profile
             this.datePosted = datePosted ?? DateTime.Today.ToString("dd/MM/yyyy");
             this.views = views;
             this.likes = likes;
+            this.comments = comments;
+            this.likeslist = likeslist;
+            this.Id = Id;
         }
 
         public int AddPortfolio()
@@ -39,10 +44,10 @@ namespace Esource.BL.profile
             return result;
         }
 
-        public Portfolio SelectByUid(int uid)
+        public List<Portfolio> SelectByUid(int uid)
         {
-            Portfolio portfolio = new PortfolioDAO().SelectByUid(uid);
-            return portfolio;
+            List<Portfolio> portfolios = new PortfolioDAO().SelectByUid(uid);
+            return portfolios;
         }
 
         public Portfolio SelectById(int ID)
@@ -51,9 +56,9 @@ namespace Esource.BL.profile
             return portfolio;
         }
 
-        public int UpdatePortfolio(string title, string category, string content, string uid)
+        public int UpdatePortfolio(string title, string category, string content, string id)
         {
-            int result = new PortfolioDAO().UpdatePortfolio(title, category, content, uid);
+            int result = new PortfolioDAO().UpdatePortfolio(title, category, content, id);
             return result;
         }
 
@@ -63,9 +68,21 @@ namespace Esource.BL.profile
             return result;
         }
 
-        public int UpdateLikes(string likes, string uid)
+        public int UpdateLikes(int likes, string likeslist, string uid)
         {
-            int result = new PortfolioDAO().UpdateLikes(likes, uid);
+            int result = new PortfolioDAO().UpdateLikes(likes, likeslist, uid);
+            return result;
+        }
+
+        public int UpdateComm(string id, int comm)
+        {
+            int result = new PortfolioDAO().UpdateComm(id, comm);
+            return result;
+        }
+
+        public int Delete(string id)
+        {
+            int result = new PortfolioDAO().Delete(id);
             return result;
         }
     }

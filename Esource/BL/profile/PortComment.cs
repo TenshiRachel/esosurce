@@ -21,7 +21,7 @@ namespace Esource.BL.profile
 
         }
 
-        public PortComment(int uid, string username, string content, string date, int pid, int Id = -1)
+        public PortComment(int uid, string username, string content, int pid, string date = null, int Id = -1)
         {
             this.uid = uid;
             this.username = username;
@@ -36,10 +36,10 @@ namespace Esource.BL.profile
             return result;
         }
 
-        public PortComment SelectByPid(int pid)
+        public List<PortComment> SelectByPid(int pid)
         {
-            PortComment comment = new PortCommentDAO().SelectByPid(pid);
-            return comment;
+            List<PortComment> comments = new PortCommentDAO().SelectByPid(pid);
+            return comments;
         }
     }
 }
