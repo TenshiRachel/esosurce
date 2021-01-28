@@ -225,12 +225,12 @@
                                                                                                     <div class="col-lg-2 col-sm-12 row justify-content-end px-0">
                                                                                                         <div class="col-lg-8 col-sm-12 align-self-center pr-0">
 
-                                                                                                            <asp:LinkButton runat="server" Visible="false" ID="unlikeButton<%#Eval("Id") %>"
+                                                                                                            <asp:LinkButton runat="server" Visible="false" ID='unlikeButton'
                                                                                                                 CssClass="btn btn-danger btn-block btn-rounded">
                                                                                                                 <i class="fas fa-heart"></i>Liked
                                                                                                             </asp:LinkButton>
 
-                                                                                                            <asp:LinkButton runat="server" ID="likeButton<%#Eval("Id") %>"
+                                                                                                            <asp:LinkButton runat="server" ID='likeButton'
                                                                                                                 CssClass="btn btn-outline-danger btn-block btn-rounded">
                                                                                                                 <i class="fas fa-heart"></i>Like
                                                                                                             </asp:LinkButton>
@@ -438,7 +438,7 @@
                                                         </div>
 
                                                         <div runat="server" visible="false" id="noProj" class="row justify-content-center">
-                                                            <h1 class="my-5 py-5">Currently no Projects</h1>
+                                                            <h1 class="my-5 py-5">This user has no Projects</h1>
                                                         </div>
                                                     </div>
                                                 </div>

@@ -105,6 +105,10 @@ namespace Esource.Views.profile
                         List<Portfolio> projs = new Portfolio().SelectByUid(int.Parse(targetUserId));
                         projects.DataSource = projs;
                         projects.DataBind();
+                        if (projs.Count < 1)
+                        {
+                            noProj.Visible = true;
+                        }
                     }
                 }
                 else
@@ -192,6 +196,7 @@ namespace Esource.Views.profile
         protected void projects_ItemDataBound(object sender, RepeaterItemEventArgs e)
         {
             User targetUser = new User().SelectById(targetUserId);
+            User currUser = new User().SelectById(currUserId);
             HiddenField projIdField = e.Item.FindControl("projectId") as HiddenField;
 
             string projectCoverUrl = "~/Content/uploads/profile/" + targetUser.Id.ToString() + "/projects/" + projIdField.Value + ".png";
@@ -205,12 +210,17 @@ namespace Esource.Views.profile
             }
 
             string profilePicUrl = "~/Content/uploads/profile/" + targetUser.Id.ToString() + "/profilePic.png";
+            string currUserPic = "~/Content/uploads/profile/" + currUser.Id.ToString() + "/profilePic.png";
             pathToFile = Server.MapPath(profilePicUrl);
             if (System.IO.File.Exists(pathToFile))
             {
                 Image profilePic = e.Item.FindControl("profilePic") as Image;
                 profilePic.ImageUrl = Page.ResolveUrl(profilePicUrl);
-                profilePic = e.Item.FindControl("modal_profilePic") as Image;
+            }
+
+            if (System.IO.File.Exists(Server.MapPath(currUserPic)))
+            {
+                Image profilePic = e.Item.FindControl("modal_profilePic") as Image;
                 profilePic.ImageUrl = Page.ResolveUrl(profilePicUrl);
             }
 
@@ -219,7 +229,7 @@ namespace Esource.Views.profile
             LblUsername = e.Item.FindControl("modal_username2") as Label;
             LblUsername.Text = targetUser.username;
             LblUsername = e.Item.FindControl("formUsername") as Label;
-            LblUsername.Text = targetUser.username;
+            LblUsername.Text = currUser.username;
 
             Repeater servicerepeater = e.Item.FindControl("userServices") as Repeater;
             List<BL.service.Service> userServices = new BL.service.Service().SelectByUid(targetUser.Id.ToString());
@@ -369,6 +379,11 @@ namespace Esource.Views.profile
         protected void followerRepeater_ItemCommand(object source, RepeaterCommandEventArgs e)
         {
             Response.Redirect("~/Views/profile/view.aspx?id=" + e.CommandArgument.ToString());
+        }
+
+        protected void userServices_ItemDataBound(object sender, RepeaterItemEventArgs e)
+        {
+
         }
     }
 }
