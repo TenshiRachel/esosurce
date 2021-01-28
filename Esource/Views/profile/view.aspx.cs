@@ -100,6 +100,12 @@ namespace Esource.Views.profile
                     {
                         noFollower.Visible = true;
                     }
+                    if (!Page.IsPostBack)
+                    {
+                        List<Portfolio> projs = new Portfolio().SelectByUid(int.Parse(targetUserId));
+                        projects.DataSource = projs;
+                        projects.DataBind();
+                    }
                 }
                 else
                 {
@@ -181,6 +187,90 @@ namespace Esource.Views.profile
             var img = e.Item.FindControl("poster") as Image;
             HiddenField path = (HiddenField)e.Item.FindControl("img_path");
             img.ImageUrl = Page.ResolveUrl(path.Value);
+        }
+
+        protected void projects_ItemDataBound(object sender, RepeaterItemEventArgs e)
+        {
+            User targetUser = new User().SelectById(targetUserId);
+            HiddenField projIdField = e.Item.FindControl("projectId") as HiddenField;
+
+            string projectCoverUrl = "~/Content/uploads/profile/" + targetUser.Id.ToString() + "/projects/" + projIdField.Value + ".png";
+            string pathToFile = Server.MapPath(projectCoverUrl);
+            if (System.IO.File.Exists(pathToFile))
+            {
+                Image projImg = e.Item.FindControl("projCover") as Image;
+                projImg.ImageUrl = Page.ResolveUrl(projectCoverUrl);
+                projImg = e.Item.FindControl("projModalCover") as Image;
+                projImg.ImageUrl = Page.ResolveUrl(projectCoverUrl);
+            }
+
+            string profilePicUrl = "~/Content/uploads/profile/" + targetUser.Id.ToString() + "/profilePic.png";
+            pathToFile = Server.MapPath(profilePicUrl);
+            if (System.IO.File.Exists(pathToFile))
+            {
+                Image profilePic = e.Item.FindControl("profilePic") as Image;
+                profilePic.ImageUrl = Page.ResolveUrl(profilePicUrl);
+                profilePic = e.Item.FindControl("modal_profilePic") as Image;
+                profilePic.ImageUrl = Page.ResolveUrl(profilePicUrl);
+            }
+
+            Label LblUsername = e.Item.FindControl("modal_username") as Label;
+            LblUsername.Text = targetUser.username;
+            LblUsername = e.Item.FindControl("modal_username2") as Label;
+            LblUsername.Text = targetUser.username;
+            LblUsername = e.Item.FindControl("formUsername") as Label;
+            LblUsername.Text = targetUser.username;
+
+            Repeater servicerepeater = e.Item.FindControl("userServices") as Repeater;
+            List<BL.service.Service> userServices = new BL.service.Service().SelectByUid(targetUser.Id.ToString());
+            servicerepeater.DataSource = userServices;
+            servicerepeater.DataBind();
+            if (userServices.Count < 1)
+            {
+                e.Item.FindControl("noService").Visible = true;
+            }
+
+            Repeater commentrepeater = e.Item.FindControl("comments") as Repeater;
+            List<PortComment> comments = new PortComment().SelectByPid(int.Parse(projIdField.Value));
+            commentrepeater.DataSource = comments;
+            commentrepeater.DataBind();
+            if (comments.Count < 1)
+            {
+                e.Item.FindControl("noComments").Visible = true;
+            }
+        }
+
+        protected void projects_ItemCommand(object source, RepeaterCommandEventArgs e)
+        {
+            if (e.CommandName == "comment")
+            {
+                TextBox tbcomment = e.Item.FindControl("tbComment") as TextBox;
+                if (!string.IsNullOrEmpty(tbcomment.Text))
+                {
+                    string pid = e.CommandArgument.ToString();
+                    User user = new User().SelectById(currUserId);
+                    PortComment comment = new PortComment(user.Id, user.username, tbcomment.Text, int.Parse(pid));
+                    int result = comment.AddComment();
+                    if (result == 0)
+                    {
+                        Toast.error(this, "An error occured while adding comment");
+                    }
+                    else
+                    {
+                        Toast.success(this, "Comment added");
+                        Portfolio currPort = new Portfolio().SelectById(int.Parse(pid));
+                        new Portfolio().UpdateComm(pid, currPort.comments + 1);
+                        Repeater commentrepeater = e.Item.FindControl("comments") as Repeater;
+                        List<PortComment> comments = new PortComment().SelectByPid(int.Parse(pid));
+                        commentrepeater.DataSource = comments;
+                        commentrepeater.DataBind();
+                    }
+                }
+                else
+                {
+                    Toast.error(this, "Please enter a comment");
+                }
+            }
         }
 
         protected void favList_ItemCommand(object source, RepeaterCommandEventArgs e)
