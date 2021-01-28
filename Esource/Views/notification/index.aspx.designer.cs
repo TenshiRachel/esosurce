@@ -58,6 +58,15 @@ namespace Esource.Views.notification {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl falert;
         
         /// <summary>
+        /// projAlert control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl projAlert;
+        
+        /// <summary>
         /// ralert control.
         /// </summary>
         /// <remarks>
@@ -191,6 +200,42 @@ namespace Esource.Views.notification {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Repeater files;
+        
+        /// <summary>
+        /// projClear control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl projClear;
+        
+        /// <summary>
+        /// projErr control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label projErr;
+        
+        /// <summary>
+        /// projects control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Repeater projects;
+        
+        /// <summary>
+        /// projLikes control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Repeater projLikes;
         
         /// <summary>
         /// reqclear control.

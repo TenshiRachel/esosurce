@@ -28,7 +28,7 @@ namespace Esource.Views.profile
             if (Session["uid"] != null)
             {
                 LblUid.Text = Session["uid"].ToString();
-                User user = new User().SelectById(LblUid.Text);
+                User user = getCurrUser();
                 bio.InnerHtml = user.bio;
                 website.InnerHtml = user.website;
                 dob.InnerHtml = user.birthday;
@@ -83,12 +83,28 @@ namespace Esource.Views.profile
                 {
                     noFollower.Visible = true;
                 }
+                if (!Page.IsPostBack)
+                {
+                    List<Portfolio> portfolios = new Portfolio().SelectByUid(int.Parse(LblUid.Text));
+                    projects.DataSource = portfolios;
+                    projects.DataBind();
+                    if (portfolios.Count < 1)
+                    {
+                        noProj.Visible = true;
+                    }
+                }
+
             }
             else
             {
                 Session["error"] = "You need to be logged in to edit your profile";
                 Response.Redirect("~/Views/index.aspx");
             }
+        }
+
+        public User getCurrUser()
+        {
+            return new User().SelectById(LblUid.Text);
         }
 
         protected void servList_ItemCommand(object source, RepeaterCommandEventArgs e)
@@ -112,7 +128,7 @@ namespace Esource.Views.profile
                 string serviceId = e.CommandArgument.ToString();
                 List<BL.service.Service> service = new BL.service.Service().SelectById(serviceId);
                 BL.service.Service curr = new BL.service.Service();
-                User curruser = new User().SelectById(LblUid.Text);
+                User curruser = getCurrUser();
                 User freelancer = new User().SelectById(service[0].uid.ToString());
 
                 List<string> userfavs = new Fav().SelectUserFavs(LblUid.Text);
@@ -181,7 +197,7 @@ namespace Esource.Views.profile
                 string serviceId = e.CommandArgument.ToString();
                 List<BL.service.Service> service = new BL.service.Service().SelectById(serviceId);
                 BL.service.Service curr = new BL.service.Service();
-                User curruser = new User().SelectById(LblUid.Text);
+                User curruser = getCurrUser();
                 User freelancer = new User().SelectById(service[0].uid.ToString());
 
                 List<string> userfavs = new Fav().SelectUserFavs(LblUid.Text);
@@ -231,6 +247,114 @@ namespace Esource.Views.profile
         protected void followerRepeater_ItemCommand(object source, RepeaterCommandEventArgs e)
         {
             Response.Redirect("~/Views/profile/view.aspx?id=" + e.CommandArgument.ToString());
+        }
+
+        protected void projects_ItemDataBound(object sender, RepeaterItemEventArgs e)
+        {
+            User currUser = getCurrUser();
+            HiddenField projIdField = e.Item.FindControl("projectId") as HiddenField;
+
+            string projectCoverUrl = "~/Content/uploads/profile/" + currUser.Id.ToString() + "/projects/" + projIdField.Value + ".png";
+            string pathToFile = Server.MapPath(projectCoverUrl);
+            if (System.IO.File.Exists(pathToFile))
+            {
+                Image projImg = e.Item.FindControl("projCover") as Image;
+                projImg.ImageUrl = Page.ResolveUrl(projectCoverUrl);
+                projImg = e.Item.FindControl("projModalCover") as Image;
+                projImg.ImageUrl = Page.ResolveUrl(projectCoverUrl);
+            }
+
+            string profilePicUrl = "~/Content/uploads/profile/" + currUser.Id.ToString() + "/profilePic.png";
+            pathToFile = Server.MapPath(profilePicUrl);
+            if (System.IO.File.Exists(pathToFile))
+            {
+                Image profilePic = e.Item.FindControl("profilePic") as Image;
+                profilePic.ImageUrl = Page.ResolveUrl(profilePicUrl);
+                profilePic = e.Item.FindControl("modal_profilePic") as Image;
+                profilePic.ImageUrl = Page.ResolveUrl(profilePicUrl);
+            }
+
+            Label LblUsername = e.Item.FindControl("modal_username") as Label;
+            LblUsername.Text = currUser.username;
+            LblUsername = e.Item.FindControl("modal_username2") as Label;
+            LblUsername.Text = currUser.username;
+            LblUsername = e.Item.FindControl("formUsername") as Label;
+            LblUsername.Text = currUser.username;
+            
+            Repeater servicerepeater = e.Item.FindControl("userServices") as Repeater;
+            List<BL.service.Service> userServices = new BL.service.Service().SelectByUid(currUser.Id.ToString());
+            servicerepeater.DataSource = userServices;
+            servicerepeater.DataBind();
+            if (userServices.Count < 1)
+            {
+                e.Item.FindControl("noService").Visible = true;
+            }
+
+            Repeater commentrepeater = e.Item.FindControl("comments") as Repeater;
+            List<PortComment> comments = new PortComment().SelectByPid(int.Parse(projIdField.Value));
+            commentrepeater.DataSource = comments;
+            commentrepeater.DataBind();
+            if (comments.Count < 1)
+            {
+                e.Item.FindControl("noComments").Visible = true;
+            }
+        }
+
+        protected void projects_ItemCommand(object source, RepeaterCommandEventArgs e)
+        {
+            if (e.CommandName == "delete")
+            {
+                int result = new Portfolio().Delete(e.CommandArgument.ToString());
+                if (result == 0)
+                {
+                    Toast.error(this, "An error occured while deleteing project");
+                }
+                else
+                {
+                    Toast.success(this, "Project deleted successfully");
+                    List<Portfolio> ports = new Portfolio().SelectByUid(int.Parse(LblUid.Text));
+                    projects.DataSource = ports;
+                    projects.DataBind();
+                }
+            }
+            if (e.CommandName == "edit")
+            {
+                Response.Redirect("~/Views/profile/editProject.aspx?id=" + e.CommandArgument.ToString());
+            }
+            if (e.CommandName == "comment")
+            {
+                TextBox tbcomment = e.Item.FindControl("tbComment") as TextBox;
+                if (!string.IsNullOrEmpty(tbcomment.Text))
+                {
+                    string pid = e.CommandArgument.ToString();
+                    User user = new User().SelectById(LblUid.Text);
+                    PortComment comment = new PortComment(user.Id, user.username, tbcomment.Text, int.Parse(pid));
+                    int result = comment.AddComment();
+                    if (result == 0)
+                    {
+                        Toast.error(this, "An error occured while adding comment");
+                    }
+                    else
+                    {
+                        Toast.success(this, "Comment added");
+                        Portfolio currPort = new Portfolio().SelectById(int.Parse(pid));
+                        new Portfolio().UpdateComm(pid, currPort.comments + 1);
+                        Repeater commentrepeater = e.Item.FindControl("comments") as Repeater;
+                        List<PortComment> comments = new PortComment().SelectByPid(int.Parse(pid));
+                        commentrepeater.DataSource = comments;
+                        commentrepeater.DataBind();
+                    }
+                }
+                else
+                {
+                    Toast.error(this, "Please enter a comment");
+                }
+            }
+        }
+
+        protected void userServices_ItemDataBound(object sender, RepeaterItemEventArgs e)
+        {
+
         }
     }
 }

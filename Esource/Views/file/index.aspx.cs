@@ -72,38 +72,46 @@ namespace Esource.Views.file
                 string fileName = Path.GetFileName(postedFile.FileName);
                 string ext = Path.GetExtension(fileName);
                 string dirPath = Server.MapPath("~/Content/uploads/files/" + currUserId + "/");
+
                 Directory.CreateDirectory(dirPath);
                 postedFile.SaveAs(dirPath + fileName);
-
-                file_path = "~/Content/uploads/files/" + currUserId + "/" + fileName;
-
-                BL.file.File file = new BL.file.File(fileName, file_path, ext, postedFile.ContentLength, int.Parse(currUserId));
-                int result = file.AddFile();
-                if (result == 0)
+                bool malware = Auth.scanFile(dirPath + fileName);
+                if (!malware)
                 {
-                    Toast.error(this, "An error occured while adding file");
-                }
-                else
-                {
-                    string newDirPath = Server.MapPath("~/Content/uploads/files/" + currUserId + "/" + result + "/");
-                    Directory.CreateDirectory(newDirPath);
-                    if (System.IO.File.Exists(dirPath + fileName))
-                    {
-                        System.IO.File.Delete(dirPath + fileName);
-                    }
-                    postedFile.SaveAs(newDirPath + fileName);
-                    result = new BL.file.File().UpdateFilePath(result.ToString(), newDirPath + fileName, fileName);
+                    file_path = "~/Content/uploads/files/" + currUserId + "/" + fileName;
+
+                    BL.file.File file = new BL.file.File(fileName, file_path, ext, postedFile.ContentLength, int.Parse(currUserId));
+                    int result = file.AddFile();
                     if (result == 0)
                     {
                         Toast.error(this, "An error occured while adding file");
                     }
                     else
                     {
-                        Toast.success(this, "File(s) uploaded successfully");
-                        List<BL.file.File> userfiles = new BL.file.File().SelectByUid(currUserId);
-                        files.DataSource = userfiles;
-                        files.DataBind();
+                        string newDirPath = Server.MapPath("~/Content/uploads/files/" + currUserId + "/" + result + "/");
+                        Directory.CreateDirectory(newDirPath);
+                        if (System.IO.File.Exists(dirPath + fileName))
+                        {
+                            System.IO.File.Delete(dirPath + fileName);
+                        }
+                        postedFile.SaveAs(newDirPath + fileName);
+                        result = new BL.file.File().UpdateFilePath(result.ToString(), newDirPath + fileName, fileName);
+                        if (result == 0)
+                        {
+                            Toast.error(this, "An error occured while adding file");
+                        }
+                        else
+                        {
+                            Toast.success(this, "File(s) uploaded successfully");
+                            List<BL.file.File> userfiles = new BL.file.File().SelectByUid(currUserId);
+                            files.DataSource = userfiles;
+                            files.DataBind();
+                        }
                     }
+                }
+                else
+                {
+                    Toast.error(this, "The file uploaded is found to contain a threat");
                 }
             }
         }

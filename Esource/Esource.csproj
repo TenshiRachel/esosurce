@@ -46,6 +46,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AvScan.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\AvScan.Core.1.0.3\lib\net452\AvScan.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="AvScan.WindowsDefender, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\AvScan.WindowsDefender.1.0.3\lib\net452\AvScan.WindowsDefender.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="GemBox.Email, Version=15.0.0.1036, Culture=neutral, PublicKeyToken=b1b72c69714d4847, processorArchitecture=MSIL">
       <HintPath>..\packages\GemBox.Email.15.0.1036\lib\net35\GemBox.Email.dll</HintPath>
     </Reference>
@@ -213,7 +221,9 @@
     <Content Include="Views\jobs\auth.aspx" />
     <Content Include="Views\jobs\index.aspx" />
     <Content Include="Views\notification\index.aspx" />
+    <Content Include="Views\profile\addProject.aspx" />
     <Content Include="Views\profile\edit.aspx" />
+    <Content Include="Views\profile\editProject.aspx" />
     <Content Include="Views\profile\index.aspx" />
     <Content Include="Views\profile\view.aspx" />
     <Content Include="Views\service\add.aspx" />
@@ -233,6 +243,8 @@
     <Compile Include="BL\jobs\Jobs.cs" />
     <Compile Include="BL\notification\Notification.cs" />
     <Compile Include="BL\profile\Follow.cs" />
+    <Compile Include="BL\profile\PortComment.cs" />
+    <Compile Include="BL\profile\Portfolio.cs" />
     <Compile Include="BL\profile\User.cs" />
     <Compile Include="BL\service\Fav.cs" />
     <Compile Include="BL\service\Service.cs" />
@@ -241,6 +253,8 @@
     <Compile Include="DAL\jobs\JobsDAO.cs" />
     <Compile Include="DAL\notification\NotificationDAO.cs" />
     <Compile Include="DAL\profile\FollowDAO.cs" />
+    <Compile Include="DAL\profile\PortCommentDAO.cs" />
+    <Compile Include="DAL\profile\PortfolioDAO.cs" />
     <Compile Include="DAL\profile\UserDAO.cs" />
     <Compile Include="DAL\service\FavDAO.cs" />
     <Compile Include="DAL\service\ServiceDAO.cs" />
@@ -340,12 +354,26 @@
     <Compile Include="Views\notification\index.aspx.designer.cs">
       <DependentUpon>index.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Views\profile\addProject.aspx.cs">
+      <DependentUpon>addProject.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\profile\addProject.aspx.designer.cs">
+      <DependentUpon>addProject.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Views\profile\edit.aspx.cs">
       <DependentUpon>edit.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Views\profile\edit.aspx.designer.cs">
       <DependentUpon>edit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\profile\editProject.aspx.cs">
+      <DependentUpon>editProject.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\profile\editProject.aspx.designer.cs">
+      <DependentUpon>editProject.aspx</DependentUpon>
     </Compile>
     <Compile Include="Views\profile\index.aspx.cs">
       <DependentUpon>index.aspx</DependentUpon>

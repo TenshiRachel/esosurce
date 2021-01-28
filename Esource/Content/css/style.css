@@ -437,7 +437,7 @@
 /*Home*/
 
 main {
-    padding-top: 10vh;
+    padding-top: 10px;
     padding-bottom: 10px;
 }
 
@@ -481,6 +481,27 @@ nav.navbar .navbar-brand {
 
 ::-webkit-scrollbar-button {
     display: none !important;
+}
+
+/*Profile*/
+
+.profile .portoflio-img-sm {
+    /* width: 32%; */
+    height: 30vh;
+}
+
+.profile .portoflio-img {
+    width: 49%;
+    height: 40vh;
+}
+
+.profile .portoflio-img-lg {
+    width: 99%;
+    height: 80vh;
+}
+
+.profile-modal .modal-dialog-project {
+    max-width: 90vw;
 }
 
 /*Services*/

@@ -5,6 +5,8 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Web;
+using AvScan.Core;
+using AvScan.WindowsDefender;
 
 namespace Esource.Utilities
 {
@@ -115,6 +117,20 @@ namespace Esource.Utilities
             random.NextBytes(buffer);
             string result = String.Concat(buffer.Select(x => x.ToString("X2")).ToArray());
             return result;
+        }
+
+        public static bool scanFile(string filePath)
+        {
+            bool malware = true;
+            string scannerLocation = @"C:\Program Files\Windows Defender\MpCmdRun.exe";
+            var scanner = new WindowsDefenderScanner(scannerLocation);
+            ScanResult result = scanner.Scan(filePath);
+            if (result.ToString() == "ThreatFound")
+            {
+                malware = false;
+            }
+
+            return malware;
         }
     }
 }
