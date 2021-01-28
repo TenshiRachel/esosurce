@@ -231,6 +231,14 @@ namespace Esource.Views.profile
             LblUsername = e.Item.FindControl("formUsername") as Label;
             LblUsername.Text = currUser.username;
 
+            Portfolio currProj = new Portfolio().SelectById(int.Parse(projIdField.Value));
+            string[] usersLiked = currProj.likeslist.Split(',');
+            if (usersLiked.Contains(currUserId))
+            {
+                e.Item.FindControl("likeButton").Visible = false;
+                e.Item.FindControl("unlikeButton").Visible = true;
+            }
+
             Repeater servicerepeater = e.Item.FindControl("userServices") as Repeater;
             List<BL.service.Service> userServices = new BL.service.Service().SelectByUid(targetUser.Id.ToString());
             servicerepeater.DataSource = userServices;
@@ -279,6 +287,41 @@ namespace Esource.Views.profile
                 else
                 {
                     Toast.error(this, "Please enter a comment");
+                }
+            }
+            if (e.CommandName == "like")
+            {
+                Portfolio currPort = new Portfolio().SelectById(int.Parse(e.CommandArgument.ToString()));
+                int result = new Portfolio().UpdateLikes(currPort.likes + 1, currPort.likeslist + currUserId + ",", currPort.Id.ToString());
+                if (result == 0)
+                {
+                    Toast.error(this, "An error occured while liking project");
+                }
+                else
+                {
+                    Toast.success(this, "Project liked");
+                    List<Portfolio> projs = new Portfolio().SelectByUid(int.Parse(targetUserId));
+                    projects.DataSource = projs;
+                    projects.DataBind();
+                }
+            }
+            if (e.CommandName == "unlike")
+            {
+                Portfolio currPort = new Portfolio().SelectById(int.Parse(e.CommandArgument.ToString()));
+                List<string> usersLiked = new List<string>(currPort.likeslist.Split(','));
+                usersLiked.Remove(currUserId);
+                string final = string.Join(",", usersLiked);
+                int result = new Portfolio().UpdateLikes(currPort.likes - 1, final, currPort.Id.ToString());
+                if (result == 0)
+                {
+                    Toast.error(this, "An error occured while unliking project");
+                }
+                else
+                {
+                    Toast.success(this, "Project unliked");
+                    List<Portfolio> projs = new Portfolio().SelectByUid(int.Parse(targetUserId));
+                    projects.DataSource = projs;
+                    projects.DataBind();
                 }
             }
         }

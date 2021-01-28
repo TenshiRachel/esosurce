@@ -225,14 +225,14 @@
                                                                                                     <div class="col-lg-2 col-sm-12 row justify-content-end px-0">
                                                                                                         <div class="col-lg-8 col-sm-12 align-self-center pr-0">
 
-                                                                                                            <asp:LinkButton runat="server" Visible="false" ID='unlikeButton'
+                                                                                                            <asp:LinkButton runat="server" Visible="false" ID='unlikeButton' CommandName="unlike" CommandArgument='<%#Eval("Id") %>'
                                                                                                                 CssClass="btn btn-danger btn-block btn-rounded">
-                                                                                                                <i class="fas fa-heart"></i>Liked
+                                                                                                                <i class="fas fa-heart mr-2"></i>Liked
                                                                                                             </asp:LinkButton>
 
-                                                                                                            <asp:LinkButton runat="server" ID='likeButton'
+                                                                                                            <asp:LinkButton runat="server" ID='likeButton' CommandName="like" CommandArgument='<%#Eval("Id") %>'
                                                                                                                 CssClass="btn btn-outline-danger btn-block btn-rounded">
-                                                                                                                <i class="fas fa-heart"></i>Like
+                                                                                                                <i class="fas fa-heart mr-2"></i>Like
                                                                                                             </asp:LinkButton>
                                                                                                             <button type="button" class="close m-2" data-dismiss="modal" style="padding: 0 0 0 1rem !important;" aria-label="Close">
                                                                                                                 <span aria-hidden="true">&times;</span>
