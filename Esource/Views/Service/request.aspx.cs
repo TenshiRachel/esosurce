@@ -33,7 +33,7 @@ namespace Esource.Views.service
                 if (Session["authenticated"] == null && !string.IsNullOrEmpty(curruser.jobPin))
                 {
                     Session["error"] = "Please enter your Job PIN to view jobs";
-                    Response.Redirect("~/Views/service/request.aspx");                 
+                    Response.Redirect("~/Views/jobs/auth.aspx");                 
                 }
                 Session["authenticated"] = null;
                 if (curruser.type == "client")

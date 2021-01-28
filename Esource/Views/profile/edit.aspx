@@ -4,6 +4,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <section class="edit-profile">
+        <asp:ScriptManager runat="server"></asp:ScriptManager>
         <asp:Label runat="server" ID="LblUid" Visible="false"></asp:Label>
         <div class="col-12 card p-2 rounded-bottom-0 mb-4">
             <h1 class="col-12 text-center">Edit Profile </h1>
@@ -151,18 +152,14 @@
                 <div class="card z-depth-2 pt-2">
                     <div class="card-body">
                         <h5 class="text-center">Set a custom PIN number for your job/request (Optional)</h5>
-                        <div class="md-form md-outline">
-                            <input type="password" maxlength="6" runat="server" class="form-control w-25" id="jobpin" />
-                            <label for="jobpin" class="text-left">Job PIN</label>
-                        </div>
                         <asp:LinkButton runat="server" ID="btn_removePIN" CssClass="btn btn-danger text-left" OnClick="btn_removePIN_Click">
                             <i class="fas fa-unlock-alt"></i>
                             Remove PIN
                         </asp:LinkButton>
-                        <asp:LinkButton runat="server" ID="btn_PIN" CssClass="btn btn-success text-right" OnClick="btn_PIN_Click">
+                        <a class="btn btn-success text-right" data-tooltip="tooltip" data-placement="top" title="Delete" data-backdrop="false" data-toggle="modal" data-target="#changepinmodal">
                             <i class="fas fa-lock"></i>
                             Set PIN
-                        </asp:LinkButton>
+                        </a>
                     </div>
                 </div>
 
@@ -252,24 +249,38 @@
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-        <div class="modal fade" id="confirm{{id}}" tabindex="-1" role="dialog" aria-labelledby="label" aria-hidden="true">
+                <div class="modal fade" id="changepinmodal" tabindex="-1" role="dialog" data-backdrop="false"
+                    aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <asp:UpdatePanel runat="server">
+                            <ContentTemplate>
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">Please enter password and desired PIN number to set PIN</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body text-center">
+                                        <div class="md-form md-outline">
+                                            <input type="password" maxlength="6" runat="server" class="form-control w-50" id="jobpin" />
+                                            <label for="jobpin" class="text-left">Job PIN</label>
+                                        </div>
+                                        <div class="md-form md-outline">
+                                            <input runat="server" id="tbcfmpin" type="password" class="form-control" />
+                                            <label for="tbcfmpin">Password</label>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">Cancel</button>
+                                        <asp:LinkButton runat="server" ID="btn_PIN" CssClass="btn btn-sm btn-success text-right" OnClick="btn_PIN_Click">
+                            Confirm
+                                        </asp:LinkButton>
+                                    </div>
+                                </div>
 
-            <!-- Change class .modal-sm to change the size of the modal -->
-            <div class="modal-dialog modal-sm" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title w-100" id="label">Confirm Delete?</h4>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="my-2 row justify-content-around mx-auto col-12">
-                        <a type="button" class="btn btn-danger" href="./edit/{{user.id}}">Yes
-                        </a>
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-
+                            </ContentTemplate>
+                        </asp:UpdatePanel>
                     </div>
                 </div>
             </div>

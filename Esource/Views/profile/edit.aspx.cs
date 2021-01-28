@@ -88,15 +88,23 @@ namespace Esource.Views.profile
             else
             {
                 User user = new User().SelectById(LblUid.Text);
-                int result = new User().UpdateJobPin(LblUid.Text, Auth.encrypt(jobpin.Value, Convert.FromBase64String(user.IV)));
-                if (result == 0)
+                Tuple<string, string> enteredhash = Auth.hash(tbcfmpin.Value, user.passSalt);
+                if (enteredhash.Item1 == user.password)
                 {
-                    Toast.error(this, "An error occured while setting PIN");
+                    int result = new User().UpdateJobPin(LblUid.Text, Auth.encrypt(jobpin.Value, Convert.FromBase64String(user.IV)));
+                    if (result == 0)
+                    {
+                        Toast.error(this, "An error occured while setting PIN");
+                    }
+                    else
+                    {
+                        Session["success"] = "Job/Request PIN set successfully";
+                        Response.Redirect("~/Views/profile/index.aspx");
+                    }
                 }
                 else
                 {
-                    Session["success"] = "Job/Request PIN set successfully";
-                    Response.Redirect("~/Views/profile/index.aspx");
+                    Toast.error(this, "Incorrect password, please try again");
                 }
             }
             
