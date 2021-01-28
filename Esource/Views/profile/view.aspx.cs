@@ -278,6 +278,11 @@ namespace Esource.Views.profile
                         Toast.success(this, "Comment added");
                         Portfolio currPort = new Portfolio().SelectById(int.Parse(pid));
                         new Portfolio().UpdateComm(pid, currPort.comments + 1);
+                        if (currPort.uid.ToString() != currUserId)
+                        {
+                            Notification notif = new Notification(int.Parse(currUserId), user.username, int.Parse(pid), currPort.title, targetUserId, "project");
+                            notif.AddNotif();
+                        }
                         Repeater commentrepeater = e.Item.FindControl("comments") as Repeater;
                         List<PortComment> comments = new PortComment().SelectByPid(int.Parse(pid));
                         commentrepeater.DataSource = comments;
@@ -292,6 +297,7 @@ namespace Esource.Views.profile
             if (e.CommandName == "like")
             {
                 Portfolio currPort = new Portfolio().SelectById(int.Parse(e.CommandArgument.ToString()));
+                User currUser = new User().SelectById(currUserId);
                 int result = new Portfolio().UpdateLikes(currPort.likes + 1, currPort.likeslist + currUserId + ",", currPort.Id.ToString());
                 if (result == 0)
                 {
@@ -300,6 +306,8 @@ namespace Esource.Views.profile
                 else
                 {
                     Toast.success(this, "Project liked");
+                    Notification notif = new Notification(int.Parse(currUserId), currUser.username, currPort.Id, currPort.title, targetUserId, "project_like");
+                    notif.AddNotif();
                     List<Portfolio> projs = new Portfolio().SelectByUid(int.Parse(targetUserId));
                     projects.DataSource = projs;
                     projects.DataBind();
