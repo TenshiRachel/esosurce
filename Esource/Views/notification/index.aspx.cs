@@ -67,6 +67,12 @@ namespace Esource.Views.notification
             notiflist = notif.UserNotifs(LblUid.Value, "complete");
             reqcomplete.DataSource = notiflist;
             reqcomplete.DataBind();
+            notiflist = notif.UserNotifs(LblUid.Value, "project");
+            projects.DataSource = notiflist;
+            projects.DataBind();
+            notiflist = notif.UserNotifs(LblUid.Value, "project_like");
+            projLikes.DataSource = notiflist;
+            projLikes.DataBind();
         }
 
         public void showContent()
@@ -100,6 +106,12 @@ namespace Esource.Views.notification
                 reqclear.Visible = true;
                 ralert.Visible = true;
                 reqErr.Visible = false;
+            }
+            if (projects.Items.Count > 0 || projLikes.Items.Count > 0)
+            {
+                projClear.Visible = true;
+                projAlert.Visible = true;
+                projErr.Visible = false;
             }
         }
 
@@ -185,6 +197,10 @@ namespace Esource.Views.notification
             if (e.CommandName == "viewservice")
             {
                 Response.Redirect("~/Views/service/index.aspx?id=" + e.CommandArgument.ToString());
+            }
+            if (e.CommandName == "viewproject")
+            {
+                Response.Redirect("~/Views/profile/index.aspx#viewproject" + e.CommandArgument.ToString());
             }
             if (e.CommandName == "clear")
             {

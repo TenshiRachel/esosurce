@@ -165,7 +165,7 @@ namespace Esource.DAL.profile
             SqlConnection conn = new SqlConnection(DBConnect);
 
             string sqlStmt = "UPDATE Portfolio " +
-                "SET likes = @paraLikes AND likeslist = @paraLikeslist " +
+                "SET likes = @paraLikes, likeslist = @paraLikeslist " +
                 "WHERE Id = @paraID";
 
             int result = 0;

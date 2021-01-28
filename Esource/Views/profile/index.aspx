@@ -178,7 +178,7 @@
                                                                 <ItemTemplate>
                                                                     <div class="col-sm-5 col-lg-4 py-0 px-1">
                                                                         <asp:HiddenField runat="server" ID="projectId" Value='<%#Eval("Id") %>' />
-                                                                        <div class="portoflio-img-sm view overlay mb-1 rounded border p-0" data-toggle="modal" data-backdrop="false"
+                                                                        <div class="portoflio-img-sm view overlay mb-1 rounded border p-0" data-toggle="modal"
                                                                             data-target="#project<%#Eval("Id") %>">
                                                                             <asp:Image runat="server" ID="projCover" ImageUrl="~/Content/img/placeholder.jpg" CssClass="h-100 mx-auto d-block" />
 
@@ -205,9 +205,9 @@
                                                                         <ContentTemplate>
                                                                             <section class="profile-modal">
                                                                                 <div class="modal fade project" id="project<%#Eval("Id") %>" tabindex="-1" role="dialog" aria-labelledby="project<%#Eval("Id") %>Label"
-                                                                                    aria-hidden="true">
+                                                                                    aria-hidden="true" data-backdrop="false">
 
-                                                                                    <div class="modal-dialog-project modal-dialog modal-dialog-centered" role="document">
+                                                                                    <div class="modal-dialog-project modal-dialog" role="document">
                                                                                         <div class="modal-content mt-5 p-0">
 
                                                                                             <div class="modal-header">
