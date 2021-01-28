@@ -25,14 +25,17 @@ namespace Esource.Views.jobs
                 Response.Redirect("~/Views/index.aspx");
             }
             currUserId = Session["uid"].ToString();
-            User user = new User().SelectById(currUserId);
-            if (string.IsNullOrEmpty(user.jobPin))
+            if (!Page.IsPostBack)
             {
-                if (user.type == "client")
+                User user = new User().SelectById(currUserId);
+                if (string.IsNullOrEmpty(user.jobPin))
                 {
-                    Response.Redirect("~/Views/service/request.aspx");
+                    if (user.type == "client")
+                    {
+                        Response.Redirect("~/Views/service/request.aspx");
+                    }
+                    Response.Redirect("~/Views/jobs/index.aspx");
                 }
-                Response.Redirect("~/Views/jobs/index.aspx");
             }
         }
         protected void enterPIN_Click(object sender, EventArgs e)
@@ -41,11 +44,13 @@ namespace Esource.Views.jobs
             if (user.jobPin == jobPin.Value)
             {
                 Session["success"] = "PIN accepted";
+                Session["authenticated"] = "1";
                 if (user.type == "client")
                 {
                     Response.Redirect("~/Views/service/request.aspx");
-                }
-                Response.Redirect("~/Views/jobs/index.aspx");
+                }                
+                    Response.Redirect("~/Views/jobs/index.aspx");
+                
             }
             else
             {

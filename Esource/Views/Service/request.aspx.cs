@@ -25,10 +25,17 @@ namespace Esource.Views.service
                 Toast.success(this, Session["success"].ToString());
                 Session["success"] = null;
             }
+            
             if (Session["uid"] != null)
             {
                 LblUid.Value = Session["uid"].ToString();
                 User curruser = new User().SelectById(LblUid.Value);
+                if (Session["authenticated"] == null && !string.IsNullOrEmpty(curruser.jobPin))
+                {
+                    Session["error"] = "Please enter your Job PIN to view jobs";
+                    Response.Redirect("~/Views/service/request.aspx");                 
+                }
+                Session["authenticated"] = null;
                 if (curruser.type == "client")
                 {
                     List<Jobs> jobs = new Jobs().SelectByCid(LblUid.Value);

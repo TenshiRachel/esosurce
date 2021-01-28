@@ -29,11 +29,11 @@ namespace Esource.Views.jobs
                     Session["error"] = "You need to be a service provider to view jobs";
                     Response.Redirect("~/Views/index.aspx");
                 }
-                if (!string.IsNullOrEmpty(user.jobPin))
-                {
+                if(Session["authenticated"] == null && !string.IsNullOrEmpty(user.jobPin)) {           
                     Session["error"] = "Please enter your Job PIN to view jobs";
                     Response.Redirect("~/Views/jobs/auth.aspx");
                 }
+                Session["authenticated"] = null;
                 if (!Page.IsPostBack)
                 {
                     bind();
