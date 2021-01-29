@@ -47,6 +47,15 @@ namespace Esource.Views.profile
                 Session["error"] = "You need to be logged in to edit your profile";
                 Response.Redirect("~/Views/index.aspx");
             }
+
+            if (string.IsNullOrEmpty(jobpin.Value))
+            {
+                btn_removePIN.Visible = false;
+            }
+            else
+            {
+                setPinModalLauncher.InnerHtml = "Change PIN";
+            }
         }
 
         public string UpdateSocial(string twitter, string instagram, string facebook, string youtube, string deviantart)

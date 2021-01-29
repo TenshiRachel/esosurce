@@ -158,7 +158,7 @@
                         </asp:LinkButton>
                         <a class="btn btn-success text-right" data-tooltip="tooltip" data-placement="top" title="Delete" data-backdrop="false" data-toggle="modal" data-target="#changepinmodal">
                             <i class="fas fa-lock"></i>
-                            Set PIN
+                            <span runat="server" id="setPinModalLauncher">Set PIN</span>
                         </a>
                     </div>
                 </div>
