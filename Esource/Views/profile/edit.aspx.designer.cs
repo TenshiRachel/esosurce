@@ -130,13 +130,13 @@ namespace Esource.Views.profile {
         protected global::System.Web.UI.HtmlControls.HtmlInputGenericControl deviantart;
         
         /// <summary>
-        /// btn_removePIN control.
+        /// removepinmodallaucher control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton btn_removePIN;
+        protected global::System.Web.UI.HtmlControls.HtmlAnchor removepinmodallaucher;
         
         /// <summary>
         /// setPinModalLauncher control.
@@ -191,5 +191,23 @@ namespace Esource.Views.profile {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton btn_PIN;
+        
+        /// <summary>
+        /// tbremove control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputPassword tbremove;
+        
+        /// <summary>
+        /// btnremove control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton btnremove;
     }
 }

@@ -50,7 +50,7 @@ namespace Esource.Views.profile
 
             if (string.IsNullOrEmpty(jobpin.Value))
             {
-                btn_removePIN.Visible = false;
+                removepinmodallaucher.Visible = false;
             }
             else
             {
@@ -119,17 +119,22 @@ namespace Esource.Views.profile
             
         }
 
-        protected void btn_removePIN_Click(object sender, EventArgs e)
+        protected void btnremove_Click(object sender, EventArgs e)
         {
-            int result = new User().UpdateJobPin(LblUid.Text, "");
-            if (result == 0)
+            User user = new User().SelectById(LblUid.Text);
+            Tuple<string, string> enteredhash = Auth.hash(tbremove.Value, user.passSalt);
+            if (enteredhash.Item1 == user.password)
             {
-                Toast.error(this, "An error occured while removing PIN");
-            }
-            else
-            {
-                Session["success"] = "PIN removed successfully";
-                Response.Redirect("~/Views/profile/index.aspx");
+                int result = new User().UpdateJobPin(LblUid.Text, "");
+                if (result == 0)
+                {
+                    Toast.error(this, "An error occured while removing PIN");
+                }
+                else
+                {
+                    Session["success"] = "PIN removed successfully";
+                    Response.Redirect("~/Views/profile/index.aspx");
+                }
             }
         }
     }

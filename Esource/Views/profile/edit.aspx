@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Masters/index.Master" AutoEventWireup="true" CodeBehind="edit.aspx.cs" Inherits="Esource.Views.profile.edit" %>
+﻿ <%@ Page Title="" Language="C#" MasterPageFile="~/Views/Masters/index.Master" AutoEventWireup="true" CodeBehind="edit.aspx.cs" Inherits="Esource.Views.profile.edit" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
@@ -152,10 +152,10 @@
                 <div class="card z-depth-2 pt-2">
                     <div class="card-body">
                         <h5 class="text-center">Set a custom PIN number for your job/request (Optional)</h5>
-                        <asp:LinkButton runat="server" ID="btn_removePIN" CssClass="btn btn-danger text-left" OnClick="btn_removePIN_Click">
+                        <a runat="server" id="removepinmodallaucher" class="btn btn-danger text-right" data-tooltip="tooltip" data-placement="top" title="Delete" data-backdrop="false" data-toggle="modal" data-target="#removepinmodal">
                             <i class="fas fa-unlock-alt"></i>
                             Remove PIN
-                        </asp:LinkButton>
+                        </a>
                         <a class="btn btn-success text-right" data-tooltip="tooltip" data-placement="top" title="Delete" data-backdrop="false" data-toggle="modal" data-target="#changepinmodal">
                             <i class="fas fa-lock"></i>
                             <span runat="server" id="setPinModalLauncher">Set PIN</span>
@@ -274,6 +274,36 @@
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">Cancel</button>
                                         <asp:LinkButton runat="server" ID="btn_PIN" CssClass="btn btn-sm btn-success text-right" OnClick="btn_PIN_Click">
+                            Confirm
+                                        </asp:LinkButton>
+                                    </div>
+                                </div>
+
+                            </ContentTemplate>
+                        </asp:UpdatePanel>
+                    </div>
+                </div>
+                <div class="modal fade" id="removepinmodal" tabindex="-1" role="dialog" data-backdrop="false"
+                    aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <asp:UpdatePanel runat="server">
+                            <ContentTemplate>
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">Please enter password to remove your PIN</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body text-center">
+                                        <div class="md-form md-outline">
+                                            <input runat="server" id="tbremove" type="password" class="form-control" />
+                                            <label for="tbremove">Password</label>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">Cancel</button>
+                                        <asp:LinkButton runat="server" ID="btnremove" CssClass="btn btn-sm btn-success text-right" OnClick="btnremove_Click">
                             Confirm
                                         </asp:LinkButton>
                                     </div>
