@@ -516,6 +516,10 @@ nav.navbar .navbar-brand {
     overflow: hidden;
 }
 
+.edit-profile .card .avatar > img{
+    width: 100%;
+    overflow: hidden;
+}
 
 .profile .jarallax {
     min-height: 300px
