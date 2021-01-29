@@ -22,6 +22,42 @@ namespace Esource.Views.profile {
         protected global::System.Web.UI.WebControls.Label LblUid;
         
         /// <summary>
+        /// bannerePic control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Image bannerePic;
+        
+        /// <summary>
+        /// upload_banner control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.FileUpload upload_banner;
+        
+        /// <summary>
+        /// profilePic control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Image profilePic;
+        
+        /// <summary>
+        /// upload_image control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.FileUpload upload_image;
+        
+        /// <summary>
         /// currUsername control.
         /// </summary>
         /// <remarks>

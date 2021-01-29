@@ -504,6 +504,34 @@ nav.navbar .navbar-brand {
     max-width: 90vw;
 }
 
+.profile .avatar,
+.edit-profile .card .avatar{
+    z-index: 1020;
+}
+
+.profile .card .avatar,
+.edit-profile .card .avatar{
+    display: block;
+    margin-top: -8%;
+    overflow: hidden;
+}
+
+
+.profile .jarallax {
+    min-height: 300px
+}
+
+.profile .jarallax > .jarallax-img {
+    position: absolute;
+    object-fit: cover;
+    font-family: 'object-fit: cover;';
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
 /*Services*/
 
 .services .row {
@@ -591,7 +619,8 @@ nav.navbar .navbar-brand {
     z-index: 2;
 }
 
-.card .avatar{
+.services .card .avatar,
+.manage .card .avatar{
     border-radius: 50%;
     width: 24px;
     height: 24px;

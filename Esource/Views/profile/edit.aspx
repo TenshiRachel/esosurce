@@ -16,14 +16,11 @@
                 <div class="card testimonial-card z-depth-2 py-0 mb-5">
                     <h3 class="card-title text-center">Banner</h3>
                     <div class="card testimonial-card z-depth-2 pt-2 jarallax view overlay rounded-bottom">
-                        <img loading="lazy" id="bannerePic" class="img-fluid jarallax-img  h-100"
-                            onerror='this.src="/img/profile/banner.png"' src="/uploads/profile/{{user.id}}/banner.png"
-                            alt="">
+                        <asp:Image runat="server" ImageUrl="~/Content/img/placeholder.jpg" loading="lazy" id="bannerePic" CssClass="img-fluid jarallax-img  h-100" />
                         <div id="inputBorder" class="mask flex-center waves-effect waves-light rgba-black-strong">
                             <h3 class="text-white">Change Banner</h3>
                         </div>
-                        <input type="file" class="d-none" name="upload_banner" id="upload_banner">
-                        <input type="hidden" name="bannerString" id="bannerString">
+                        <asp:FileUpload runat="server" CssClass="d-none" name="upload_banner" ID="upload_banner" />
                     </div>
                 </div>
             </div>
@@ -33,15 +30,12 @@
                 <!-- Card -->
                 <div class="card testimonial-card z-depth-2 pt-2 mb-5">
                     <!-- Avatar -->
-                    <div class="avatar mx-auto white mt-4 view overlay">
-                        <img loading="lazy" onerror='this.src = "/img/profile/default.png"'
-                            src="/uploads/profile/{{user.id}}/profilePic.png" id="profilePic" class="rounded-circle "
-                            alt="">
+                    <div class="avatar mx-auto mt-4 view overlay">
+                        <asp:Image loading="lazy" runat="server" ImageUrl="~/Content/img/placeholder.jpg" id="profilePic" CssClass="rounded-circle " />
                         <div id="inputImg" class="mask flex-center waves-effect waves-light rgba-black-strong">
                             <small class="text-white">Change Image</small>
                         </div>
-                        <input type="file" class="d-none" name="upload_image" id="upload_image">
-                        <input type="hidden" name="imgString" id="imgString">
+                        <asp:FileUpload runat="server" CssClass="d-none" name="upload_image" ID="upload_image" />
                     </div>
                     <!-- Content -->
                     <div class="card-body">
@@ -316,4 +310,5 @@
             </div>
         </div>
     </section>
+    <script type="text/javascript" src="<%=Page.ResolveUrl("~/Scripts/profile.js") %>"></script>
 </asp:Content>
