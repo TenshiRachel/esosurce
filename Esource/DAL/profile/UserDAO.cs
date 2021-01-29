@@ -326,12 +326,20 @@ namespace Esource.DAL.profile
                 DataRow row = ds.Tables[0].Rows[0];
                 long currDate = DateTime.Now.Ticks;
                 long exprDate = 0;
+                string resetToken = "";
+                string paymentToken = "";
                 byte[] IV = Convert.FromBase64String(row["IV"].ToString());
 
                 string encryptedReset = row["resetToken"].ToString();
-                string resetToken = Auth.decrypt(Convert.FromBase64String(encryptedReset), IV);
+                if (!string.IsNullOrEmpty(encryptedReset))
+                {
+                    resetToken = Auth.decrypt(Convert.FromBase64String(encryptedReset), IV);
+                }
                 string encryptedPayment = row["paymentToken"].ToString();
-                string paymentToken = Auth.decrypt(Convert.FromBase64String(encryptedPayment), IV);
+                if (!string.IsNullOrEmpty(encryptedPayment))
+                {
+                    paymentToken = Auth.decrypt(Convert.FromBase64String(encryptedPayment), IV);
+                }
 
                 if (type == "reset" && token == resetToken)
                 {
