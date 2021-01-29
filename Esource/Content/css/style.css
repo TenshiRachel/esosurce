@@ -516,7 +516,8 @@ nav.navbar .navbar-brand {
     overflow: hidden;
 }
 
-.edit-profile .card .avatar > img{
+.edit-profile .card .avatar > img,
+.profile .card .avatar > img{
     width: 100%;
     overflow: hidden;
 }
@@ -526,14 +527,18 @@ nav.navbar .navbar-brand {
 }
 
 .profile .jarallax > .jarallax-img {
-    position: absolute;
     object-fit: cover;
     font-family: 'object-fit: cover;';
     top: 0;
     left: 0;
+    max-height: 400px;
     width: 100%;
     height: 100%;
     z-index: -1;
+}
+
+#socialmedias {
+    background-color: rgba(0, 0, 0, .7);
 }
 
 /*Services*/

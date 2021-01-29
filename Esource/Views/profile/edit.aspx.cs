@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Esource.Utilities;
+using System.IO;
 
 namespace Esource.Views.profile
 {
@@ -21,13 +22,25 @@ namespace Esource.Views.profile
                 if (!Page.IsPostBack)
                 {
                     bio.Value = user.bio;
-                    website.Value = user.website;
+                    if (user.website != "Not Set")
+                    {
+                        website.Value = user.website;
+                    }
                     dob.Value = user.birthday;
                     gender.Value = user.gender;
                     location.Value = user.location;
                     occupation.Value = user.occupation;
                     jobpin.Value = user.jobPin;
                     currUsername.InnerHtml = user.username;
+                    string userDirPath = "~/Content/uploads/profile/" + LblUid.Text + "/";
+                    if (File.Exists(Server.MapPath(userDirPath) + "banner.png"))
+                    {
+                        bannerePic.ImageUrl = Page.ResolveUrl(userDirPath + "banner.png");
+                    }
+                    if (File.Exists(Server.MapPath(userDirPath) + "profilePic.png"))
+                    {
+                        profilePic.ImageUrl = Page.ResolveUrl(userDirPath + "profilePic.png");
+                    }
                     if (socialList.Any())
                     {
                         twitter.Value = socialList[0];
@@ -64,12 +77,48 @@ namespace Esource.Views.profile
             return social;
         }
 
+        public void storeFile(FileUpload fileUpload)
+        {
+            List<string> acceptedTypes = new List<string>() {
+                "image/png",
+                "image/jpeg",
+                "image/jpg"
+            };
+            if (acceptedTypes.Contains(fileUpload.PostedFile.ContentType))
+            {
+                string dirPath = Server.MapPath("~/Content/uploads/profile/" + LblUid.Text + "/");
+                Directory.CreateDirectory(dirPath);
+                string imgPath = dirPath + "banner.png";
+                if (fileUpload.ID == "upload_image")
+                {
+                    imgPath = dirPath + "profilePic.png";
+                }
+                if (File.Exists(imgPath))
+                {
+                    File.Delete(imgPath);
+                }
+                fileUpload.SaveAs(imgPath);
+            }
+            else
+            {
+                Toast.error(this, "Only images files are accepted");
+            }
+        }
+
         protected void updateProfile_Click(object sender, EventArgs e)
         {
             string social = UpdateSocial(twitter.Value, instagram.Value, facebook.Value, youtube.Value, deviantart.Value);
             int result = new User().UpdateUser(LblUid.Text, bio.Value, "", website.Value, dob.Value, gender.Value, location.Value, occupation.Value, social);
             if (result == 1)
             {
+                if (upload_banner.HasFile)
+                {
+                    storeFile(upload_banner);
+                }
+                if (upload_image.HasFile)
+                {
+                    storeFile(upload_image);
+                }
                 Session["success"] = "Your profile changes have been saved successfully";
                 Response.Redirect("~/Views/profile/index.aspx");
             }

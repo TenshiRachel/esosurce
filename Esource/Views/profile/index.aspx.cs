@@ -8,6 +8,7 @@ using System.Web.UI.WebControls;
 using Esource.BL.service;
 using Esource.BL.notification;
 using Esource.Utilities;
+using System.IO;
 
 namespace Esource.Views.profile
 {
@@ -37,14 +38,27 @@ namespace Esource.Views.profile
                 occupation.InnerHtml = user.occupation;
                 email.InnerHtml = user.email;
                 currUsername.InnerHtml = user.username;
+
                 if (user.type == "client")
                 {
                     usertype.InnerHtml = "Client";
                 }
+
+                string dirPath = "~/Content/uploads/profile/" + LblUid.Text + "/";
+                if (File.Exists(Server.MapPath(dirPath) + "banner.png"))
+                {
+                    userBanner.ImageUrl = Page.ResolveUrl(dirPath + "banner.png");
+                }
+                if (File.Exists(Server.MapPath(dirPath) + "profilePic.png"))
+                {
+                    userProfilePic.ImageUrl = Page.ResolveUrl(dirPath + "profilePic.png");
+                }
+
                 followers.InnerHtml = user.followers.ToString();
                 following.InnerHtml = user.following.ToString();
                 followerTitle.InnerHtml = user.username + "'s followers";
                 followingTitle.InnerHtml = user.username + "'s following";
+
                 List<string> userFavs = new Fav().SelectUserFavs(LblUid.Text);
                 List<BL.service.Service> servFavs = new List<BL.service.Service>();
                 foreach(string favs in  userFavs)

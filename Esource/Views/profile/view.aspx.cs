@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -46,14 +47,26 @@ namespace Esource.Views.profile
                     occupation.InnerHtml = user.occupation;
                     email.InnerHtml = user.email;
                     viewUsername.InnerHtml = user.username;
+
                     if (user.type == "client")
                     {
                         viewUsertype.InnerHtml = "Client";
                     }
+                    string dirPath = "~/Content/uploads/profile/" + targetUserId + "/";
+                    if (File.Exists(Server.MapPath(dirPath) + "banner.png"))
+                    {
+                        userBanner.ImageUrl = Page.ResolveUrl(dirPath + "banner.png");
+                    }
+                    if (File.Exists(Server.MapPath(dirPath) + "profilePic.png"))
+                    {
+                        viewuserProfilePic.ImageUrl = Page.ResolveUrl(dirPath + "profilePic.png");
+                    }
+
                     followers.InnerHtml = user.followers.ToString();
                     following.InnerHtml = user.following.ToString();
                     followerTitle.InnerHtml = user.username + "'s followers";
                     followingTitle.InnerHtml = user.username + "'s following";
+
                     bool isFollowed = new Follow().isFollowed(currUserId, targetUserId);
                     if (isFollowed)
                     {
