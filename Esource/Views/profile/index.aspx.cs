@@ -185,12 +185,17 @@ namespace Esource.Views.profile
 
         protected void servList_ItemDataBound(object sender, RepeaterItemEventArgs e)
         {
-            var img = e.Item.FindControl("poster") as Image;
-            HiddenField path = (HiddenField)e.Item.FindControl("img_path");
-            img.ImageUrl = Page.ResolveUrl(path.Value);
+            Image img = e.Item.FindControl("poster") as Image;
+            HiddenField serviceId = (HiddenField)e.Item.FindControl("serviceId");
+            string dirPath = "~/Content/uploads/services/" + LblUid.Text + "/";
+            string servPath = dirPath + serviceId.Value + ".png";
+            if (File.Exists(Server.MapPath(servPath)))
+            {
+                img.ImageUrl = Page.ResolveUrl(servPath);
+            }
 
+            dirPath = "~/Content/uploads/profile/" + LblUid.Text + "/";
             img = e.Item.FindControl("providerPic") as Image;
-            string dirPath = "~/Content/uploads/profile/" + LblUid.Text + "/";
             if (File.Exists(Server.MapPath(dirPath) + "profilePic.png"))
             {
                 img.ImageUrl = Page.ResolveUrl(dirPath + "profilePic.png");
@@ -375,7 +380,14 @@ namespace Esource.Views.profile
 
         protected void userServices_ItemDataBound(object sender, RepeaterItemEventArgs e)
         {
-
+            HiddenField serviceId = (HiddenField)e.Item.FindControl("serviceId");
+            Image img = e.Item.FindControl("poster") as Image;
+            string dirPath = "~/Content/uploads/services/" + LblUid.Text + "/";
+            string servPath = dirPath + serviceId.Value + ".png";
+            if (File.Exists(Server.MapPath(servPath)))
+            {
+                img.ImageUrl = Page.ResolveUrl(servPath);
+            }
         }
     }
 }

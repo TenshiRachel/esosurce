@@ -15,7 +15,6 @@ namespace Esource.BL.service
         public string categories { get; set; }
         public int uid { get; set; }
         public string date_created { get; set; }
-        public string img_path { get; set; }
         public string username { get; set; }
         public string status { get; set; }
         public int favs { get; set; }
@@ -26,13 +25,12 @@ namespace Esource.BL.service
 
         }
 
-        public Service(string name, string desc, decimal price, string categories, string img_path, int uid, string username, string status = "", int favs = 0, int views = 0, string date_created = null, int Id=-1)
+        public Service(string name, string desc, decimal price, string categories, int uid, string username, string status = "", int favs = 0, int views = 0, string date_created = null, int Id=-1)
         {
             this.name = name;
             this.desc = desc;
             this.price = price;
             this.categories = categories;
-            this.img_path = img_path;
             this.uid = uid;
             this.username = username;
             this.status = status;
@@ -48,9 +46,9 @@ namespace Esource.BL.service
             return result;
         }
 
-        public int UpdateService(string name, string desc, decimal price, string categories, string img_path, int id)
+        public int UpdateService(string name, string desc, decimal price, string categories, int id)
         {
-            int result = new ServiceDAO().UpdateService(name, desc, price, categories, img_path, id);
+            int result = new ServiceDAO().UpdateService(name, desc, price, categories, id);
             return result;
         }
 
