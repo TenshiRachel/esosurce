@@ -104,14 +104,14 @@ namespace Esource.Views.service
                 int result = service.AddService();
                 if (result == 0)
                 {
-                    if (upPoster.HasFile)
-                    {
-                        storeFile(result.ToString());
-                    }
                     Toast.error(this, "Error occured while adding service");
                 }
                 else
                 {
+                    if (upPoster.HasFile)
+                    {
+                        storeFile(result.ToString());
+                    }
                     Session["success"] = "Service added";
                     Response.Redirect("~/Views/service/manage.aspx");
                 }

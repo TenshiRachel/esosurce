@@ -133,12 +133,14 @@ namespace Esource.Views
             HiddenField providerId = (HiddenField)e.Item.FindControl("provider_ID");
             User servProvider = new User().SelectById(providerId.Value);
 
-            string dirPath = "~/Content/uploads/profile/" + servProvider.Id + "/";
+            string dirPath = "~/Content/uploads/services/" + servProvider.Id + "/";
             string servPath = dirPath + serviceId.Value + ".png";
             if (File.Exists(Server.MapPath(servPath)))
             {
                 img.ImageUrl = Page.ResolveUrl(servPath);
             }
+
+            dirPath = "~/Content/uploads/profile/" + servProvider.Id + "/";
             if (File.Exists(Server.MapPath(dirPath) + "profilePic.png")){
                 img = e.Item.FindControl("userImg") as Image;
                 img.ImageUrl = Page.ResolveUrl(dirPath + "profilePic.png");

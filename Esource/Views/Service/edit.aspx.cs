@@ -143,14 +143,14 @@ namespace Esource.Views.service
                 int result = service.UpdateService(tbName.Text, tbDesc.Text, decimal.Parse(tbPrice.Text), categories, Id);
                 if (result == 0)
                 {
-                    if (upPoster.HasFile)
-                    {
-                        storeFile(curr[0].Id.ToString());
-                    }
                     Toast.error(this, "An error occured while updating service");
                 }
                 else
                 {
+                    if (upPoster.HasFile)
+                    {
+                        storeFile(curr[0].Id.ToString());
+                    }
                     Session["success"] = "Service updated successfully";
                     Response.Redirect("~/Views/service/manage.aspx");
                 }

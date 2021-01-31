@@ -118,13 +118,15 @@ namespace Esource.Views.service
         {
             HiddenField providerId = (HiddenField)e.Item.FindControl("providerId");
             HiddenField serviceId = (HiddenField)e.Item.FindControl("serviceId");
-            string dirPath = "~/Content/uploads/profile/" + providerId.Value + "/";
-            string servPath = dirPath + serviceId + ".png";
+            string dirPath = "~/Content/uploads/services/" + providerId.Value + "/";
+            string servPath = dirPath + serviceId.Value + ".png";
             Image img = e.Item.FindControl("poster") as Image;
             if (File.Exists(Server.MapPath(servPath)))
             {
                 img.ImageUrl = Page.ResolveUrl(servPath);
             }
+
+            dirPath = "~/Content/uploads/profile/" + providerId.Value + "/";
             img = e.Item.FindControl("providerPic") as Image;
             if (File.Exists(Server.MapPath(dirPath) + "profilePic.png"))
             {

@@ -209,13 +209,14 @@ namespace Esource.Views.profile
         {
             Image img = e.Item.FindControl("poster") as Image;
             HiddenField serviceId = (HiddenField)e.Item.FindControl("serviceId");
-            string dirPath = "~/Content/uploads/profile/" + targetUserId + "/";
+            string dirPath = "~/Content/uploads/services/" + targetUserId + "/";
             string servPath = dirPath + serviceId + ".png";
             if (File.Exists(Server.MapPath(servPath)))
             {
                 img.ImageUrl = Page.ResolveUrl(servPath);
             }
 
+            dirPath = "~/Content/uploads/profile/" + targetUserId + "/";
             img = e.Item.FindControl("providerPic") as Image;
             if (File.Exists(Server.MapPath(dirPath) + "profilePic.png"))
             {
