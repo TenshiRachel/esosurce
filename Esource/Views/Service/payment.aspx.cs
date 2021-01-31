@@ -50,10 +50,14 @@ namespace Esource.Views.service
                 }
                 client_email.InnerHtml = user.email;
                 client_name.InnerHtml = user.username;
-                client_avatar.Src = Page.ResolveUrl(user.profile_src);
-                if (string.IsNullOrEmpty(user.profile_src))
+                string dirPath = "~/Content/uploads/profile/" + user.Id + "/";
+                if (System.IO.File.Exists(Server.MapPath(dirPath + "profilePic.png")))
                 {
-                    client_avatar.Src = Page.ResolveUrl("~/Content/img/placeholder.jpg");
+                    clientAvatar.ImageUrl = Page.ResolveUrl(dirPath + "profilePic.png");
+                }
+                if (System.IO.File.Exists(Server.MapPath(dirPath + "banner.png")))
+                {
+                    clientBanner.ImageUrl = Page.ResolveUrl(dirPath + "banner.png");
                 }
 
                 string sid = Request.QueryString["sid"].ToString();
@@ -63,10 +67,14 @@ namespace Esource.Views.service
                 User freelancer = new User().SelectById(service[0].uid.ToString());
                 freelance_email.InnerHtml = freelancer.email;
                 freelance_name.InnerHtml = freelancer.username;
-                freelance_avatar.Src = Page.ResolveUrl(freelancer.profile_src);
-                if (string.IsNullOrEmpty(freelancer.profile_src))
+                dirPath = "~/Content/uploads/profile/" + freelancer.Id + "/";
+                if (System.IO.File.Exists(Server.MapPath(dirPath + "profilePic.png")))
                 {
-                    freelance_avatar.Src = Page.ResolveUrl("~/Content/img/placeholder.jpg");
+                    freelanceAvatar.ImageUrl = Page.ResolveUrl(dirPath + "profilePic.png");
+                }
+                if (System.IO.File.Exists(Server.MapPath(dirPath + "banner.png")))
+                {
+                    freelanceBanner.ImageUrl = Page.ResolveUrl(dirPath + "banner.png");
                 }
             }
         }

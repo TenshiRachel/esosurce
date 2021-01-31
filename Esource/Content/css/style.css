@@ -517,7 +517,8 @@ nav.navbar .navbar-brand {
 }
 
 .edit-profile .card .avatar > img,
-.profile .card .avatar > img{
+.profile .card .avatar > img,
+.payment-service .card .avatar > img{
     width: 100%;
     overflow: hidden;
 }

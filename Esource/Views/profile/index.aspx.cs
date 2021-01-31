@@ -188,6 +188,13 @@ namespace Esource.Views.profile
             var img = e.Item.FindControl("poster") as Image;
             HiddenField path = (HiddenField)e.Item.FindControl("img_path");
             img.ImageUrl = Page.ResolveUrl(path.Value);
+
+            img = e.Item.FindControl("providerPic") as Image;
+            string dirPath = "~/Content/uploads/profile/" + LblUid.Text + "/";
+            if (File.Exists(Server.MapPath(dirPath) + "profilePic.png"))
+            {
+                img.ImageUrl = Page.ResolveUrl(dirPath + "profilePic.png");
+            }
         }
 
         protected void favList_ItemCommand(object source, RepeaterCommandEventArgs e)

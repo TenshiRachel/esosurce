@@ -50,6 +50,7 @@
                                 <div class="card w-100">
                                     <div class="view overlay border-bottom border-primary rounded-top">
                                         <asp:HiddenField runat="server" ID="img_path" Value='<%#Eval("img_path") %>' />
+                                        <asp:HiddenField runat="server" ID="providerId" Value='<%#Eval("uid") %>' />
                                         <asp:Image runat="server" ID="poster" CssClass="card-img-top"/>
                                         <a><div class="mask rgba-black-light"></div></a>
                                     </div>
@@ -63,7 +64,7 @@
 
                                         <div class="d-flex mt-2">
                                             <div class="flex-fill">
-                                                <img src="<%#Eval("profile_src") %>" onerror="this.src='<%= Page.ResolveUrl("~/Content/img/placeholder.jpg") %>'" class="rounded-circle img-fluid z-depth-1 avatar" style="max-width: 2rem;" />
+                                                <asp:Image runat="server" ID="providerPic" CssClass="rounded-circle img-fluid z-depth-1 avatar" style="max-width: 2rem;" />
                                                 <asp:LinkButton runat="server" CssClass="align-middle ml-1" CommandName="viewprofile" CommandArgument='<%#Eval("uid") %>'><%#Eval("username") %></asp:LinkButton>
                                             </div>
                                             <div class="d-flex align-items-center">

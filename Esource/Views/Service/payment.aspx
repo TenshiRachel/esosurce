@@ -18,13 +18,12 @@
 
                         <!-- Background color -->
                         <div class="indigo lighten-1">
-                            <img class="card-img-top img-fluid"
-                                onerror='this.src="<%=Page.ResolveUrl("~/Content/img/placeholder.jpg") %>"' src="#">
+                            <asp:Image runat="server" ID="clientBanner" CssClass="card-img-top img-fluid" ImageUrl="~/Content/img/placeholder.jpg" />
                         </div>
 
                         <!-- Avatar -->
-                        <div class="mx-auto white mt-4">
-                            <img runat="server" id="client_avatar" src="#" class="rounded-circle" alt="avatar">
+                        <div class="mx-auto white mt-4 avatar">
+                            <asp:Image runat="server" ID="clientAvatar" ImageUrl="~/Content/img/placeholder.jpg" CssClass="rounded-circle pl-5 pr-5" />
                         </div>
 
                         <!-- Content -->
@@ -58,13 +57,12 @@
 
                         <!-- Background color -->
                         <div class="indigo lighten-1">
-                            <img style="" class="card-img-top img-fluid"
-                                onerror='this.src="<%=Page.ResolveUrl("~/Content/img/placeholder.jpg") %>"' src="#">
+                            <asp:Image runat="server" ID="freelanceBanner" CssClass="card-img-top img-fluid" ImageUrl="~/Content/img/placeholder.jpg" />
                         </div>
 
                         <!-- Avatar -->
-                        <div class="mx-auto white mt-4">
-                            <img runat="server" id="freelance_avatar" src="#" class="rounded-circle " alt="">
+                        <div class="mx-auto white mt-4 avatar">
+                            <asp:Image runat="server" ID="freelanceAvatar" ImageUrl="~/Content/img/placeholder.jpg" CssClass="rounded-circle pl-5 pr-5" />
                         </div>
 
                         <!-- Content -->

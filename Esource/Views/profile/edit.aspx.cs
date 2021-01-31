@@ -108,7 +108,7 @@ namespace Esource.Views.profile
         protected void updateProfile_Click(object sender, EventArgs e)
         {
             string social = UpdateSocial(twitter.Value, instagram.Value, facebook.Value, youtube.Value, deviantart.Value);
-            int result = new User().UpdateUser(LblUid.Text, bio.Value, "", website.Value, dob.Value, gender.Value, location.Value, occupation.Value, social);
+            int result = new User().UpdateUser(LblUid.Text, bio.Value, website.Value, dob.Value, gender.Value, location.Value, occupation.Value, social);
             if (result == 1)
             {
                 if (upload_banner.HasFile)

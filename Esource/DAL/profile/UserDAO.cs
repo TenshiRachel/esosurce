@@ -17,8 +17,8 @@ namespace Esource.DAL.profile
             string DBConnect = ConfigurationManager.ConnectionStrings["ConnStr"].ConnectionString;
             SqlConnection conn = new SqlConnection(DBConnect);
 
-            string sqlStmt = "INSERT INTO [User] (username, email, password, passSalt, bio, profile_src, type, IV, stripeId, following, followers, website, birthday, gender, location, occupation, social)" +
-                "VALUES (@paraName, @paraEmail, @paraPassword, @paraSalt, @paraBio, @paraSrc, @paraType, @paraIV, @paraStripe, @paraFollow, @paraFollowers, @paraSite, @paraBirthday, @paraGender, @paraLocation, @paraOccupation, @paraSocial)";
+            string sqlStmt = "INSERT INTO [User] (username, email, password, passSalt, bio, type, IV, stripeId, following, followers, website, birthday, gender, location, occupation, social)" +
+                "VALUES (@paraName, @paraEmail, @paraPassword, @paraSalt, @paraBio, @paraType, @paraIV, @paraStripe, @paraFollow, @paraFollowers, @paraSite, @paraBirthday, @paraGender, @paraLocation, @paraOccupation, @paraSocial)";
 
             int result = 0;
             SqlCommand sqlCmd = new SqlCommand(sqlStmt, conn);
@@ -28,7 +28,6 @@ namespace Esource.DAL.profile
             sqlCmd.Parameters.AddWithValue("@paraPassword", user.password);
             sqlCmd.Parameters.AddWithValue("@paraSalt", user.passSalt);
             sqlCmd.Parameters.AddWithValue("@paraBio", user.bio);
-            sqlCmd.Parameters.AddWithValue("@paraSrc", user.profile_src);
             sqlCmd.Parameters.AddWithValue("@paraType", user.type);
             sqlCmd.Parameters.AddWithValue("@paraIV", user.IV);
             sqlCmd.Parameters.AddWithValue("@paraStripe", user.stripeId);
@@ -116,7 +115,6 @@ namespace Esource.DAL.profile
                 string password = row["password"].ToString();
                 string passSalt = row["passSalt"].ToString();
                 string bio = row["bio"].ToString();
-                string src = row["profile_src"].ToString();
                 string type = row["type"].ToString();
                 string IV = row["IV"].ToString();
                 string stripe = row["stripeId"].ToString();
@@ -143,7 +141,7 @@ namespace Esource.DAL.profile
                     jobPin = Auth.decrypt(Convert.FromBase64String(jobPin), Convert.FromBase64String(IV));
                 }
 
-                obj = new User(name, email, password, passSalt, bio, src, type, IV, stripe, jobPin, following, follows, social, website, birthday, gender, location, occupation, resetToken, resetTokenExpiry,
+                obj = new User(name, email, password, passSalt, bio, type, IV, stripe, jobPin, following, follows, social, website, birthday, gender, location, occupation, resetToken, resetTokenExpiry,
                     paymentToken, paymentTokenExpiry, id);
             }
 
@@ -173,7 +171,6 @@ namespace Esource.DAL.profile
                 string password = row["password"].ToString();
                 string passSalt = row["passSalt"].ToString();
                 string bio = row["bio"].ToString();
-                string src = row["profile_src"].ToString();
                 string type = row["type"].ToString();
                 string IV = row["IV"].ToString();
                 string stripe = row["stripeId"].ToString();
@@ -201,20 +198,20 @@ namespace Esource.DAL.profile
                     jobPin = Auth.decrypt(Convert.FromBase64String(jobPin), Convert.FromBase64String(IV));
                 }
 
-                obj = new User(name, email, password, passSalt, bio, src, type, IV, stripe, jobPin, following, follows, social, website, birthday, gender, location, occupation,
+                obj = new User(name, email, password, passSalt, bio, type, IV, stripe, jobPin, following, follows, social, website, birthday, gender, location, occupation,
                     resetToken, resetTokenExpiry, paymentToken, paymentTokenExpiry, int.Parse(id));
             }
 
             return obj;
         }
 
-        public int Update(string id, string bio, string profile_src, string website, string birthday, string gender, string location, string occupation, string social)
+        public int Update(string id, string bio, string website, string birthday, string gender, string location, string occupation, string social)
         {
             string DBConnect = ConfigurationManager.ConnectionStrings["ConnStr"].ConnectionString;
             SqlConnection conn = new SqlConnection(DBConnect);
 
             string sqlStmt = "UPDATE [User] " +
-                "SET bio = @paraBio, profile_src = @paraSrc, website = @paraSite, birthday = @paraBirthday, gender = @paraGender, location = @paraLocation, occupation = @paraOccupation, social = @paraSocial " +
+                "SET bio = @paraBio, website = @paraSite, birthday = @paraBirthday, gender = @paraGender, location = @paraLocation, occupation = @paraOccupation, social = @paraSocial " +
                 "WHERE Id = @paraId";
 
             int result = 0;
@@ -222,7 +219,6 @@ namespace Esource.DAL.profile
 
             sqlCmd.Parameters.AddWithValue("@paraId", id);
             sqlCmd.Parameters.AddWithValue("@paraBio", bio);
-            sqlCmd.Parameters.AddWithValue("@paraSrc", profile_src);
             sqlCmd.Parameters.AddWithValue("@paraSite", website);
             sqlCmd.Parameters.AddWithValue("@paraBirthday", birthday);
             sqlCmd.Parameters.AddWithValue("@paraGender", gender);

@@ -144,11 +144,13 @@
                                     data-toggle="tab" href="#portfolio-classic-shadow" role="tab"
                                     aria-controls="portfolio-classic-shadow" aria-selected="true">Portfolio</a>
                             </li>
+                            <%if (getTargetUser().type == "freelancer"){ %>
                             <li class="nav-item">
                                 <a class="nav-link waves-light" id="services-tab-classic-shadow" data-toggle="tab"
                                     href="#services-classic-shadow" role="tab" aria-controls="services-classic-shadow"
                                     aria-selected="false">Services </a>
                             </li>
+                            <%} %>
 
                             <li class="nav-item">
                                 <a class="nav-link waves-light" id="favorites-tab-classic-shadow" data-toggle="tab"
@@ -486,7 +488,7 @@
 
                                                                 <div class="d-flex mt-2">
                                                                     <div class="flex-fill">
-                                                                        <img src="<%#Eval("profile_src") %>" onerror="this.src='<%= Page.ResolveUrl("~/Content/img/placeholder.jpg") %>'" class="rounded-circle img-fluid z-depth-1 avatar" style="max-width: 2rem;" />
+                                                                        <asp:Image runat="server" ID="providerPic" ImageUrl="~/Content/img/placeholder.jpg" CssClass="rounded-circle img-fluid z-depth-1 avatar" style="max-width: 2rem;" />
                                                                         <asp:LinkButton runat="server" CssClass="align-middle ml-1" CommandName="viewprofile" CommandArgument='<%#Eval("uid") %>'><%#Eval("username") %></asp:LinkButton>
                                                                     </div>
                                                                     <div class="d-flex align-items-center">
@@ -561,7 +563,7 @@
 
                                                                 <div class="d-flex mt-2">
                                                                     <div class="flex-fill">
-                                                                        <img src="<%#Eval("profile_src") %>" onerror="this.src='<%= Page.ResolveUrl("~/Content/img/placeholder.jpg") %>'" class="rounded-circle img-fluid z-depth-1 avatar" style="max-width: 2rem;" />
+                                                                        <asp:Image runat="server" ID="providerPic" ImageUrl="~/Content/img/placeholder.jpg" CssClass="rounded-circle img-fluid z-depth-1 avatar" style="max-width: 2rem;" />
                                                                         <asp:LinkButton runat="server" CssClass="align-middle ml-1" CommandName="viewprofile" CommandArgument='<%#Eval("uid") %>'><%#Eval("username") %></asp:LinkButton>
                                                                     </div>
                                                                     <div class="d-flex align-items-center">

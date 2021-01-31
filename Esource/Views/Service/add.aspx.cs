@@ -109,7 +109,7 @@ namespace Esource.Views.service
                     img_path = storeFile();
                 }
                 User curruser = new User().SelectById(LblUid.Text);
-                BL.service.Service service = new BL.service.Service(name, desc, price, categories, img_path, curruser.Id, curruser.username, curruser.profile_src);
+                BL.service.Service service = new BL.service.Service(name, desc, price, categories, img_path, curruser.Id, curruser.username);
 
                 int result = service.AddService();
                 if (result == 0)
