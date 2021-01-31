@@ -45,7 +45,7 @@
 
                                 <div class="avatar mx-auto white mt-4">
 
-                                    <asp:Image loading="lazy" runat="server" ID="viewuserProfilePic" CssClass="rounded-circle  border" />
+                                    <asp:Image loading="lazy" runat="server" ID="viewuserProfilePic" ImageUrl="~/Content/img/placeholder.jpg" CssClass="rounded-circle  border" />
                                 </div>
 
                                 <!-- Content -->
@@ -279,11 +279,11 @@
 
                                                                                                                         <div class="card">
                                                                                                                             <div class="view overlay">
-                                                                                                                                <img loading="lazy" class="card-img-top service-img w-100"
-                                                                                                                                    src="#">
+                                                                                                                                <asp:HiddenField runat="server" ID="serviceId" Value='<%#Eval("Id") %>' />
+                                                                                                                                <asp:Image runat="server" ID="poster" loading="lazy" ImageUrl="~/Content/img/placeholder.jpg" CssClass="card-img-top service-img w-100" />
                                                                                                                             </div>
 
-                                                                                                                            <asp:LinkButton runat="server" class="btn-primary ml-auto mr-4 material-tooltip-sm"
+                                                                                                                            <asp:LinkButton runat="server" class="btn-primary btn btn-sm ml-auto mr-4 material-tooltip-sm"
                                                                                                                                 data-tooltip="tooltip" data-placement="top" title="View More Details"
                                                                                                                                 CommandName="view" CommandArgument='<%#Eval("Id") %>'>
                                             <i class="fas fa-eye"></i>

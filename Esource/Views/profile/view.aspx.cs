@@ -465,7 +465,14 @@ namespace Esource.Views.profile
 
         protected void userServices_ItemDataBound(object sender, RepeaterItemEventArgs e)
         {
-
+            HiddenField serviceId = (HiddenField)e.Item.FindControl("serviceId");
+            Image img = e.Item.FindControl("poster") as Image;
+            string dirPath = "~/Content/uploads/services/" + targetUserId + "/";
+            string servPath = dirPath + serviceId.Value + ".png";
+            if (File.Exists(Server.MapPath(servPath)))
+            {
+                img.ImageUrl = Page.ResolveUrl(servPath);
+            }
         }
     }
 }

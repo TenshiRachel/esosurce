@@ -269,11 +269,11 @@
 
                                                                                                                         <div class="card">
                                                                                                                             <div class="view overlay">
-                                                                                                                                <img loading="lazy" class="card-img-top service-img w-100"
-                                                                                                                                    src="#">
+                                                                                                                                <asp:HiddenField runat="server" ID="serviceId" Value='<%#Eval("Id") %>' />
+                                                                                                                                <asp:Image runat="server" ID="poster" loading="lazy" ImageUrl="~/Content/img/placeholder.jpg" CssClass="card-img-top service-img w-100" />
                                                                                                                             </div>
 
-                                                                                                                            <asp:LinkButton runat="server" class="btn-primary ml-auto mr-4 material-tooltip-sm"
+                                                                                                                            <asp:LinkButton runat="server" class="btn-primary btn btn-sm ml-auto mr-4 material-tooltip-sm"
                                                                                                                                 data-tooltip="tooltip" data-placement="top" title="View More Details"
                                                                                                                                 CommandName="view" CommandArgument='<%#Eval("Id") %>'>
                                             <i class="fas fa-eye"></i>
@@ -479,157 +479,155 @@
                                     </ContentTemplate>
                                 </asp:UpdatePanel>
                             </div>
-                        </div>
-                        <div class="tab-pane fade profile-content" id="services-classic-shadow" role="tabpanel"
-                            aria-labelledby="services-tab-classic-shadow">
-                            <asp:UpdatePanel runat="server" ID="servpanel" UpdateMode="Conditional">
-                                <ContentTemplate>
-                                    <div class="row" id="servcon">
-                                        <asp:Repeater runat="server" ID="servList" OnItemCommand="servList_ItemCommand" OnItemDataBound="servList_ItemDataBound">
-                                            <ItemTemplate>
-                                                <div class="servicecards col-12 col-md-4 col-lg-4 d-flex align-items-stretch mt-4 <%#Eval("categories") %>" data-id="<%#Eval("Id") %>" data-views="<%#Eval("views") %>" data-favs="<%#Eval("favs") %>">
-                                                    <div class="card w-100">
-                                                        <div class="view overlay border-bottom border-primary rounded-top">
-                                                            <asp:HiddenField runat="server" ID="serviceId" Value='<%#Eval("Id") %>' />
-                                                            <asp:Image runat="server" ID="poster" CssClass="card-img-top" ImageUrl="~/Content/img/placeholder.jpg" />
-                                                            <a>
-                                                                <div class="mask rgba-black-light"></div>
-                                                            </a>
-                                                        </div>
-                                                        <div class="ml-auto mr-3 mt-2">
-                                                            <asp:LinkButton runat="server" CssClass="btn-primary btn-sm m-0" data-tooltip="tooltip"
-                                                                data-placement="top" title="View More Details" CommandName="view" CommandArgument='<%#Eval("Id") %>'>
+                            <div class="tab-pane fade profile-content" id="services-classic-shadow" role="tabpanel"
+                                aria-labelledby="services-tab-classic-shadow">
+                                <asp:UpdatePanel runat="server" ID="servpanel" UpdateMode="Conditional">
+                                    <ContentTemplate>
+                                        <div class="row" id="servcon">
+                                            <asp:Repeater runat="server" ID="servList" OnItemCommand="servList_ItemCommand" OnItemDataBound="servList_ItemDataBound">
+                                                <ItemTemplate>
+                                                    <div class="servicecards col-12 col-md-4 col-lg-4 d-flex align-items-stretch mt-4 <%#Eval("categories") %>" data-id="<%#Eval("Id") %>" data-views="<%#Eval("views") %>" data-favs="<%#Eval("favs") %>">
+                                                        <div class="card w-100">
+                                                            <div class="view overlay border-bottom border-primary rounded-top">
+                                                                <asp:HiddenField runat="server" ID="serviceId" Value='<%#Eval("Id") %>' />
+                                                                <asp:Image runat="server" ID="poster" CssClass="card-img-top" ImageUrl="~/Content/img/placeholder.jpg" />
+                                                                <a>
+                                                                    <div class="mask rgba-black-light"></div>
+                                                                </a>
+                                                            </div>
+                                                            <div class="ml-auto mr-3 mt-2">
+                                                                <asp:LinkButton runat="server" CssClass="btn-primary btn-sm m-0" data-tooltip="tooltip"
+                                                                    data-placement="top" title="View More Details" CommandName="view" CommandArgument='<%#Eval("Id") %>'>
                                             <i class="fas fa-eye"></i>
-                                                            </asp:LinkButton>
-                                                        </div>
-                                                        <div class="card-body d-flex flex-column">
-                                                            <div class="d-flex mt-2">
-                                                                <div class="flex-fill">
-                                                                    <asp:Image runat="server" ID="providerPic" ImageUrl="~/Content/img/placeholder.jpg" CssClass="rounded-circle img-fluid z-depth-1 avatar" style="max-width: 2rem;" />
-                                                                    <asp:LinkButton runat="server" CssClass="align-middle ml-1" CommandName="viewprofile" CommandArgument='<%#Eval("uid") %>'><%#Eval("username") %></asp:LinkButton>
-                                                                </div>
-                                                                <div class="d-flex align-items-center">
-                                                                    <span class="text-muted small">
-                                                                        <i class="fas fa-clock mr-2"></i><%#Eval("date_created") %>
-                                                                    </span>
-                                                                </div>
+                                                                </asp:LinkButton>
                                                             </div>
-                                                            <div class="d-flex mt-4">
-                                                                <div class="flex-fill">
-                                                                    <h4 class="name card-title mb-0" data-name="<%#Eval("name") %>"><%#Eval("name") %></h4>
+                                                            <div class="card-body d-flex flex-column">
+                                                                <div class="d-flex mt-2">
+                                                                    <div class="flex-fill">
+                                                                        <asp:Image runat="server" ID="providerPic" ImageUrl="~/Content/img/placeholder.jpg" CssClass="rounded-circle img-fluid z-depth-1 avatar" Style="max-width: 2rem;" />
+                                                                        <asp:LinkButton runat="server" CssClass="align-middle ml-1" CommandName="viewprofile" CommandArgument='<%#Eval("uid") %>'><%#Eval("username") %></asp:LinkButton>
+                                                                    </div>
+                                                                    <div class="d-flex align-items-center">
+                                                                        <span class="text-muted small">
+                                                                            <i class="fas fa-clock mr-2"></i><%#Eval("date_created") %>
+                                                                        </span>
+                                                                    </div>
                                                                 </div>
+                                                                <div class="d-flex mt-4">
+                                                                    <div class="flex-fill">
+                                                                        <h4 class="name card-title mb-0" data-name="<%#Eval("name") %>"><%#Eval("name") %></h4>
+                                                                    </div>
 
-                                                                <div class="d-flex align-items-center font-weight-bold ml-3">
-                                                                    <%#Eval("views") %><i class="far fa-eye ml-2"></i>
+                                                                    <div class="d-flex align-items-center font-weight-bold ml-3">
+                                                                        <%#Eval("views") %><i class="far fa-eye ml-2"></i>
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                            <hr class="w-100" />
-                                                            <div class="flex-fill">
-                                                                <p class="card-text">
-                                                                    <%#Eval("desc") %>
-                                                                </p>
-                                                            </div>
-                                                            <div class="d-flex">
-                                                                <div class="flex-fill text-right">
-                                                                    <asp:LinkButton runat="server" CssClass="btn btn-sm btn-red mr-0" CommandName="favourite" CommandArgument='<%#Eval("Id") %>'
-                                                                        data-tooltip="tooltip" title="Like service">
+                                                                <hr class="w-100" />
+                                                                <div class="flex-fill">
+                                                                    <p class="card-text">
+                                                                        <%#Eval("desc") %>
+                                                                    </p>
+                                                                </div>
+                                                                <div class="d-flex">
+                                                                    <div class="flex-fill text-right">
+                                                                        <asp:LinkButton runat="server" CssClass="btn btn-sm btn-red mr-0" CommandName="favourite" CommandArgument='<%#Eval("Id") %>'
+                                                                            data-tooltip="tooltip" title="Like service">
                                                     <span class="font-weight-bold">
                                                         <%#Eval("favs") %>
                                                         <i class="fas fa-heart ml-2"></i>
                                                     </span> 
-                                                                    </asp:LinkButton>
+                                                                        </asp:LinkButton>
+                                                                    </div>
                                                                 </div>
                                                             </div>
-                                                        </div>
-                                                        <div class="card-footer accent-2 white-text deep-purple text-center">
-                                                            <h5 class="m-0">$<%#Eval("price") %></h5>
+                                                            <div class="card-footer accent-2 white-text deep-purple text-center">
+                                                                <h5 class="m-0">$<%#Eval("price") %></h5>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                            </ItemTemplate>
-                                        </asp:Repeater>
-                                    </div>
-                                </ContentTemplate>
-                            </asp:UpdatePanel>
-                        </div>
-                        <div class="tab-pane fade profile-content" id="status-classic-shadow" role="tabpanel"
-                            aria-labelledby="status-tab-classic-shadow">
-                        </div>
-                        <div class="tab-pane fade profile-content" id="favs-classic-shadow" role="tabpanel"
-                            aria-labelledby="favs-tab-classic-shadow">
-                            <asp:UpdatePanel runat="server" ID="favPanel" UpdateMode="Conditional">
-                                <ContentTemplate>
-                                    <div class="row" id="servcon">
-                                        <asp:Repeater runat="server" ID="favList" OnItemCommand="favList_ItemCommand" OnItemDataBound="servList_ItemDataBound">
-                                            <ItemTemplate>
-                                                <div class="servicecards col-12 col-md-4 col-lg-4 d-flex align-items-stretch mt-4 <%#Eval("categories") %>" data-id="<%#Eval("Id") %>" data-views="<%#Eval("views") %>" data-favs="<%#Eval("favs") %>">
-                                                    <div class="card w-100">
-                                                        <div class="view overlay border-bottom border-primary rounded-top">
-                                                            <asp:HiddenField runat="server" ID="serviceId" Value='<%#Eval("Id") %>' />
-                                                            <asp:Image runat="server" ID="poster" CssClass="card-img-top" ImageUrl="~/Content/img/placeholder.jpg" />
-                                                            <a>
-                                                                <div class="mask rgba-black-light"></div>
-                                                            </a>
-                                                        </div>
-                                                        <div class="ml-auto mr-3 mt-2">
-                                                            <asp:LinkButton runat="server" CssClass="btn-primary btn-sm m-0" data-tooltip="tooltip"
-                                                                data-placement="top" title="View More Details" CommandName="view" CommandArgument='<%#Eval("Id") %>'>
+                                                </ItemTemplate>
+                                            </asp:Repeater>
+                                        </div>
+                                    </ContentTemplate>
+                                </asp:UpdatePanel>
+                            </div>
+                            <div class="tab-pane fade profile-content" id="favs-classic-shadow" role="tabpanel"
+                                aria-labelledby="favs-tab-classic-shadow">
+                                <asp:UpdatePanel runat="server" ID="favPanel" UpdateMode="Conditional">
+                                    <ContentTemplate>
+                                        <div class="row" id="servcon">
+                                            <asp:Repeater runat="server" ID="favList" OnItemCommand="favList_ItemCommand" OnItemDataBound="servList_ItemDataBound">
+                                                <ItemTemplate>
+                                                    <div class="servicecards col-12 col-md-4 col-lg-4 d-flex align-items-stretch mt-4 <%#Eval("categories") %>" data-id="<%#Eval("Id") %>" data-views="<%#Eval("views") %>" data-favs="<%#Eval("favs") %>">
+                                                        <div class="card w-100">
+                                                            <div class="view overlay border-bottom border-primary rounded-top">
+                                                                <asp:HiddenField runat="server" ID="serviceId" Value='<%#Eval("Id") %>' />
+                                                                <asp:Image runat="server" ID="poster" CssClass="card-img-top" ImageUrl="~/Content/img/placeholder.jpg" />
+                                                                <a>
+                                                                    <div class="mask rgba-black-light"></div>
+                                                                </a>
+                                                            </div>
+                                                            <div class="ml-auto mr-3 mt-2">
+                                                                <asp:LinkButton runat="server" CssClass="btn-primary btn-sm m-0" data-tooltip="tooltip"
+                                                                    data-placement="top" title="View More Details" CommandName="view" CommandArgument='<%#Eval("Id") %>'>
                                             <i class="fas fa-eye"></i>
-                                                            </asp:LinkButton>
-                                                        </div>
-                                                        <div class="card-body d-flex flex-column">
-                                                            <div class="d-flex mt-2">
-                                                                <div class="flex-fill">
-                                                                    <asp:Image runat="server" ID="providerPic" ImageUrl="~/Content/img/placeholder.jpg" CssClass="rounded-circle img-fluid z-depth-1 avatar" style="max-width: 2rem;" />
-                                                                    <asp:LinkButton runat="server" CssClass="align-middle ml-1" CommandName="viewprofile" CommandArgument='<%#Eval("uid") %>'><%#Eval("username") %></asp:LinkButton>
-                                                                </div>
-                                                                <div class="d-flex align-items-center">
-                                                                    <span class="text-muted small">
-                                                                        <i class="fas fa-clock mr-2"></i><%#Eval("date_created") %>
-                                                                    </span>
-                                                                </div>
+                                                                </asp:LinkButton>
                                                             </div>
-                                                            <div class="d-flex mt-4">
-                                                                <div class="flex-fill">
-                                                                    <h4 class="name card-title mb-0" data-name="<%#Eval("name") %>"><%#Eval("name") %></h4>
+                                                            <div class="card-body d-flex flex-column">
+                                                                <div class="d-flex mt-2">
+                                                                    <div class="flex-fill">
+                                                                        <asp:Image runat="server" ID="providerPic" ImageUrl="~/Content/img/placeholder.jpg" CssClass="rounded-circle img-fluid z-depth-1 avatar" Style="max-width: 2rem;" />
+                                                                        <asp:LinkButton runat="server" CssClass="align-middle ml-1" CommandName="viewprofile" CommandArgument='<%#Eval("uid") %>'><%#Eval("username") %></asp:LinkButton>
+                                                                    </div>
+                                                                    <div class="d-flex align-items-center">
+                                                                        <span class="text-muted small">
+                                                                            <i class="fas fa-clock mr-2"></i><%#Eval("date_created") %>
+                                                                        </span>
+                                                                    </div>
                                                                 </div>
-                                                                <div class="d-flex align-items-center font-weight-bold ml-3">
-                                                                    <%#Eval("views") %><i class="far fa-eye ml-2"></i>
+                                                                <div class="d-flex mt-4">
+                                                                    <div class="flex-fill">
+                                                                        <h4 class="name card-title mb-0" data-name="<%#Eval("name") %>"><%#Eval("name") %></h4>
+                                                                    </div>
+                                                                    <div class="d-flex align-items-center font-weight-bold ml-3">
+                                                                        <%#Eval("views") %><i class="far fa-eye ml-2"></i>
+                                                                    </div>
                                                                 </div>
-                                                            </div>
 
-                                                            <hr class="w-100" />
-                                                            <div class="flex-fill">
-                                                                <p class="card-text">
-                                                                    <%#Eval("desc") %>
-                                                                </p>
-                                                            </div>
-                                                            <div class="d-flex">
-                                                                <div class="flex-fill text-right">
-                                                                    <asp:LinkButton runat="server" CssClass="btn btn-sm btn-red mr-0" CommandName="favourite" CommandArgument='<%#Eval("Id") %>'
-                                                                        data-tooltip="tooltip" title="Like service">
+                                                                <hr class="w-100" />
+                                                                <div class="flex-fill">
+                                                                    <p class="card-text">
+                                                                        <%#Eval("desc") %>
+                                                                    </p>
+                                                                </div>
+                                                                <div class="d-flex">
+                                                                    <div class="flex-fill text-right">
+                                                                        <asp:LinkButton runat="server" CssClass="btn btn-sm btn-red mr-0" CommandName="favourite" CommandArgument='<%#Eval("Id") %>'
+                                                                            data-tooltip="tooltip" title="Like service">
                                                     <span class="font-weight-bold">
                                                         <%#Eval("favs") %>
                                                         <i class="fas fa-heart ml-2"></i>
                                                     </span> 
-                                                                    </asp:LinkButton>
+                                                                        </asp:LinkButton>
+                                                                    </div>
                                                                 </div>
                                                             </div>
-                                                        </div>
-                                                        <div class="card-footer accent-2 white-text deep-purple text-center">
-                                                            <h5 class="m-0">$<%#Eval("price") %></h5>
+                                                            <div class="card-footer accent-2 white-text deep-purple text-center">
+                                                                <h5 class="m-0">$<%#Eval("price") %></h5>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                            </ItemTemplate>
-                                        </asp:Repeater>
-                                    </div>
-                                </ContentTemplate>
-                            </asp:UpdatePanel>
+                                                </ItemTemplate>
+                                            </asp:Repeater>
+                                        </div>
+                                    </ContentTemplate>
+                                </asp:UpdatePanel>
+                            </div>
+                            <div class="tab-pane fade profile-content" id="likes-classic-shadow" role="tabpanel"
+                                aria-labelledby="likes-tab-classic-shadow">
+                            </div>
                         </div>
-                        <div class="tab-pane fade profile-content" id="likes-classic-shadow" role="tabpanel"
-                            aria-labelledby="likes-tab-classic-shadow">
-                        </div>
+
                     </div>
                 </div>
             </div>
