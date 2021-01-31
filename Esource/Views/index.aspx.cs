@@ -7,6 +7,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Esource.BL.service;
 using Esource.Utilities;
+using System.IO;
 
 namespace Esource.Views
 {
@@ -132,10 +133,15 @@ namespace Esource.Views
             img.ImageUrl = Page.ResolveUrl(path.Value);
             HiddenField providerId = (HiddenField)e.Item.FindControl("provider_ID");
             User servProvider = new User().SelectById(providerId.Value);
-            img = e.Item.FindControl("userImg") as Image;
-            img.ImageUrl = Page.ResolveUrl(servProvider.profile_src);
-            img = e.Item.FindControl("profileImg") as Image;
-            img.ImageUrl = Page.ResolveUrl(servProvider.profile_src);
+
+            string dirPath = "~/Content/uploads/profile/" + servProvider.Id + "/";
+            if (File.Exists(Server.MapPath(dirPath) + "profilePic.png")){
+                img = e.Item.FindControl("userImg") as Image;
+                img.ImageUrl = Page.ResolveUrl(dirPath + "profilePic.png");
+                img = e.Item.FindControl("profileImg") as Image;
+                img.ImageUrl = Page.ResolveUrl(dirPath + "profilePic.png");
+            }
+
             var occupation = e.Item.FindControl("occupation") as Label;
             var location = e.Item.FindControl("country") as Label;
             var bio = e.Item.FindControl("bio") as Label;

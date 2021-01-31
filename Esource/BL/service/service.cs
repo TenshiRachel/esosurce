@@ -17,7 +17,6 @@ namespace Esource.BL.service
         public string date_created { get; set; }
         public string img_path { get; set; }
         public string username { get; set; }
-        public string profile_src { get; set; }
         public string status { get; set; }
         public int favs { get; set; }
         public int views { get; set; }
@@ -27,7 +26,7 @@ namespace Esource.BL.service
 
         }
 
-        public Service(string name, string desc, decimal price, string categories, string img_path, int uid, string username, string profile_src, string status = "", int favs = 0, int views = 0, string date_created = null, int Id=-1)
+        public Service(string name, string desc, decimal price, string categories, string img_path, int uid, string username, string status = "", int favs = 0, int views = 0, string date_created = null, int Id=-1)
         {
             this.name = name;
             this.desc = desc;
@@ -36,7 +35,6 @@ namespace Esource.BL.service
             this.img_path = img_path;
             this.uid = uid;
             this.username = username;
-            this.profile_src = profile_src;
             this.status = status;
             this.favs = favs;
             this.views = views;

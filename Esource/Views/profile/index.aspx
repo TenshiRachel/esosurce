@@ -10,11 +10,10 @@
         <div class="card testimonial-card z-depth-2">
             <!-- =============================== Banner Image =============================== -->
             <div class="card-up indigo lighten-1 rounded-0 jarallax">
-                <img loading="lazy" class="img-fluid jarallax-img " onerror='this.src="/img/profile/banner.png"'
-                    src="/uploads/profile/{{user.id}}/banner.png" alt="">
+                <asp:Image runat="server" ID="userBanner" loading="lazy" CssClass="img-fluid jarallax-img " ImageUrl="~/Content/img/placeholder.jpg" />
                 <div class="mask flex-center waves-effect waves-light">
                     <div class="h-100 w-100 col-12 align-items-end row justify-content-end p-0">
-                        <div id="socialmedias" class="d-flex justify-content-center p-1 mr-2">
+                        <div id="socialmedias" class="d-flex justify-content-center p-1">
                             <a href="{{social_medias.[0]}}" class="col text-center "><i
                                 class="fab fa-twitter fa-2x text-white text-center"></i></a>
                             <a href="{{social_medias.[1]}}" class="col text-center "><i
@@ -44,9 +43,7 @@
 
                                 <!-- Profile Image -->
                                 <div class="avatar mx-auto white mt-4">
-                                    <img loading="lazy" onerror='this.src = "/img/profile/default.png"'
-                                        src="/uploads/profile/{{user.id}}/profilePic.png"
-                                        class="rounded-circle  border" alt="">
+                                    <asp:Image loading="lazy" runat="server" ID="userProfilePic" CssClass="rounded-circle  border" />
                                 </div>
 
                                 <!-- User Details -->
@@ -508,7 +505,7 @@
                                                         <div class="card-body d-flex flex-column">
                                                             <div class="d-flex mt-2">
                                                                 <div class="flex-fill">
-                                                                    <img src="<%#Eval("profile_src") %>" onerror="this.src='<%= Page.ResolveUrl("~/Content/img/placeholder.jpg") %>'" class="rounded-circle img-fluid z-depth-1 avatar" style="max-width: 2rem;" />
+                                                                    <asp:Image runat="server" ID="providerPic" ImageUrl="~/Content/img/placeholder.jpg" CssClass="rounded-circle img-fluid z-depth-1 avatar" style="max-width: 2rem;" />
                                                                     <asp:LinkButton runat="server" CssClass="align-middle ml-1" CommandName="viewprofile" CommandArgument='<%#Eval("uid") %>'><%#Eval("username") %></asp:LinkButton>
                                                                 </div>
                                                                 <div class="d-flex align-items-center">
@@ -583,7 +580,7 @@
                                                         <div class="card-body d-flex flex-column">
                                                             <div class="d-flex mt-2">
                                                                 <div class="flex-fill">
-                                                                    <img src="<%#Eval("profile_src") %>" onerror="this.src='<%= Page.ResolveUrl("~/Content/img/placeholder.jpg") %>'" class="rounded-circle img-fluid z-depth-1 avatar" style="max-width: 2rem;" />
+                                                                    <asp:Image runat="server" ID="providerPic" ImageUrl="~/Content/img/placeholder.jpg" CssClass="rounded-circle img-fluid z-depth-1 avatar" style="max-width: 2rem;" />
                                                                     <asp:LinkButton runat="server" CssClass="align-middle ml-1" CommandName="viewprofile" CommandArgument='<%#Eval("uid") %>'><%#Eval("username") %></asp:LinkButton>
                                                                 </div>
                                                                 <div class="d-flex align-items-center">

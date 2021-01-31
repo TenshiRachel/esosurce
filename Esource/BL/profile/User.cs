@@ -14,7 +14,6 @@ namespace Esource.BL.profile
         public string password { get; set; }
         public string passSalt { get; set; }
         public string bio { get; set; }
-        public string profile_src { get; set; }
         public string type { get; set; }
         public string stripeId { get; set; }
         public int following { get; set; }
@@ -38,7 +37,7 @@ namespace Esource.BL.profile
 
         }
 
-        public User(string username, string email, string password, string passSalt, string bio, string profile_src, string type, string IV, string stripeId = "", string jobPin = "", int following = 0, int followers = 0, string social = ",,,,", string website = "Not Set", string birthday = "Not Set", string gender = "Not Set", string location = "Not Set", string occupation = "Not Set", string resetToken = "",
+        public User(string username, string email, string password, string passSalt, string bio, string type, string IV, string stripeId = "", string jobPin = "", int following = 0, int followers = 0, string social = ",,,,", string website = "Not Set", string birthday = "Not Set", string gender = "Not Set", string location = "Not Set", string occupation = "Not Set", string resetToken = "",
             string resetTokenExpiry = "", string paymentToken = "", string paymentTokenExpiry = "", int Id = -1)
         {
             this.username = username;
@@ -46,7 +45,6 @@ namespace Esource.BL.profile
             this.password = password;
             this.passSalt = passSalt;
             this.bio = bio;
-            this.profile_src = profile_src;
             this.type = type;
             this.IV = IV;
             this.stripeId = stripeId;
@@ -96,9 +94,9 @@ namespace Esource.BL.profile
             return user;
         }
 
-        public int UpdateUser(string id, string bio, string profile_src, string website, string birthday, string gender, string location, string occupation, string social)
+        public int UpdateUser(string id, string bio, string website, string birthday, string gender, string location, string occupation, string social)
         {
-            int result = new UserDAO().Update(id, bio, profile_src, website, birthday, gender, location, occupation, social);
+            int result = new UserDAO().Update(id, bio, website, birthday, gender, location, occupation, social);
             return result;
         }
 

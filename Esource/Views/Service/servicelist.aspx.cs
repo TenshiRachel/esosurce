@@ -8,6 +8,7 @@ using Esource.BL.service;
 using Esource.BL.notification;
 using Esource.BL.profile;
 using Esource.Utilities;
+using System.IO;
 
 namespace Esource.Views.Service
 {
@@ -108,9 +109,17 @@ namespace Esource.Views.Service
 
         protected void servList_ItemDataBound(object sender, RepeaterItemEventArgs e)
         {
-            var img = e.Item.FindControl("poster") as Image;
+            Image img = e.Item.FindControl("poster") as Image;
             HiddenField path = (HiddenField)e.Item.FindControl("img_path");
+            HiddenField providerId = (HiddenField)e.Item.FindControl("providerId");
+
             img.ImageUrl = Page.ResolveUrl(path.Value);
+            img = e.Item.FindControl("providerPic") as Image;
+            string dirPath = "~/Content/uploads/profile/" + providerId.Value + "/";
+            if (File.Exists(Server.MapPath(dirPath) + "profilePic.png"))
+            {
+                img.ImageUrl = Page.ResolveUrl(dirPath + "profilePic.png");
+            }
         }
     }
 }

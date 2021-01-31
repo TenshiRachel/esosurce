@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -117,7 +118,15 @@ namespace Esource.Views.service
         {
             var img = e.Item.FindControl("poster") as Image;
             HiddenField path = (HiddenField)e.Item.FindControl("img_path");
+            HiddenField providerId = (HiddenField)e.Item.FindControl("providerId");
+
             img.ImageUrl = Page.ResolveUrl(path.Value);
+            img = e.Item.FindControl("providerPic") as Image;
+            string dirPath = "~/Content/uploads/profile/" + providerId.Value + "/";
+            if (File.Exists(Server.MapPath(dirPath) + "profilePic.png"))
+            {
+                img.ImageUrl = Page.ResolveUrl(dirPath + "profilePic.png");
+            }
         }
     }
 }

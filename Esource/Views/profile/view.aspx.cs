@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -46,14 +47,26 @@ namespace Esource.Views.profile
                     occupation.InnerHtml = user.occupation;
                     email.InnerHtml = user.email;
                     viewUsername.InnerHtml = user.username;
+
                     if (user.type == "client")
                     {
                         viewUsertype.InnerHtml = "Client";
                     }
+                    string dirPath = "~/Content/uploads/profile/" + targetUserId + "/";
+                    if (File.Exists(Server.MapPath(dirPath) + "banner.png"))
+                    {
+                        userBanner.ImageUrl = Page.ResolveUrl(dirPath + "banner.png");
+                    }
+                    if (File.Exists(Server.MapPath(dirPath) + "profilePic.png"))
+                    {
+                        viewuserProfilePic.ImageUrl = Page.ResolveUrl(dirPath + "profilePic.png");
+                    }
+
                     followers.InnerHtml = user.followers.ToString();
                     following.InnerHtml = user.following.ToString();
                     followerTitle.InnerHtml = user.username + "'s followers";
                     followingTitle.InnerHtml = user.username + "'s following";
+
                     bool isFollowed = new Follow().isFollowed(currUserId, targetUserId);
                     if (isFollowed)
                     {
@@ -124,6 +137,12 @@ namespace Esource.Views.profile
             }
         }
 
+        public User getTargetUser()
+        {
+            User targetUser = new User().SelectById(targetUserId);
+            return targetUser;
+        }
+
         protected void servList_ItemCommand(object source, RepeaterCommandEventArgs e)
         {
             if (e.CommandName == "view")
@@ -191,6 +210,13 @@ namespace Esource.Views.profile
             var img = e.Item.FindControl("poster") as Image;
             HiddenField path = (HiddenField)e.Item.FindControl("img_path");
             img.ImageUrl = Page.ResolveUrl(path.Value);
+
+            img = e.Item.FindControl("providerPic") as Image;
+            string dirPath = "~/Content/uploads/profile/" + targetUserId + "/";
+            if (File.Exists(Server.MapPath(dirPath) + "profilePic.png"))
+            {
+                img.ImageUrl = Page.ResolveUrl(dirPath + "profilePic.png");
+            }
         }
 
         protected void projects_ItemDataBound(object sender, RepeaterItemEventArgs e)
@@ -221,7 +247,7 @@ namespace Esource.Views.profile
             if (System.IO.File.Exists(Server.MapPath(currUserPic)))
             {
                 Image profilePic = e.Item.FindControl("modal_profilePic") as Image;
-                profilePic.ImageUrl = Page.ResolveUrl(profilePicUrl);
+                profilePic.ImageUrl = Page.ResolveUrl(currUserPic);
             }
 
             Label LblUsername = e.Item.FindControl("modal_username") as Label;

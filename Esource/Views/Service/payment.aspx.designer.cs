@@ -31,13 +31,22 @@ namespace Esource.Views.service {
         protected global::System.Web.UI.WebControls.Label LblJid;
         
         /// <summary>
-        /// client_avatar control.
+        /// clientBanner control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlImage client_avatar;
+        protected global::System.Web.UI.WebControls.Image clientBanner;
+        
+        /// <summary>
+        /// clientAvatar control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Image clientAvatar;
         
         /// <summary>
         /// client_name control.
@@ -67,13 +76,22 @@ namespace Esource.Views.service {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl servprice;
         
         /// <summary>
-        /// freelance_avatar control.
+        /// freelanceBanner control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlImage freelance_avatar;
+        protected global::System.Web.UI.WebControls.Image freelanceBanner;
+        
+        /// <summary>
+        /// freelanceAvatar control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Image freelanceAvatar;
         
         /// <summary>
         /// freelance_name control.
