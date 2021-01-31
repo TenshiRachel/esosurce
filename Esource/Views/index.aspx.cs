@@ -128,13 +128,17 @@ namespace Esource.Views
 
         public void renderImages(RepeaterItemEventArgs e)
         {
-            var img = e.Item.FindControl("poster") as Image;
-            HiddenField path = (HiddenField)e.Item.FindControl("img_path");
-            img.ImageUrl = Page.ResolveUrl(path.Value);
+            Image img = e.Item.FindControl("poster") as Image;
+            HiddenField serviceId = (HiddenField)e.Item.FindControl("serviceId");
             HiddenField providerId = (HiddenField)e.Item.FindControl("provider_ID");
             User servProvider = new User().SelectById(providerId.Value);
 
             string dirPath = "~/Content/uploads/profile/" + servProvider.Id + "/";
+            string servPath = dirPath + serviceId.Value + ".png";
+            if (File.Exists(Server.MapPath(servPath)))
+            {
+                img.ImageUrl = Page.ResolveUrl(servPath);
+            }
             if (File.Exists(Server.MapPath(dirPath) + "profilePic.png")){
                 img = e.Item.FindControl("userImg") as Image;
                 img.ImageUrl = Page.ResolveUrl(dirPath + "profilePic.png");

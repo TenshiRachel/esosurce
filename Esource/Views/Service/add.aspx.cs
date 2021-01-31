@@ -54,9 +54,8 @@ namespace Esource.Views.service
             return valid;
         }
 
-        public string storeFile()
+        public void storeFile(string id)
         {
-            string img_path = "";
             List<string> acceptedTypes = new List<string>() {
                 "image/png",
                 "image/jpeg",
@@ -65,20 +64,15 @@ namespace Esource.Views.service
 
             if (acceptedTypes.Contains(upPoster.PostedFile.ContentType))
             {
-                string fileName = Path.GetFileName(upPoster.FileName);
                 string dirPath = Server.MapPath("~/Content/uploads/services/" + LblUid.Text + "/");
                 Directory.CreateDirectory(dirPath);
-                upPoster.SaveAs(dirPath + fileName);
-
-                img_path = "~/Content/uploads/services/" + LblUid.Text + "/" + fileName;
+                upPoster.SaveAs(dirPath + id + ".png");
             }
 
             else
             {
                 Toast.error(this, "Only image files are accepted");
             }
-
-            return img_path;
         }
 
         protected void btnAdd_Click(object sender, EventArgs e)
@@ -103,17 +97,17 @@ namespace Esource.Views.service
                 string name = tbName.Text;
                 string desc = tbDesc.Text;
                 decimal price = decimal.Parse(tbPrice.Text);
-                string img_path = "~/Content/img/placeholder.jpg";
-                if (upPoster.HasFile)
-                {
-                    img_path = storeFile();
-                }
+
                 User curruser = new User().SelectById(LblUid.Text);
-                BL.service.Service service = new BL.service.Service(name, desc, price, categories, img_path, curruser.Id, curruser.username);
+                BL.service.Service service = new BL.service.Service(name, desc, price, categories, curruser.Id, curruser.username);
 
                 int result = service.AddService();
                 if (result == 0)
                 {
+                    if (upPoster.HasFile)
+                    {
+                        storeFile(result.ToString());
+                    }
                     Toast.error(this, "Error occured while adding service");
                 }
                 else

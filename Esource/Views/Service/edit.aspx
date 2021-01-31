@@ -30,7 +30,7 @@
                         <div class="filepreview">
                             <div class="wrapper card card-body view overlay text-center z-depth-2">
                                 <div class="preview deep-purple accent-3">
-                                    <img src="#" runat="server" id="poster" />
+                                    <asp:Image runat="server" id="poster" ImageUrl="~/Content/img/placeholder.jpg" />
                                 </div>
                                 <div class="card-text d-none">
                                     <i class="fas fa-5x fa-image"></i>

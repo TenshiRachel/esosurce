@@ -37,8 +37,11 @@ namespace Esource.Views.service
                         tbName.Text = service[0].name;
                         tbDesc.Text = service[0].desc;
                         tbPrice.Text = service[0].price.ToString();
-                        string posterPath = service[0].img_path;
-                        poster.Src = Page.ResolveUrl(posterPath);
+                        string posterPath = "~/Content/uploads/services/" + LblUid.Text + "/" + service[0].Id + ".png";
+                        if (File.Exists(Server.MapPath(posterPath)))
+                        {
+                            poster.ImageUrl = Page.ResolveUrl(posterPath);
+                        }
                         string[] categories = service[0].categories.Split(' ');
                         foreach (ListItem item in cblCat.Items)
                         {
@@ -87,9 +90,8 @@ namespace Esource.Views.service
             return valid;
         }
 
-        public string storeFile()
+        public void storeFile(string id)
         {
-            string img_path = "";
             List<string> acceptedTypes = new List<string>() {
                 "image/png",
                 "image/jpeg",
@@ -98,20 +100,20 @@ namespace Esource.Views.service
 
             if (acceptedTypes.Contains(upPoster.PostedFile.ContentType))
             {
-                string fileName = Path.GetFileName(upPoster.FileName);
                 string dirPath = Server.MapPath("~/Content/uploads/services/" + LblUid.Text + "/");
                 Directory.CreateDirectory(dirPath);
-                upPoster.SaveAs(dirPath + fileName);
-
-                img_path = "~/Content/uploads/services/" + LblUid.Text + "/" + fileName;
+                string imgPath = dirPath + id + ".png";
+                if (File.Exists(imgPath))
+                {
+                    File.Delete(imgPath);
+                }
+                upPoster.SaveAs(imgPath);
             }
 
             else
             {
                 Toast.error(this, "Only image files are accepted");
             }
-
-            return img_path;
         }
 
         protected void btnEdit_Click(object sender, EventArgs e)
@@ -136,15 +138,15 @@ namespace Esource.Views.service
                 categories.Remove(categories.Length - 1);
                 int Id = int.Parse(Request.QueryString["id"].ToString());
                 List<BL.service.Service> curr = new BL.service.Service().SelectById(Id.ToString());
-                string img_path = curr[0].img_path;
-                if (upPoster.HasFile)
-                {
-                    img_path = storeFile();
-                }
+
                 BL.service.Service service = new BL.service.Service();
-                int result = service.UpdateService(tbName.Text, tbDesc.Text, decimal.Parse(tbPrice.Text), categories, img_path, Id);
+                int result = service.UpdateService(tbName.Text, tbDesc.Text, decimal.Parse(tbPrice.Text), categories, Id);
                 if (result == 0)
                 {
+                    if (upPoster.HasFile)
+                    {
+                        storeFile(curr[0].Id.ToString());
+                    }
                     Toast.error(this, "An error occured while updating service");
                 }
                 else

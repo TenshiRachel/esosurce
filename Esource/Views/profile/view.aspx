@@ -472,8 +472,8 @@
                                                     <div class="servicecards col-12 col-md-4 col-lg-4 d-flex align-items-stretch mt-4 <%#Eval("categories") %>" data-id="<%#Eval("Id") %>" data-views="<%#Eval("views") %>" data-favs="<%#Eval("favs") %>">
                                                         <div class="card w-100">
                                                             <div class="view overlay border-bottom border-primary rounded-top">
-                                                                <asp:HiddenField runat="server" ID="img_path" Value='<%#Eval("img_path") %>' />
-                                                                <asp:Image runat="server" ID="poster" CssClass="card-img-top" />
+                                                                <asp:HiddenField runat="server" ID="serviceId" Value='<%#Eval("Id") %>' />
+                                                                <asp:Image runat="server" ID="poster" CssClass="card-img-top" ImageUrl="~/Content/img/placeholder.jpg" />
                                                                 <a>
                                                                     <div class="mask rgba-black-light"></div>
                                                                 </a>
@@ -547,8 +547,8 @@
                                                     <div class="servicecards col-12 col-md-4 col-lg-4 d-flex align-items-stretch mt-4 <%#Eval("categories") %>" data-id="<%#Eval("Id") %>" data-views="<%#Eval("views") %>" data-favs="<%#Eval("favs") %>">
                                                         <div class="card w-100">
                                                             <div class="view overlay border-bottom border-primary rounded-top">
-                                                                <asp:HiddenField runat="server" ID="img_path" Value='<%#Eval("img_path") %>' />
-                                                                <asp:Image runat="server" ID="poster" CssClass="card-img-top" />
+                                                                <asp:HiddenField runat="server" ID="serviceId" Value='<%#Eval("Id") %>' />
+                                                                <asp:Image runat="server" ID="poster" CssClass="card-img-top" ImageUrl="~/Content/img/placeholder.jpg" />
                                                                 <a>
                                                                     <div class="mask rgba-black-light"></div>
                                                                 </a>

@@ -109,13 +109,16 @@ namespace Esource.Views.Service
 
         protected void servList_ItemDataBound(object sender, RepeaterItemEventArgs e)
         {
-            Image img = e.Item.FindControl("poster") as Image;
-            HiddenField path = (HiddenField)e.Item.FindControl("img_path");
             HiddenField providerId = (HiddenField)e.Item.FindControl("providerId");
-
-            img.ImageUrl = Page.ResolveUrl(path.Value);
-            img = e.Item.FindControl("providerPic") as Image;
+            HiddenField serviceId = (HiddenField)e.Item.FindControl("serviceId");
             string dirPath = "~/Content/uploads/profile/" + providerId.Value + "/";
+            string servPath = dirPath + serviceId + ".png";
+            Image img = e.Item.FindControl("poster") as Image;
+            if (File.Exists(Server.MapPath(servPath)))
+            {
+                img.ImageUrl = Page.ResolveUrl(servPath);
+            }
+            img = e.Item.FindControl("providerPic") as Image;
             if (File.Exists(Server.MapPath(dirPath) + "profilePic.png"))
             {
                 img.ImageUrl = Page.ResolveUrl(dirPath + "profilePic.png");

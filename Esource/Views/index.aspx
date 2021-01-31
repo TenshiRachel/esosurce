@@ -85,8 +85,8 @@
                                         <div id="" class="card card-rotating w-100">
                                             <div class="face front d-flex flex-column rounded">
                                                 <div class="view overlay border-bottom border-primary rounded-top">
-                                                    <asp:HiddenField runat="server" ID="img_path" Value='<%#Eval("img_path") %>' />
-                                                    <asp:Image runat="server" ID="poster" CssClass="card-img-top" />
+                                                    <asp:HiddenField runat="server" ID="serviceId" Value='<%#Eval("Id") %>' />
+                                                    <asp:Image runat="server" ID="poster" CssClass="card-img-top" ImageUrl="~/Content/img/placeholder.jpg" />
                                                     <a>
                                                         <div class="mask rgba-black-light"></div>
                                                     </a>
@@ -258,8 +258,8 @@
                                         <div id="" class="card card-rotating z-depth-3 w-100">
                                             <div class="face front d-flex flex-column rounded">
                                                 <div class="view overlay border-bottom border-primary rounded-top">
-                                                    <asp:HiddenField runat="server" ID="img_path" Value='<%#Eval("img_path") %>' />
-                                                    <asp:Image runat="server" ID="poster" CssClass="card-img-top" />
+                                                    <asp:HiddenField runat="server" ID="serviceId" Value='<%#Eval("Id") %>' />
+                                                    <asp:Image runat="server" ID="poster" CssClass="card-img-top" ImageUrl="~/Content/img/placeholder.jpg" />
                                                     <a>
                                                         <div class="mask rgba-black-light"></div>
                                                     </a>
