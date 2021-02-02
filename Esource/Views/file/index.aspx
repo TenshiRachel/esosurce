@@ -368,4 +368,5 @@
     </div>
 
     <script type="text/javascript" src="<%=Page.ResolveUrl("~/Scripts/files.js") %>"></script>
+    <script type="text/javascript" src="<%=Page.ResolveUrl("~/Scripts/search.js") %>"></script>
 </asp:Content>

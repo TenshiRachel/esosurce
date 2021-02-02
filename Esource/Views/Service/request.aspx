@@ -84,4 +84,5 @@
         </div>
 
     </section>
+    <script type="text/javascript" src="<%=Page.ResolveUrl("~/Scripts/search.js") %>"></script>
 </asp:Content>

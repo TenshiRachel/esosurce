@@ -51,7 +51,7 @@
                                             Reject Job<i class="fas fa-times ml-2"></i>
                                                             </asp:LinkButton>
                                                             <p runat="server" id="await" class="text-center grey-text small font-weight-bold mb-0" visible="false">Awaiting payment</p>
-                                                            <asp:LinkButton runat="server" ID="btnSubmit" CommandArgument='<%#Eval("Id") + "," + Eval("sid") + "," + Eval("cid")Eval %>' CommandName="submit" CssClass="btn btn-sm btn-success material-tooltip-md"
+                                                            <asp:LinkButton runat="server" ID="btnSubmit" CommandArgument='<%#Eval("Id") + "," + Eval("sid") + "," + Eval("cid") %>' CommandName="submit" CssClass="btn btn-sm btn-success material-tooltip-md"
                                                                 data-tooltip="tooltip" data-placement="top" title="Submit Job" Visible="false">
                                             Job completed<i class="fas fa-check ml-2"></i></asp:LinkButton>
                                                             <p runat="server" id="completed" visible="false" class="text-center grey-text small font-weight-bold mb-0">Completed</p>
@@ -86,4 +86,5 @@
             </div>
         </div>
     </section>
+    <script type="text/javascript" src="<%=Page.ResolveUrl("~/Scripts/search.js") %>"></script>
 </asp:Content>
