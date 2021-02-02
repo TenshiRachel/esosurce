@@ -33,12 +33,12 @@
                                         <ContentTemplate>
                                             <asp:Repeater runat="server" ID="joblist" OnItemCommand="joblist_ItemCommand" OnItemDataBound="joblist_ItemDataBound">
                                                 <ItemTemplate>
-                                                    <tr class="animated faster">
+                                                    <tr class="animated faster data-rows">
                                                         <td headers="client" class="align-middle">
                                                             <asp:LinkButton runat="server" CommandArgument='<%#Eval("cid") %>' CommandName="viewprofile"><%#Eval("cName") %></asp:LinkButton>
                                                         </td>
                                                         <td headers="date" class="align-middle"><%#Eval("date_created") %></td>
-                                                        <td headers="service" class="align-middle"><%#Eval("sName") %></td>
+                                                        <td headers="service" data-name='<%#Eval("sName") %>' class="align-middle name"><%#Eval("sName") %></td>
                                                         <td headers="payment" class="align-middle">$<%#Eval("price") %></td>
                                                         <td headers="remarks" class="align-middle"><%#Eval("remarks") %></td>
                                                         <td headers="action" class="align-middle">
@@ -51,7 +51,7 @@
                                             Reject Job<i class="fas fa-times ml-2"></i>
                                                             </asp:LinkButton>
                                                             <p runat="server" id="await" class="text-center grey-text small font-weight-bold mb-0" visible="false">Awaiting payment</p>
-                                                            <asp:LinkButton runat="server" ID="btnSubmit" CommandArgument='<%#Eval("Id") + "," + Eval("sid") + "," + Eval("cid") %>' CommandName="submit" CssClass="btn btn-sm btn-success material-tooltip-md"
+                                                            <asp:LinkButton runat="server" ID="btnSubmit" CommandArgument='<%#Eval("Id") + "," + Eval("sid") + "," + Eval("cid")Eval %>' CommandName="submit" CssClass="btn btn-sm btn-success material-tooltip-md"
                                                                 data-tooltip="tooltip" data-placement="top" title="Submit Job" Visible="false">
                                             Job completed<i class="fas fa-check ml-2"></i></asp:LinkButton>
                                                             <p runat="server" id="completed" visible="false" class="text-center grey-text small font-weight-bold mb-0">Completed</p>
