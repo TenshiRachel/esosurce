@@ -226,7 +226,7 @@
                                                                                                         <div class="col-8 align-self-center pl-3 h-100">
                                                                                                             <div class="row m-auto h-100 p-0">
                                                                                                                 <h5 class="col-12 p-0 align-self-start text-left font-weight-bold"><%#Eval("title") %></h5>
-                                                                                                                <a href="<%=Page.ResolveUrl("~/Views/profile/index.aspx") %>">
+                                                                                                                <a href="#">
                                                                                                                     <h6 class="col-12 p-0 align-self-end text-left">
                                                                                                                         <asp:Label runat="server" ID="modal_username"></asp:Label>
                                                                                                                     </h6>

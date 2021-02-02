@@ -43,7 +43,7 @@
 
                                 <!-- Profile Image -->
                                 <div class="avatar mx-auto white mt-4">
-                                    <asp:Image loading="lazy" runat="server" ID="userProfilePic" CssClass="rounded-circle  border" />
+                                    <asp:Image loading="lazy" runat="server" ID="userProfilePic" CssClass="rounded-circle  border" ImageUrl="~/Content/img/placeholder.jpg" />
                                 </div>
 
                                 <!-- User Details -->
