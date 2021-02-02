@@ -33,12 +33,12 @@
                                         <ContentTemplate>
                                             <asp:Repeater runat="server" ID="joblist" OnItemCommand="joblist_ItemCommand" OnItemDataBound="joblist_ItemDataBound">
                                                 <ItemTemplate>
-                                                    <tr class="animated faster">
+                                                    <tr class="animated faster data-rows">
                                                         <td headers="client" class="align-middle">
                                                             <asp:LinkButton runat="server" CommandArgument='<%#Eval("cid") %>' CommandName="viewprofile"><%#Eval("cName") %></asp:LinkButton>
                                                         </td>
                                                         <td headers="date" class="align-middle"><%#Eval("date_created") %></td>
-                                                        <td headers="service" class="align-middle"><%#Eval("sName") %></td>
+                                                        <td headers="service" data-name='<%#Eval("sName") %>' class="align-middle name"><%#Eval("sName") %></td>
                                                         <td headers="payment" class="align-middle">$<%#Eval("price") %></td>
                                                         <td headers="remarks" class="align-middle"><%#Eval("remarks") %></td>
                                                         <td headers="action" class="align-middle">
@@ -86,4 +86,5 @@
             </div>
         </div>
     </section>
+    <script type="text/javascript" src="<%=Page.ResolveUrl("~/Scripts/search.js") %>"></script>
 </asp:Content>

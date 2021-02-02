@@ -49,7 +49,7 @@
                                         <tbody>
                                             <asp:Repeater runat="server" ID="files" OnItemCommand="files_ItemCommand" OnItemDataBound="files_ItemDataBound">
                                                 <ItemTemplate>
-                                                    <tr class="animated faster<%-- d-none--%>">
+                                                    <tr class="animated faster<%-- d-none--%> data-rows">
                                                         <td headers="select">
                                                             <div class="form-check">
                                                                 <asp:CheckBox runat="server" AutoPostBack="true" ID="checkFile" CommandArgument='<%#Eval("Id") %>'
@@ -57,7 +57,7 @@
                                                                 <label for='ff-<%#Eval("Id") %>' class="form-check-label"></label>
                                                             </div>
                                                         </td>
-                                                        <td headers="name">
+                                                        <td headers="name" data-name='<%#Eval("fileName") %>' class="name">
                                                             <asp:LinkButton runat="server" CommandName="download" CssClass="d-flex flex-fill justify-content-center"><%#Eval("fileName") %>
                                                             </asp:LinkButton>
                                                         </td>
@@ -368,4 +368,5 @@
     </div>
 
     <script type="text/javascript" src="<%=Page.ResolveUrl("~/Scripts/files.js") %>"></script>
+    <script type="text/javascript" src="<%=Page.ResolveUrl("~/Scripts/search.js") %>"></script>
 </asp:Content>
