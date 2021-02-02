@@ -199,16 +199,29 @@ namespace Esource.Views.file
             foreach(string id in fileIds)
             {
                 BL.file.File file = new BL.file.File().SelectById(id);
-                if (System.IO.File.Exists(file.fullPath))
+                string[] sharedUsers = file.shareId.Split(',');
+                if (sharedUsers.Contains(currUserId))
                 {
-                    System.IO.File.Delete(file.fullPath);
+                    List<string> shared = new List<string>(sharedUsers);
+                    shared.Remove(currUserId);
+                    new BL.file.File().UpdateShares(file.Id.ToString(), string.Join(",", shared));
+                    List<BL.file.File> sharedFiles = new BL.file.File().SelectByShare(currUserId);
+                    files.DataSource = sharedFiles;
+                    files.DataBind();
                 }
-                int result = new BL.file.File().Remove(id);
+                else
+                {
+                    if (System.IO.File.Exists(file.fullPath))
+                    {
+                        System.IO.File.Delete(file.fullPath);
+                    }
+                    int result = new BL.file.File().Remove(id);
+                    List<BL.file.File> userfiles = new BL.file.File().SelectByUid(currUserId);
+                    files.DataSource = userfiles;
+                    files.DataBind();
+                }
                 
             }
-            List<BL.file.File> userfiles = new BL.file.File().SelectByUid(currUserId);
-            files.DataSource = userfiles;
-            files.DataBind();
             action_panel.Visible = false;
             single_action_panel.Visible = false;
             Toast.success(this, "File(s) deleted successfully");

@@ -37,19 +37,15 @@ namespace Esource.Views.auth
             bool isCorrect = false;
             User user = new User().SelectById(currUserId);
             string pwd = currPass.Value.ToString().Trim();
-            SHA512Managed hashing = new SHA512Managed();
+            
             string dbHash = user.password;
             string dbSalt = user.passSalt;
-            if (dbSalt != null && dbSalt.Length > 0 && dbHash != null && dbHash.Length > 0)
+            
+            if (Auth.hash(pwd, dbSalt).Item1 == dbHash)
             {
-                string pwdWithSalt = pwd + dbSalt;
-                byte[] hashWithSalt = hashing.ComputeHash(Encoding.UTF8.GetBytes(pwdWithSalt));
-                string userHash = Convert.ToBase64String(hashWithSalt);
-                if (userHash.Equals(dbHash))
-                {
-                    isCorrect = true;
-                }
+                isCorrect = true;
             }
+
             return isCorrect;
         }
 
@@ -94,33 +90,12 @@ namespace Esource.Views.auth
 
         protected void btnChangePassword_Click(object sender, EventArgs e)
         {
-            string pwd_hash = "";
             if (ValidateInput(currPass.Value, newPass.Value, confPass.Value))
             {
-                pwd_hash = newPass.Value.ToString().Trim();
+                string pwd = newPass.Value.ToString().Trim();
+                Tuple<string, string> pwdAndSalt = Auth.hash(pwd);
 
-                //Generate random "salt"
-                RNGCryptoServiceProvider rng = new RNGCryptoServiceProvider();
-                byte[] saltByte = new byte[8];
-
-                //Fills array of bytes with a cryptographically strong sequence of random values.
-                rng.GetBytes(saltByte);
-                salt = Convert.ToBase64String(saltByte);
-
-                SHA512Managed hashing = new SHA512Managed();
-
-                string pwdWithSalt = pwd_hash + salt;
-                byte[] plainHash = hashing.ComputeHash(Encoding.UTF8.GetBytes(pwd_hash));
-                byte[] hashWithSalt = hashing.ComputeHash(Encoding.UTF8.GetBytes(pwdWithSalt));
-
-                password = Convert.ToBase64String(hashWithSalt);
-
-                RijndaelManaged cipher = new RijndaelManaged();
-                cipher.GenerateKey();
-                Key = cipher.Key;
-                IV = cipher.IV;
-
-                int result = new User().UpdatePassword(password, salt, currUserId);
+                int result = new User().UpdatePassword(pwdAndSalt.Item1, pwdAndSalt.Item2, currUserId);
                 if (result != 0)
                 {
                     Session["success"] = "Your password has been changed successfully";
