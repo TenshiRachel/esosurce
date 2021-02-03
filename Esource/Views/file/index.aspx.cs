@@ -159,29 +159,36 @@ namespace Esource.Views.file
             BL.file.File file = new BL.file.File().SelectById(fileId);
             User currUser = new User().SelectById(currUserId);
             User targetShare = new User().SelectByEmail(share_user_input.Value);
-            if (targetShare != null)
+            if (!string.IsNullOrEmpty(share_user_input.Value) && share_user_input.Value.Contains("@"))
             {
-                int result = file.UpdateShares(fileId, file.shareId + "," + targetShare.Id);
-                if (result == 0)
+                if (targetShare != null)
                 {
-                    Toast.error(this, "An error occured while sharing file");
+                    int result = file.UpdateShares(fileId, file.shareId + "," + targetShare.Id);
+                    if (result == 0)
+                    {
+                        Toast.error(this, "An error occured while sharing file");
+                    }
+                    else
+                    {
+                        string fileName = file.fileName;
+                        if (file.fileName.Length > 31)
+                        {
+                            fileName = file.fileName.Substring(0, 30) + "...";
+                        }
+                        Notification notif = new Notification(int.Parse(currUserId), currUser.username, file.Id, fileName, targetShare.Id.ToString(), "file");
+                        notif.AddNotif();
+                        bindSharedUsers(file.Id.ToString());
+                        Toast.success(this, "File shared successfully");
+                    }
                 }
                 else
                 {
-                    string fileName = file.fileName;
-                    if (file.fileName.Length > 31)
-                    {
-                        fileName = file.fileName.Substring(0, 30) + "...";
-                    }
-                    Notification notif = new Notification(int.Parse(currUserId), currUser.username, file.Id, fileName, targetShare.Id.ToString(), "file");
-                    notif.AddNotif();
-                    bindSharedUsers(file.Id.ToString());
-                    Toast.success(this, "File shared successfully");
+                    Toast.error(this, "User not found, please try again");
                 }
             }
             else
             {
-                Toast.error(this, "User not found, please try again");
+                Toast.error(this, "Please enter a valid email");
             }
         }
 
@@ -238,23 +245,30 @@ namespace Esource.Views.file
                     fid = chkbox.Attributes["CommandArgument"];
                 }
             }
-            BL.file.File file = new BL.file.File().SelectById(fid);
-            string newPath = Server.MapPath("~/Content/uploads/files/" + currUserId + "/" + fid + "/");
-            System.IO.File.Copy(file.fullPath, newPath + rename_input.Value);
-            System.IO.File.Delete(file.fullPath);
-            int result = new BL.file.File().UpdateFilePath(fid, newPath + rename_input.Value, rename_input.Value);
-            if (result == 0)
+            if (!string.IsNullOrEmpty(rename_input.Value))
             {
-                Toast.error(this, "An error occured while renaming file");
+                BL.file.File file = new BL.file.File().SelectById(fid);
+                string newPath = Server.MapPath("~/Content/uploads/files/" + currUserId + "/" + fid + "/");
+                System.IO.File.Copy(file.fullPath, newPath + rename_input.Value);
+                System.IO.File.Delete(file.fullPath);
+                int result = new BL.file.File().UpdateFilePath(fid, newPath + rename_input.Value, rename_input.Value);
+                if (result == 0)
+                {
+                    Toast.error(this, "An error occured while renaming file");
+                }
+                else
+                {
+                    List<BL.file.File> userfiles = new BL.file.File().SelectByUid(currUserId);
+                    files.DataSource = userfiles;
+                    files.DataBind();
+                    action_panel.Visible = false;
+                    single_action_panel.Visible = false;
+                    Toast.success(this, "File renamed successfully");
+                }
             }
             else
             {
-                List<BL.file.File> userfiles = new BL.file.File().SelectByUid(currUserId);
-                files.DataSource = userfiles;
-                files.DataBind();
-                action_panel.Visible = false;
-                single_action_panel.Visible = false;
-                Toast.success(this, "File renamed successfully");
+                Toast.error(this, "Please enter a name");
             }
         }
 
