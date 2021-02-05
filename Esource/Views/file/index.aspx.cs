@@ -51,7 +51,10 @@ namespace Esource.Views.file
         {
             if (e.CommandName == "download")
             {
-
+                BL.file.File file = new BL.file.File().SelectById(e.CommandArgument.ToString());
+                Session["file"] = file.fileName;
+                Session["folder"] = Server.MapPath("~/Content/uploads/files/") + file.uid + "/" + file.Id;
+                Response.Redirect("~/Views/file/index.aspx");
             }
         }
 
@@ -80,7 +83,7 @@ namespace Esource.Views.file
                 {
                     file_path = "~/Content/uploads/files/" + currUserId + "/" + fileName;
 
-                    BL.file.File file = new BL.file.File(fileName, file_path, ext, postedFile.ContentLength, int.Parse(currUserId));
+                    BL.file.File file = new BL.file.File(fileName, file_path, ext, ByteToSize.convert(postedFile.ContentLength), int.Parse(currUserId));
                     int result = file.AddFile();
                     if (result == 0)
                     {

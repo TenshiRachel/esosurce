@@ -11,7 +11,7 @@ namespace Esource.BL.file
         public string fileName { get; set; }
         public string fullPath { get; set; }
         public string type { get; set; }
-        public decimal size { get; set; }
+        public string size { get; set; }
         public string shareId { get; set; }
         public int uid { get; set; }
         public int Id { get; set; }
@@ -21,7 +21,7 @@ namespace Esource.BL.file
 
         }
 
-        public File(string fileName, string fullPath, string type, decimal size, int uid, string shareId = "", int Id = -1)
+        public File(string fileName, string fullPath, string type, string size, int uid, string shareId = "", int Id = -1)
         {
             this.fileName = fileName;
             this.fullPath = fullPath;

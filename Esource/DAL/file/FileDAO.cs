@@ -60,7 +60,7 @@ namespace Esource.DAL.file
                     string name = row["fileName"].ToString();
                     string path = row["fullPath"].ToString();
                     string type = row["type"].ToString();
-                    decimal size = decimal.Parse(row["size"].ToString());
+                    string size = row["size"].ToString();
                     string shareId = row["shareId"].ToString();
                     int Id = int.Parse(row["Id"].ToString());
                     obj = new File(name, path, type, size, int.Parse(uid), shareId, Id);
@@ -94,7 +94,7 @@ namespace Esource.DAL.file
                     string name = row["fileName"].ToString();
                     string path = row["fullPath"].ToString();
                     string type = row["type"].ToString();
-                    decimal size = decimal.Parse(row["size"].ToString());
+                    string size = row["size"].ToString();
                     string shareIds = row["shareId"].ToString();
                     int uid = int.Parse(row["uid"].ToString());
                     int Id = int.Parse(row["Id"].ToString());
@@ -131,7 +131,7 @@ namespace Esource.DAL.file
                 string name = row["fileName"].ToString();
                 string path = row["fullPath"].ToString();
                 string type = row["type"].ToString();
-                decimal size = decimal.Parse(row["size"].ToString());
+                string size = row["size"].ToString();
                 int uid = int.Parse(row["uid"].ToString());
                 string shareId = row["shareId"].ToString();
                 obj = new File(name, path, type, size, uid, shareId, int.Parse(id));
