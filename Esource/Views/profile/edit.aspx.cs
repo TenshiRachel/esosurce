@@ -20,6 +20,7 @@ namespace Esource.Views.profile
                 LblUid.Text = Session["uid"].ToString();
                 User user = new User().SelectById(LblUid.Text);
                 string [] socialList = user.social.Split(',');
+                string [] skillsList = user.skills.Split(',');
                 if (!Page.IsPostBack)
                 {
                     CountryHelper helper = new CountryHelper();
@@ -54,6 +55,29 @@ namespace Esource.Views.profile
                         facebook.Value = socialList[2];
                         youtube.Value = socialList[3];
                         deviantart.Value = socialList[4];
+                    }
+                    if (skillsList.Any())
+                    {
+                        if (skillsList[0] != null)
+                        {
+                            skill1.Value = skillsList[0];
+                        }
+                        if (skillsList[1] != null)
+                        {
+                            skill2.Value = skillsList[1];
+                        }
+                        if (skillsList[2] != null)
+                        {
+                            skill3.Value = skillsList[2];
+                        }
+                        if (skillsList[3] != null)
+                        {
+                            skill4.Value = skillsList[3];
+                        }
+                        if (skillsList[4] != null)
+                        {
+                            skill5.Value = skillsList[4];
+                        }
                     }
                     if (user.type == "client")
                     {
