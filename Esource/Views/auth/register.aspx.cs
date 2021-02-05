@@ -85,7 +85,7 @@ namespace Esource.Views.auth
             };
             cust = serv.Create(options);
 
-            User user = new User(username, email, pwdAndSalt.Item1, pwdAndSalt.Item2, "", "", accType, Convert.ToBase64String(IV), Auth.encrypt(cust.Id, IV));
+            User user = new User(username, email, pwdAndSalt.Item1, pwdAndSalt.Item2, "", accType, Convert.ToBase64String(IV), Auth.encrypt(cust.Id, IV));
             user.AddUser();
             Session["success"] = "Registered successfully";
             Response.Redirect("~/Views/auth/login.aspx");

@@ -7,6 +7,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Esource.Utilities;
 using System.IO;
+using CountryData.Standard;
 
 namespace Esource.Views.profile
 {
@@ -21,6 +22,11 @@ namespace Esource.Views.profile
                 string [] socialList = user.social.Split(',');
                 if (!Page.IsPostBack)
                 {
+                    CountryHelper helper = new CountryHelper();
+                    List<string> countries = helper.GetCountries();
+                    countries.Insert(0, "Not Set");
+                    location.DataSource = countries;
+                    location.DataBind();
                     bio.Value = user.bio;
                     if (user.website != "Not Set")
                     {
