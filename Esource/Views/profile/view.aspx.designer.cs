@@ -157,6 +157,24 @@ namespace Esource.Views.profile {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl bio;
         
         /// <summary>
+        /// skillsRepeater control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Repeater skillsRepeater;
+        
+        /// <summary>
+        /// noskill control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl noskill;
+        
+        /// <summary>
         /// projects control.
         /// </summary>
         /// <remarks>

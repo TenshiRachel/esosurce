@@ -82,6 +82,7 @@ namespace Esource.Views.profile
             string social = twitter + "," + instagram + "," + facebook + "," + youtube + "," + deviantart;
             return social;
         }
+        
 
         public void storeFile(FileUpload fileUpload)
         {
@@ -114,7 +115,16 @@ namespace Esource.Views.profile
         protected void updateProfile_Click(object sender, EventArgs e)
         {
             string social = UpdateSocial(twitter.Value, instagram.Value, facebook.Value, youtube.Value, deviantart.Value);
-            int result = new User().UpdateUser(LblUid.Text, bio.Value, website.Value, dob.Value, gender.Value, location.Value, occupation.Value, social);
+            int result = 0;
+            if (!string.IsNullOrEmpty(skill1.Value) || !string.IsNullOrEmpty(skill2.Value) || !string.IsNullOrEmpty(skill3.Value) || !string.IsNullOrEmpty(skill4.Value) || !string.IsNullOrEmpty(skill5.Value))
+            {
+                string skills = skill1.Value + "," + skill2.Value + "," + skill3.Value + "," + skill4.Value + "," + skill5.Value;
+                result = new User().UpdateUser(LblUid.Text, bio.Value, website.Value, dob.Value, gender.Value, location.Value, occupation.Value, social, skills);
+            }
+            else
+            {
+                result = new User().UpdateUser(LblUid.Text, bio.Value, website.Value, dob.Value, gender.Value, location.Value, occupation.Value, social);
+            }
             if (result == 1)
             {
                 if (upload_banner.HasFile)

@@ -117,13 +117,15 @@
                                     </p>
                                     <hr class="hr-primary">
                                     <h4 class="card-title text-left">Skills</h4>
-                                    <p class="text-left text-muted">
-                                        Not set
-                                    </p>
                                     <div class="row justify-content-start pl-2">
-                                        <button type="button"
-                                            class="btn btn-outline-secondary btn-rounded waves-effect skill-button">
-                                            Edit</button>
+                                        <asp:Repeater runat="server" ID="skillsRepeater">
+                                            <ItemTemplate>
+                                                <button type="button" class="btn btn-outline-secondary btn-rounded waves-effect skill-button"><%# Container.DataItem.ToString() %></button>
+                                            </ItemTemplate>
+                                        </asp:Repeater>
+                                        <p runat="server" id="noskill" visible="false" class="text-left text-muted">
+                                            Not Set
+                                        </p>
                                     </div>
 
                                     <hr class="hr-primary">

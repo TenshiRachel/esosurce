@@ -125,6 +125,7 @@ namespace Esource.DAL.profile
                 string birthday = row["birthday"].ToString();
                 string gender = row["gender"].ToString();
                 string location = row["location"].ToString();
+                string skills = row["skills"].ToString();
                 string occupation = row["occupation"].ToString();
                 string social = row["social"].ToString();
                 string resetToken = row["resetToken"].ToString();
@@ -141,7 +142,7 @@ namespace Esource.DAL.profile
                     jobPin = Auth.decrypt(Convert.FromBase64String(jobPin), Convert.FromBase64String(IV));
                 }
 
-                obj = new User(name, email, password, passSalt, bio, type, IV, stripe, jobPin, following, follows, social, website, birthday, gender, location, occupation, resetToken, resetTokenExpiry,
+                obj = new User(name, email, password, passSalt, bio, type, IV, stripe, jobPin, following, follows, social, website, birthday, gender, location, skills, occupation, resetToken, resetTokenExpiry,
                     paymentToken, paymentTokenExpiry, id);
             }
 
@@ -183,6 +184,7 @@ namespace Esource.DAL.profile
                 string location = row["location"].ToString();
                 string occupation = row["occupation"].ToString();
                 string social = row["social"].ToString();
+                string skills = row["skills"].ToString();
                 string resetToken = row["resetToken"].ToString();
                 string resetTokenExpiry = row["resetTokenExpiry"].ToString();
                 string paymentToken = row["paymentToken"].ToString();
@@ -198,20 +200,20 @@ namespace Esource.DAL.profile
                     jobPin = Auth.decrypt(Convert.FromBase64String(jobPin), Convert.FromBase64String(IV));
                 }
 
-                obj = new User(name, email, password, passSalt, bio, type, IV, stripe, jobPin, following, follows, social, website, birthday, gender, location, occupation,
+                obj = new User(name, email, password, passSalt, bio, type, IV, stripe, jobPin, following, follows, social, skills, website, birthday, gender, location, occupation,
                     resetToken, resetTokenExpiry, paymentToken, paymentTokenExpiry, int.Parse(id));
             }
 
             return obj;
         }
 
-        public int Update(string id, string bio, string website, string birthday, string gender, string location, string occupation, string social)
+        public int Update(string id, string bio, string website, string birthday, string gender, string location, string occupation, string social, string skills = "")
         {
             string DBConnect = ConfigurationManager.ConnectionStrings["ConnStr"].ConnectionString;
             SqlConnection conn = new SqlConnection(DBConnect);
 
             string sqlStmt = "UPDATE [User] " +
-                "SET bio = @paraBio, website = @paraSite, birthday = @paraBirthday, gender = @paraGender, location = @paraLocation, occupation = @paraOccupation, social = @paraSocial " +
+                "SET bio = @paraBio, website = @paraSite, birthday = @paraBirthday, gender = @paraGender, location = @paraLocation, occupation = @paraOccupation, social = @paraSocial, skills = @paraSkills " +
                 "WHERE Id = @paraId";
 
             int result = 0;
@@ -225,6 +227,7 @@ namespace Esource.DAL.profile
             sqlCmd.Parameters.AddWithValue("@paraLocation", location);
             sqlCmd.Parameters.AddWithValue("@paraOccupation", occupation);
             sqlCmd.Parameters.AddWithValue("@paraSocial", social);
+            sqlCmd.Parameters.AddWithValue("@paraSkills", skills);
 
             conn.Open();
             result = sqlCmd.ExecuteNonQuery();
@@ -378,6 +381,28 @@ namespace Esource.DAL.profile
 
             sqlCmd.Parameters.AddWithValue("@paraPin", pin);
             sqlCmd.Parameters.AddWithValue("@paraId", uid);
+
+            conn.Open();
+            result = sqlCmd.ExecuteNonQuery();
+            conn.Close();
+
+            return result;
+        }
+
+        public int UpdateSkills(string id, string skills)
+        {
+            string DBConnect = ConfigurationManager.ConnectionStrings["ConnStr"].ConnectionString;
+            SqlConnection conn = new SqlConnection(DBConnect);
+
+            string sqlStmt = "UPDATE [User] " +
+                "SET skills = @paraSkills " +
+                "WHERE Id = @paraId";
+
+            int result = 0;
+            SqlCommand sqlCmd = new SqlCommand(sqlStmt, conn);
+
+            sqlCmd.Parameters.AddWithValue("@paraId", id);
+            sqlCmd.Parameters.AddWithValue("@paraSkills", skills);
 
             conn.Open();
             result = sqlCmd.ExecuteNonQuery();

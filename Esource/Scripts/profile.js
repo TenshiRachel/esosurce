@@ -29,7 +29,55 @@
             preview(profileUpload, profileImg)
         });
     }
+
+    counter = 0
+
+    for (i = 1; i < 6; i++) {
+        skillInput = document.getElementById("ContentPlaceHolder1_skill" + i)
+        if (skillInput.value != "") {
+            counter++;
+        }
+    }
+
+    for (j = 5; j > counter; j--) {
+        emptyInput = document.getElementById("skillInput" + j).style.display = "none"
+    }
+
+    if (counter == 0) {
+        $('#removeButton').attr("disabled", true);
+    }
+
+    $("#addButton").click(function () {
+        counter++;
+
+        document.getElementById("skillInput" + counter).style.display = "block"
+        disableOrEnable();
+    });
+
+    $("#removeButton").click(function () {
+        skillInput = document.getElementById("ContentPlaceHolder1_skill" + counter).value = ""
+        document.getElementById("skillInput" + counter).style.display = "none"
+        counter--;
+        disableOrEnable();
+    });
 });
+
+function disableOrEnable() {
+    if (counter == 0) {
+        $('#removeButton').attr("disabled", true);
+        return false;
+    }
+    else {
+        $('#removeButton').attr("disabled", false);
+    }
+    if (counter >= 5) {
+        $('#addButton').attr("disabled", true);
+        return false;
+    }
+    else {
+        $('#addButton').attr("disabled", false);
+    }
+}
 
 function clickUpload(fileUpload) {
     fileUpload.click();

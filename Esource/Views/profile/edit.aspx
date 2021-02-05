@@ -177,38 +177,38 @@
 
                             <div style="" id="skillInput1" class="md-form md-outline">
                                 <input type="text" class="form-control" name="skill1" id="skill1"
-                                    placeholder="e.g. Illustrator" value="">
+                                    placeholder="e.g. Illustrator" value="" runat="server">
                                 <label for="skill1Label" class="text-left">Skill 1 </label>
                             </div>
 
                             <div style="" id="skillInput2" class="md-form md-outline">
                                 <input type="text" class="form-control" name="skill2" id="skill2"
-                                    placeholder="e.g. Illustrator" value="">
+                                    placeholder="e.g. Illustrator" value="" runat="server">
                                 <label for="skill2Label" class="text-left">Skill 2 </label>
                             </div>
 
                             <div style="" id="skillInput3" class="md-form md-outline">
                                 <input type="text" class="form-control" name="skill3" id="skill3"
-                                    placeholder="e.g. Illustrator" value="">
+                                    placeholder="e.g. Illustrator" value="" runat="server">
                                 <label for="skill3Label" class="text-left">Skill 3 </label>
                             </div>
 
                             <div style="" id="skillInput4" class="md-form md-outline">
                                 <input type="text" class="form-control" name="skill4" id="skill4"
-                                    placeholder="e.g. Illustrator" value="">
+                                    placeholder="e.g. Illustrator" value="" runat="server">
                                 <label for="skill4Label" class="text-left">Skill 4 </label>
                             </div>
 
                             <div style="" id="skillInput5" class="md-form md-outline">
                                 <input type="text" class="form-control" name="skill5" id="skill5"
-                                    placeholder="e.g. Illustrator" value="">
+                                    placeholder="e.g. Illustrator" value="" runat="server">
                                 <label for="skill5Label" class="text-left">Skill 5 </label>
                             </div>
 
                         </div>
                         <div class="mx-auto row justify-content-between">
-                            <button type="button" class="btn btn-md btn-secondary" id="addButton">Add Skill</button>
-                            <button type="button" class="btn btn-md btn-secondary" id="removeButton">Remove Skill</button>
+                            <asp:LinkButton type="button" class="btn btn-md btn-secondary" id="addButton">Add Skill</asp:LinkButton>
+                            <asp:LinkButton type="button" class="btn btn-md btn-secondary" id="removeButton">Remove Skill</asp:LinkButton>
                         </div>
 
                         <hr class="hr-primary">

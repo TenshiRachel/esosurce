@@ -39,6 +39,22 @@ namespace Esource.Views.profile
                 email.InnerHtml = user.email;
                 currUsername.InnerHtml = user.username;
 
+                string[] userSkills = user.skills.Split(',');
+                List<string> skillList = new List<string>();
+                foreach(string skill in userSkills)
+                {
+                    if (skill != "")
+                    {
+                        skillList.Add(skill);
+                    }
+                }
+                if (skillList.Count < 1)
+                {
+                    noskill.Visible = true;
+                }
+                skillsRepeater.DataSource = skillList;
+                skillsRepeater.DataBind();
+
                 if (user.type == "client")
                 {
                     usertype.InnerHtml = "Client";

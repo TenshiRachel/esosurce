@@ -24,6 +24,7 @@ namespace Esource.BL.profile
         public string location { get; set; }
         public string occupation { get; set; }
         public string social { get; set; }
+        public string skills { get; set; }
         public string resetToken { get; set; }
         public string resetTokenExpiry { get; set; }
         public string paymentToken { get; set; }
@@ -37,7 +38,7 @@ namespace Esource.BL.profile
 
         }
 
-        public User(string username, string email, string password, string passSalt, string bio, string type, string IV, string stripeId = "", string jobPin = "", int following = 0, int followers = 0, string social = ",,,,", string website = "Not Set", string birthday = "Not Set", string gender = "Not Set", string location = "Not Set", string occupation = "Not Set", string resetToken = "",
+        public User(string username, string email, string password, string passSalt, string bio, string type, string IV, string stripeId = "", string jobPin = "", int following = 0, int followers = 0, string social = ",,,,", string skills = "", string website = "Not Set", string birthday = "Not Set", string gender = "Not Set", string location = "Not Set", string occupation = "Not Set", string resetToken = "",
             string resetTokenExpiry = "", string paymentToken = "", string paymentTokenExpiry = "", int Id = -1)
         {
             this.username = username;
@@ -58,6 +59,7 @@ namespace Esource.BL.profile
             this.location = location;
             this.occupation = occupation;
             this.social = social;
+            this.skills = skills;
             this.resetToken = resetToken;
             this.resetTokenExpiry = resetTokenExpiry;
             this.paymentToken = paymentToken;
@@ -94,9 +96,9 @@ namespace Esource.BL.profile
             return user;
         }
 
-        public int UpdateUser(string id, string bio, string website, string birthday, string gender, string location, string occupation, string social)
+        public int UpdateUser(string id, string bio, string website, string birthday, string gender, string location, string occupation, string social, string skills = "")
         {
-            int result = new UserDAO().Update(id, bio, website, birthday, gender, location, occupation, social);
+            int result = new UserDAO().Update(id, bio, website, birthday, gender, location, occupation, social, skills);
             return result;
         }
 
@@ -128,6 +130,5 @@ namespace Esource.BL.profile
             int result = new UserDAO().UpdateJobPIN(uid, pin);
             return result;
         }
-
     }
 }

@@ -193,6 +193,51 @@ namespace Esource.Views.profile {
         protected global::System.Web.UI.HtmlControls.HtmlTextArea bio;
         
         /// <summary>
+        /// skill1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText skill1;
+        
+        /// <summary>
+        /// skill2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText skill2;
+        
+        /// <summary>
+        /// skill3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText skill3;
+        
+        /// <summary>
+        /// skill4 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText skill4;
+        
+        /// <summary>
+        /// skill5 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText skill5;
+        
+        /// <summary>
         /// updateProfile control.
         /// </summary>
         /// <remarks>
