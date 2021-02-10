@@ -64,6 +64,21 @@ namespace Esource.Views.file
             {
                 filesErr.Visible = true;
             }
+            HiddenField idField = e.Item.FindControl("idField") as HiddenField;
+            Label span = (Label)e.Item.FindControl("sharedSpan");
+
+            BL.file.File file = new BL.file.File().SelectById(idField.Value);
+            string[] shared = file.shareId.Split(',');
+            List<string> sharedIds = new List<string>(shared);
+            sharedIds.RemoveAt(0);
+            if (sharedIds.Count > 0)
+            {
+                span.Text = sharedIds.Count.ToString() + " user(s)";
+            }
+            if (sharedIds.Contains(currUserId))
+            {
+                e.Item.FindControl("sharedSpan").Visible = false;
+            }
         }
 
         public void storeFile()
@@ -166,22 +181,29 @@ namespace Esource.Views.file
             {
                 if (targetShare != null)
                 {
-                    int result = file.UpdateShares(fileId, file.shareId + "," + targetShare.Id);
-                    if (result == 0)
+                    if (share_user_input.Value != currUser.email)
                     {
-                        Toast.error(this, "An error occured while sharing file");
+                        int result = file.UpdateShares(fileId, file.shareId + "," + targetShare.Id);
+                        if (result == 0)
+                        {
+                            Toast.error(this, "An error occured while sharing file");
+                        }
+                        else
+                        {
+                            string fileName = file.fileName;
+                            if (file.fileName.Length > 31)
+                            {
+                                fileName = file.fileName.Substring(0, 30) + "...";
+                            }
+                            Notification notif = new Notification(int.Parse(currUserId), currUser.username, file.Id, fileName, targetShare.Id.ToString(), "file");
+                            notif.AddNotif();
+                            bindSharedUsers(file.Id.ToString());
+                            Toast.success(this, "File shared successfully");
+                        }
                     }
                     else
                     {
-                        string fileName = file.fileName;
-                        if (file.fileName.Length > 31)
-                        {
-                            fileName = file.fileName.Substring(0, 30) + "...";
-                        }
-                        Notification notif = new Notification(int.Parse(currUserId), currUser.username, file.Id, fileName, targetShare.Id.ToString(), "file");
-                        notif.AddNotif();
-                        bindSharedUsers(file.Id.ToString());
-                        Toast.success(this, "File shared successfully");
+                        Toast.error(this, "You cannot share a file to yourself");
                     }
                 }
                 else

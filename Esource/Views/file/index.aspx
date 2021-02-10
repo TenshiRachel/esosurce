@@ -50,6 +50,7 @@
                                             <asp:Repeater runat="server" ID="files" OnItemCommand="files_ItemCommand" OnItemDataBound="files_ItemDataBound">
                                                 <ItemTemplate>
                                                     <tr class="animated faster<%-- d-none--%> data-rows">
+                                                        <asp:HiddenField runat="server" ID="idField" Value='<%#Eval("Id") %>' />
                                                         <td headers="select">
                                                             <div class="form-check">
                                                                 <asp:CheckBox runat="server" AutoPostBack="true" ID="checkFile" CommandArgument='<%#Eval("Id") %>'
@@ -65,16 +66,7 @@
                                                         </td>
                                                         <td headers="type" class="<%--d-none--%> d-md-table-cell text-capitalize"><%#Eval("type") %></td>
                                                         <td headers="shared" class="cursor-default <%--d-none --%>d-md-table-cell">
-                                                            <%--                {{#if this.share}}
-                    <span class="material-tooltip-sm" data-tooltip="tooltip" title="{{ joinSeperator ', ' this.share.usernames }}">{{#ifCond 'this.share.usernames.length > 1'}}
-                            {{ this.share.usernames.length }} users
-                        {{else}}
-                            {{ this.share.usernames.length }} user
-                        {{/ifCond}}
-                    </span>
-                                                    {{else}}
-                    Only you
-                {{/if}}--%>
+                                                            <asp:Label runat="server" ID="sharedSpan">Only you</asp:Label>
                                                         </td>
                                                     </tr>
                                                 </ItemTemplate>
