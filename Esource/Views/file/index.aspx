@@ -334,9 +334,17 @@
 
                 <div class="modal-body">
                     <div class="filepreview">
-                        <div class="wrapper card card-body view overlay text-center z-depth-2">
+                        <div class="wrapper card card-body view overlay text-center z-depth-2" id="file-wrapper">
+                            <div class="mask rgba-black-slight"></div>
                             <div class="preview deep-purple accent-3">
                                 <img src="<%=Page.ResolveUrl("~/Content/img/placeholder.jpg") %>" id="poster" />
+                                <div id="fileMask" class="infos d-none">
+                                    <div class="infos-inner">
+                                        <i class="fas fa-file fa-5x"></i>
+                                        <p id="maskText" class="filename"></p>
+                                        <a class="btn btn-sm btn-success">Change file</a>
+                                    </div>
+                                </div>
                             </div>
                             <div class="card-text">
                                 <i class="fas fa-5x fa-cloud-download-alt"></i>
@@ -347,10 +355,13 @@
                             </div>
                         </div>
                     </div>
+                    <div class="text-center">
+                        <a id="fileRemove" class="btn btn-danger btn-sm text-center d-none" style="z-index: 3;">Remove file</a>
+                    </div>
                     <p class="text-center m-0 mt-3">
                         <small class="form-text text-muted">You are can only upload up to a maximum of 100mb.
                         </small>
-                        <small class="form-text text-danger font-weight-500">* If uploaded file or files exist in the current directory, that file or files will be overwritten.
+                        <small class="form-text text-danger font-weight-500">* If uploaded file or files exist, that file or files will be overwritten.
                         </small>
                     </p>
                     <asp:LinkButton runat="server" ID="uploadBtn" Text="Upload" CssClass="btn btn-block btn-success" OnClick="uploadBtn_Click"></asp:LinkButton>

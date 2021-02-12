@@ -1,7 +1,8 @@
 ﻿$(function () {
     let searchbut = document.getElementById('searchbut');
-    let fileUpload = document.getElementById('ContentPlaceHolder1_upPoster');
+    let fileUpload = $('#ContentPlaceHolder1_upPoster');
     let wrapper = document.getElementsByClassName('wrapper')[0];
+    let remove = $('#fileRemove');
 
     let img = $('#poster');
     if (img) {
@@ -22,7 +23,29 @@
     }
 
     if (fileUpload) {
-        fileUpload.addEventListener('change', preview);
+        fileUpload.on('change', function () {
+            preview();
+        });
+    }
+
+    if (remove) {
+        remove.on('click', function () {
+            let mask = $('#fileMask');
+            let cardText = $('.card-text');
+            let remove = $('#fileRemove');
+            mask.addClass('d-none');
+            remove.addClass('d-none');
+            cardText.removeClass('d-none');
+            fileUpload.val('');
+            let img = $('#poster');
+            if (img) {
+                img.attr('src', '/Content/img/placeholder.jpg');
+            }
+            img = $('#ContentPlaceHolder1_poster');
+            if (img) {
+                img.attr('src', '/Content/img/placeholder.jpg');
+            }
+        })
     }
 });
 
@@ -37,6 +60,15 @@ function showText(img) {
         if ($(cardText).hasClass('d-none')) {
             cardText.removeClass('d-none');
         }
+    }
+    else if (img.attr('id') == 'ContentPlaceHolder1_poster' && img.attr('src') != '/Content/img/placeholder.jpg') {
+        let input = $('#ContentPlaceHolder1_upPoster');
+        let mask = $('#fileMask');
+        let cardText = $('.card-text');
+        let remove = $('#fileRemove');
+        cardText.addClass('d-none');
+        mask.removeClass('d-none');
+        remove.removeClass('d-none');
     }
 }
 
@@ -62,6 +94,25 @@ function preview() {
 
     if (!$(cardText).hasClass('d-none')) {
         $(cardText).addClass('d-none');
+    }
+
+    input = $('#ContentPlaceHolder1_upPoster')
+
+    let mask = $('#fileMask');
+    let maskText = $('#maskText');
+    cardText = $('.card-text');
+    let remove = $('#fileRemove');
+    if (input.val() != "") {
+        let fileName = input.val().split('\\');
+        maskText.html(fileName[fileName.length - 1]);
+        cardText.addClass('d-none');
+        mask.removeClass('d-none');
+        remove.removeClass('d-none');
+    }
+    else {
+        mask.addClass('d-none');
+        remove.addClass('d-none');
+        cardText.removeClass('d-none');
     }
     
 }

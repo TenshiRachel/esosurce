@@ -29,8 +29,15 @@
                         <label class="font-italic">Service poster (Optional)</label>
                         <div class="filepreview">
                             <div class="wrapper card card-body view overlay text-center z-depth-2">
+                                <div class="mask rgba-black-slight"></div>
                                 <div class="preview deep-purple accent-3">
                                     <asp:Image runat="server" id="poster" ImageUrl="~/Content/img/placeholder.jpg" />
+                                    <div id="fileMask" class="infos d-none">
+                                        <div class="infos-inner">
+                                            <p id="maskText" class="filename"></p>
+                                            <a class="btn btn-sm btn-success">Change image</a>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="card-text d-none">
                                     <i class="fas fa-5x fa-image"></i>
@@ -40,6 +47,9 @@
                                     <asp:FileUpload runat="server" ID="upPoster" />
                                 </div>
                             </div>
+                        </div>
+                        <div class="text-center">
+                            <a id="fileRemove" class="btn btn-danger btn-sm text-center d-none" style="z-index: 3;">Remove image</a>
                         </div>
                     </div>
                 </div>

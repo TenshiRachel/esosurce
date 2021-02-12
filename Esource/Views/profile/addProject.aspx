@@ -17,8 +17,15 @@
                         <h3>Cover Image</h3>
                         <div class="filepreview">
                             <div class="wrapper card card-body view overlay text-center z-depth-2">
+                                <div class="mask rgba-black-slight"></div>
                                 <div class="preview deep-purple accent-3">
                                     <img src="<%=Page.ResolveUrl("~/Content/img/placeholder.jpg") %>" id="poster" />
+                                    <div id="fileMask" class="infos d-none">
+                                        <div class="infos-inner">
+                                            <p id="maskText" class="filename"></p>
+                                            <a class="btn btn-sm btn-success">Change file</a>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="card-text">
                                     <i class="fas fa-5x fa-image"></i>
@@ -28,6 +35,9 @@
                                     <asp:FileUpload runat="server" ID="upPoster" />
                                 </div>
                             </div>
+                        </div>
+                        <div class="text-center">
+                            <a id="fileRemove" class="btn btn-danger btn-sm text-center d-none" style="z-index: 3;">Remove file</a>
                         </div>
                         <p class="text-muted mt-2">
                             This will be the cover image that will be shown in your profile

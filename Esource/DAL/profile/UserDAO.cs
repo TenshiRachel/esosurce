@@ -388,27 +388,5 @@ namespace Esource.DAL.profile
 
             return result;
         }
-
-        public int UpdateSkills(string id, string skills)
-        {
-            string DBConnect = ConfigurationManager.ConnectionStrings["ConnStr"].ConnectionString;
-            SqlConnection conn = new SqlConnection(DBConnect);
-
-            string sqlStmt = "UPDATE [User] " +
-                "SET skills = @paraSkills " +
-                "WHERE Id = @paraId";
-
-            int result = 0;
-            SqlCommand sqlCmd = new SqlCommand(sqlStmt, conn);
-
-            sqlCmd.Parameters.AddWithValue("@paraId", id);
-            sqlCmd.Parameters.AddWithValue("@paraSkills", skills);
-
-            conn.Open();
-            result = sqlCmd.ExecuteNonQuery();
-            conn.Close();
-
-            return result;
-        }
     }
 }
