@@ -39,6 +39,14 @@ namespace Esource.Views.profile
                 email.InnerHtml = user.email;
                 currUsername.InnerHtml = user.username;
 
+                string[] social = user.social.Split(',');
+                List<string> socialList = new List<string>(social);
+                twitter.HRef = socialList[0];
+                insta.HRef = socialList[1];
+                facebook.HRef = socialList[2];
+                youtube.HRef = socialList[3];
+                deviant.HRef = socialList[4];
+
                 string[] userSkills = user.skills.Split(',');
                 List<string> skillList = new List<string>();
                 foreach(string skill in userSkills)
