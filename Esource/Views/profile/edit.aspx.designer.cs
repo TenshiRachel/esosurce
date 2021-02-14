@@ -247,6 +247,24 @@ namespace Esource.Views.profile {
         protected global::System.Web.UI.WebControls.Button updateProfile;
         
         /// <summary>
+        /// pwdcfmdel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputPassword pwdcfmdel;
+        
+        /// <summary>
+        /// btnDelete control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton btnDelete;
+        
+        /// <summary>
         /// jobpin control.
         /// </summary>
         /// <remarks>

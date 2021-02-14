@@ -72,6 +72,12 @@ namespace Esource.BL.profile
             return result;
         }
 
+        public int Disable(string id)
+        {
+            int result = new UserDAO().Disable(id);
+            return result;
+        }
+
         public int UpdateFollowing(string id, int follows)
         {
             int result = new UserDAO().UpdateFollowing(id, follows);

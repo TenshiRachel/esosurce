@@ -14,15 +14,15 @@
                 <div class="mask flex-center waves-effect waves-light">
                     <div class="h-100 w-100 col-12 align-items-end row justify-content-end p-0">
                         <div id="socialmedias" class="d-flex justify-content-center p-1">
-                            <a href="{{social_medias.[0]}}" class="col text-center "><i
+                            <a href="#" class="col text-center "><i
                                 class="fab fa-twitter fa-2x text-white text-center"></i></a>
-                            <a href="{{social_medias.[1]}}" class="col text-center "><i
+                            <a href="#" class="col text-center "><i
                                 class="fab fa-instagram fa-2x text-white text-center"></i></a>
-                            <a href="{{social_medias.[2]}}" class="col text-center "><i
+                            <a href="#" class="col text-center "><i
                                 class="fab fa-facebook fa-2x text-white text-center"></i></a>
-                            <a href="{{social_medias.[3]}}" class="col text-center "><i
+                            <a href="#" class="col text-center "><i
                                 class="fab fa-youtube fa-2x text-white text-center"></i></a>
-                            <a href="{{social_medias.[4]}}" class="col text-center "><i
+                            <a href="#" class="col text-center "><i
                                 class="fab fa-deviantart fa-2x text-white text-center"></i></a>
                         </div>
                     </div>
