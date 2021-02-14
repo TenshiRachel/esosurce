@@ -90,7 +90,7 @@ namespace Esource.Views.service
             return valid;
         }
 
-        public void storeFile(string id)
+        public bool storeFile(string id)
         {
             List<string> acceptedTypes = new List<string>() {
                 "image/png",
@@ -108,11 +108,13 @@ namespace Esource.Views.service
                     File.Delete(imgPath);
                 }
                 upPoster.SaveAs(imgPath);
+                return true;
             }
 
             else
             {
                 Toast.error(this, "Only image files are accepted");
+                return false;
             }
         }
 
@@ -138,19 +140,20 @@ namespace Esource.Views.service
                 categories.Remove(categories.Length - 1);
                 int Id = int.Parse(Request.QueryString["id"].ToString());
                 List<BL.service.Service> curr = new BL.service.Service().SelectById(Id.ToString());
+                bool valid = true;
 
                 BL.service.Service service = new BL.service.Service();
                 int result = service.UpdateService(tbName.Text, tbDesc.Text, decimal.Parse(tbPrice.Text), categories, Id);
-                if (result == 0)
+                if (upPoster.HasFile)
+                {
+                    valid = storeFile(curr[0].Id.ToString());
+                }
+                if (result == 0 && valid)
                 {
                     Toast.error(this, "An error occured while updating service");
                 }
                 else
                 {
-                    if (upPoster.HasFile)
-                    {
-                        storeFile(curr[0].Id.ToString());
-                    }
                     Session["success"] = "Service updated successfully";
                     Response.Redirect("~/Views/service/manage.aspx");
                 }

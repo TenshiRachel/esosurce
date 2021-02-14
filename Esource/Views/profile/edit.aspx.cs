@@ -108,7 +108,7 @@ namespace Esource.Views.profile
         }
         
 
-        public void storeFile(FileUpload fileUpload)
+        public bool storeFile(FileUpload fileUpload)
         {
             List<string> acceptedTypes = new List<string>() {
                 "image/png",
@@ -129,10 +129,12 @@ namespace Esource.Views.profile
                     File.Delete(imgPath);
                 }
                 fileUpload.SaveAs(imgPath);
+                return true;
             }
             else
             {
                 Toast.error(this, "Only images files are accepted");
+                return false;
             }
         }
 
@@ -140,6 +142,7 @@ namespace Esource.Views.profile
         {
             string social = UpdateSocial(twitter.Value, instagram.Value, facebook.Value, youtube.Value, deviantart.Value);
             int result = 0;
+            bool valid = true;
             if (!string.IsNullOrEmpty(skill1.Value) || !string.IsNullOrEmpty(skill2.Value) || !string.IsNullOrEmpty(skill3.Value) || !string.IsNullOrEmpty(skill4.Value) || !string.IsNullOrEmpty(skill5.Value))
             {
                 string skills = skill1.Value + "," + skill2.Value + "," + skill3.Value + "," + skill4.Value + "," + skill5.Value;
@@ -149,16 +152,16 @@ namespace Esource.Views.profile
             {
                 result = new User().UpdateUser(LblUid.Text, bio.Value, website.Value, dob.Value, gender.Value, location.Value, occupation.Value, social);
             }
-            if (result == 1)
+            if (upload_banner.HasFile)
             {
-                if (upload_banner.HasFile)
-                {
-                    storeFile(upload_banner);
-                }
-                if (upload_image.HasFile)
-                {
-                    storeFile(upload_image);
-                }
+                valid = storeFile(upload_banner);
+            }
+            if (upload_image.HasFile)
+            {
+                valid = storeFile(upload_image);
+            }
+            if (result == 1 && valid)
+            {
                 Session["success"] = "Your profile changes have been saved successfully";
                 Response.Redirect("~/Views/profile/index.aspx");
             }

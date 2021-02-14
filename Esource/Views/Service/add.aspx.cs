@@ -54,7 +54,7 @@ namespace Esource.Views.service
             return valid;
         }
 
-        public void storeFile(string id)
+        public bool storeFile(string id)
         {
             List<string> acceptedTypes = new List<string>() {
                 "image/png",
@@ -67,11 +67,13 @@ namespace Esource.Views.service
                 string dirPath = Server.MapPath("~/Content/uploads/services/" + LblUid.Text + "/");
                 Directory.CreateDirectory(dirPath);
                 upPoster.SaveAs(dirPath + id + ".png");
+                return true;
             }
 
             else
             {
                 Toast.error(this, "Only image files are accepted");
+                return false;
             }
         }
 
@@ -97,21 +99,22 @@ namespace Esource.Views.service
                 string name = tbName.Text;
                 string desc = tbDesc.Text;
                 decimal price = decimal.Parse(tbPrice.Text);
+                bool valid = true;
 
                 User curruser = new User().SelectById(LblUid.Text);
                 BL.service.Service service = new BL.service.Service(name, desc, price, categories, curruser.Id, curruser.username);
 
                 int result = service.AddService();
-                if (result == 0)
+                if (upPoster.HasFile)
+                {
+                    valid = storeFile(result.ToString());
+                }
+                if (result == 0 && valid)
                 {
                     Toast.error(this, "Error occured while adding service");
                 }
                 else
                 {
-                    if (upPoster.HasFile)
-                    {
-                        storeFile(result.ToString());
-                    }
                     Session["success"] = "Service added";
                     Response.Redirect("~/Views/service/manage.aspx");
                 }
