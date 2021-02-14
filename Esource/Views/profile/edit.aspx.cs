@@ -226,28 +226,5 @@ namespace Esource.Views.profile
                 }
             }
         }
-
-        protected void btnDelete_Click(object sender, EventArgs e)
-        {
-            User currUser = new User().SelectById(LblUid.Text);
-            if (Auth.hash(pwdcfmdel.Value, currUser.passSalt).Item1 == currUser.password)
-            {
-                int result = new User().Disable(currUser.Id.ToString());
-                if (result == 0)
-                {
-                    Toast.error(this, "An error occured while disabling account");
-                }
-                else
-                {
-                    Session["success"] = "Account disabled successfully";
-                    Session["uid"] = null;
-                    Response.Redirect("~/Views/index.aspx");
-                }
-            }
-            else
-            {
-                Toast.error(this, "Please make sure your password is entered correctly");
-            }
-        }
     }
 }

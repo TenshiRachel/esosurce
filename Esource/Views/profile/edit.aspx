@@ -87,12 +87,6 @@
 
                         <hr class="hr-primary">
                         <div class="mt-5 text-center py-4">
-                            <h4 class="card-title">Delete Account</h4>
-                            <a class="btn btn-danger btn-md" data-toggle="modal" data-target="#confirm"><i
-                                class="fas fa-trash-alt fa-lg mr-1"></i>Delete Account</a>
-                        </div>
-                        <hr class="hr-primary">
-                        <div class="mt-5 text-center py-4">
                             <h4 class="card-title">Change Password</h4>
                             <a class="btn btn-secondary btn-md" href="<%=Page.ResolveUrl("~/Views/auth/changepass.aspx") %>"><i
                                 class="fas fa-key fa-lg mr-1"></i>Change Password</a>
@@ -218,34 +212,6 @@
                             </a>
 
                             <asp:Button ID="updateProfile" runat="server" CssClass="btn btn-md btn-secondary" Text="Update Changes" OnClick="updateProfile_Click" />
-<%--                            <button type="submit" class="btn btn-md btn-secondary">Update Changes</button>--%>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal fade" id="confirm" tabindex="-1" role="dialog" aria-labelledby="label"
-                    aria-hidden="true">
-
-                    <!-- Change class .modal-sm to change the size of the modal -->
-                    <div class="modal-dialog modal-sm" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h4 class="modal-title w-100" id="label">Please enter your password to confirm deletion of account</h4>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <div class="md-form md-outline">
-                                    <input type="password" runat="server" id="pwdcfmdel" class="form-control" />
-                                    <label for="pwdcfmdel">Password</label>
-                                </div>
-                            </div>
-                            <div class="my-2 row justify-content-around mx-auto col-12">
-                                <asp:LinkButton runat="server" ID="btnDelete" OnClick="btnDelete_Click" CssClass="btn btn-danger">Yes
-                                </asp:LinkButton>
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-
-                            </div>
                         </div>
                     </div>
                 </div>

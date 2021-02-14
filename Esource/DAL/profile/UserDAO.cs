@@ -47,26 +47,6 @@ namespace Esource.DAL.profile
             return result;
         }
 
-        public int Disable(string id)
-        {
-            string DBConnect = ConfigurationManager.ConnectionStrings["ConnStr"].ConnectionString;
-            SqlConnection conn = new SqlConnection(DBConnect);
-
-            string sqlStmt = "DELETE FROM [User] " +
-                "WHERE Id = @paraId";
-
-            int result = 0;
-            SqlCommand sqlCmd = new SqlCommand(sqlStmt, conn);
-
-            sqlCmd.Parameters.AddWithValue("@paraId", id);
-
-            conn.Open();
-            result = sqlCmd.ExecuteNonQuery();
-            conn.Close();
-
-            return result;
-        }
-
         public int UpdateFollowing(string id, int follows)
         {
             string DBConnect = ConfigurationManager.ConnectionStrings["ConnStr"].ConnectionString;
