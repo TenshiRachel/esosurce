@@ -107,7 +107,7 @@
                                                             <asp:HiddenField runat="server" ID="provider_ID" Value='<%#Eval("uid") %>' />
                                                             <asp:Image runat="server" ID="userImg" CssClass="d-inline rounded-circle img-fluid z-depth-1" Style="max-width: 2rem;" />
 
-                                                            <asp:LinkButton runat="server" CssClass="align-middle ml-1" CommandArgument='<%#Eval("uid") %>'><%#Eval("username") %></asp:LinkButton>
+                                                            <asp:LinkButton runat="server" CssClass="align-middle ml-1" CommandArgument='<%#Eval("uid") %>' CommandName="viewprofile"><%#Eval("username") %></asp:LinkButton>
                                                         </div>
 
                                                         <div class="d-flex align-items-center">
@@ -150,7 +150,7 @@
 
                                             <div class="face back d-flex flex-column rounded">
                                                 <div class="view overlay border-bottom border-primary rounded-top">
-                                                    <asp:Image runat="server" CssClass="card-img-top" ID="userBanner" />
+                                                    <asp:Image runat="server" ImageUrl="~/Content/img/placeholder.jpg" CssClass="card-img-top" ID="userBanner" />
                                                     <a>
                                                         <div class="mask rgba-black-light"></div>
                                                     </a>
@@ -183,6 +183,7 @@
                                                     <div class="d-flex mt-3">
                                                         <div class="flex-fill text-muted">
                                                             <asp:Label runat="server" ID="occupation" CssClass="card-title mb-0">
+                                                                Freelancer
                                                             </asp:Label>
                                                         </div>
 
@@ -280,7 +281,7 @@
                                                             <asp:HiddenField runat="server" ID="provider_ID" Value='<%#Eval("uid") %>' />
                                                             <asp:Image runat="server" ID="userImg" CssClass="d-inline rounded-circle img-fluid z-depth-1" Style="max-width: 2rem;" />
 
-                                                            <asp:LinkButton runat="server" CssClass="align-middle ml-1" CommandArgument='<%#Eval("uid") %>'><%#Eval("username") %></asp:LinkButton>
+                                                            <asp:LinkButton runat="server" CssClass="align-middle ml-1" CommandArgument='<%#Eval("uid") %>' CommandName="viewprofile"><%#Eval("username") %></asp:LinkButton>
                                                         </div>
 
                                                         <div class="d-flex align-items-center">
@@ -304,7 +305,7 @@
 
                                                     <div class="flex-fill">
                                                         <p class="card-text">
-                                                            <%#Eval("views") %>
+                                                            <%#Eval("desc") %>
                                                         </p>
                                                     </div>
 
@@ -323,7 +324,7 @@
 
                                             <div class="face back d-flex flex-column rounded">
                                                 <div class="view overlay border-bottom border-primary rounded-top">
-                                                    <asp:Image runat="server" CssClass="card-img-top" ID="userBanner" />
+                                                    <asp:Image runat="server" ImageUrl="~/Content/img/placeholder.jpg" CssClass="card-img-top" ID="userBanner" />
 
                                                     <a>
                                                         <div class="mask rgba-black-light"></div>
@@ -334,9 +335,9 @@
                                                     <a class="rotate-btn btn-sm btn-primary m-0 mr-2 material-tooltip-sm" data-card="" data-tooltip="tooltip" data-placement="top" title="View User Info">
                                                         <i class="fas fa-id-card"></i>
                                                     </a>
-                                                    <a class="btn-primary btn-sm m-0 material-tooltip-sm" data-tooltip="tooltip" data-placement="top" title="View User Profile" href="/profile/view/{{this.uid}}">
+                                                    <asp:LinkButton runat="server" CssClass="btn-primary btn-sm m-0 material-tooltip-sm" data-tooltip="tooltip" data-placement="top" title="View User Profile" CommandName="viewprofile" CommandArgument='<%#Eval("uid") %>'>
                                                         <i class="fas fa-user-tie"></i>
-                                                    </a>
+                                                    </asp:LinkButton>
                                                 </div>
 
                                                 <div class="card-body d-flex flex-column">
@@ -356,6 +357,7 @@
                                                     <div class="d-flex mt-3">
                                                         <div class="flex-fill text-muted">
                                                             <asp:Label runat="server" ID="occupation" CssClass="card-title mb-0">
+                                                                Freelancer
                                                             </asp:Label>
                                                         </div>
 

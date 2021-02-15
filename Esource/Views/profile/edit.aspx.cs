@@ -62,22 +62,26 @@ namespace Esource.Views.profile
                         {
                             skill1.Value = skillsList[0];
                         }
-                        if (skillsList[1] != null)
+                        if (skillsList.Length > 1)
                         {
-                            skill2.Value = skillsList[1];
+                            if (skillsList[1] != null)
+                            {
+                                skill2.Value = skillsList[1];
+                            }
+                            if (skillsList[2] != null)
+                            {
+                                skill3.Value = skillsList[2];
+                            }
+                            if (skillsList[3] != null)
+                            {
+                                skill4.Value = skillsList[3];
+                            }
+                            if (skillsList[4] != null)
+                            {
+                                skill5.Value = skillsList[4];
+                            }
                         }
-                        if (skillsList[2] != null)
-                        {
-                            skill3.Value = skillsList[2];
-                        }
-                        if (skillsList[3] != null)
-                        {
-                            skill4.Value = skillsList[3];
-                        }
-                        if (skillsList[4] != null)
-                        {
-                            skill5.Value = skillsList[4];
-                        }
+
                     }
                     if (user.type == "client")
                     {

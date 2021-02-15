@@ -42,9 +42,8 @@ namespace Esource.Views.profile
             return valid;
         }
 
-        public string storeFile(string pid)
+        public bool storeTemp()
         {
-            string img_path = "";
             List<string> acceptedTypes = new List<string>() {
                 "image/png",
                 "image/jpeg",
@@ -53,26 +52,50 @@ namespace Esource.Views.profile
 
             if (acceptedTypes.Contains(upPoster.PostedFile.ContentType))
             {
-                string fileName = Path.GetFileName(upPoster.FileName);
-                string dirPath = Server.MapPath("~/Content/uploads/profile/" + currUserId + "/projects/");
+                string dirPath = Server.MapPath("~/Content/uploads/services/" + currUserId + "/");
                 Directory.CreateDirectory(dirPath);
-                upPoster.SaveAs(dirPath + pid + ".png");
+                upPoster.SaveAs(dirPath + "temp.png");
+                return true;
+            }
 
-                img_path = "~/Content/uploads/profile/" + currUserId + "/projects/" + pid + ".png";
+            else
+            {
+                Toast.error(this, "Only image files are accepted");
+                return false;
+            }
+        }
+
+        public void storeFile(string pid)
+        {
+            List<string> acceptedTypes = new List<string>() {
+                "image/png",
+                "image/jpeg",
+                "image/jpg"
+            };
+
+            if (acceptedTypes.Contains(upPoster.PostedFile.ContentType))
+            {
+                string dirPath = Server.MapPath("~/Content/uploads/services/" + currUserId + "/");
+                if (File.Exists(dirPath + "temp.png"))
+                {
+                    File.Copy(dirPath + "temp.png", dirPath + pid + ".png");
+                    File.Delete(dirPath + "temp.png");
+                }
             }
 
             else
             {
                 Toast.error(this, "Only image files are accepted");
             }
-
-            return img_path;
         }
 
         protected void submitProj_Click(object sender, EventArgs e)
         {
             string categories = "";
             int count = 0;
+            bool valid = true;
+            int result = 0;
+
             foreach (ListItem item in cblCat.Items)
             {
                 if (item.Selected)
@@ -90,7 +113,21 @@ namespace Esource.Views.profile
             {
                 User user = new User().SelectById(currUserId);
                 Portfolio port = new Portfolio(user.Id, title.Value, categories, tbcontent.Value, "");
-                int result = port.AddPortfolio();
+
+                if (upPoster.HasFile)
+                {
+                    valid = storeTemp();
+                }
+
+                if (valid)
+                {
+                    result = port.AddPortfolio();
+                }
+
+                if (upPoster.HasFile)
+                {
+                    storeFile(result.ToString());
+                }
 
                 if (result == 0)
                 {

@@ -123,7 +123,7 @@ namespace Esource.DAL.profile
                 for (int i = 0; i < rec_cnt; i++)
                 {
                     DataRow row = ds.Tables[0].Rows[i];
-                    followerIds.Add(row["followerId"].ToString());
+                    followerIds.Add(row["followedId"].ToString());
                 }
             }
 

@@ -77,44 +77,52 @@ function preview() {
     let cardText = $('.filepreview > .wrapper > .card-text');
     let file = input.files;
     let reader = new FileReader();
-    reader.onload = function (e) {
-        let img = $('#poster');
-        if (img) {
-            img.attr('src', e.target.result);
-        }
-        img = $('#ContentPlaceHolder1_poster');
-        if (img) {
-            img.attr('src', e.target.result);
-        }
+    const validExt = /(\.jpg|\.jpeg|\.png)$/i;
+
+    if (!validExt.exec(input.value)) {
+        toastnotif('Invalid file type, only images are accepted', 'Error', 'error');
     }
 
-    if (file && file[0]) {
-        reader.readAsDataURL(file[0]);
-    }
-
-    if (!$(cardText).hasClass('d-none')) {
-        $(cardText).addClass('d-none');
-    }
-
-    input = $('#ContentPlaceHolder1_upPoster')
-
-    let mask = $('#fileMask');
-    let maskText = $('#maskText');
-    cardText = $('.card-text');
-    let remove = $('#fileRemove');
-    if (input.val() != "") {
-        let fileName = input.val().split('\\');
-        maskText.html(fileName[fileName.length - 1]);
-        cardText.addClass('d-none');
-        mask.removeClass('d-none');
-        remove.removeClass('d-none');
-    }
     else {
-        mask.addClass('d-none');
-        remove.addClass('d-none');
-        cardText.removeClass('d-none');
+        reader.onload = function (e) {
+            let img = $('#poster');
+            if (img) {
+                img.attr('src', e.target.result);
+            }
+            img = $('#ContentPlaceHolder1_poster');
+            if (img) {
+                img.attr('src', e.target.result);
+            }
+        }
+
+        if (file && file[0]) {
+            reader.readAsDataURL(file[0]);
+        }
+
+        if (!$(cardText).hasClass('d-none')) {
+            $(cardText).addClass('d-none');
+        }
+
+        input = $('#ContentPlaceHolder1_upPoster')
+
+        let mask = $('#fileMask');
+        let maskText = $('#maskText');
+        cardText = $('.card-text');
+        let remove = $('#fileRemove');
+        if (input.val() != "") {
+            let fileName = input.val().split('\\');
+            maskText.html(fileName[fileName.length - 1]);
+            cardText.addClass('d-none');
+            mask.removeClass('d-none');
+            remove.removeClass('d-none');
+        }
+        else {
+            mask.addClass('d-none');
+            remove.addClass('d-none');
+            cardText.removeClass('d-none');
+        }
     }
-    
+
 }
 
 function search() {
@@ -204,4 +212,70 @@ $('select.sort-select').on('change', function (e) {
         cards.sort(function (a, b) { return $(b).data("favs") - $(a).data("favs") });
         $("#servcon").html(cards);
     }
+});
+
+// Material Design example
+$(document).ready(function () {
+    let table = $('#requests-table', 'section.requests');
+    let trs = $('tbody tr', '#requests-table');
+
+    $('input[name="search"]', 'section.requests').on('keyup', function () {
+        let val = $(this).val().toLowerCase();
+        let shown = trs.length;
+
+        trs.each(function () {
+            let _this = $(this);
+
+            if (val) {
+                let tds = _this.children('td[headers]:not([headers="action"], [id="empty-search"])');
+                let show = false;
+
+                for (let i = 0, n = tds.length; i < n && !show; i++) {
+                    td = $(tds[i]);
+
+                    if (td.text().toLowerCase().indexOf(val) > -1) {
+                        show = true;
+                    }
+                }
+
+                if (show && _this.attr('style')) {
+                    _this.removeAttr('style');
+
+                    _this.addClass('flipInX').on("animationEnd", function () {
+                        _this.removeClass('flipInX');
+                    });
+                }
+                else if (!show) {
+                    if (!_this.attr('style')) {
+                        _this.addClass('flipOutX').on("animationEnd", function () {
+                            _this.removeClass('flipOutX');
+                            _this.prop('style', 'display: none !important;');
+                        });
+                    }
+
+                    shown--;
+                }
+            }
+            else {
+                if (_this.attr('style')) {
+                    _this.removeAttr('style');
+                    _this.addClass('flipInX').on("animationEnd", function () {
+                        $(this).removeClass('flipInX');
+                    });
+                }
+            }
+        });
+
+        $('#empty-search', '#requests-table').remove();
+
+        if (shown < 1) {
+            $('tbody', '#requests-table').prepend(`
+                <tr id="empty-search">
+                    <td class="rounded-bottom" colspan=100>
+                        Couldn\'t find anything for <span class="font-weight-bolder">${val}</span>
+                    </td>
+                </tr>
+            `);
+        }
+    });
 });

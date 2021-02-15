@@ -49,7 +49,7 @@
                                         <tbody>
                                             <asp:Repeater runat="server" ID="files" OnItemCommand="files_ItemCommand" OnItemDataBound="files_ItemDataBound">
                                                 <ItemTemplate>
-                                                    <tr class="animated faster<%-- d-none--%> data-rows">
+                                                    <tr class="animated faster data-rows">
                                                         <asp:HiddenField runat="server" ID="idField" Value='<%#Eval("Id") %>' />
                                                         <td headers="select">
                                                             <div class="form-check">
@@ -62,10 +62,10 @@
                                                             <asp:LinkButton runat="server" CommandName="download" CssClass="d-flex flex-fill justify-content-center"><%#Eval("fileName") %>
                                                             </asp:LinkButton>
                                                         </td>
-                                                        <td headers="size" class="<%--d-none--%> d-md-table-cell"><%#Eval("size") %>
+                                                        <td headers="size" class="d-md-table-cell"><%#Eval("size") %>
                                                         </td>
-                                                        <td headers="type" class="<%--d-none--%> d-md-table-cell text-capitalize"><%#Eval("type") %></td>
-                                                        <td headers="shared" class="cursor-default <%--d-none --%>d-md-table-cell">
+                                                        <td headers="type" class="d-md-table-cell text-capitalize"><%#Eval("type") %></td>
+                                                        <td headers="shared" class="cursor-default d-md-table-cell">
                                                             <asp:Label runat="server" ID="sharedSpan">Only you</asp:Label>
                                                         </td>
                                                     </tr>
@@ -371,5 +371,4 @@
     </div>
 
     <script type="text/javascript" src="<%=Page.ResolveUrl("~/Scripts/files.js") %>"></script>
-    <script type="text/javascript" src="<%=Page.ResolveUrl("~/Scripts/search.js") %>"></script>
 </asp:Content>
