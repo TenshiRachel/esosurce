@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.IO;
 using Esource.BL.profile;
 using Esource.BL.notification;
 
@@ -25,6 +26,18 @@ namespace Esource.Views.Masters
         {
             User user = new User().SelectById(LblUid.Text);
             return user;
+        }
+
+        public bool fileExist()
+        {
+            bool exist = false;
+            string dirPath = "~/Content/uploads/profile/" + user().Id + "/";
+            if (File.Exists(Server.MapPath(dirPath) + "profilePic.png"))
+            {
+                profPic.ImageUrl = Page.ResolveUrl(dirPath + "profilePic.png");
+                exist = true;
+            }
+            return exist;
         }
 
         public int notifCount()

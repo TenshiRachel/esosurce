@@ -148,18 +148,20 @@ namespace Esource.Views
                 img.ImageUrl = Page.ResolveUrl(dirPath + "profilePic.png");
             }
 
+            if (File.Exists(Server.MapPath(dirPath) + "banner.png"))
+            {
+                img = e.Item.FindControl("userBanner") as Image;
+                img.ImageUrl = Page.ResolveUrl(dirPath + "banner.png");
+            }
+
             var occupation = e.Item.FindControl("occupation") as Label;
             var location = e.Item.FindControl("country") as Label;
             var bio = e.Item.FindControl("bio") as Label;
-            if (servProvider.occupation == "Not set")
+            if (servProvider.occupation != "Not Set")
             {
                 occupation.Text = servProvider.occupation;
             }
-            else
-            {
-                occupation.Text = "Freelancer";
-            }
-            if (servProvider.location == "Not set")
+            if (servProvider.location != "Not Set")
             {
                 location.Text = servProvider.location;
             }
