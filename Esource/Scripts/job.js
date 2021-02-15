@@ -24,14 +24,15 @@
                 if (show && _this.attr('style')) {
                     _this.removeAttr('style');
 
-                    _this.addClass('flipInX').on("animationEnd", function () {
+                    _this.addClass('flipInX').one("animationend", function () {
                         _this.removeClass('flipInX');
                     });
                 }
                 else if (!show) {
                     if (!_this.attr('style')) {
-                        _this.addClass('flipOutX').on("animationEnd", function () {
+                        _this.addClass('flipOutX').one("animationend", function () {
                             _this.removeClass('flipOutX');
+                            console.log('fire3')
                             _this.prop('style', 'display: none !important;');
                         });
                     }
@@ -42,7 +43,7 @@
             else {
                 if (_this.attr('style')) {
                     _this.removeAttr('style');
-                    _this.addClass('flipInX').on("animationEnd", function () {
+                    _this.addClass('flipInX').one("animationend", function () {
                         $(this).removeClass('flipInX');
                     });
                 }

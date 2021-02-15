@@ -33,7 +33,7 @@
                                         <ContentTemplate>
                                             <asp:Repeater runat="server" ID="joblist" OnItemCommand="joblist_ItemCommand" OnItemDataBound="joblist_ItemDataBound">
                                                 <ItemTemplate>
-                                                    <tr class="animated faster data-rows">
+                                                    <tr class="animated faster">
                                                         <td headers="client" class="align-middle">
                                                             <asp:LinkButton runat="server" CommandArgument='<%#Eval("cid") %>' CommandName="viewprofile"><%#Eval("cName") %></asp:LinkButton>
                                                         </td>

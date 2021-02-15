@@ -142,7 +142,7 @@ $(function () {
         return false;
     });
 
-    autocomplete(searchInput, trs, filters);
+    //autocomplete(searchInput, trs, filters);
 
     // Search Function
     searchInput.on('keyup', function () {
@@ -178,13 +178,13 @@ $(function () {
                 if (show && _this.attr('style')) {
                     _this.removeAttr('style');
 
-                    _this.addClass('flipInX').on("animationEnd", function () {
+                    _this.addClass('flipInX').one("animationend", function () {
                         _this.removeClass('flipInX');
                     });
                 }
                 else if (!show) {
                     if (!_this.attr('style')) {
-                        _this.addClass('flipOutX').on("animationEnd", function () {
+                        _this.addClass('flipOutX').one("animationend", function () {
                             _this.removeClass('flipOutX');
                             _this.prop('style', 'display: none !important;');
                         });
@@ -196,7 +196,7 @@ $(function () {
             else {
                 if (_this.attr('style')) {
                     _this.removeAttr('style');
-                    _this.addClass('flipInX').on("animationEnd", function () {
+                    _this.addClass('flipInX').one("animationend", function () {
                         $(this).removeClass('flipInX');
                     });
                 }
@@ -217,55 +217,55 @@ $(function () {
     });
 
     // Search Autocomplete
-    function autocomplete(searchInput, trs, filters) {
-        let autocomplete = [];
+    //function autocomplete(searchInput, trs, filters) {
+    //    let autocomplete = [];
 
-        trs.each(function () {
-            let tds = $(this).children('td:not([headers="select"], [headers="actions"])');
+    //    trs.each(function () {
+    //        let tds = $(this).children('td:not([headers="select"], [headers="actions"])');
 
-            for (let i = 0, n = tds.length; i < n; i++) {
-                header = $(tds[i]).attr('headers');
+    //        for (let i = 0, n = tds.length; i < n; i++) {
+    //            header = $(tds[i]).attr('headers');
 
-                if (filters.includes(header)) {
-                    if (!autocomplete.hasOwnProperty(header)) {
-                        autocomplete[header] = [$(tds[i]).text()];
-                    }
-                    else {
-                        autocomplete[header].push($(tds[i]).text());
-                    }
-                }
-            }
-        });
+    //            if (filters.includes(header)) {
+    //                if (!autocomplete.hasOwnProperty(header)) {
+    //                    autocomplete[header] = [$(tds[i]).text()];
+    //                }
+    //                else {
+    //                    autocomplete[header].push($(tds[i]).text());
+    //                }
+    //            }
+    //        }
+    //    });
 
-        let data = Object.keys(autocomplete).reduce(function (arr, k) {
-            return Array.from(new Set(arr.concat(autocomplete[k])));
-        }, []);
+    //    let data = Object.keys(autocomplete).reduce(function (arr, k) {
+    //        return Array.from(new Set(arr.concat(autocomplete[k])));
+    //    }, []);
 
-        let wrapper = $('.mdb-autocomplete-wrap', '#action-search, #mobile-search');
-        wrapper.remove();
+    //    let wrapper = $('.mdb-autocomplete-wrap', '#action-search, #mobile-search');
+    //    wrapper.remove();
 
-        searchInput.mdbAutocomplete({ data: data });
+    //    searchInput.mdbAutocomplete({ data: data });
 
-        if (data.length > 0) {
-            let autocompleteClear = searchInput.next().next('.mdb-autocomplete-clear');
+    //    if (data.length > 0) {
+    //        let autocompleteClear = searchInput.next().next('.mdb-autocomplete-clear');
 
-            autocompleteClear.removeClass('d-none');
+    //        autocompleteClear.removeClass('d-none');
 
-            wrapper.on('click', function () {
-                return false;
-            });
+    //        wrapper.on('click', function () {
+    //            return false;
+    //        });
 
-            searchInput.next('.mdb-autocomplete-wrap').on('click', function () {
-                $(this).prev('.mdb-autocomplete').trigger('keyup');
-                $(this).html('');
-            });
+    //        searchInput.next('.mdb-autocomplete-wrap').on('click', function () {
+    //            $(this).prev('.mdb-autocomplete').trigger('keyup');
+    //            $(this).html('');
+    //        });
 
-            autocompleteClear.on('click', function () {
-                $(this).prev().prev('.mdb-autocomplete').trigger('keyup');
-            });
-        }
-        else {
-            searchInput.next('.mdb-autocomplete-clear').addClass('d-none');
-        }
-    }
+    //        autocompleteClear.on('click', function () {
+    //            $(this).prev().prev('.mdb-autocomplete').trigger('keyup');
+    //        });
+    //    }
+    //    else {
+    //        searchInput.next('.mdb-autocomplete-clear').addClass('d-none');
+    //    }
+    //}
 });
