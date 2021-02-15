@@ -77,44 +77,52 @@ function preview() {
     let cardText = $('.filepreview > .wrapper > .card-text');
     let file = input.files;
     let reader = new FileReader();
-    reader.onload = function (e) {
-        let img = $('#poster');
-        if (img) {
-            img.attr('src', e.target.result);
-        }
-        img = $('#ContentPlaceHolder1_poster');
-        if (img) {
-            img.attr('src', e.target.result);
-        }
+    const validExt = /(\.jpg|\.jpeg|\.png)$/i;
+
+    if (!validExt.exec(input.value)) {
+        toastnotif('Invalid file type, only images are accepted', 'Error', 'error');
     }
 
-    if (file && file[0]) {
-        reader.readAsDataURL(file[0]);
-    }
-
-    if (!$(cardText).hasClass('d-none')) {
-        $(cardText).addClass('d-none');
-    }
-
-    input = $('#ContentPlaceHolder1_upPoster')
-
-    let mask = $('#fileMask');
-    let maskText = $('#maskText');
-    cardText = $('.card-text');
-    let remove = $('#fileRemove');
-    if (input.val() != "") {
-        let fileName = input.val().split('\\');
-        maskText.html(fileName[fileName.length - 1]);
-        cardText.addClass('d-none');
-        mask.removeClass('d-none');
-        remove.removeClass('d-none');
-    }
     else {
-        mask.addClass('d-none');
-        remove.addClass('d-none');
-        cardText.removeClass('d-none');
+        reader.onload = function (e) {
+            let img = $('#poster');
+            if (img) {
+                img.attr('src', e.target.result);
+            }
+            img = $('#ContentPlaceHolder1_poster');
+            if (img) {
+                img.attr('src', e.target.result);
+            }
+        }
+
+        if (file && file[0]) {
+            reader.readAsDataURL(file[0]);
+        }
+
+        if (!$(cardText).hasClass('d-none')) {
+            $(cardText).addClass('d-none');
+        }
+
+        input = $('#ContentPlaceHolder1_upPoster')
+
+        let mask = $('#fileMask');
+        let maskText = $('#maskText');
+        cardText = $('.card-text');
+        let remove = $('#fileRemove');
+        if (input.val() != "") {
+            let fileName = input.val().split('\\');
+            maskText.html(fileName[fileName.length - 1]);
+            cardText.addClass('d-none');
+            mask.removeClass('d-none');
+            remove.removeClass('d-none');
+        }
+        else {
+            mask.addClass('d-none');
+            remove.addClass('d-none');
+            cardText.removeClass('d-none');
+        }
     }
-    
+
 }
 
 function search() {

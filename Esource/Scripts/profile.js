@@ -86,13 +86,20 @@ function clickUpload(fileUpload) {
 function preview(input, img) {
     let file = input.files;
     let reader = new FileReader();
-    reader.onload = function (e) {
-        if (img) {
-            img.attr('src', e.target.result);
-        }
-    }
+    const validExt = /(\.jpg|\.jpeg|\.png)$/i;
 
-    if (file && file[0]) {
-        reader.readAsDataURL(file[0]);
+    if (!validExt.exec(input.value)) {
+        toastnotif('Invalid file type, only images are accepted', 'Error', 'error');
+    }
+    else {
+        reader.onload = function (e) {
+            if (img) {
+                img.attr('src', e.target.result);
+            }
+        }
+
+        if (file && file[0]) {
+            reader.readAsDataURL(file[0]);
+        }
     }
 }

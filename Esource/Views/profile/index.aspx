@@ -364,7 +364,8 @@
                                                                                                                         <li class="row mb-4">
 
                                                                                                                             <div class="col-1 pr-2">
-                                                                                                                                <asp:Image runat="server" loading="lazy" ID="modal_othersPic" ImageUrl="~/Content/img/placeholder.jpg"
+                                                                                                                                <asp:HiddenField runat="server" ID="idField" Value='<%#Eval("uid") %>' />
+                                                                                                                                <asp:Image runat="server" loading="lazy" ID="profpic" ImageUrl="~/Content/img/placeholder.jpg"
                                                                                                                                     CssClass="avatar white img-fluid rounded-circle accent-3 z-depth-1" />
                                                                                                                             </div>
 
