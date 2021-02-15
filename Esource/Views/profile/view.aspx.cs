@@ -338,6 +338,9 @@ namespace Esource.Views.profile
                             Notification notif = new Notification(int.Parse(currUserId), user.username, int.Parse(pid), currPort.title, targetUserId, "project");
                             notif.AddNotif();
                         }
+                        List<Portfolio> portfolios = new Portfolio().SelectByUid(int.Parse(targetUserId));
+                        projects.DataSource = portfolios;
+                        projects.DataBind();
                         Repeater commentrepeater = e.Item.FindControl("comments") as Repeater;
                         List<PortComment> comments = new PortComment().SelectByPid(int.Parse(pid));
                         commentrepeater.DataSource = comments;
@@ -496,6 +499,29 @@ namespace Esource.Views.profile
             if (File.Exists(Server.MapPath(servPath)))
             {
                 img.ImageUrl = Page.ResolveUrl(servPath);
+            }
+        }
+
+        protected void bindImage(object sender, RepeaterItemEventArgs e)
+        {
+            Image img = e.Item.FindControl("profilePic") as Image;
+            HiddenField idField = (HiddenField)e.Item.FindControl("followId");
+
+            string dirPath = "~/Content/uploads/profile/" + idField.Value + "/";
+            if (File.Exists(Server.MapPath(dirPath) + "profilePic.png"))
+            {
+                img.ImageUrl = Page.ResolveUrl(dirPath + "profilePic.png");
+            }
+        }
+
+        protected void comments_ItemDataBound(object sender, RepeaterItemEventArgs e)
+        {
+            Image img = e.Item.FindControl("profpic") as Image;
+            HiddenField idField = (HiddenField)e.Item.FindControl("idField");
+
+            string dirPath = "~/Content/uploads/profile/" + idField.Value + "/";
+            if (File.Exists(Server.MapPath(dirPath) + "profilePic.png")){
+                img.ImageUrl = Page.ResolveUrl(dirPath + "profilePic.png");
             }
         }
     }

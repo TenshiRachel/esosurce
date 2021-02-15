@@ -8,6 +8,7 @@ using Esource.BL.service;
 using Esource.BL.profile;
 using Esource.BL.jobs;
 using Esource.BL.notification;
+using System.IO;
 
 namespace Esource.Views.service
 {
@@ -51,6 +52,12 @@ namespace Esource.Views.service
                     Response.Redirect("~/Views/service/servicelist.aspx");
                 }
 
+                if (curruser.type == "freelancer")
+                {
+                    Session["error"] = "Only clients are able to request services";
+                    Response.Redirect("~/Views/service/servicelist.aspx");
+                }
+
                 if (existjob == null)
                 {
                     TextBox tbRemark = (TextBox)e.Item.FindControl("tbRemarks");
@@ -85,12 +92,33 @@ namespace Esource.Views.service
 
         protected void serviceview_ItemDataBound(object sender, RepeaterItemEventArgs e)
         {
-            var img = e.Item.FindControl("poster") as Image;
-            HiddenField path = (HiddenField)e.Item.FindControl("img_path");
-            img.ImageUrl = Page.ResolveUrl(path.Value);
-
             HiddenField providerField = (HiddenField)e.Item.FindControl("LblFid");
+            HiddenField idField = (HiddenField)e.Item.FindControl("servId");
             User freelancer = new User().SelectById(providerField.Value);
+            List<BL.service.Service> service = new BL.service.Service().SelectById(idField.Value);
+
+            Image img = e.Item.FindControl("poster") as Image;
+
+            string dirPath = "~/Content/uploads/services/" + providerField.Value + "/";
+            if (File.Exists(Server.MapPath(dirPath) + service[0].Id + ".png")){
+                img.ImageUrl = Page.ResolveUrl(dirPath + service[0].Id + ".png");
+            }
+
+            img = e.Item.FindControl("profpic") as Image;
+
+            dirPath = "~/Content/uploads/profile/" + providerField.Value + "/";
+            if (File.Exists(Server.MapPath(dirPath) + "profilePic.png"))
+            {
+                img.ImageUrl = Page.ResolveUrl(dirPath + "profilePic.png");
+            }
+
+            img = e.Item.FindControl("banner") as Image;
+
+            if (File.Exists(Server.MapPath(dirPath) + "banner.png"))
+            {
+                img.ImageUrl = Page.ResolveUrl(dirPath + "banner.png");
+            }
+
             var email = e.Item.FindControl("email") as Label;
             email.Text = freelancer.email;
         }

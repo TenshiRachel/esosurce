@@ -54,7 +54,7 @@ namespace Esource.Views.service
             return valid;
         }
 
-        public bool storeFile(string id)
+        public bool storeTemp()
         {
             List<string> acceptedTypes = new List<string>() {
                 "image/png",
@@ -66,7 +66,7 @@ namespace Esource.Views.service
             {
                 string dirPath = Server.MapPath("~/Content/uploads/services/" + LblUid.Text + "/");
                 Directory.CreateDirectory(dirPath);
-                upPoster.SaveAs(dirPath + id + ".png");
+                upPoster.SaveAs(dirPath + "temp.png");
                 return true;
             }
 
@@ -74,6 +74,30 @@ namespace Esource.Views.service
             {
                 Toast.error(this, "Only image files are accepted");
                 return false;
+            }
+        }
+
+        public void storeFile(string id)
+        {
+            List<string> acceptedTypes = new List<string>() {
+                "image/png",
+                "image/jpeg",
+                "image/jpg"
+            };
+
+            if (acceptedTypes.Contains(upPoster.PostedFile.ContentType))
+            {
+                string dirPath = Server.MapPath("~/Content/uploads/services/" + LblUid.Text + "/");
+                if (File.Exists(dirPath + "temp.png"))
+                {
+                    File.Copy(dirPath + "temp.png", dirPath + id + ".png");
+                    File.Delete(dirPath + "temp.png");
+                }
+            }
+
+            else
+            {
+                Toast.error(this, "Only image files are accepted");
             }
         }
 
@@ -100,16 +124,27 @@ namespace Esource.Views.service
                 string desc = tbDesc.Text;
                 decimal price = decimal.Parse(tbPrice.Text);
                 bool valid = true;
+                int result = 0;
 
                 User curruser = new User().SelectById(LblUid.Text);
                 BL.service.Service service = new BL.service.Service(name, desc, price, categories, curruser.Id, curruser.username);
 
-                int result = service.AddService();
                 if (upPoster.HasFile)
                 {
-                    valid = storeFile(result.ToString());
+                    valid = storeTemp();
                 }
-                if (result == 0 && valid)
+                
+                if (valid)
+                {
+                    result = service.AddService();
+                }
+
+                if (upPoster.HasFile)
+                {
+                    storeFile(result.ToString());
+                }
+
+                if (result == 0)
                 {
                     Toast.error(this, "Error occured while adding service");
                 }

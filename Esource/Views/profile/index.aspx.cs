@@ -389,6 +389,9 @@ namespace Esource.Views.profile
                         Toast.success(this, "Comment added");
                         Portfolio currPort = new Portfolio().SelectById(int.Parse(pid));
                         new Portfolio().UpdateComm(pid, currPort.comments + 1);
+                        List<Portfolio> portfolios = new Portfolio().SelectByUid(getCurrUser().Id);
+                        projects.DataSource = portfolios;
+                        projects.DataBind();
                         Repeater commentrepeater = e.Item.FindControl("comments") as Repeater;
                         List<PortComment> comments = new PortComment().SelectByPid(int.Parse(pid));
                         commentrepeater.DataSource = comments;
@@ -402,6 +405,18 @@ namespace Esource.Views.profile
             }
         }
 
+        protected void comments_ItemDataBound(object sender, RepeaterItemEventArgs e)
+        {
+            Image img = e.Item.FindControl("profpic") as Image;
+            HiddenField idField = (HiddenField)e.Item.FindControl("idField");
+
+            string dirPath = "~/Content/uploads/profile/" + idField.Value + "/";
+            if (File.Exists(Server.MapPath(dirPath) + "profilePic.png"))
+            {
+                img.ImageUrl = Page.ResolveUrl(dirPath + "profilePic.png");
+            }
+        }
+
         protected void userServices_ItemDataBound(object sender, RepeaterItemEventArgs e)
         {
             HiddenField serviceId = (HiddenField)e.Item.FindControl("serviceId");
@@ -411,6 +426,18 @@ namespace Esource.Views.profile
             if (File.Exists(Server.MapPath(servPath)))
             {
                 img.ImageUrl = Page.ResolveUrl(servPath);
+            }
+        }
+
+        protected void bindImage(object sender, RepeaterItemEventArgs e)
+        {
+            Image img = e.Item.FindControl("profilePic") as Image;
+            HiddenField idField = (HiddenField)e.Item.FindControl("followId");
+
+            string dirPath = "~/Content/uploads/profile/" + idField.Value + "/";
+            if (File.Exists(Server.MapPath(dirPath) + "profilePic.png"))
+            {
+                img.ImageUrl = Page.ResolveUrl(dirPath + "profilePic.png");
             }
         }
     }

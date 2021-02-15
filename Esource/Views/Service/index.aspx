@@ -10,10 +10,9 @@
                             <div class="col-lg-6">
                                 <div>
                                     <div class="card w-100">
-
+                                        <asp:HiddenField runat="server" ID="servId" Value='<%#Eval("Id") %>' />
                                         <div class="view overlay border-bottom border-primary rounded-top">
-                                            <asp:HiddenField runat="server" ID="img_path" Value='<%#Eval("img_path") %>'></asp:HiddenField>
-                                            <asp:Image runat="server" ID="poster" CssClass="card-img-top" alt='<%#Eval("name") %>' />
+                                            <asp:Image runat="server" ID="poster" ImageUrl="~/Content/img/placeholder.jpg" CssClass="card-img-top" alt='<%#Eval("name") %>' />
                                             <a>
                                                 <div class="mask rgba-black-light"></div>
                                             </a>
@@ -70,13 +69,12 @@
                                     <asp:HiddenField runat="server" ID="LblFid" Value='<%#Eval("uid") %>' />
                                     <div class="card">
                                         <div style="height:auto;" class="indigo view lighten-1 rounded-0">
-                                            <img class="img-fluid" src="#" onerror="this.src='<%=Page.ResolveUrl("~/Content/img/placeholder.jpg") %>'" />
+                                            <asp:Image runat="server" ID="banner" CssClass="img-fluid" ImageUrl="~/Content/img/placeholder.jpg" />
                                             <div class="mask flex-center waves-effect waves-light"></div>
                                         </div>
 
                                         <div class="avatar mx-auto white mt-4">
-                                            <img onerror="this.src='<%= Page.ResolveUrl("~/Content/img/placeholder.jpg") %>'"
-                                                src="<%#Eval("profile_src") %>" class="rounded-circle avatar" alt="" style="max-width: 2rem;">
+                                            <asp:Image runat="server" ID="profpic" ImageUrl="~/Content/img/placeholder.jpg" CssClass="rounded-circle avatar" style="max-width: 2rem;" />
                                         </div>
 
                                         <div class="card-body">

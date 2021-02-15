@@ -359,7 +359,7 @@
                                                                                                         <hr class="hr-primary">
                                                                                                         <div class="chat-message flex-fill">
                                                                                                             <ul class="list-unstyled chat" id="hrAfter<%#Eval("Id") %>">
-                                                                                                                <asp:Repeater runat="server" ID="comments">
+                                                                                                                <asp:Repeater runat="server" ID="comments" OnItemDataBound="comments_ItemDataBound">
                                                                                                                     <ItemTemplate>
                                                                                                                         <li class="row mb-4">
 
@@ -414,13 +414,11 @@
                                                                                                             <div class="row justify-content-between">
                                                                                                                 <div class="col-6">
                                                                                                                     <p class="text-right font-weight-bold">Posted:</p>
-                                                                                                                    <p class="text-right font-weight-bold">Views: </p>
                                                                                                                     <p class="text-right font-weight-bold">Likes: </p>
                                                                                                                     <p class="text-right font-weight-bold">Comments: </p>
                                                                                                                 </div>
                                                                                                                 <div class="col-6">
                                                                                                                     <p class="text-left"><%#Eval("datePosted") %></p>
-                                                                                                                    <p class="text-left"><%#Eval("views") %></p>
                                                                                                                     <p class="text-left">
                                                                                                                         <%#Eval("likes") %>
                                                                                                                     </p>
@@ -649,13 +647,13 @@
                     </div>
                     <div class="modal-body vh-30 overflow-auto">
                         <p runat="server" visible="false" class="text-center" id="noFollower">You have no followers ;-;</p>
-                        <asp:Repeater runat="server" ID="followerRepeater" OnItemCommand="followerRepeater_ItemCommand">
+                        <asp:Repeater runat="server" ID="followerRepeater" OnItemCommand="followerRepeater_ItemCommand" OnItemDataBound="bindImage">
                             <ItemTemplate>
                                 <asp:LinkButton runat="server" CommandArgument='<%#Eval("Id") %>'>
                                     <div class="row justify-content-start">
                                         <div class="col-2">
-                                            <asp:HiddenField runat="server" ID="profileSrc" Value='<%#Eval("profile_src") %>' />
-                                            <asp:Image runat="server" CssClass="rounded-circle border w-100" />
+                                            <asp:HiddenField runat="server" ID="followId" Value='<%#Eval("Id") %>' />
+                                            <asp:Image runat="server" ID="profilePic" ImageUrl="~/Content/img/placeholder.jpg" CssClass="rounded-circle border w-100" />
                                         </div>
                                         <div class="col-5">
                                             <%#Eval("username") %>
@@ -692,13 +690,13 @@
                     </div>
                     <div class="modal-body vh-30 overflow-auto">
                         <p runat="server" visible="false" class="text-center" id="noFollowing">Wow very empty. Much following.</p>
-                        <asp:Repeater runat="server" ID="followingRepeater" OnItemCommand="followerRepeater_ItemCommand">
+                        <asp:Repeater runat="server" ID="followingRepeater" OnItemCommand="followerRepeater_ItemCommand" OnItemDataBound="bindImage">
                             <ItemTemplate>
                                 <asp:LinkButton runat="server" CommandArgument='<%#Eval("Id") %>'>
                                     <div class="row justify-content-start">
                                         <div class="col-2">
-                                            <asp:HiddenField runat="server" ID="profileSrc" Value='<%#Eval("profile_src") %>' />
-                                            <asp:Image runat="server" CssClass="rounded-circle border w-100" />
+                                            <asp:HiddenField runat="server" ID="followId" Value='<%#Eval("Id") %>' />
+                                            <asp:Image runat="server" ID="profilePic" ImageUrl="~/Content/img/placeholder.jpg" CssClass="rounded-circle border w-100" />
                                         </div>
                                         <div class="col-5">
 
