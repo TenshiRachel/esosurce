@@ -1,4 +1,4 @@
-﻿$(document).ready(function () {
+﻿function search() {
     let table = $('#jobs-table', 'section.jobs');
     let trs = $('tbody tr', '#jobs-table');
 
@@ -32,7 +32,6 @@
                     if (!_this.attr('style')) {
                         _this.addClass('flipOutX').one("animationend", function () {
                             _this.removeClass('flipOutX');
-                            console.log('fire3')
                             _this.prop('style', 'display: none !important;');
                         });
                     }
@@ -62,4 +61,14 @@
             `);
         }
     });
+}
+
+$(document).ready(function () {
+    search();
+});
+
+let prm = Sys.WebForms.PageRequestManager.getInstance();
+
+prm.add_endRequest(function () {
+    search();
 });

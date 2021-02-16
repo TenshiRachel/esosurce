@@ -214,8 +214,7 @@ $('select.sort-select').on('change', function (e) {
     }
 });
 
-// Material Design example
-$(document).ready(function () {
+function requestSearch() {
     let table = $('#requests-table', 'section.requests');
     let trs = $('tbody tr', '#requests-table');
 
@@ -278,4 +277,15 @@ $(document).ready(function () {
             `);
         }
     });
+}
+
+// Material Design example
+$(document).ready(function () {
+    requestSearch();
+});
+
+let prm = Sys.WebForms.PageRequestManager.getInstance();
+
+prm.add_endRequest(function () {
+    requestSearch();
 });

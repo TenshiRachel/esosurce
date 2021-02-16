@@ -54,7 +54,7 @@ function removeFile(fileUpload) {
     fileUpload.val('');
 }
 
-$(function () {
+function searchFilter() {
     let searchInput = $('input[name="search"]');
     let trs = $('tbody tr', '#files-table');
 
@@ -268,4 +268,14 @@ $(function () {
     //        searchInput.next('.mdb-autocomplete-clear').addClass('d-none');
     //    }
     //}
+};
+
+$(function () {
+    searchFilter();
+});
+
+let prm = Sys.WebForms.PageRequestManager.getInstance();
+
+prm.add_endRequest(function () {
+    searchFilter();
 });

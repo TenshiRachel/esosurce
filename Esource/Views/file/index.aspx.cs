@@ -386,6 +386,7 @@ namespace Esource.Views.file
 
         protected void viewOwn_Btn_Click(object sender, EventArgs e)
         {
+            action_panel.Visible = false;
             List<BL.file.File> userfiles = new BL.file.File().SelectByUid(currUserId);
             files.DataSource = userfiles;
             files.DataBind();
@@ -393,6 +394,7 @@ namespace Esource.Views.file
 
         protected void viewShared_Btn_Click(object sender, EventArgs e)
         {
+            action_panel.Visible = false;
             List<BL.file.File> sharedFiles = new BL.file.File().SelectByShare(currUserId);
             files.DataSource = sharedFiles;
             files.DataBind();
