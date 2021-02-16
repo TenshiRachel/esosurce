@@ -274,9 +274,19 @@ namespace Esource.Views.file
             {
                 BL.file.File file = new BL.file.File().SelectById(fid);
                 string newPath = Server.MapPath("~/Content/uploads/files/" + currUserId + "/" + fid + "/");
-                System.IO.File.Copy(file.fullPath, newPath + rename_input.Value);
+                string newName = rename_input.Value;
+                List<string> listName = new List<string>(newName.Split('.'));
+                if (!newName.Contains("."))
+                {
+                    newName = newName + file.type.ToLower();
+                }
+                else if (listName[1] != file.type.ToLower())
+                {
+                    newName = listName[0] + file.type.ToLower();
+                }
+                System.IO.File.Copy(file.fullPath, newPath + newName);
                 System.IO.File.Delete(file.fullPath);
-                int result = new BL.file.File().UpdateFilePath(fid, newPath + rename_input.Value, rename_input.Value);
+                int result = new BL.file.File().UpdateFilePath(fid, newPath + newName, newName);
                 if (result == 0)
                 {
                     Toast.error(this, "An error occured while renaming file");

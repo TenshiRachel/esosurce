@@ -204,7 +204,7 @@
                         </div>
                     </div>
 
-                    <small class="form-text text-muted">File name should exclude file extension. And file or folder name only allow alphanumeric, space, underscore and dash.
+                    <small class="form-text text-muted">File name should include file extension. And file name only allow alphanumeric, space, underscore and dash.
                     </small>
 
                     <input type="hidden" name="fid" value="">
