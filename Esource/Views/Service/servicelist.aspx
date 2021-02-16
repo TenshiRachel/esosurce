@@ -64,7 +64,7 @@
 
                                         <div class="d-flex mt-2">
                                             <div class="flex-fill">
-                                                <asp:Image runat="server" ID="providerPic" CssClass="rounded-circle img-fluid z-depth-1 avatar" style="max-width: 2rem;" />
+                                                <asp:Image runat="server" ID="providerPic" ImageUrl="~/Content/img/placeholder.jpg" CssClass="rounded-circle img-fluid z-depth-1 avatar" style="max-width: 2rem;" />
                                                 <asp:LinkButton runat="server" CssClass="align-middle ml-1" CommandName="viewprofile" CommandArgument='<%#Eval("uid") %>'><%#Eval("username") %></asp:LinkButton>
                                             </div>
                                             <div class="d-flex align-items-center">

@@ -66,12 +66,12 @@
                 <div class="card-body">
                     <div class="md-form md-outline my-0">
                         <input id="action-search-input" class="form-control" type="text" name="search">
-                        <label for="action-search-input">Search Payments by Service Name</label>
+                        <label for="action-search-input">Search Payments</label>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
+    <script src="<%=Page.ResolveUrl("~/Scripts/transactions.js") %>" type="text/javascript"></script>
     </section>
 </asp:Content>

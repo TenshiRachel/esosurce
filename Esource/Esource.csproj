@@ -234,6 +234,7 @@
     <Content Include="Scripts\src\utils\setupEventListeners.js" />
     <Content Include="Scripts\toast\toastr.js" />
     <Content Include="Scripts\toast\toastr.min.js" />
+    <Content Include="Scripts\transactions.js" />
     <Content Include="Scripts\umd\popper-utils.js" />
     <Content Include="Scripts\umd\popper-utils.min.js" />
     <Content Include="Scripts\umd\popper.js" />
